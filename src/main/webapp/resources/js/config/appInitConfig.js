@@ -1,0 +1,1 @@
+var app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'checklist-model', 'ui.bootstrap', 'ngSanitize', 'angularModalService', 'ngCookies', 'ngProgress', 'angularTreeview', 'ngFileSaver']);
