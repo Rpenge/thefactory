@@ -54,7 +54,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
     });
 });
 
-//매번 로그인 체크
+//로그인 세션 체크
 var onlyLoggedIn = function ($q, $rootScope, $http, $location) {
 	userLoginCheck($http, $rootScope, $location, false, function(){
 		if (!$rootScope.authenticated) {

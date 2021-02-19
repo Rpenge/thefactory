@@ -30,7 +30,7 @@ public class MainController {
 
 	@RequestMapping("/member/userList")
     public String userList(Model model) {
-        return "member/userList";
+        return "sample/userList";
     }
 
 	@RequestMapping("/assetManagement/modal/assetRegist")
@@ -45,7 +45,7 @@ public class MainController {
 
 	@RequestMapping("/assetManagement/assetList")
     public String assetMgList(Model model) {
-        return "assetManagement/assetList";
+        return "sample/assetList";
     }
 
 	@RequestMapping("/assetManagement/assetPrintList")

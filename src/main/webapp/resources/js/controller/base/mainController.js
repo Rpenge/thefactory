@@ -3,8 +3,8 @@ app.run(function($rootScope, $http, $route, $window){
 		$route.reload();
 		$window.sessionStorage.removeItem("current");
 	};
-
 });
+
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
 	$http({
@@ -147,17 +147,16 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
     	closeSideMenu();
 	};
 
-	// $scope.goMenu = function(url){
-	// 	$window.sessionStorage.removeItem("current");
-    // 	$location.url(url);
-    // 	closeSideMenu();
-	// }
-
-	//페이지 이동
-	$scope.goMenu = function(data){
-		$location.url(data.url);
+	$scope.goMenu = function(url){
+		$window.sessionStorage.removeItem("current");
+		$location.url(url);
+		closeSideMenu();
 	}
 
+	//페이지 이동
+	$scope.goPage = function(data){
+		$location.url(data.url);
+	}
 
 	$scope.content = {'width':'100%'};
 	//사이드 메뉴 토글
@@ -171,50 +170,4 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	}
 
 
-	//모바일 사이즈시 사이드메뉴 닫기
-	// function closeSideMenu(){
-	// 	if(window.innerWidth <= 768){
-	// 		$scope.menu = false;
-	// 	}else{
-	// 		$scope.menu = false;
-	// 	}
-	// }
-	// closeSideMenu();
-	var mql = window.matchMedia("screen and (max-width: 768px)");
-	mql.addListener(function(e) {
-	    if(e.matches) {
-	    	$scope.menu = false;
-	    	$scope.$apply();
-	    } else {
-	    	$scope.menu = true;
-	    	$scope.$apply();
-	    }
-	});
-}]);
-
-// app.controller('homeController', ['$scope', '$http', '$location', '$interval', '$rootScope', '$timeout', '$window',
-// 	function ($scope, $http, $location, $interval, $rootScope, $timeout, $window) {
-//
-// }]);
-
-app.controller('statsModalController', ['$scope', '$http', '$element', 'close', function ($scope, $http, $element, close) {
-	$scope.close = function(result) {
-		$element.modal('hide');
-	};
-	$scope.cancel = function() {
-	    $element.modal('hide');
-	};
-}]);
-
-
-app.controller('modalController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$uibModalInstance',
-    function ($scope, $http, $location, $routeParams, $rootScope, $uibModalInstance) {
-		$scope.title = $ctrl.title;
-		$scope.body = $ctrl.body;
-		$scope.ok = function() {
-			$uibModalInstance.close();
-	    };
-	    $scope.cancel = function() {
-	    	$uibModalInstance.dismiss();
-	    };
 }]);

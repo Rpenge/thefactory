@@ -22,18 +22,6 @@ app.filter('makeRange', function() {
 
 app.filter('makeRange2', function() {
     return function(current, total, end) {
-    	//5개씩 보기
-//    	var end = parseInt( total/10 ) + 1;
-//     	var current = parseInt(current-1);
-//     	var five = parseInt(current / 5) ;
-//     	var last = five*5 + 5;
-//     	last = last > end ? end : last ;
-//     	result = [];
-//     	for(var i = five * 5 + 1 ; i <= last; i++ ){
-//     		result.push(i);
-//     	}
-//     	return result;
-    	
     	//10개씩 보기
     	var end = parseInt( total/10 ) + 1;
         var current = parseInt(current-1);
@@ -51,7 +39,7 @@ app.filter('makeRange2', function() {
 
 
 app.filter('stringToHex', function () {
-	  
+
 	return function(input) {
 		return Number(input).toString(16);
 	};
@@ -59,20 +47,20 @@ app.filter('stringToHex', function () {
 
 app.filter('hexToString', function () {
 	return function(input) {
-		var hex  = input.toString();  
-		var str = '';  
-		for (var n = 0; n < hex.length; n += 2) {  
-			str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));  
-		}  
+		var hex  = input.toString();
+		var str = '';
+		for (var n = 0; n < hex.length; n += 2) {
+			str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+		}
 		return str;
 	};
 });
 
 app.filter('percentage', ['$filter', function ($filter) {
 	 return function (input, decimals) {
-		 
+
 		var calc = $filter('number')(input * 100, decimals);
-		
+
 		if(calc == ""){
 			calc = "0.00";
 		}
@@ -110,7 +98,7 @@ app.filter('StringToDateForm', function() {
 app.filter('StatusChange', function() {
     return function(status_no) {
     	switch (status_no){
-    	case '1': return '사용'; 
+    	case '1': return '사용';
     	case '2': return '사용불가';
     	}
     };
@@ -127,3 +115,5 @@ app.filter('code', function() {
     	}
     };
 });
+
+

@@ -25,10 +25,10 @@ import com.zaxxer.hikari.HikariDataSource;
 	basePackages = "com.systemk.ams.Repository.Main"
 )
 public class myDataSourceConfig {
-	
-	@Autowired 
+
+	@Autowired
     private Environment env;
-     	
+
 	@Bean(name="entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean myEntityManager() {
         LocalContainerEntityManagerFactoryBean em
@@ -45,7 +45,7 @@ public class myDataSourceConfig {
         em.setJpaPropertyMap(properties);
         return em;
     }
- 
+
     @Bean
     public DataSource myDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
@@ -60,13 +60,13 @@ public class myDataSourceConfig {
         dataSource.setValidationTimeout(10000);
         return new HikariDataSource(dataSource);
     }
- 
+
     @Bean(name="transactionManager")
     public PlatformTransactionManager mytransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(myEntityManager().getObject());
         return transactionManager;
     }
-    
-    
+
+
 }

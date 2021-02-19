@@ -10,7 +10,6 @@
 <title>RFID</title>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.slim.min.js"></script> --%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
@@ -34,12 +33,17 @@
 <script src="${pageContext.request.contextPath}/resources/js/filter/appFilter.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/directive/appDirective.js?v=${version}"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/controller/mainController.js?v=${version}"></script>
+<%--<script src="${pageContext.request.contextPath}/resources/js/controller/mainController.js?v=${version}"></script>--%>
 <script src="${pageContext.request.contextPath}/resources/js/controller/userController.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/controller/assetMgController.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/controller/assetChange.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/controller/settingController.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/controller/printController.js?v=${version}"></script>
+
+	<!--thefacotry controller-->
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/mainController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
+
 
 <link rel="shortcut icon" type="image/x-ic on" href="/resources/img/ci/sysk.png">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -57,9 +61,10 @@
 </head>
 <body class="ng-cloak ">
 
-		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top" style="width:100%;height:35px;z-index:1;background-color:white;border-bottom:1px solid #dcdcdc;padding:0 60px;">
+		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="width:100%;height:35px;z-index:1;background-color:white;border-bottom:1px solid #dcdcdc;padding:0 60px;">
+			<i class="xi-box" style="color: black;font-size: small"> THEFACTOR2 재고관리</i>
             <!-- Top Menu Items -->
-           	<ul class="navbar-nav flex-row ml-md-auto d-md-flex navbar-right" ng-show="authenticated">
+           	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-show="authenticated">
 				<li class="nav-item" >
 					<a class="nav-link" href='' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i> 사용자정보 </a>
 				</li>
@@ -69,28 +74,49 @@
 			</ul>
         </nav>
 
-
 		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;" ng-show="authenticated">
 			<div class="p-2">
-				<img src="/resources/img/ci/top-logo.png" style="height: 60px;">
+			<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
 			</div>
 
 			<!--top메뉴 -->
 			<div class="p-2 d-flex">
-				<div class="navbar-header" ng-repeat="value in topMenu.parent">
-					<a href=""> {{value.menu_name}} </a>
+				<div class="navbar-header">
+					<a href="">시스템관리</a>
+				</div>
+				<div class="navbar-header">
+					<a href="">기초정보관리</a>
+				</div>
+				<div class="navbar-header">
+					<a href="">입출고관리</a>
+				</div>
+				<div class="navbar-header">
+					<a href="">재고실사</a>
+				</div>
+				<div class="navbar-header">
+					<a href="">재고현황</a>
 				</div>
 
 				<div class="dropdown-content">
-					<div  class="dropdown-board" ng-repeat="value in topMenu.parent">
-						<span>{{value.menu_name}}</span>
-						<a href="" ng-repeat="subValue in value.child.parent" ng-click="goMenu(subValue)">{{subValue.menu_name}}</a>
-					</div>
+
 				</div>
+
+<%--				<div class="navbar-header" ng-repeat="value in topMenu.parent">--%>
+<%--					<a href=""> {{value.menu_name}} </a>--%>
+<%--				</div>--%>
+
+<%--				<div class="dropdown-content">--%>
+<%--					<div  class="dropdown-board" ng-repeat="value in topMenu.parent">--%>
+<%--						<span>{{value.menu_name}}</span>--%>
+<%--						<a href="" ng-repeat="subValue in value.child.parent" ng-click="goPage(subValue)">{{subValue.menu_name}}</a>--%>
+<%--					</div>--%>
+<%--				</div>--%>
 			</div>
 
 			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" ><i class="xi-list"></i></button></div>
 		</nav>
+
+
 
 
 		<!--사이드바-->
@@ -136,9 +162,9 @@
 					</div>
 				</nav>
 			</div>
-			<!--본문 -->
-			<div style="width:100%;background-color:#ecf0f5;" ng-view></div>
 
+			<!--contents-->
+			<div ng-view style="width:100%;background-color:#ecf0f5;"></div>
 			<!--로딩바-->
 			<div class="loading-spiner-holder" data-loading >
 				<div class="loading-spiner">

@@ -8,7 +8,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		} : {};
 
 		$http.get('/member/userAuth', {headers : headers}).success(function(data) {
-			console.log("::::::",data)
 			if (data.userId) {
 				sessionStorage.setItem('id', data.userId);
 		        $rootScope.authenticated = true;
@@ -25,7 +24,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		    	$rootScope.authenticated = false;
 		    	callback && callback();
 		});
-
 	}
 
 

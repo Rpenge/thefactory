@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -32,6 +33,7 @@
 						<th ng-click="">이메일</th>
 						<th ng-click="">가입일</th>
 						<th ng-click="">권한</th>
+						<th>권한분류</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,6 +46,7 @@
 						<td>{{user.email}}</td>
 						<td>{{user.userRegDate | date:'yyyy-MM-dd HH:mm' }}</td>
 						<td>{{user.empAuthorization | code: commonCode}}</td>
+						<td><input type="checkbox"></td>
 					</tr>
 				</tbody>
 			</table>

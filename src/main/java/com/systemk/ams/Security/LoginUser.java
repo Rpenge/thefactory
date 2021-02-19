@@ -2,11 +2,9 @@ package com.systemk.ams.Security;
 
 import java.util.Collection;
 
-import com.systemk.ams.VO.UserInfoVO;
+import com.systemk.ams.VO.TfUserVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-
-import com.systemk.ams.Entity.Main.UserInfo;
 
 
 public class LoginUser extends User{
@@ -21,11 +19,11 @@ public class LoginUser extends User{
 
     public LoginUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, UserInfoVO userInfo) {
+			Collection<? extends GrantedAuthority> authorities, TfUserVO userInfo) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		this.userId = userInfo.getId();
-		this.role = userInfo.getRoleCode();
-		this.name = userInfo.getName();
+		this.userId = userInfo.getUserId();
+		this.role = userInfo.getUserPwd();
+		this.name = userInfo.getUserNm();
 	}
 
 	public String getUserId() {
