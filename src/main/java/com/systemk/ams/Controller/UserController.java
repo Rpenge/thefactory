@@ -12,10 +12,10 @@ import com.systemk.ams.mapper.MenuMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.Pageable;
+//import org.springframework.data.domain.Sort;
+//import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,17 +27,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.systemk.ams.Entity.Main.UserInfo;
-import com.systemk.ams.Entity.mapping.memberMapping;
-import com.systemk.ams.Service.MemberService;
+//import com.systemk.ams.Entity.Main.UserInfo;
+//import com.systemk.ams.Entity.mapping.memberMapping;
+//import com.systemk.ams.Service.MemberService;
 
 @Slf4j
 @RestController
 @RequestMapping("/member")
 public class UserController {
 
-	@Autowired
-	private MemberService memberService;
+//	@Autowired
+//	private MemberService memberService;
 
 	@Autowired
 	private MenuMapper menuMapper;
@@ -74,29 +74,29 @@ public class UserController {
         return new ResponseEntity<String>(obj.toString(), HttpStatus.OK);
     }
 
-	//사용자 리스트 조회
-	@RequestMapping(method = RequestMethod.GET)
-	public Page<memberMapping> memberList(@PageableDefault(sort = {"userId"}, direction = Sort.Direction.DESC, size = 10) Pageable pageable) throws Exception {
-		return memberService.memberList(pageable);
-	}
+//	//사용자 리스트 조회
+//	@RequestMapping(method = RequestMethod.GET)
+//	public Page<memberMapping> memberList(@PageableDefault(sort = {"userId"}, direction = Sort.Direction.DESC, size = 10) Pageable pageable) throws Exception {
+//		return memberService.memberList(pageable);
+//	}
+//
+//	//사용자 조회
+//	@RequestMapping(value="/userInfo", method = RequestMethod.GET)
+//	public memberMapping userInfo(Principal user) throws Exception {
+//		return memberService.userInfo(user.getName());
+//	}
 
-	//사용자 조회
-	@RequestMapping(value="/userInfo", method = RequestMethod.GET)
-	public memberMapping userInfo(Principal user) throws Exception {
-		return memberService.userInfo(user.getName());
-	}
-
-	//유저 등록
-	@RequestMapping(method = RequestMethod.POST)
-	public void userReg(@RequestBody(required = false) UserInfo user) throws Exception {
-		memberService.memberReg(user);
-	}
-
-	//권한 업데이트
-	@RequestMapping(value="/roleUpdate", method = RequestMethod.PUT)
-	public void roleUpdate(@RequestBody UserInfo user) throws Exception {
-		memberService.userUpdate(user);
-	}
+//	//유저 등록
+//	@RequestMapping(method = RequestMethod.POST)
+//	public void userReg(@RequestBody(required = false) UserInfo user) throws Exception {
+//		memberService.memberReg(user);
+//	}
+//
+//	//권한 업데이트
+//	@RequestMapping(value="/roleUpdate", method = RequestMethod.PUT)
+//	public void roleUpdate(@RequestBody UserInfo user) throws Exception {
+//		memberService.userUpdate(user);
+//	}
 
 
 

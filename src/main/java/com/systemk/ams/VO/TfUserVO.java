@@ -15,16 +15,18 @@ public class TfUserVO {
 
     private String userNm;
 
-    private String reqJoinDate;
-
-    private String joinStatus;
-
-    private String grade;
+    private String storeCd;
 
     private String userDeptCd;
 
     private String userRankCd;
 
-    private String storeCd;
+    private String grade;
+
+    private String reqJoinDate;
+
+    private String pdaUseYn;
+
+    private String userStat;
 
 }

@@ -7,7 +7,7 @@
 
 <div class="starter-template" ng-show="authenticated">
 
-	<section class="container-fluid d-flex justify-content-between" style="width:90%;border-bottom:1px solid lightgray;padding:0!important;">
+	<section class="container-fluid d-flex justify-content-between" style="width:80%;min-width:900px;border-bottom:1px solid lightgray;padding:0!important;">
 		<div class="d-flex align-items-end">
 			<h4><a class="menuName" href="" ng-click="reload()">STOCK</a></h4>
 			<h6 style="color:gray;">재고현황조회</h6>
@@ -18,7 +18,13 @@
 		</ol>
 	</section>
 
-	<section class="container-fluid body-custom">
+	<section class="d-flex justify-content-center">
+	<div class="container-fluid body-custom " style="width:300px;margin:3px;">
+
+
+	</div>
+
+	<div class="container-fluid body-custom" style="width:60%;margin:3px;">
 		<div class="body-contents ">
 			<h6 class="total-text">TOTAL ( {{total}} )</h6>
 			<!-- 검색 -->
@@ -158,6 +164,7 @@
 
 			</div>
 		</div>
+	</div>
 	</section>
 </div>
 </html>

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+//import org.springframework.data.domain.Pageable;
 
-import com.systemk.ams.Service.AssetChangeService;
+//import com.systemk.ams.Service.AssetChangeService;
 
 import java.util.List;
 import java.util.Map;
@@ -22,10 +22,10 @@ import java.util.Map;
 @RestController
 public class AssetChangeController {
 
-	@Autowired
-	private AssetChangeService assetChangeService;
+//	@Autowired
+//	private AssetChangeService assetChangeService;
 
-	
+
 //	//RFID 사용 내역 조회   JPA변경
 //	@RequestMapping(value = "/rfidChange", method = RequestMethod.GET)
 //	public Page<AssetChange> getRfidChange(@PageableDefault(sort = {"chgDt","astChgSeq"}, direction = Sort.Direction.DESC, size = 10) Pageable pageable,
@@ -34,11 +34,11 @@ public class AssetChangeController {
 //	}
 
 
-	//RFID 사용 내역 조회
-	@RequestMapping(value = "/rfidChange", method = RequestMethod.GET)
-	public Map<String, Object> getRfidChange(HttpServletRequest request, Pageable pageable) throws Exception {
-		return assetChangeService.findRfidUse(new ParamUtil().requestGetParam(request));
-	}
-	
+//	//RFID 사용 내역 조회
+//	@RequestMapping(value = "/rfidChange", method = RequestMethod.GET)
+//	public Map<String, Object> getRfidChange(HttpServletRequest request, Pageable pageable) throws Exception {
+//		return assetChangeService.findRfidUse(new ParamUtil().requestGetParam(request));
+//	}
+
 
 }

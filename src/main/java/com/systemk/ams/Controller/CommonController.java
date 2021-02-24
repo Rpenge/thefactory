@@ -16,37 +16,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.systemk.ams.Entity.Main.CommonCode;
-import com.systemk.ams.Service.CommonService;
+//import com.systemk.ams.Entity.Main.CommonCode;
+//import com.systemk.ams.Service.CommonService;
 
 
 @RestController
 public class CommonController {
 
 
-	@Autowired
-	private CommonService commonService;
+//	@Autowired
+//	private CommonService commonService;
+//
+//	@RequestMapping(value = "/commonCode", method = RequestMethod.GET)
+//	public Map<String, Object> setCodeList() throws Exception {
+//		List<CommonCode> list = commonService.codeSearchAll();
+//		Map<String, Object> codeMap = new HashMap<String, Object>();
+//		for(int i=0; i<list.size();i++) {
+//			codeMap.put(list.get(i).getCode(), list.get(i));
+//		}
+//		return codeMap;
+//	}
 
-	@RequestMapping(value = "/commonCode", method = RequestMethod.GET)
-	public Map<String, Object> setCodeList() throws Exception {
-		List<CommonCode> list = commonService.codeSearchAll();
-		Map<String, Object> codeMap = new HashMap<String, Object>();
-		for(int i=0; i<list.size();i++) {
-			codeMap.put(list.get(i).getCode(), list.get(i));
-		}
-		return codeMap;
-	}
-
-	@RequestMapping(value = "/codeUpdate", method = RequestMethod.POST)
-	public void codeUpdate(@RequestBody(required = false) CommonCode code) throws Exception {
-		commonService.codeUpdate(code);
-	}
-
-	//삭제
-	@RequestMapping(value="/codeDelete", method = RequestMethod.DELETE)
-	public void codeDelete(@RequestBody(required = false) List<String> list) throws Exception{
-		commonService.codeDelete(list);
-	}
+//	@RequestMapping(value = "/codeUpdate", method = RequestMethod.POST)
+//	public void codeUpdate(@RequestBody(required = false) CommonCode code) throws Exception {
+//		commonService.codeUpdate(code);
+//	}
+//
+//	//삭제
+//	@RequestMapping(value="/codeDelete", method = RequestMethod.DELETE)
+//	public void codeDelete(@RequestBody(required = false) List<String> list) throws Exception{
+//		commonService.codeDelete(list);
+//	}
 
 //////////////////////////////////////////
 

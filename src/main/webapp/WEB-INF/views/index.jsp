@@ -60,9 +60,8 @@
 </style>
 </head>
 <body class="ng-cloak ">
-
-		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="width:100%;height:35px;z-index:1;background-color:white;border-bottom:1px solid #dcdcdc;padding:0 60px;">
-			<i class="xi-box" style="color: black;font-size: small"> THEFACTOR2 재고관리</i>
+		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color: white;width:100%;height:35px;z-index:1;background-color:#484848;border-bottom:1px solid #dcdcdc;padding:0 60px;">
+			<i class="xi-box" style="color: white;font-size: small"> THEFACTOR2 재고관리</i>
             <!-- Top Menu Items -->
            	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-show="authenticated">
 				<li class="nav-item" >
@@ -76,7 +75,7 @@
 
 		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;" ng-show="authenticated">
 			<div class="p-2">
-			<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
+				<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
 			</div>
 
 			<!--top메뉴 -->
@@ -113,7 +112,7 @@
 <%--				</div>--%>
 			</div>
 
-			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" ><i class="xi-list"></i></button></div>
+			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" style="background: white;"><i class="xi-list"></i></button></div>
 		</nav>
 
 
@@ -166,22 +165,22 @@
 			<!--contents-->
 			<div ng-view style="width:100%;background-color:#ecf0f5;"></div>
 			<!--로딩바-->
-			<div class="loading-spiner-holder" data-loading >
-				<div class="loading-spiner">
-					<img src="${pageContext.request.contextPath}/resources/img/icon/loading.gif" class="loading"/>
-				</div>
-			</div>
+<%--			<div class="loading-spiner-holder" data-loading >--%>
+<%--				<div class="loading-spiner">--%>
+<%--					<img src="${pageContext.request.contextPath}/resources/img/icon/loading.gif" class="loading"/>--%>
+<%--				</div>--%>
+<%--			</div>--%>
 		</div>
 
 		<!--footer-->
 		<div class="footer d-flex justify-content-center" ng-show="authenticated" style="width:100%;padding: 15px;">
 			<div style="padding: 5px 70px 0 0;">
-				<img src="/resources/img/ci/s_logo.png" style="width:140px;height:35px;">
+				<img src="/resources/img/ci/top-logo.png" style="width:140px;height:35px;">
 			</div>
 			<div class="footer-text">
-				<span>(주)시스템케이 (SYSTEMK Co., Ltd.)</span>
-				<span>주소 : 경기도 구리시 갈매순환로 204번길 65, 구리스마트벤처타워 407호 408호</span>
-				<span>전화 : 070-8830-5252팩스 : 031-571-5254</span>
+				<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span>
+				<span>대표 :이예림사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span>
+				<span>대표번호 :02-6407-7879팩스번호 :메일 :thefactor2@naver.com</span>
 				<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span>
 			</div>
 		</div>

@@ -11,40 +11,40 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+//import org.springframework.orm.jpa.JpaTransactionManager;
+//import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+//import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import com.zaxxer.hikari.HikariDataSource;
 
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-@EnableJpaRepositories(
-	basePackages = "com.systemk.ams.Repository.Main"
-)
+//@EnableJpaRepositories(
+//	basePackages = "com.systemk.ams.Repository.Main"
+//)
 public class myDataSourceConfig {
 
 	@Autowired
     private Environment env;
 
-	@Bean(name="entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean myEntityManager() {
-        LocalContainerEntityManagerFactoryBean em
-          = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(myDataSource());
-        em.setPackagesToScan(new String[] {"com.systemk.ams.Entity.Main"});
-        HibernateJpaVendorAdapter vendorAdapter= new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",env.getProperty("my.datasources.hibernate.ddl-auto"));
-        properties.put("hibernate.physical_naming_strategy", SpringPhysicalNamingStrategy.class.getName());
-        properties.put("hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName());
-        properties.put("hibernate.enable_lazy_load_no_trans", true);
-        em.setJpaPropertyMap(properties);
-        return em;
-    }
+//	@Bean(name="entityManagerFactory")
+//    public LocalContainerEntityManagerFactoryBean myEntityManager() {
+//        LocalContainerEntityManagerFactoryBean em
+//          = new LocalContainerEntityManagerFactoryBean();
+//        em.setDataSource(myDataSource());
+//        em.setPackagesToScan(new String[] {"com.systemk.ams.Entity.Main"});
+//        HibernateJpaVendorAdapter vendorAdapter= new HibernateJpaVendorAdapter();
+//        em.setJpaVendorAdapter(vendorAdapter);
+//        HashMap<String, Object> properties = new HashMap<>();
+//        properties.put("hibernate.hbm2ddl.auto",env.getProperty("my.datasources.hibernate.ddl-auto"));
+//        properties.put("hibernate.physical_naming_strategy", SpringPhysicalNamingStrategy.class.getName());
+//        properties.put("hibernate.implicit_naming_strategy", SpringImplicitNamingStrategy.class.getName());
+//        properties.put("hibernate.enable_lazy_load_no_trans", true);
+//        em.setJpaPropertyMap(properties);
+//        return em;
+//    }
 
     @Bean
     public DataSource myDataSource() {
@@ -61,12 +61,12 @@ public class myDataSourceConfig {
         return new HikariDataSource(dataSource);
     }
 
-    @Bean(name="transactionManager")
-    public PlatformTransactionManager mytransactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(myEntityManager().getObject());
-        return transactionManager;
-    }
+//    @Bean(name="transactionManager")
+//    public PlatformTransactionManager mytransactionManager() {
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(myEntityManager().getObject());
+//        return transactionManager;
+//    }
 
 
 }

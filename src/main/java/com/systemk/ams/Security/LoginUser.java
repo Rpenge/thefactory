@@ -19,11 +19,11 @@ public class LoginUser extends User{
 
     public LoginUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, TfUserVO userInfo) {
+			Collection<? extends GrantedAuthority> authorities, TfUserVO userVO) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		this.userId = userInfo.getUserId();
-		this.role = userInfo.getUserPwd();
-		this.name = userInfo.getUserNm();
+		this.userId = userVO.getUserId();
+		this.role = userVO.getGrade();
+		this.name = userVO.getUserNm();
 	}
 
 	public String getUserId() {

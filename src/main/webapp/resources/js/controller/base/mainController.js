@@ -7,27 +7,27 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-	$http({
-		method: 'GET',
-		url: '/commonCode',
-		data: {},
-		headers: {'Content-Type': 'application/json; charset=utf-8'}
-	}).success(function(data) {
-		$scope.commonCode = data;
-	}).error(function(data) {
-	    alert('code조회 실패');
-	});
-
-	$http({
-		method: 'GET',
-		url: '/reload',
-		headers: {'Content-Type': 'application/json; charset=utf-8'}
-	}).success(function(data) {
-		$rootScope.topMenu = data.menu;
-
-	}).error(function(data) {
-		alert('menu 조회 실패');
-	});
+	// $http({
+	// 	method: 'GET',
+	// 	url: '/commonCode',
+	// 	data: {},
+	// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
+	// }).success(function(data) {
+	// 	$scope.commonCode = data;
+	// }).error(function(data) {
+	//     alert('code조회 실패');
+	// });
+	//
+	// $http({
+	// 	method: 'GET',
+	// 	url: '/reload',
+	// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
+	// }).success(function(data) {
+	// 	$rootScope.topMenu = data.menu;
+	//
+	// }).error(function(data) {
+	// 	alert('menu 조회 실패');
+	// });
 
 	$scope.logout = function() {
 		$http({
