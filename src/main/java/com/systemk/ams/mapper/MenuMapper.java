@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 
-    List<HashMap<String, Object>> menuSearch(HashMap item);
+//    List<HashMap<String, Object>> menuSearch(HashMap item);
+
 
 }

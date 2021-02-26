@@ -1,7 +1,7 @@
 app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide) {
 	$routeProvider
 		// home
-		.when('/main/home', {templateUrl: '/main/home', controller: 'homeController', resolve: { auth: onlyLoggedIn }})
+		.when('/main/home', {templateUrl: '/main/home', controller: 'homeController', resolve: { auth: onlyLoggedIn , layout: pageCheck }})
 
 		.when('/member/login', {templateUrl: '/member/login', controller: 'loginController'})
 		.when('/member/userList', {templateUrl: '/member/userList', controller: 'userListController', resolve: { auth: onlyLoggedIn }})
@@ -9,7 +9,9 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/member/userInfoMod', {templateUrl: '/member/userInfoMod', controller: 'userInfoModController', resolve: { auth: onlyLoggedIn }})
 
 		.when('/assetManagement/assetRepair', {templateUrl:'/assetManagement/assetRepair', controller:'assetRepairController', resolve:{ auth: onlyLoggedIn }})
-		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
+		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/sample/codeList', {templateUrl:'/sample/codeList', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
 		.when('/assetManagement/assetPrintList', {templateUrl:'/assetManagement/assetPrintList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
 		.when('/assetManagement/assetStatusChange', {templateUrl:'/assetManagement/assetStatusChange', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
 		.when('/assetManagement/assetDisList', {templateUrl:'/assetManagement/assetDisList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
@@ -56,9 +58,22 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 
 //로그인 세션 체크
 var onlyLoggedIn = function ($q, $rootScope, $http, $location) {
-	userLoginCheck($http, $rootScope, $location, false, function(){
+	userLoginCheck($http, $rootScope, $location, $location, false, function(){
 		if (!$rootScope.authenticated) {
 	        return $q.reject({ authenticated: false });
 	    }
 	});
 };
+
+//레이아웃 구성
+var pageCheck = function ($rootScope, $location) {
+	if($location.url() == '/main/home'){
+		$rootScope.mainPage = true;
+	}else{
+		$rootScope.mainPage = false;
+	}
+
+
+};
+
+

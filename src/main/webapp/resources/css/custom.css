@@ -7,11 +7,6 @@ body {
 	font-size: 0.95rem;
 }
 
-.starter-template {
-	padding: 1rem 1rem;
-	min-height: 45rem;
-}
-
 .body-contents {
     min-height: 45rem;
     padding-top: 1rem;
@@ -111,18 +106,7 @@ body {
 .custom-div {
 	height: 50px;
 }
-.form-signin .form-control {
-	position: relative;
-	height: auto;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: 10px;
-	font-size: 16px;
-}
-.form-signin .form-control:focus {
-	z-index: 2;
-}
+
 .form-signin input[type="email"] {
 	margin-bottom: 5px;
 	border-bottom-right-radius: 0;
@@ -172,18 +156,7 @@ body {
 .form-default .checkbox {
 	font-weight: normal;
 }
-.form-default .form-control {
-	position: relative;
-	height: auto;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: 10px;
-	font-size: 16px;
-}
-.form-default .form-control:focus {
-	z-index: 2;
-}
+
 .form-default input[type="email"] {
 	margin-bottom: 5px;
 	border-bottom-right-radius: 0;
@@ -549,13 +522,12 @@ input:checked + .slider:before {
 }
 
 .body-custom{
-	width: 90%;
+
 	position: relative;
 	border-radius: 3px;
 	background: #ffffff;
 	border-top: 2px solid #d2d6de;
 	margin-top: 15px;
-	margin-bottom: 10px;
 	box-shadow: 0 1px 1px lightgray;
 }
 
@@ -648,10 +620,6 @@ input:checked + .slider:before {
 		padding:5px;
 	}
 
-	.starter-template {
-		min-height: 20rem;
-	}
-
 	.footer img{
 		width: 80px!important;
 		height: 25px!important;
@@ -669,10 +637,6 @@ input:checked + .slider:before {
 	}
 	.search-submit .custom-select{
 		width: 90px!important;
-	}
-
-	.search-submit .form-control{
-		min-width: 110px;
 	}
 
 	.table-box{
@@ -705,9 +669,7 @@ input:checked + .slider:before {
 .search-submit button{
 	margin: 5px 0;
 }
-.search-submit .form-control{
-	margin: 5px 0;
-}
+
 
 .homeIntro{
 	font-weight: bold;

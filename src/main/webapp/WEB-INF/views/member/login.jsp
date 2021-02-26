@@ -2,11 +2,11 @@
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="myApp">
-	<div class="login-background" style="background-image:url('/resources/img/img_1 (1).png');background-size:100vw;height:97vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">
+	<div class="login-background" style="background-image:url('/resources/img/img_1 (1).png');background-size:100vw;height:100vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">
 		<div class="container-fluid" >
 <%--			<div style="background:white;width: 98%;height:80vh;opacity: 50%;position:fixed;"></div>--%>
 			<div class="form-signin" style="opacity: 95%;margin-top: 100px;">
-				<img src="/resources/img/ci/top-logo.png" style="width:100%; auto;">
+				<img src="/resources/img/ci/top-logo.png" style="width:100%;">
 				<form role="form" ng-submit="login()" style="margin-bottom: 5px;">
 					<label for="j_username" class="sr-only">아이디</label>
 					<input type="text" class="form-control" ng-model="credentials.userId" placeholder="아이디" name="j_username" id="j_username" required autofocus>

@@ -4,9 +4,15 @@ app.controller('assetMgController_reg', ['$scope', '$http', '$location', '$route
 	$scope.regDate = {};
 	$scope.list = {'assetRegDate' : new Date(), "assetQuantity":1, "assetRegPerson":sessionStorage.getItem('id')};
 
+
+	//자동완성 test용
+	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+
 	$scope.regDateOpen = function() {
 	    $scope.regDate.open = true;
 	};
+
 
 	$scope.commonCode = $ctrl.commonCode;
 
@@ -93,6 +99,20 @@ app.controller('assetMgController_reg', ['$scope', '$http', '$location', '$route
 //자산 리스트
 app.controller('assetMgListController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$window','$route','$uibModal',
     function ($scope, $http, $location, $routeParams, $rootScope, $window, $route, $uibModal) {
+
+
+	$scope.fileUpload = function(path){
+
+		console.log(document.getElementById("ex_filename").value);
+		console.log("path", path);
+		var fileValue = path.split("\\");
+		var fileName = fileValue[fileValue.length-1]; // 파일명
+		$scope.file_path = fileName;
+		$scope.$apply();
+	}
+
+
+
 	$scope.search = {};
 	$scope.checkList = new Array();
 

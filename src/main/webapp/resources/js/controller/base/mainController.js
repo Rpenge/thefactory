@@ -7,27 +7,7 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-	// $http({
-	// 	method: 'GET',
-	// 	url: '/commonCode',
-	// 	data: {},
-	// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
-	// }).success(function(data) {
-	// 	$scope.commonCode = data;
-	// }).error(function(data) {
-	//     alert('code조회 실패');
-	// });
-	//
-	// $http({
-	// 	method: 'GET',
-	// 	url: '/reload',
-	// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
-	// }).success(function(data) {
-	// 	$rootScope.topMenu = data.menu;
-	//
-	// }).error(function(data) {
-	// 	alert('menu 조회 실패');
-	// });
+
 
 	$scope.logout = function() {
 		$http({
@@ -74,42 +54,35 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$scope.goMain = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/main/home");
-    	closeSideMenu();
     };
 
     $scope.goUserList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/member/userList");
-    	closeSideMenu();
     };
 
 	$scope.goAssetManagementList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetList");
-    	closeSideMenu();
 	};
 
 	$scope.goAssetStatusChange = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetStatusChange");
-    	closeSideMenu();
 	};
 
 	$scope.goAssetDisList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetDisList");
-    	closeSideMenu();
 	};
 
 	$scope.goRfidChange = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidChange");
-    	closeSideMenu();
 	};
 	$scope.goCommonCode = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/setting/commonCode");
-    	closeSideMenu();
 	};
 
 	$scope.goUserInfo = function(){
@@ -120,43 +93,18 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$scope.goRfidRegList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidRegList");
-    	closeSideMenu();
-	};
-
-	$scope.goRfidMoveList = function(){
-    	$window.sessionStorage.removeItem("current");
-    	$location.url("/RFID/rfidMoveList");
-    	closeSideMenu();
-	};
-
-	$scope.goRfidWiList = function(){
-    	$window.sessionStorage.removeItem("current");
-    	$location.url("/RFID/rfidWiList");
-    	closeSideMenu();
-	};
-
-	$scope.goRfidDisList = function(){
-    	$window.sessionStorage.removeItem("current");
-    	$location.url("/RFID/rfidDisList");
-    	closeSideMenu();
-	};
-
-	$scope.goRfidFailList = function(){
-    	$window.sessionStorage.removeItem("current");
-    	$location.url("/RFID/rfidFailList");
-    	closeSideMenu();
 	};
 
 	$scope.goMenu = function(url){
+		console.log(url);
 		$window.sessionStorage.removeItem("current");
 		$location.url(url);
-		closeSideMenu();
 	}
 
-	//페이지 이동
-	$scope.goPage = function(data){
-		$location.url(data.url);
-	}
+	// //페이지 이동
+	// $scope.goPage = function(data){
+	// 	$location.url(data.url);
+	// }
 
 	$scope.content = {'width':'100%'};
 	//사이드 메뉴 토글

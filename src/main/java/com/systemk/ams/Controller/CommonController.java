@@ -61,7 +61,7 @@ public class CommonController {
 		String role = (String)session.getAttribute("role");
 
 		sessionMap.put("role", role);
-		sessionMap.put("menu", menuSort(menuMapper.menuSearch(sessionMap), "AMS"));
+//		sessionMap.put("menu", menuSort(menuMapper.menuSearch(sessionMap), "AMS"));
 
 
 		return sessionMap;

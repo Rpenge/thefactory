@@ -74,42 +74,42 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$scope.goMain = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/main/home");
-    	closeSideMenu();
+
     };
 
     $scope.goUserList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/member/userList");
-    	closeSideMenu();
+
     };
 
 	$scope.goAssetManagementList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goAssetStatusChange = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetStatusChange");
-    	closeSideMenu();
+
 	};
 
 	$scope.goAssetDisList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/assetManagement/assetDisList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goRfidChange = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidChange");
-    	closeSideMenu();
+
 	};
 	$scope.goCommonCode = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/setting/commonCode");
-    	closeSideMenu();
+
 	};
 
 	$scope.goUserInfo = function(){
@@ -120,37 +120,37 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$scope.goRfidRegList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidRegList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goRfidMoveList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidMoveList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goRfidWiList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidWiList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goRfidDisList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidDisList");
-    	closeSideMenu();
+
 	};
 
 	$scope.goRfidFailList = function(){
     	$window.sessionStorage.removeItem("current");
     	$location.url("/RFID/rfidFailList");
-    	closeSideMenu();
+
 	};
 
 	// $scope.goMenu = function(url){
 	// 	$window.sessionStorage.removeItem("current");
     // 	$location.url(url);
-    // 	closeSideMenu();
+    //
 	// }
 
 	//페이지 이동
@@ -179,7 +179,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	// 		$scope.menu = false;
 	// 	}
 	// }
-	// closeSideMenu();
+
+
 	var mql = window.matchMedia("screen and (max-width: 768px)");
 	mql.addListener(function(e) {
 	    if(e.matches) {

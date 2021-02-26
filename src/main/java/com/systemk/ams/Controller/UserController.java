@@ -52,7 +52,7 @@ public class UserController {
 			session.setAttribute("role", user.getRole());
 			sessionMap.put("userId", user.getName());
 			sessionMap.put("role", user.getRole());
-			sessionMap.put("menu", menuSort(menuMapper.menuSearch(sessionMap), "AMS"));
+//			sessionMap.put("menu", menuSort(menuMapper.menuSearch(sessionMap), "AMS"));
 		}
 
 	    return sessionMap;

@@ -33,11 +33,21 @@ public class MainController {
 //        return "sample/userList";
 //    }
 //
-//	@RequestMapping("/assetManagement/modal/assetRegist")
-//    public String assetReg(Model model) {
-//        return "assetManagement/modal/assetRegist";
-//    }
-//
+	@RequestMapping("/assetManagement/modal/assetRegist")
+    public String assetReg(Model model) {
+        return "assetManagement/modal/assetRegist";
+    }
+
+    @RequestMapping("/sample/proReg")
+    public String proReg(Model model) {
+        return "sample/proReg";
+    }
+
+    @RequestMapping("/sample/codeList")
+    public String codeList(Model model) {
+        return "sample/codeList";
+    }
+
 //	@RequestMapping("/assetManagement/assetRepair")
 //    public String assetRepair(Model model) {
 //        return "assetManagement/assetRepair";
