@@ -76,8 +76,6 @@
         </nav>
 
 
-
-
 		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" ng-if="authenticated">
 
 			<div class="p-2">
@@ -102,20 +100,33 @@
 					<a href="" ng-click="goAssetManagementList()">재고현황</a>
 				</div>
 
+
 				<div class="dropdown-content">
+					<div  class="dropdown-board" >
+						<span>시스템 관리</span>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'SYSTEM'">{{value.PGM_NM}}</a>
+					</div>
 
+					<div class="dropdown-board" >
+						<span>기초정보 관리</span>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'BASE'">{{value.PGM_NM}}</a>
+					</div>
+
+					<div class="dropdown-board" >
+						<span>입출고 관리</span>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INOUT'">{{value.PGM_NM}}</a>
+					</div>
+
+					<div class="dropdown-board" >
+						<span>재고실사</span>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INVEN'">{{value.PGM_NM}}</a>
+					</div>
+
+					<div class="dropdown-board">
+						<span>재고현황</span>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'STOCK'">{{value.PGM_NM}}</a>
+					</div>
 				</div>
-
-<%--				<div class="navbar-header" ng-repeat="value in topMenu.parent">--%>
-<%--					<a href=""> {{value.menu_name}} </a>--%>
-<%--				</div>--%>
-
-<%--				<div class="dropdown-content">--%>
-<%--					<div  class="dropdown-board" ng-repeat="value in topMenu.parent">--%>
-<%--						<span>{{value.menu_name}}</span>--%>
-<%--						<a href="" ng-repeat="subValue in value.child.parent" ng-click="goPage(subValue)">{{subValue.menu_name}}</a>--%>
-<%--					</div>--%>
-<%--				</div>--%>
 			</div>
 
 			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" style="background: white;"><i class="xi-list"></i></button></div>

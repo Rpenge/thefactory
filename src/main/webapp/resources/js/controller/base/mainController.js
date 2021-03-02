@@ -7,6 +7,19 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
+
+
+
+
+	$http.get('/member/reUserAuth').success(function(data) {
+		if (data.userId) {
+			sessionStorage.setItem('id', data.userId);
+			$rootScope.topMenu = data.auth;
+		} else {
+			$location.url("/");
+		}
+	});
+
 	$scope.logout = function() {
 		$http({
 			method: 'POST',
@@ -93,10 +106,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
     	$location.url("/RFID/rfidRegList");
 	};
 
-	$scope.goMenu = function(url){
-		console.log(url);
-		$window.sessionStorage.removeItem("current");
-		$location.url(url);
+	$scope.goMenu = function(data){
+		$location.url(data.PGM_URL);
 	}
 
 	// //페이지 이동

@@ -9,11 +9,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.systemk.ams.mapper.MenuMapper;
+import com.systemk.ams.mapper.TfUserAuthMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 //import com.systemk.ams.Entity.Main.CommonCode;
@@ -51,7 +49,7 @@ public class CommonController {
 //////////////////////////////////////////
 
 	@Autowired
-	private MenuMapper menuMapper;
+	private TfUserAuthMapper menuMapper;
 	//공통코드, 메뉴 다시 가져오기
 	@RequestMapping("/reload")
 	public Map code(HttpServletRequest request) {

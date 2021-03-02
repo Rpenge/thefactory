@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Mapper
-public interface MenuMapper {
-
-//    List<HashMap<String, Object>> menuSearch(HashMap item);
+public interface TfPgmMapper {
 
 
 }

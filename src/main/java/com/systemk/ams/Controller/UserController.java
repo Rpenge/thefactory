@@ -1,6 +1,5 @@
 package com.systemk.ams.Controller;
 
-import java.security.Principal;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.systemk.ams.Security.LoginUser;
-import com.systemk.ams.mapper.MenuMapper;
+import com.systemk.ams.VO.TfUserAuthVO;
+import com.systemk.ams.VO.TfUserVO;
+import com.systemk.ams.mapper.TfUserAuthMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +40,7 @@ public class UserController {
 //	private MemberService memberService;
 
 	@Autowired
-	private MenuMapper menuMapper;
+	private TfUserAuthMapper tfUserAuthMapper;
 
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) {
@@ -52,10 +52,33 @@ public class UserController {
 			session.setAttribute("role", user.getRole());
 			sessionMap.put("userId", user.getName());
 			sessionMap.put("role", user.getRole());
-//			sessionMap.put("menu", menuSort(menuMapper.menuSearch(sessionMap), "AMS"));
+
+
+			List<HashMap> AuthList = tfUserAuthMapper.authSearch(sessionMap);
+			sessionMap.put("auth", AuthList);
+
 		}
+		//유저 권한과 메뉴들을 프론트로 보낸다. usr_auth의 pgm cd와 pgm의 pgm cd를 조인
 
 	    return sessionMap;
+	}
+
+	//새로고침 : 메뉴 + 권한 다시 조회
+	@RequestMapping("/reUserAuth")
+	public Map user(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		HashMap sessionMap = new HashMap<>();
+
+		sessionMap.put("userId", session.getAttribute("userId"));
+		sessionMap.put("role", session.getAttribute("role"));
+
+		List<HashMap> AuthList = tfUserAuthMapper.authSearch(sessionMap);
+		sessionMap.put("auth", AuthList);
+
+
+		//유저 권한과 메뉴들을 프론트로 보낸다. usr_auth의 pgm cd와 pgm의 pgm cd를 조인
+
+		return sessionMap;
 	}
 
 

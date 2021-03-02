@@ -13,7 +13,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		        $rootScope.authenticated = true;
 
 		        //로그인했을때 메뉴목록 가져와서 저장
-				$rootScope.topMenu = data.menu;
+				$rootScope.topMenu = data.auth;
 			} else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;

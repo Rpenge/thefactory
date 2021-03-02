@@ -150,7 +150,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	// $scope.goMenu = function(url){
 	// 	$window.sessionStorage.removeItem("current");
     // 	$location.url(url);
-    //
+	//
 	// }
 
 	//페이지 이동
