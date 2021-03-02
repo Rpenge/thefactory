@@ -7,7 +7,6 @@
 
 	<div class="d-flex justify-content-center" style="top:-310px;width:100%;height: 120px;position:relative;color:black;text-align: center;">
 
-
 		<div style="width: 200px;z-index: 2;">
 			<p style="font-size: larger;font-weight: bold;">총 재고</p>
 			<p style="font-size: 40px;">10</p>

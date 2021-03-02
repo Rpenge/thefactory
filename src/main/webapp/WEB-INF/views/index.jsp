@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>RFID</title>
+<title>THEFACTOR2</title>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -54,17 +54,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/metisMenu.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/angular-tree.css">
 
+
 <style type="text/css">
-[ng\:cloak], [ng-cloak], .ng-cloak {
-	display: none !important;
-}
+	[ng\:cloak], [ng-cloak], .ng-cloak {
+		display: none !important;
+	}
 </style>
 </head>
 	<body class="ng-cloak ">
 		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color: white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 60px;position: fixed;">
 			<i class="xi-box" style="color: white;font-size: small"> THEFACTOR2 재고관리</i>
             <!-- Top Menu Items -->
-           	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-show="authenticated">
+           	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 				<li class="nav-item" >
 					<a class="nav-link" href='' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i> 사용자정보 </a>
 				</li>
@@ -76,7 +77,9 @@
 
 
 
-		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" ng-show="authenticated">
+
+		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" ng-if="authenticated">
+
 			<div class="p-2">
 				<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
 			</div>
@@ -127,11 +130,11 @@
 
 
 
-		<div id="page-wrapper" class="d-flex justify-content-left" ng-show="authenticated" >
+		<div class="d-flex justify-content-left" ng-if="authenticated" >
 
 			<!--사이드바-->
 			<div>
-				<nav class="text-light bg-dark sidebar" ng-init="menu" ng-show="menu && authenticated" > <!-- 첫화면 사이드 메뉴 안보이게 -->
+				<nav class="text-light bg-dark sidebar" ng-init="menu" ng-if="menu && authenticated" > <!-- 첫화면 사이드 메뉴 안보이게 -->
 					<div class="sidebar-sticky">
 						<ul class="nav flex-column">
 							<li class="nav-item" ng-show="authenticated && user.principal.role=='MT'"><a class="nav-link" href="" ng-click="sideMenuDock(0)"><i class="xi-user"></i> 사용자관리
@@ -175,14 +178,18 @@
 
 
 
-			<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;">
+
+			<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
+
+
 				<!-- left body -->
-				<div class="container-fluid body-custom" style="width:20%;margin:3px;padding:10px;" ng-show="!mainPage">
+				<div class="container-fluid body-custom" style="width:20%;margin:3px;padding:10px;" ng-if="!mainPage">
 					<!--메뉴-->
 					<br>
 					<div class="d-flex justify-content-between" style="height:65px;padding:10px;border-bottom:1px solid gray;">
 						<p style="margin: 8px 0 5px 0">매장</p>
 						<select class="form-control" style="width: 180px;">
+							<option>전체</option>
 							<option>논현점</option>
 							<option>압구정점</option>
 						</select>
@@ -195,25 +202,41 @@
 						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st2"></i>
 						<i style="margin: 8px;" class="xi-angle-up" ng-show="st2"></i>
 					</div>
-					<div style="box-shadow: 1px 1px 3px gray;padding:15px;overflow: auto;height:200px;" ng-show="st2">
+					<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st2">
 
 
-						<select multiple class="form-control" style="height: 100%;">
-							<option>CHANEL</option>
-							<option>ACNE STUDIOS</option>
-							<option>ALEXANDER MCQUEEN</option>
-							<option>BALENCIAGA</option>
-							<option>LOUIS</option>
-							<option>CHRISTIAN LOUBOUTIN</option>
-							<option>COMME DES GARCONS</option>
-							<option>BOTTEGA VENETA</option>
-							<option>ISABEL MARANT</option>
-							<option>ISSEY MIYAKE</option>
-							<option>ISABEL MARANT</option>
-							<option>ISSEY MIYAKE</option>
+<%--						<select multiple class="form-control" style="height: 100%;">--%>
+<%--							<option>CHANEL</option>--%>
+<%--							<option>ACNE STUDIOS</option>--%>
+<%--							<option>ALEXANDER MCQUEEN</option>--%>
+<%--							<option>BALENCIAGA</option>--%>
+<%--							<option>LOUIS</option>--%>
+<%--							<option>CHRISTIAN LOUBOUTIN</option>--%>
+<%--							<option>COMME DES GARCONS</option>--%>
+<%--							<option>BOTTEGA VENETA</option>--%>
+<%--							<option>ISABEL MARANT</option>--%>
+<%--							<option>ISSEY MIYAKE</option>--%>
+<%--							<option>ISABEL MARANT</option>--%>
+<%--							<option>ISSEY MIYAKE</option>--%>
+<%--						</select>--%>
+						<table style="width:100%;">
 
-						</select>
+							<tr><td onclick="selectTd($(this))">CHANEL</td></tr>
+							<tr><td onclick="selectTd($(this))">ACNE STUDIOS</td></tr>
+							<tr><td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td></tr>
+							<tr><td onclick="selectTd($(this))">BALENCIAGA</td></tr>
+							<tr><td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td></tr>
+							<tr><td onclick="selectTd($(this))">COMME DES GARCONS</td></tr>
+							<tr><td onclick="selectTd($(this))">BOTTEGA VENETA</td></tr>
+							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+
+						</table>
 					</div>
+
 
 					<br>
 					<div class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:1px solid gray;" ng-click="st3 = st3==true ? false : true">
@@ -221,7 +244,7 @@
 						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st3"></i>
 						<i style="margin: 8px;" class="xi-angle-up" ng-show="st3"></i>
 					</div>
-					<div style="box-shadow: 1px 1px 3px gray;padding:15px;" ng-show="st3">
+					<div style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
 
 						<div class="row input-group" style="width:250px;margin:5px;"> 시작일
 							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st3_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
@@ -245,17 +268,18 @@
 						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st4"></i>
 						<i style="margin: 8px;" class="xi-angle-up" ng-show="st4"></i>
 					</div>
-					<div class="form-group" style="box-shadow: 1px 1px 3px gray;padding:15px;" ng-show="st4">
+					<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st4">
 
 						<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
 
 							<tr style="margin:10px;">
-								<td style="width:33.3%;padding:10px;">전체</td>
-								<td style="width:33.3%;">남성</td>
-								<td style="width:33.3%;">여성</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">전체</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">남성</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">여성</td>
 							</tr>
 						</table>
 					</div>
+
 
 
 					<br>
@@ -265,18 +289,18 @@
 						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st5"></i>
 						<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
 					</div>
-					<div class="form-group" style="box-shadow: 1px 1px 3px gray;padding:15px;" ng-show="st5">
+					<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st5">
 						<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
 
 							<tr style="margin:10px;">
-								<td style="width:33.3%;padding:10px;">아우터</td>
-								<td style="width:33.3%;">상의</td>
-								<td style="width:33.3%;">하의</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">아우터</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">상의</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">하의</td>
 							</tr>
 							<tr style="margin:10px;">
-								<td style="width:33.3%;padding:10px;">슈즈</td>
-								<td style="width:33.3%;">가방</td>
-								<td style="width:33.3%;">지갑</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">슈즈</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">가방</td>
+								<td onclick="selectTd($(this))" style="width:33.3%;">지갑</td>
 							</tr>
 						</table>
 					</div>
@@ -323,16 +347,50 @@
 
 					<!--상단 검색 보드-->
 					<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 5%;">
+
 						<div style="font-size:20px;margin: 5px;">Quick Search</div>
 						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">
 							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">
 								<option>매장</option>
 							</select>
-							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">
-								<option>브랜드</option>
-							</select>
+<%--							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">--%>
+<%--								<option>브랜드</option>--%>
+<%--							</select>--%>
+
+							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 45px;"  placeholder="브랜드" ng-click="qs1 = qs1==true ? false : true" readonly>
+							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
+								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
+								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
+							</label>
+							<div style="width:100%;height:150px;background: white;position:absolute;top:150px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
+								<div style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;" ng-click="qs1= false">X</div>
+								<table style="width:100%;">
+									<tr>
+										<td onclick="selectTd($(this))">CHANEL</td>
+										<td onclick="selectTd($(this))">ACNE STUDIOS</td>
+										<td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td>
+										<td onclick="selectTd($(this))">BALENCIAGA</td>
+										<td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td>
+										<td onclick="selectTd($(this))">COMME DES GARCONS</td>
+									</tr>
+									<tr>
+										<td onclick="selectTd($(this))">BOTTEGA VENETA</td>
+										<td onclick="selectTd($(this))">ISABEL MARANT</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+
+							</div>
+
+
 							<select class="form-control" style="width:150px;margin: 10px;height: 45px;">
 								<option>성별</option>
+							</select>
+							<select class="form-control" style="width:150px;margin: 10px;height: 45px;">
+								<option>사이즈</option>
 							</select>
 							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">
 								<option>상품분류</option>
@@ -344,24 +402,30 @@
 									<i class="xi-search" style="font-size: 20px;"></i>
 								</button>
 							</div>
-
 						</div>
-
 					</div>
 
 
 					<!--contents-->
-					<div ng-view ></div>
+					<div ng-view ng-show="authenticated"></div>
 				</div>
 			</div>
 		</div>
 
 
-		<!--login 페이지-->
-		<div ng-show="!authenticated" ng-view></div>
+
+
+			<!--login 페이지-->
+		<div ng-view ng-show="!authenticated" ></div>
+
+		<!-- 등록 페이지 -->
+		<div ng-view ng-show="authenticated && regPage" style="background-color:whitesmoke;width:100%;padding: 15px;"></div>
+
+
+
 
 		<!--footer-->
-		<div class="footer d-flex justify-content-center" ng-show="authenticated" style="width:100%;padding: 15px;">
+		<div class="footer d-flex justify-content-center" ng-if="authenticated" style="width:100%;padding: 15px;">
 			<div style="padding: 5px 70px 0 0;">
 				<img src="/resources/img/ci/top-logo.png" style="width:140px;height:35px;">
 			</div>
@@ -374,3 +438,23 @@
 		</div>
 	</body>
 </html>
+
+<script>
+	function selectTd(td){
+		var table = td.parent().parent();
+		table.children().children().css('background', 'white');
+		table.children().children().css('color', 'black');
+
+		td.css('background', 'gray');
+		td.css('color', 'white');
+	}
+	// $('.td').click(function(){
+	// 	console.log($(this).text());
+	// 	var table = $(this).parent().parent();
+	// 	table.children().children().css('background', 'white');
+	// 	table.children().children().css('color', 'black');
+	//
+	// 	$(this).css('background', 'gray');
+	// 	$(this).css('color', 'white');
+	// });
+</script>

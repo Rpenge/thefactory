@@ -5,7 +5,7 @@
 <html ng-app="myApp">
 
 
-<div ng-show="authenticated">
+<div ng-show="authenticated" style="">
 
 
 	<section class="d-flex justify-content-center">
@@ -13,7 +13,7 @@
 		<!--contents-->
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents ">
-
+				abcd
 
 			</div>
 		</div>

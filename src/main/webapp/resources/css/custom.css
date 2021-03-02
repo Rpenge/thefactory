@@ -411,14 +411,14 @@ input:checked + .slider:before {
 	text-align: center;
 }
 
-@media screen and (min-width: 768px) {
-	.modal.modal-center:before {
-		display: inline-block;
-		vertical-align: middle;
-		content: " ";
-		height: 100%;
-	}
-}
+/*@media screen and (min-width: 768px) {*/
+/*	.modal.modal-center:before {*/
+/*		display: inline-block;*/
+/*		vertical-align: middle;*/
+/*		content: " ";*/
+/*		height: 100%;*/
+/*	}*/
+/*}*/
 
 .modal-dialog.modal-center {
 	display: inline-block;
@@ -426,11 +426,11 @@ input:checked + .slider:before {
 	vertical-align: middle;
 }
 
-@media (min-width: 992px) {
-  .modal-xlg {
-    max-width: 1200px;
-  }
-}
+/*@media (min-width: 992px) {*/
+/*  .modal-xlg {*/
+/*    max-width: 1200px;*/
+/*  }*/
+/*}*/
 
 [uib-typeahead-popup] {
   	overflow-x: auto;
@@ -536,9 +536,6 @@ input:checked + .slider:before {
 	padding: 0;
 }
 
-#page-wrapper{
-	padding: 0;
-}
 .boardBox-1{
 	padding: 10px;
 	height: 150px;
@@ -557,106 +554,106 @@ input:checked + .slider:before {
 	opacity:0.5;
 }
 
-@media(max-width:920px){
-	.dropdown{
-		display:none!important;
-	}
+/*@media(max-width:920px){*/
+/*	.dropdown{*/
+/*		display:none!important;*/
+/*	}*/
 
-	.navbar-nav .nav-item{
-		display:none!important;
-	}
-}
+/*	.navbar-nav .nav-item{*/
+/*		display:none!important;*/
+/*	}*/
+/*}*/
 
 #shadow-body{
 	width:1000px;
 	min-height:700px;
 }
 
-@media(max-width:768px){
-	.body-custom{
-		width: 100%;
-		padding: 0;
-	}
+/*@media(max-width:768px){*/
+/*	.body-custom{*/
+/*		width: 100%;*/
+/*		padding: 0;*/
+/*	}*/
 
-	.body-contents {
-	    padding-top: 0;
-	    padding-bottom: 1rem;
-	    min-height: 35rem;
-	}
-	#shadow-body{
-		width:100%;
-	}
+/*	.body-contents {*/
+/*	    padding-top: 0;*/
+/*	    padding-bottom: 1rem;*/
+/*	    min-height: 35rem;*/
+/*	}*/
+/*	#shadow-body{*/
+/*		width:100%;*/
+/*	}*/
 
-	.boardBox-1{
-		height: 160px;
-		padding: 5px;
-	}
-	.small-box{
-		height: 150px;
-		border-radius: 8px;
-		padding: 10px;
+/*	.boardBox-1{*/
+/*		height: 160px;*/
+/*		padding: 5px;*/
+/*	}*/
+/*	.small-box{*/
+/*		height: 150px;*/
+/*		border-radius: 8px;*/
+/*		padding: 10px;*/
 
-	}
-	.small-box p{
-		font-size: 0.9em;
-	}
-	.small-box a{
-		font-size: 0.8em;
-	}
-	.bg-icon-custom{
-		display: none;
-	}
+/*	}*/
+/*	.small-box p{*/
+/*		font-size: 0.9em;*/
+/*	}*/
+/*	.small-box a{*/
+/*		font-size: 0.8em;*/
+/*	}*/
+/*	.bg-icon-custom{*/
+/*		display: none;*/
+/*	}*/
 
-	.homeIntro{
-		font-size: 1.2em;
-	}
+/*	.homeIntro{*/
+/*		font-size: 1.2em;*/
+/*	}*/
 
-	.graph{
-		height: 280px!important;
-		border-radius: 8px;
-	}
-	.custom-shadow-box{
-		width: 100%;
-		padding:5px;
-	}
+/*	.graph{*/
+/*		height: 280px!important;*/
+/*		border-radius: 8px;*/
+/*	}*/
+/*	.custom-shadow-box{*/
+/*		width: 100%;*/
+/*		padding:5px;*/
+/*	}*/
 
-	.footer img{
-		width: 80px!important;
-		height: 25px!important;
-	}
-	.footer-text span{
-		font-size: 9px!important;
-	}
-	.footer-text h6{
-		font-size: 9px!important;
-	}
+/*	.footer img{*/
+/*		width: 80px!important;*/
+/*		height: 25px!important;*/
+/*	}*/
+/*	.footer-text span{*/
+/*		font-size: 9px!important;*/
+/*	}*/
+/*	.footer-text h6{*/
+/*		font-size: 9px!important;*/
+/*	}*/
 
-	.custom-select{
-		width: 110px!important;
-		margin: 3px;
-	}
-	.search-submit .custom-select{
-		width: 90px!important;
-	}
+/*	.custom-select{*/
+/*		width: 110px!important;*/
+/*		margin: 3px;*/
+/*	}*/
+/*	.search-submit .custom-select{*/
+/*		width: 90px!important;*/
+/*	}*/
 
-	.table-box{
-		min-width:450px;
-		border : 1px solid whitesmoke;
-	}
-	.sidebar{
-		position: absolute;
-	}
-}
+/*	.table-box{*/
+/*		min-width:450px;*/
+/*		border : 1px solid whitesmoke;*/
+/*	}*/
+/*	.sidebar{*/
+/*		position: absolute;*/
+/*	}*/
+/*}*/
 
 
-@media(max-width:400px){
-	.table-box{
-		min-width:360px;
-	}
-	#shadow-body .table-box{
-		min-width:340px;
-	}
-}
+/*@media(max-width:400px){*/
+/*	.table-box{*/
+/*		min-width:360px;*/
+/*	}*/
+/*	#shadow-body .table-box{*/
+/*		min-width:340px;*/
+/*	}*/
+/*}*/
 
 
 .btnBox .custom-select{
@@ -767,11 +764,11 @@ input:checked + .slider:before {
 	color: gray;
 }
 
-@media print{
-	.noPrint {
-		display: none;
-	}
-}
+/*@media print{*/
+/*	.noPrint {*/
+/*		display: none;*/
+/*	}*/
+/*}*/
 
 .table-content{
 	background-color: whitesmoke!important;

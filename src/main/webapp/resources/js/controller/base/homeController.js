@@ -3,6 +3,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 	function ($scope, $http, $location,$rootScope, $interval, $rootScope, $timeout, $window, $uibModal) {
 
 
+		//그래프
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(ctx, {
 			type: 'bar',

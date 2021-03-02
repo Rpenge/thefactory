@@ -73,6 +73,13 @@ var pageCheck = function ($rootScope, $location) {
 		$rootScope.mainPage = false;
 	}
 
+	if($location.url() == '/sample/codeList'){
+		$rootScope.regPage = true;
+	}else{
+		$rootScope.regPage = false;
+	}
+
+	console.log($rootScope.regPage);
 
 };
 

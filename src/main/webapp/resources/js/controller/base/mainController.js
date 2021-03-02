@@ -7,8 +7,6 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-
-
 	$scope.logout = function() {
 		$http({
 			method: 'POST',
