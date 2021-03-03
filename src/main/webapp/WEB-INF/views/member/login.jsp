@@ -26,6 +26,7 @@
 				<div class="text-center alert alert-danger" ng-show="error == '3002'">
 					관리자 승인 이후에 사용하실 수 있습니다.
 				</div>
+				<input type="checkbox" ng-model="idSaveCheck" ng-click="idSave()">아이디 기억하기
 			</div>
 		</div>
 		<div class="footer d-flex justify-content-center" style="width:100%;padding: 10px;height: auto;position: fixed; bottom: 0px;">

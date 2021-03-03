@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.mapper.AssetchangeMapper">
+    <select id="assetChangeList" resultType="AssetChangeVO" parameterType="java.util.HashMap">
+        select
+            ast_chg_seq
+             , ast_ctrl_cd
+             , ast_dp
+             , ast_nm
+             , ast_st
+             , ast_wk
+             , wk_prsn
+             , wk_loc
+             , wk_env
+             , ast_div
+             , chg_dt
+             , wi_yn
+             , update_yn
+        from
+            asset_change
+        where 1=1
+        <foreach collection="list" item="item">
+        AND
+            ${item}
+        </foreach>
+        order by
+        <if test="sort.size == 0">
+            ast_chg_seq desc
+        </if>
+        <foreach collection="sort" item="item" separator=",">
+            ${item}
+        </foreach>
+        limit ${start}, ${end}
+    </select>
+</mapper>

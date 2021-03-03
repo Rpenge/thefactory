@@ -1,7 +1,44 @@
-app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope',
-                                   function ($scope, $http, $location, $routeParams, $rootScope) {
+app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
+	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
+
+	// $cookieStore.put("uesrId","aa");
+	//
+	// console.log($cookieStore.get("uesrId"));
+	// // console.log($cookieStore);
+	// $cookieStore.remove("uesrId");
+	//
+	// if($cookieStore.get("uesrId")){
+	//
+	// }
+
+
+	$scope.credentials ={};
+	if($cookieStore.get("idSave")){
+		$scope.idSaveCheck = true;
+		$scope.credentials.userId = $cookieStore.get("uesrId");
+	}
+
+	// $scope.idSave = function(){
+	// 	if($scope.idSaveCheck) {
+	// 		$cookieStore.put("idSave", true);
+	// 	}else{
+	// 		$cookieStore.remove("idSave");
+	// 	}
+	// }
+
+
+
 
 	var authenticate = function(credentials, callback) {
+
+		if($scope.idSaveCheck) {
+			$cookieStore.put("idSave", true);
+			$cookieStore.put("uesrId",credentials.userId);
+		}else{
+			$cookieStore.remove("idSave");
+			$cookieStore.remove("uesrId");
+		}
+
 
 		var headers = credentials ? {authorization : "Basic "
 			+ btoa(credentials.userId + ":" + credentials.userPw)

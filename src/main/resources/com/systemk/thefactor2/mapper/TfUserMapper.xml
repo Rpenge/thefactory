@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.mapper.TfUserMapper">
+    <select id="login" resultType="TfUserVO" parameterType="java.util.HashMap">
+        SELECT
+            PER_MEMBER_NO
+             , USER_ID
+             , USER_PWD
+             , USER_NM
+             , STORE_CD
+             , USER_DEPT_CD
+             , USER_RANK_CD
+             , GRADE
+             , REQ_JOIN_DATE
+             , PDA_USE_YN
+             , USER_STAT
+        FROM
+            TF_USER
+        WHERE 1=1
+        AND USER_ID = #{userId}
+    </select>
+</mapper>

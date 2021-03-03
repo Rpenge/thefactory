@@ -79,7 +79,6 @@ var pageCheck = function ($rootScope, $location) {
 		$rootScope.regPage = false;
 	}
 
-	console.log($rootScope.regPage);
 
 };
 

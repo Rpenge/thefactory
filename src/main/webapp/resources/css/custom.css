@@ -876,8 +876,8 @@ a.nav-link{
 	/* 애니메이션 */
 	animation-name: fadeIn;
 	animation-duration:0.5s;
-
 }
+
 .dropdown-board span{
 	display: block;
 	border-bottom: 1px solid lightgray;

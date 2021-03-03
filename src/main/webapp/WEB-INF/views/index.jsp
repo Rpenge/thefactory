@@ -33,15 +33,15 @@
 <script src="${pageContext.request.contextPath}/resources/js/filter/appFilter.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/directive/appDirective.js?v=${version}"></script>
 
-<%--<script src="${pageContext.request.contextPath}/resources/js/controller/mainController.js?v=${version}"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>--%>
 <script src="${pageContext.request.contextPath}/resources/js/controller/userController.js?v=${version}"></script>
 <script src="${pageContext.request.contextPath}/resources/js/controller/assetMgController.js?v=${version}"></script>
-<script src="${pageContext.request.contextPath}/resources/js/controller/assetChange.js?v=${version}"></script>
-<script src="${pageContext.request.contextPath}/resources/js/controller/settingController.js?v=${version}"></script>
-<script src="${pageContext.request.contextPath}/resources/js/controller/printController.js?v=${version}"></script>
+<%--<script src="${pageContext.request.contextPath}/resources/js/controller_old/assetChange.js/js/controller/assetChange.js?v=${version}"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/resources/js/controller_old/settingController.js/js/controller/settingController.js?v=${version}"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/resources/js/controller_old/printController.js/js/controller/printController.js?v=${version}"></script>--%>
 
 	<!--thefacotry controller-->
-	<script src="${pageContext.request.contextPath}/resources/js/controller/base/mainController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
 
