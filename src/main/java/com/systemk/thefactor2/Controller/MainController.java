@@ -23,29 +23,97 @@ public class MainController {
         return "main/home";
     }
 
-	@RequestMapping("/member/login")
-    public String login(Model model) {
-        return "member/login";
+
+    @RequestMapping("/base/comm")
+    public String comm(Model model) {
+        return "base/comm";
     }
 
-	@RequestMapping("/assetManagement/modal/assetRegist")
-    public String assetReg(Model model) {
-        return "assetManagement/modal/assetRegist";
+    @RequestMapping("/base/brand")
+    public String brand(Model model) {
+        return "base/brand";
     }
+
+    @RequestMapping("/base/product")
+    public String product(Model model) {
+        return "base/product";
+    }
+
+    @RequestMapping("/base/device")
+    public String device(Model model) {
+        return "base/device";
+    }
+
+
+    @RequestMapping("/inout/input")
+    public String input(Model model) {
+        return "inout/input";
+    }
+
+    @RequestMapping("/inout/output")
+    public String output(Model model) {
+        return "inout/output";
+    }
+
+    @RequestMapping("/inout/sales")
+    public String sales(Model model) {
+        return "inout/sales";
+    }
+
+    @RequestMapping("/inout/ioInfo")
+    public String ioInfo(Model model) {
+        return "inout/ioInfo";
+    }
+
+
+    @RequestMapping("/inven/inv")
+    public String inven(Model model) {
+        return "inven/inv";
+    }
+
+    @RequestMapping("/inven/invInfo")
+    public String invInfo(Model model) {
+        return "inven/invInfo";
+    }
+
+
+    @RequestMapping("/stock/stk")
+    public String stock(Model model) {
+        return "stock/stk";
+    }
+
+
+    /////
 
     @RequestMapping("/sample/proReg")
     public String proReg(Model model) {
         return "sample/proReg";
     }
 
-    @RequestMapping("/sample/codeList")
-    public String codeList(Model model) {
-        return "sample/codeList";
+    @RequestMapping("/sample/userReg")
+    public String userReg(Model model) {
+        return "sample/userReg";
     }
 
-	@RequestMapping("/assetManagement/assetList")
+    @RequestMapping("/system/user")
+    public String user(Model model) {
+        return "system/user";
+    }
+
+    //////
+    @RequestMapping("/assetManagement/assetList")
     public String assetMgList(Model model) {
         return "sample/assetList";
+    }
+
+    @RequestMapping("/member/login")
+    public String login(Model model) {
+        return "member/login";
+    }
+
+    @RequestMapping("/assetManagement/modal/assetRegist")
+    public String assetReg(Model model) {
+        return "assetManagement/modal/assetRegist";
     }
 
 }

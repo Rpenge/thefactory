@@ -81,13 +81,26 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 					controllerAs: '$ctrl',
 					size: 'SM'
 				});
-			}//자산등록창
+			}
+			//자산등록창
 			else if(command=='proReg'){
 				$ctrl = {};
 				$ctrl['commonCode'] = $scope.commonCode;
 				var modalInstance = $uibModal.open({
 					backdrop: 'static',
 					templateUrl: 'sample/proReg',
+					controller: 'assetMgController_reg',
+					controllerAs: '$ctrl',
+					size: 'lg'
+				});
+			}
+			//유저등록창
+			else if(command=='userReg'){
+				$ctrl = {};
+				// $ctrl['commonCode'] = $scope.commonCode;
+				var modalInstance = $uibModal.open({
+					backdrop: 'static',
+					templateUrl: 'sample/userReg',
 					controller: 'assetMgController_reg',
 					controllerAs: '$ctrl',
 					size: 'lg'

@@ -8,9 +8,6 @@ app.run(function($rootScope, $http, $route, $window){
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
 
-
-
-
 	$http.get('/member/reUserAuth').success(function(data) {
 		if (data.userId) {
 			sessionStorage.setItem('id', data.userId);

@@ -5,6 +5,8 @@ app.controller('assetMgController_reg', ['$scope', '$http', '$location', '$route
 	$scope.list = {'assetRegDate' : new Date(), "assetQuantity":1, "assetRegPerson":sessionStorage.getItem('id')};
 
 
+
+
 	//자동완성 test용
 	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
@@ -101,6 +103,7 @@ app.controller('assetMgListController', ['$scope', '$http', '$location', '$route
     function ($scope, $http, $location, $routeParams, $rootScope, $window, $route, $uibModal) {
 
 
+
 	$scope.fileUpload = function(path){
 
 		console.log(document.getElementById("ex_filename").value);
@@ -136,7 +139,7 @@ app.controller('assetMgListController', ['$scope', '$http', '$location', '$route
 	}
 
 	var param = generateParam($scope.search);
-	httpGetList("/assetManagementList", param, $scope, $http);
+	// httpGetList("/assetManagementList", param, $scope, $http);
 
 	//체크박스 리스트 추가, 삭제
 	$scope.checkBox = function(select, status){

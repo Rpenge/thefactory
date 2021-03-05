@@ -44,9 +44,11 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/salesController.js?v=${version}"></script>
 
+<!--icon-->
+<link rel="shortcut icon" type="image/x-ic on" href="/resources/img/ci/sysk.png">
 
-<link rel="shortcut icon" type="image/x-ic on" href="#">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sb-admin.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/xeicon.min.css">
@@ -101,7 +103,7 @@
 				</div>
 
 
-				<div class="dropdown-content">
+				<div class="dropdown-content" ng-style="dropDown">
 					<div  class="dropdown-board" >
 						<span>시스템 관리</span>
 						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'SYSTEM'">{{value.PGM_NM}}</a>
@@ -129,7 +131,8 @@
 				</div>
 			</div>
 
-			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" style="background: white;"><i class="xi-list"></i></button></div>
+<%--			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" style="background: white;"><i class="xi-list"></i></button></div>--%>
+			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="dropDown.display = dropDown.display == 'block' ? '' : 'block'" style="background: white;"><i class="xi-list"></i></button></div>
 		</nav>
 
 		<div style="height:120px;" ng-if="authenticated" ></div>
@@ -187,158 +190,123 @@
 			</div>
 
 
-
-
-
 			<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
 
 
 				<!-- left body -->
-				<div class="container-fluid body-custom" style="width:20%;margin:3px;padding:10px;" ng-if="!mainPage">
+				<div style="width:20%;margin:3px;" ng-if="!mainPage">
+					<div class="left-body" >
 					<!--메뉴-->
-					<br>
-					<div class="d-flex justify-content-between" style="height:65px;padding:10px;border-bottom:1px solid gray;">
-						<p style="margin: 8px 0 5px 0">매장</p>
-						<select class="form-control" style="width: 180px;">
-							<option>전체</option>
-							<option>논현점</option>
-							<option>압구정점</option>
-						</select>
-					</div>
 
-
-					<br>
-					<div class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:1px solid gray;" ng-click="st2 = st2==true ? false : true">
-						<p style="margin: 8px 50px 5px 0;">브랜드 선택</p>
-						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st2"></i>
-						<i style="margin: 8px;" class="xi-angle-up" ng-show="st2"></i>
-					</div>
-					<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st2">
-
-
-<%--						<select multiple class="form-control" style="height: 100%;">--%>
-<%--							<option>CHANEL</option>--%>
-<%--							<option>ACNE STUDIOS</option>--%>
-<%--							<option>ALEXANDER MCQUEEN</option>--%>
-<%--							<option>BALENCIAGA</option>--%>
-<%--							<option>LOUIS</option>--%>
-<%--							<option>CHRISTIAN LOUBOUTIN</option>--%>
-<%--							<option>COMME DES GARCONS</option>--%>
-<%--							<option>BOTTEGA VENETA</option>--%>
-<%--							<option>ISABEL MARANT</option>--%>
-<%--							<option>ISSEY MIYAKE</option>--%>
-<%--							<option>ISABEL MARANT</option>--%>
-<%--							<option>ISSEY MIYAKE</option>--%>
-<%--						</select>--%>
-						<table style="width:100%;">
-
-							<tr><td onclick="selectTd($(this))">CHANEL</td></tr>
-							<tr><td onclick="selectTd($(this))">ACNE STUDIOS</td></tr>
-							<tr><td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td></tr>
-							<tr><td onclick="selectTd($(this))">BALENCIAGA</td></tr>
-							<tr><td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td></tr>
-							<tr><td onclick="selectTd($(this))">COMME DES GARCONS</td></tr>
-							<tr><td onclick="selectTd($(this))">BOTTEGA VENETA</td></tr>
-							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-							<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-
-						</table>
-					</div>
-
-
-					<br>
-					<div class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:1px solid gray;" ng-click="st3 = st3==true ? false : true">
-						<p style="margin: 8px 50px 5px 0;">조회 날짜</p>
-						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st3"></i>
-						<i style="margin: 8px;" class="xi-angle-up" ng-show="st3"></i>
-					</div>
-					<div style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
-
-						<div class="row input-group" style="width:250px;margin:5px;"> 시작일
-							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st3_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
-							<span class="input-group-append" >
-								<button type="button" class="btn btn-secondary" ng-click="st3_sdt = st3_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
-							</span>
+						<div class="d-flex justify-content-between left-body-menu">
+							<p style="margin: 8px 0 5px 0">매장</p>
+							<select class="form-control" style="width: 180px;">
+								<option>전체</option>
+								<option>논현점</option>
+								<option>압구정점</option>
+							</select>
 						</div>
 
-						<div class="row input-group" style="width:250px;margin:5px;"> 종료일
-							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st3_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
-							<span class="input-group-append" >
-								<button type="button" class="btn btn-secondary" ng-click="st3_edt = st3_edt==true ? false : true"> <i class="xi-calendar"></i></button>
-							</span>
+						<div class="d-flex justify-content-between left-body-menu" ng-click="st1 = st1==true ? false : true">
+							<p style="margin: 8px 50px 5px 0;">브랜드 선택</p>
+							<i style="margin: 8px;" class="xi-angle-down" ng-show="!st1"></i>
+							<i style="margin: 8px;" class="xi-angle-up" ng-show="st1"></i>
 						</div>
+						<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st1">
+
+							<table style="width:100%;">
+
+								<tr><td onclick="selectTd($(this))">CHANEL</td></tr>
+								<tr><td onclick="selectTd($(this))">ACNE STUDIOS</td></tr>
+								<tr><td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td></tr>
+								<tr><td onclick="selectTd($(this))">BALENCIAGA</td></tr>
+								<tr><td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td></tr>
+								<tr><td onclick="selectTd($(this))">COMME DES GARCONS</td></tr>
+								<tr><td onclick="selectTd($(this))">BOTTEGA VENETA</td></tr>
+								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
+
+							</table>
+						</div>
+
+<%--					<div class="d-flex justify-content-between left-body-menu"  ng-click="st2 = st2==true ? false : true">--%>
+<%--						<p style="margin: 8px 50px 5px 0;">조회 날짜</p>--%>
+<%--						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st2"></i>--%>
+<%--						<i style="margin: 8px;" class="xi-angle-up" ng-show="st2"></i>--%>
+<%--					</div>--%>
+<%--					<div style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st2">--%>
+
+<%--						<div class="row input-group" style="width:250px;margin:5px;"> 시작일--%>
+<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
+<%--							<span class="input-group-append" >--%>
+<%--								<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>--%>
+<%--							</span>--%>
+<%--						</div>--%>
+
+<%--						<div class="row input-group" style="width:250px;margin:5px;"> 종료일--%>
+<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
+<%--							<span class="input-group-append" >--%>
+<%--								<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>--%>
+<%--							</span>--%>
+<%--						</div>--%>
+<%--					</div>--%>
+
+						<div  class="d-flex justify-content-between left-body-menu">
+							<p style="margin: 8px 0 5px 0">성별</p>
+							<select class="form-control" style="width: 180px;">
+								<option>전체</option>
+								<option>남성</option>
+								<option>여성</option>
+							</select>
+						</div>
+
+						<div  class="d-flex justify-content-between left-body-menu" ng-click="st3 = st3==true ? false : true">
+
+							<p style="margin: 8px 50px 5px 0;">상품분류</p>
+							<i style="margin: 8px;" class="xi-angle-down" ng-show="!st5"></i>
+							<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
+						</div>
+						<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
+							<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
+
+								<tr style="margin:10px;">
+									<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">아우터</td>
+									<td onclick="selectTd($(this))" style="width:33.3%;">상의</td>
+									<td onclick="selectTd($(this))" style="width:33.3%;">하의</td>
+								</tr>
+								<tr style="margin:10px;">
+									<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">슈즈</td>
+									<td onclick="selectTd($(this))" style="width:33.3%;">가방</td>
+									<td onclick="selectTd($(this))" style="width:33.3%;">지갑</td>
+								</tr>
+							</table>
+						</div>
+
+
+						<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:3px solid gray;background:whitesmoke;margin-top:100px;">
+							<p style="margin: 8px 50px 5px 0;">재고현황</p>
+						</div>
+
+						<div class="form-group">
+							<table style="width:100%;text-align: center;height: 50px;">
+
+								<tr style="margin:10px;">
+									<td style="width:33.3%;padding:5px;">입고</td>
+									<td style="width:33.3%;">출고</td>
+									<td style="width:33.3%;">재고</td>
+								</tr>
+								<tr style="margin:10px;">
+									<td style="width:33.3%;padding:15px;">15</td>
+									<td style="width:33.3%;border-left: 1px solid lightgray;border-right: 1px solid lightgray;">3</td>
+									<td style="width:33.3%;">3809</td>
+								</tr>
+							</table>
+						</div>
+
 					</div>
-
-
-					<br>
-					<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:1px solid gray;" ng-click="st4 = st4==true ? false : true">
-						<p style="margin: 8px 50px 5px 0;">성별</p>
-						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st4"></i>
-						<i style="margin: 8px;" class="xi-angle-up" ng-show="st4"></i>
-					</div>
-					<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st4">
-
-						<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
-
-							<tr style="margin:10px;">
-								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">전체</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">남성</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">여성</td>
-							</tr>
-						</table>
-					</div>
-
-
-
-					<br>
-					<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:1px solid gray;" ng-click="st5 = st5==true ? false : true">
-
-						<p style="margin: 8px 50px 5px 0;">상품분류</p>
-						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st5"></i>
-						<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
-					</div>
-					<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st5">
-						<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
-
-							<tr style="margin:10px;">
-								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">아우터</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">상의</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">하의</td>
-							</tr>
-							<tr style="margin:10px;">
-								<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">슈즈</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">가방</td>
-								<td onclick="selectTd($(this))" style="width:33.3%;">지갑</td>
-							</tr>
-						</table>
-					</div>
-
-
-					<br><br>
-					<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:3px solid gray;background: whitesmoke;">
-
-						<p style="margin: 8px 50px 5px 0;">재고현황</p>
-
-					</div>
-					<div class="form-group">
-						<table style="width:100%;text-align: center;height: 50px;">
-
-							<tr style="margin:10px;">
-								<td style="width:33.3%;padding:5px;">입고</td>
-								<td style="width:33.3%;">출고</td>
-								<td style="width:33.3%;">재고</td>
-							</tr>
-							<tr style="margin:10px;">
-								<td style="width:33.3%;padding:15px;">15</td>
-								<td style="width:33.3%;border-left: 1px solid lightgray;border-right: 1px solid gray;">3</td>
-								<td style="width:33.3%;">3809</td>
-							</tr>
-						</table>
-					</div>
-
 				</div>
 
 				<!--right body-->
@@ -347,28 +315,49 @@
 					<!--현재 메뉴명 : 메인페이지에서 숨김-->
 					<div class="container-fluid d-flex justify-content-center" style="padding:0!important;" ng-show="!mainPage">
 						<div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">
-							<h4><a class="menuName" href="" ng-click="reload()">매장재고현황</a></h4>
-							<h6 style="color:gray;">재고현황조회</h6>
+							<h4><a class="menuName" href="" ng-click="reload()">{{currentMenu.PGM_NM}}</a></h4>
+<%--							<h6 style="color:gray;">재고현황조회</h6>--%>
 						</div>
 						<ol class="breadcrumb justify-content-end" style="bottom:0;margin:0;padding:10px 0 0 0;width:70%;background-color:transparent;border-bottom:1px solid lightgray;">
-							<li><a href="#">재고현황</a></li> &nbsp;>&nbsp;
-							<li><a href="#">재고현황조회</a></li>
+							<li><a href="">{{currentMenu | menuGroup}}</a></li> &nbsp;>&nbsp;
+							<li><a href="" >{{currentMenu.PGM_NM}}</a></li>
 						</ol>
 					</div>
 
 					<!--상단 검색 보드-->
-					<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 5%;">
+					<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 3%;">
 
 						<div style="font-size:20px;margin: 5px;">Quick Search</div>
-						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">
-							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">
+<%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
+
+						<!-- 검색 추가열 -->
+<%--						{{currentMenu}}--%>
+						<div class="d-flex" style="width: 100%;" ng-if="addQuick1">
+
+							<p style="margin:12px 10px;">일자검색</p>
+							<div class="row input-group" style="width:200px;margin:5px;">
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<span class="input-group-append" >
+									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
+								</span>
+							</div>
+							<p style="margin:12px 10px;">~</p>
+							<div class="row input-group" style="width:200px;margin:5px;">
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<span class="input-group-append" >
+									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>
+								</span>
+							</div>
+						</div>
+
+						<!-- 검색 공통 -->
+						<div class="d-flex" style="width: 100%;">
+							<select class="form-control" style="width:200px;margin: 10px;height: 40px;">
 								<option>매장</option>
 							</select>
-<%--							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">--%>
-<%--								<option>브랜드</option>--%>
-<%--							</select>--%>
 
-							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 45px;"  placeholder="브랜드" ng-click="qs1 = qs1==true ? false : true" readonly>
+
+							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-click="qs1 = qs1==true ? false : true" readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
@@ -397,18 +386,18 @@
 							</div>
 
 
-							<select class="form-control" style="width:150px;margin: 10px;height: 45px;">
+							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
 								<option>성별</option>
 							</select>
-							<select class="form-control" style="width:150px;margin: 10px;height: 45px;">
+							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
 								<option>사이즈</option>
 							</select>
-							<select class="form-control" style="width:200px;margin: 10px;height: 45px;">
+							<select class="form-control" style="width:200px;margin: 10px;height: 40px;">
 								<option>상품분류</option>
 							</select>
 							<button class="btn btn-outline-secondary" style="width:70px;margin:10px 30px;">검색</button>
 							<div class="d-flex" style="width:230px;margin: 10px;">
-								<input type="text" class="form-control" style="height: 45px;border:0;border-bottom: 1px solid gray;">
+								<input type="text" class="form-control" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 								<button class="btn" style="position:relative;left:-40px;background: transparent;">
 									<i class="xi-search" style="font-size: 20px;"></i>
 								</button>
@@ -418,7 +407,7 @@
 
 
 					<!--contents-->
-					<div ng-view ng-show="authenticated"></div>
+					<div ng-view ng-show="authenticated" style="width:100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -426,7 +415,7 @@
 
 
 
-			<!--login 페이지-->
+		<!--login 페이지-->
 		<div ng-view ng-show="!authenticated" ></div>
 
 		<!-- 등록 페이지 -->
@@ -436,7 +425,7 @@
 
 
 		<!--footer-->
-		<div class="footer d-flex justify-content-center" ng-if="authenticated" style="width:100%;padding: 15px;">
+		<div class=" d-flex justify-content-center" ng-if="authenticated" style="width:100%;padding: 15px;">
 			<div style="padding: 5px 70px 0 0;">
 				<img src="/resources/img/ci/top-logo.png" style="width:140px;height:35px;">
 			</div>

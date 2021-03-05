@@ -443,19 +443,7 @@ input:checked + .slider:before {
 
 
 
-.custom-select{
-	width:140px;
-	min-width:100px;
-}
-.assetReg .custom-select{
-	width:180px;
-}
 
-
-
-.total-text{
-	color: gray;
-}
 
 .search-box{
 	margin-top: 8px;
@@ -522,12 +510,11 @@ input:checked + .slider:before {
 }
 
 .body-custom{
-
 	position: relative;
-	border-radius: 3px;
 	background: #ffffff;
-	border-top: 2px solid #d2d6de;
 	margin-top: 15px;
+	border-top: 2px solid #d2d6de;
+	border-radius: 3px;
 	box-shadow: 0 1px 1px lightgray;
 }
 
@@ -617,16 +604,7 @@ input:checked + .slider:before {
 /*		padding:5px;*/
 /*	}*/
 
-/*	.footer img{*/
-/*		width: 80px!important;*/
-/*		height: 25px!important;*/
-/*	}*/
-/*	.footer-text span{*/
-/*		font-size: 9px!important;*/
-/*	}*/
-/*	.footer-text h6{*/
-/*		font-size: 9px!important;*/
-/*	}*/
+
 
 /*	.custom-select{*/
 /*		width: 110px!important;*/
@@ -656,9 +634,6 @@ input:checked + .slider:before {
 /*}*/
 
 
-.btnBox .custom-select{
-	min-width: 130px;
-}
 
 .table-box{
 	overflow:auto;
@@ -824,9 +799,6 @@ a.nav-link{
 	/*font-weight: bold;*/
 	font-size: large;
 }
-.dropdown :hover .dropdown-content {
-	display: block;
-}
 
 @-webkit-keyframes main_dropdown {
 	0% {
@@ -846,6 +818,9 @@ a.nav-link{
 	}
 }
 
+.dropdown :hover .dropdown-content {
+	display: block;
+}
 
 .dropdown-content{
 	z-index: 3;
@@ -893,11 +868,6 @@ a.nav-link{
 	/* 애니메이션 */
 	animation-name: fadeIn;
 	animation-duration:0.5s;
-
-}
-.dropdown-content a:hover{
-	background-color: lightgray;
-	color: white;
 }
 
 
@@ -915,6 +885,23 @@ a.nav-link{
 	color:#1a99e6;
 }
 
+
+.left-body{
+	border-top: 2px solid #d2d6de;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px lightgray;
+	min-height: 650px;
+	background: white;
+	padding: 10px;
+
+}
+.left-body-menu{
+	height:65px;
+	padding:10px;
+	border-bottom:1px solid gray;
+	margin-top:20px;
+}
+
 /* paging */
 .active-page {
 	font-weight: bolder;
@@ -926,5 +913,12 @@ a.nav-link{
 	height: 30px;
 	margin: 5px 3px;
 }
+
+.table-top-btn{
+	height:38px;
+	margin:1px 3px;
+	padding:5px 10px!important;
+}
+
 
 

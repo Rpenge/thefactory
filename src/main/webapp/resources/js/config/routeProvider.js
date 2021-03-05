@@ -1,33 +1,52 @@
 app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide) {
 	$routeProvider
-		// home
+
 		.when('/main/home', {templateUrl: '/main/home', controller: 'homeController', resolve: { auth: onlyLoggedIn , layout: pageCheck }})
 
 		.when('/member/login', {templateUrl: '/member/login', controller: 'loginController'})
-		.when('/member/userList', {templateUrl: '/member/userList', controller: 'userListController', resolve: { auth: onlyLoggedIn }})
-		.when('/member/userReg', {templateUrl: '/member/userReg', controller: 'userRegController'})
-		.when('/member/userInfoMod', {templateUrl: '/member/userInfoMod', controller: 'userInfoModController', resolve: { auth: onlyLoggedIn }})
 
-		.when('/assetManagement/assetRepair', {templateUrl:'/assetManagement/assetRepair', controller:'assetRepairController', resolve:{ auth: onlyLoggedIn }})
+		.when('/system/user', {templateUrl:'/system/user', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+		.when('/base/comm', {templateUrl:'/base/comm', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/brand', {templateUrl:'/base/brand', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/product', {templateUrl:'/base/product', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/device', {templateUrl:'/base/device', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+		.when('/inout/input', {templateUrl:'/inout/input', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inout/output', {templateUrl:'/inout/output', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inout/sales', {templateUrl:'/inout/sales', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inout/ioInfo', {templateUrl:'/inout/ioInfo', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+		.when('/inven/inv', {templateUrl:'/inven/inv', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inven/invInfo', {templateUrl:'/inven/invInfo', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+
+
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.when('/sample/codeList', {templateUrl:'/sample/codeList', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		// .when('/member/userList', {templateUrl: '/member/userList', controller: 'userListController', resolve: { auth: onlyLoggedIn }})
+		// .when('/member/userReg', {templateUrl: '/member/userReg', controller: 'userRegController'})
+		// .when('/member/userInfoMod', {templateUrl: '/member/userInfoMod', controller: 'userInfoModController', resolve: { auth: onlyLoggedIn }})
 
-		.when('/assetManagement/assetPrintList', {templateUrl:'/assetManagement/assetPrintList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
-		.when('/assetManagement/assetStatusChange', {templateUrl:'/assetManagement/assetStatusChange', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
-		.when('/assetManagement/assetDisList', {templateUrl:'/assetManagement/assetDisList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/assetManagement/assetRepair', {templateUrl:'/assetManagement/assetRepair', controller:'assetRepairController', resolve:{ auth: onlyLoggedIn }})
 
-		.when('/assetManagement/assetChange', {templateUrl:'/assetManagement/assetChange', controller:'assetChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/assetManagement/assetPrintList', {templateUrl:'/assetManagement/assetPrintList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/assetManagement/assetStatusChange', {templateUrl:'/assetManagement/assetStatusChange', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/assetManagement/assetDisList', {templateUrl:'/assetManagement/assetDisList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn }})
 
-		.when('/RFID/rfidChange', {templateUrl:'/RFID/rfidChange', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
-		.when('/RFID/rfidMoveList', {templateUrl:'/RFID/rfidMoveList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
-		.when('/RFID/rfidRegList', {templateUrl:'/RFID/rfidRegList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
-		.when('/RFID/rfidWiList', {templateUrl:'/RFID/rfidWiList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
-		.when('/RFID/rfidFailList', {templateUrl:'/RFID/rfidFailList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
-		.when('/RFID/rfidDisList', {templateUrl:'/RFID/rfidDisList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/assetManagement/assetChange', {templateUrl:'/assetManagement/assetChange', controller:'assetChangeController', resolve:{ auth: onlyLoggedIn }})
 
-		.when('/setting/commonCode', {templateUrl:'/setting/commonCode', controller:'commonCodeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidChange', {templateUrl:'/RFID/rfidChange', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidMoveList', {templateUrl:'/RFID/rfidMoveList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidRegList', {templateUrl:'/RFID/rfidRegList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidWiList', {templateUrl:'/RFID/rfidWiList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidFailList', {templateUrl:'/RFID/rfidFailList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
+		// .when('/RFID/rfidDisList', {templateUrl:'/RFID/rfidDisList', controller:'rfidChangeController', resolve:{ auth: onlyLoggedIn }})
 
-		.when('/assetManagement/modal/assetRegist', {templateUrl:'/assetManagement/modal/assetRegist', controller:'assetMgController_reg', resolve:{ auth: onlyLoggedIn }})
+		// .when('/setting/commonCode', {templateUrl:'/setting/commonCode', controller:'commonCodeController', resolve:{ auth: onlyLoggedIn }})
+
+		// .when('/assetManagement/modal/assetRegist', {templateUrl:'/assetManagement/modal/assetRegist', controller:'assetMgController_reg', resolve:{ auth: onlyLoggedIn }})
 		.otherwise({redirectTo: '/', templateUrl: '/member/login', controller: 'loginController' });
 
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -67,18 +86,28 @@ var onlyLoggedIn = function ($q, $rootScope, $http, $location) {
 
 //레이아웃 구성
 var pageCheck = function ($rootScope, $location) {
+	//메인
 	if($location.url() == '/main/home'){
 		$rootScope.mainPage = true;
 	}else{
 		$rootScope.mainPage = false;
 	}
 
-	if($location.url() == '/sample/codeList'){
+	//등록페이지
+	var regPage = ['/base/comm', '/base/brand','/system/user','/base/device'];
+	if(regPage.includes($location.url())){
 		$rootScope.regPage = true;
 	}else{
 		$rootScope.regPage = false;
 	}
 
+	//퀵 서치 추가
+	var addQuick1 = ['/base/product','/inout/input','/inout/ioInfo'];
+	if(addQuick1.includes($location.url())){
+		$rootScope.addQuick1 = true;
+	}else{
+		$rootScope.addQuick1 = false;
+	}
 
 };
 

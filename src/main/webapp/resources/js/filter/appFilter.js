@@ -116,4 +116,17 @@ app.filter('code', function() {
     };
 });
 
+//상태코드에 따른 값
+app.filter('menuGroup', function() {
+    return function(data) {
+        switch (data.GROUP_CD){
+            case 'SYSTEM': return '시스템관리';
+            case 'BASE': return '기초정보관리';
+            case 'INOUT': return '입출고관리';
+            case 'INVEN': return '재고실사';
+            case 'STOCK': return '재고현황';
+        }
+    };
+});
+
 

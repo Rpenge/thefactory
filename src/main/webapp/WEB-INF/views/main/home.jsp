@@ -80,7 +80,7 @@
 					<p style="font-size: 25px;color: whitesmoke;position:absolute;left:10px;top:10px;">상품</p>
 				</div>
 
-				<div style="background: white;width:130px;border:1px solid gray;cursor:pointer;overflow: hidden;border-radius: 5px;position:relative;" ng-click="modalOpen('proReg')">
+				<div style="background: white;width:130px;border:1px solid gray;cursor:pointer;overflow: hidden;border-radius: 5px;position:relative;" ng-click="modalOpen('userReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
 					<img src="/resources/img/2.jpg" style="height:100%;" draggable="false">
 					<p style="font-size: 25px;color: whitesmoke;position:absolute;left:10px;top:10px;">입고</p>
