@@ -831,7 +831,7 @@ a.nav-link{
 	height:200px;
 	background-color: white;
 	width: 100%;
-	padding: 5px 5px 5px 330px;
+	padding: 5px 5px 5px 315px;
 	box-shadow: 0px 8px 9px 0px rgba(0, 0, 0, 0.2);
 	border-top: 1px solid lightgray;
 	/* 애니메이션 */
@@ -840,12 +840,12 @@ a.nav-link{
 }
 
 .dropdown-board {
-	width: 160px;
-	text-align:center;
+	width: 180px;
+	text-align:left;
 	float: left;
 	height: 190px;
 	display:inline-block;
-	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
+	/*box-shadow: -1px 0px 1px  rgba(0,0,0,0.1);*/
 	padding: 3px;
 	margin: 0 3px;
 	/* 애니메이션 */
@@ -855,14 +855,14 @@ a.nav-link{
 
 .dropdown-board span{
 	display: block;
-	border-bottom: 1px solid lightgray;
-	padding: 0 10px 6px 10px;
+	/*border-bottom: 1px solid lightgray;*/
+	padding: 0 8px 6px 3px;
 	font-weight: bold;
 	color: gray;
 }
 .dropdown-content a {
 	color: gray;
-	padding: 1px 8px;
+	padding: 1px 3px;
 	text-decoration: none;
 	display:block;
 	/* 애니메이션 */
@@ -921,4 +921,16 @@ a.nav-link{
 }
 
 
+.active-btn{
+	background: gray;
+	color: white;
+}
 
+.top-rad-btn{
+	border:1px solid lightgray;
+	margin-top:15px;
+	padding-top:6px!important;
+	margin-right:5px;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 0;
+}

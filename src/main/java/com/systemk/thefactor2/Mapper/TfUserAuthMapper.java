@@ -1,4 +1,4 @@
-package com.systemk.thefactor2.mapper;
+package com.systemk.thefactor2.Mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

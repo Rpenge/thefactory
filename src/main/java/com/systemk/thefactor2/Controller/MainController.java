@@ -23,6 +23,11 @@ public class MainController {
         return "main/home";
     }
 
+    @RequestMapping("/modal/alert")
+    public String modalAlert(Model model) {
+        return "modal/alert";
+    }
+
 
     @RequestMapping("/base/comm")
     public String comm(Model model) {

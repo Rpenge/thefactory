@@ -8,7 +8,13 @@ app.run(function($rootScope, $http, $route, $window){
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
 
+	//현재페이지 정보
+	pageInfo($rootScope, $location);
+	// $window.scrollTo(0,0);
+
 	$http.get('/member/reUserAuth').success(function(data) {
+		$rootScope.commCode = data.commCode;
+		code();
 		if (data.userId) {
 			sessionStorage.setItem('id', data.userId);
 			$rootScope.topMenu = data.auth;
@@ -16,6 +22,22 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 			$location.url("/");
 		}
 	});
+
+	//공통코드
+	$rootScope.grade = []; // 권한목록
+	$rootScope.store = []; // 매장목록
+	function code() {
+		for (value of $rootScope.commCode) {
+			var bcd = value.commCd.substr(0, 2);
+			var mcd = value.commCd.substr(2, 2);
+			var scd = value.commCd.substr(4, 2);
+			if (bcd == '01' && mcd == '01' && scd != '00') { // 사용자 권한
+				$rootScope.grade.push(value);
+			} else if (bcd == '01' && mcd == '02' && scd != '00') { // 매장
+				$rootScope.store.push(value);
+			}
+		}
+	}
 
 	$scope.logout = function() {
 		$http({
@@ -73,11 +95,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		$location.url(data.PGM_URL);
 	}
 
-	// //페이지 이동
-	// $scope.goPage = function(data){
-	// 	$location.url(data.url);
-	// }
-
 	$scope.content = {'width':'100%'};
 	//사이드 메뉴 토글
 	$scope.menuToggle = function(){
@@ -91,3 +108,17 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 
 }]);
+
+
+app.controller('modalController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$uibModalInstance',
+	function ($scope, $http, $location, $routeParams, $rootScope, $uibModalInstance) {
+		$scope.title = $ctrl.title;
+		$scope.body = $ctrl.body;
+		$scope.ok = function() {
+			$uibModalInstance.close();
+		};
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss();
+		};
+	}
+]);

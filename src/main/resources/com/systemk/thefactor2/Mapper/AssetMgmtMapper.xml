@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--<mapper namespace="com.systemk.thefactor2.mapper.AssetMgmtMapper">-->
+<!--<mapper namespace="com.systemk.thefactor2.Mapper.AssetMgmtMapper">-->
 <!--    <select id="assetMgmtList" resultType="AssetMgmtVO">-->
 <!--        SELECT-->
 <!--            asset_management_seq-->
@@ -30,7 +30,7 @@
 <!--    </select>-->
 <!--</mapper>-->
 
-<mapper namespace="com.systemk.thefactor2.mapper.AssetMgmtMapper">
+<mapper namespace="com.systemk.thefactor2.Mapper.AssetMgmtMapper">
     <select id="assetMgmtList" resultType="AssetMgmtVO" parameterType="java.util.HashMap">
         select
             asset_management_seq

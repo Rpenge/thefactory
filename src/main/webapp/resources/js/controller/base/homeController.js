@@ -2,6 +2,9 @@
 app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$rootScope', '$timeout', '$window','$uibModal',
 	function ($scope, $http, $location,$rootScope, $interval, $rootScope, $timeout, $window, $uibModal) {
 
+		//현재페이지 정보
+		pageInfo($rootScope, $location);
+
 
 		//그래프
 		var ctx = document.getElementById('myChart').getContext('2d');

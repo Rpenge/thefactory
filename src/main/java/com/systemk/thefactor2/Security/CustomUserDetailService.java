@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.systemk.thefactor2.VO.TfUserVO;
-import com.systemk.thefactor2.mapper.TfUserMapper;
+import com.systemk.thefactor2.Mapper.TfUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;

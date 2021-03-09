@@ -106,27 +106,27 @@
 				<div class="dropdown-content" ng-style="dropDown">
 					<div  class="dropdown-board" >
 						<span>시스템 관리</span>
-						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'SYSTEM'">{{value.PGM_NM}}</a>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'SYSTEM'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board" >
 						<span>기초정보 관리</span>
-						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'BASE'">{{value.PGM_NM}}</a>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'BASE'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board" >
 						<span>입출고 관리</span>
-						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INOUT'">{{value.PGM_NM}}</a>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INOUT'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board" >
 						<span>재고실사</span>
-						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INVEN'">{{value.PGM_NM}}</a>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INVEN'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board">
 						<span>재고현황</span>
-						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'STOCK'">{{value.PGM_NM}}</a>
+						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'STOCK'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 				</div>
 			</div>
@@ -407,20 +407,21 @@
 
 
 					<!--contents-->
-					<div ng-view ng-show="authenticated" style="width:100%;"></div>
+					<div ng-view ng-show="authenticated && !regPage" ng-if="authenticated && !regPage" style="width:100%;"></div>
 				</div>
 			</div>
 		</div>
 
 
 
-
 		<!--login 페이지-->
-		<div ng-view ng-show="!authenticated" ></div>
-
+		<div ng-if="!authenticated">
+			<div ng-view ng-show="!authenticated" ></div>
+		</div>
 		<!-- 등록 페이지 -->
-		<div ng-view ng-show="authenticated && regPage" style="background-color:whitesmoke;width:100%;padding: 15px;"></div>
-
+		<div ng-if="authenticated && regPage">
+			<div ng-view ng-show="authenticated && regPage"  style="background-color:whitesmoke;width:100%;padding: 15px;"></div>
+		</div>
 
 
 
@@ -431,7 +432,7 @@
 			</div>
 			<div class="footer-text">
 				<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span>
-				<span>대표 :이예림사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span>
+				<span>대표 :이예림 사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span>
 				<span>대표번호 :02-6407-7879팩스번호 :메일 :thefactor2@naver.com</span>
 				<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span>
 			</div>
@@ -448,13 +449,4 @@
 		td.css('background', 'gray');
 		td.css('color', 'white');
 	}
-	// $('.td').click(function(){
-	// 	console.log($(this).text());
-	// 	var table = $(this).parent().parent();
-	// 	table.children().children().css('background', 'white');
-	// 	table.children().children().css('color', 'black');
-	//
-	// 	$(this).css('background', 'gray');
-	// 	$(this).css('color', 'white');
-	// });
 </script>

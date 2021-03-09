@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.systemk.thefactor2.Util.MybatisUtil;
 import com.systemk.thefactor2.Util.StringUtil;
-import com.systemk.thefactor2.mapper.AssetMgmtMapper;
-import com.systemk.thefactor2.mapper.PageMapper;
+import com.systemk.thefactor2.Mapper.AssetMgmtMapper;
+import com.systemk.thefactor2.Mapper.PageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class AssetManagementServiceImpl implements AssetManagementService{
 		int count = mapper.pageRecord(mu.getTableSearch());
 		mu.pager(search); // 수량, 페이지 설정
 		mu.setTotalElements(count);
-		mu.setSort(search.get("sort"));
+//		mu.setSort(search.get("sort"));
 		mu.setContent(AMMapper.assetMgmtList(mu.getTableSearch()));
 
 		return mu.getList();

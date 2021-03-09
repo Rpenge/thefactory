@@ -15,14 +15,29 @@ public class MybatisUtil {
 
     private HashMap tableSearch;
     private List search;
-    private List sort;
+//    private List sort;
+
+    private List content; // 조회 리스트
+    private int page;  //number
+    private int totalElements;  //totalElements
+    private int totalPages; //totalPages
+    private int start; // 조회 시작 번호
+    private int size;
 
     public MybatisUtil() {
         this.tableSearch = new HashMap();
         this.search = new ArrayList();
-        this.sort = new ArrayList();
+//        this.sort = new ArrayList();
+
+        this.page = 0;
+        this.size = 10;
+        this.start = 0;
+
         this.tableSearch.put("list", search);
-        this.tableSearch.put("sort", sort);
+//        this.tableSearch.put("sort", sort);
+        this.tableSearch.put("start", start);
+        this.tableSearch.put("size", size);
+
     }
 
     public void setTable(String tableName){
@@ -30,17 +45,22 @@ public class MybatisUtil {
     }
 
     public void addEqual(String column, String findStr){
-        String str = column + " = '"+ findStr+"'";
+        String str = "AND " + column + " = '"+ findStr+"'";
         search.add(str);
     }
 
     public void addLike(String column, String findStr){
-        String str = column + " like '%"+ findStr+"%'";
+        String str = "AND " +column + " like '%"+ findStr+"%'";
+        search.add(str);
+    }
+
+    public void addORLike(String column, String findStr){
+        String str = "OR " +column + " like '%"+ findStr+"%'";
         search.add(str);
     }
 
     public void addBetween(String column, String start, String end){
-        String str = column + " between " + start + " and " + end;
+        String str = "AND " +column + " between " + start + " and " + end;
         search.add(str);
     }
 
@@ -48,38 +68,32 @@ public class MybatisUtil {
         return tableSearch;
     }
 
-    public void setLimit(int start, int end){
-        this.tableSearch.put("start", start);
-        this.tableSearch.put("end", end);
+    public void setSort(String sort, String direct){
+        this.tableSearch.put("sort", sort);
+        this.tableSearch.put("direct", direct);
     }
 
-    public void setSort(String sortName){
-        if(sortName == null){
-            return;
-        }
-        String[] sortSep = sortName.split(",");
-        String str = StringUtil.camelToSnake(sortSep[0]) + " " + sortSep[1];
-        this.sort.add(str);
-    }
-
-    private List content; // 조회 리스트
-    private int page;  //number
-    private int totalElements;  //totalElements
-    private int totalPages; //totalPages
-    private int startNumber; // 조회 시작 번호
-    private int size;
-
-    public void pager(){ //default
-        this.page = 0;
-        this.size = 10;
-        this.startNumber = 0;
-    }
 
     public void pager(Map<String, String> search){ //map에서 해당 데이터 찾아서 적용
         this.page = search.get("page") == null ? 0 : Integer.parseInt(search.get("page"));  //
         this.size = search.get("size") == null ? 10 : Integer.parseInt(search.get("size"));
-        this.startNumber = size * page;
-        setLimit(startNumber , size);
+        this.start = size * page;
+//        setLimit.start , size);
+    }
+
+    public void setSize(int size){
+        this.size = size;
+        this.start = size * this.page;
+        this.tableSearch.put("start", start);
+        this.tableSearch.put("size", size);
+        this.totalPages =  (int)Math.ceil((double) totalElements / size);
+    }
+
+    public void setPage(int page){
+        this.page = page;
+        this.start = this.size * page;
+        this.tableSearch.put("start", start);
+        this.tableSearch.put("size", size);
     }
 
     public void setTotalElements(int totalElements) {
@@ -93,6 +107,7 @@ public class MybatisUtil {
         result.put("totalElements", this.totalElements);
         result.put("totalPages", this.totalPages);
         result.put("number", this.page);
+        result.put("size", this.size);
         return result;
     }
 }

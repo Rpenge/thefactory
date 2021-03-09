@@ -105,14 +105,12 @@ app.filter('StatusChange', function() {
 });
 
 app.filter('code', function() {
-    return function(code, data, def) {
-    	if(data[code] != null){
-    		return data[code].codeName;
-    	}else if(def){
-    		return def;
-    	}else{
-    		return "empty";
-    	}
+    return function(code, data) {
+    	for(value of data){
+    	    if(value.commCd == code){
+    	        return value.commCdNm;
+            }
+        }
     };
 });
 

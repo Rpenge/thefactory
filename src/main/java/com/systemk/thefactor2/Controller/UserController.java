@@ -8,7 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import com.systemk.thefactor2.Security.LoginUser;
 
-import com.systemk.thefactor2.mapper.TfUserAuthMapper;
+import com.systemk.thefactor2.Service.CommService;
+import com.systemk.thefactor2.Mapper.TfUserAuthMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,42 +33,44 @@ public class UserController {
 	@Autowired
 	private TfUserAuthMapper tfUserAuthMapper;
 
+	@Autowired
+	private CommService commService;
+
 	@RequestMapping("/userAuth")
-	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) {
+	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
-		HashMap sessionMap = new HashMap<>();
+		HashMap resultMap = new HashMap<>();
 
 		if(user != null) {
-			session.setAttribute("userId", user.getName());
+			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("role", user.getRole());
-			sessionMap.put("userId", user.getName());
-			sessionMap.put("role", user.getRole());
+			resultMap.put("userId", user.getUserId());
+			resultMap.put("role", user.getRole());
 
+			List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
+			resultMap.put("auth", AuthList);
 
-			List<HashMap> AuthList = tfUserAuthMapper.authSearch(sessionMap);
-			sessionMap.put("auth", AuthList);
 
 		}
 
-	    return sessionMap;
+	    return resultMap;
 	}
 
 	//새로고침 : 메뉴 + 권한 다시 조회
 	@RequestMapping("/reUserAuth")
-	public Map user(HttpServletRequest request) {
+	public Map user(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		HashMap sessionMap = new HashMap<>();
+		HashMap resultMap = new HashMap<>();
 
-		sessionMap.put("userId", session.getAttribute("userId"));
-		sessionMap.put("role", session.getAttribute("role"));
+		resultMap.put("userId", session.getAttribute("userId"));
+		resultMap.put("role", session.getAttribute("role"));
 
-		List<HashMap> AuthList = tfUserAuthMapper.authSearch(sessionMap);
-		sessionMap.put("auth", AuthList);
+		List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
+		resultMap.put("auth", AuthList);
 
+		resultMap.put("commCode", commService.findList());
 
-		//유저 권한과 메뉴들을 프론트로 보낸다. usr_auth의 pgm cd와 pgm의 pgm cd를 조인
-
-		return sessionMap;
+		return resultMap;
 	}
 
 

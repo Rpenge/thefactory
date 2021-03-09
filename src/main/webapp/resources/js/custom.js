@@ -1,33 +1,11 @@
 function userLoginCheck($http, $rootScope,$window, $location, credentials, callback){
-	// var headers = credentials ? {authorization : "Basic "
-	// 	+ btoa(credentials.userId + ":" + credentials.password)
-	// } : {};
-	//
-	// $http.get('/member/userAuth', {headers : headers}).success(function(data) {
-	// 	if (data.name) {
-	// 		$rootScope.authenticated = true;
-	// 	    $rootScope.user = data;
-	// 	    callback && callback();
-	// 	} else {
-	// 	    $rootScope.authenticated = false;
-	// 	    $location.url("/");
-	// 	}
-	// 	}).error(function() {
-	// 	    $rootScope.authenticated = false;
-	// 	});
 
-	// sessionStorage.setItem("aa","aa");
-	// console.log("session : ",sessionStorage);
-	// var uid = '<%=(String)session.getAttribute("userId")%>';
-	// console.log("session : ",uid);
 	if(sessionStorage.getItem("id")){
 		$rootScope.authenticated = true;
 	}else{
 		$location.url("/");
 	}
-
 	$rootScope.currentMenu = {};
-
 }
 
 //현재페이지 정보 저장
@@ -117,7 +95,6 @@ function generateParam(obj){
 		}else if(i=='sortOrder' || i=='option'){
 			continue;
 		}
-
 		if(current[i] !='' && current[i] != undefined){
 			addPath += i + '=' + current[i] + '&';
 		}
@@ -193,32 +170,27 @@ function setSearch(search){
  * @param search
  * @returns
  */
-function httpGetList(url, param, scope, http, init){
+function httpGetList(http, scope, url, param ){
+	if(!param){
+		param = '';
+	}
 	http.get(url + param).success(
 		function(data) {
 			scope.list = angular.fromJson(data).content;
-			scope.current = angular.fromJson(data).number + 1;  // 1
-			scope.total = angular.fromJson(data).totalElements;  // 29
-			scope.begin = parseInt(scope.current/10) * 10 + 1  // 1 or -4  : 1  1~10, 11~20
-			scope.end = Math.min(scope.begin + 9, angular.fromJson(data).totalPages);
-			var size = 10;
-			if(scope.search.size){
-				size = scope.search.size;
-			}
+			scope.paging = {};
+			scope.paging.current = angular.fromJson(data).number + 1;  // 1
+			scope.paging.total = angular.fromJson(data).totalElements;  // 29
+			scope.paging.begin = parseInt((scope.paging.current-1)/10) * 10 + 1  // 1 or -4  : 1  1~10, 11~20
+			scope.paging.end = Math.min(scope.paging.begin + 9, angular.fromJson(data).totalPages);
 
-			//5개씩
-			// scope.prev = parseInt((scope.current -1) / 5) * 5;
-			// scope.next = scope.prev + 6 ;
-			// scope.last = parseInt((scope.total/size)+1);
 
 			//10개씩
-			scope.prev = parseInt((scope.current -1) / 10) * 10;
-			scope.next = scope.prev + 11 ;
-			scope.last = parseInt((scope.total/size)+1);
-
-			if(init){
-				scope.ajaxFinish = true;
-			}
+			scope.paging.prev = parseInt((scope.paging.current -1) / 10) * 10;
+			scope.paging.next = scope.paging.prev + 11 ;
+			scope.paging.last = parseInt((scope.paging.total/scope.search.size)+1);
+			// if(init){
+			// 	scope.ajaxFinish = true;
+			// }
 		}
 	);
 }
@@ -405,12 +377,12 @@ function sc_chk(str, start, end){
 }
 
 //모달 알림창
-function modalAlert($uibModal, title, body){
+function modalAlert(uibModal, title, body){
 	$ctrl = {};
 	$ctrl.title = title;
 	$ctrl.body = body;
 
-	var modalInstance = $uibModal.open({
+	var modalInstance = uibModal.open({
 		templateUrl: "modal/alert",
 		controller: "modalController",
 		controllerAs: '$ctrl'

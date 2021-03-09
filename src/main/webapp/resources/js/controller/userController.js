@@ -1,33 +1,11 @@
 app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
 	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
 
-	// $cookieStore.put("uesrId","aa");
-	//
-	// console.log($cookieStore.get("uesrId"));
-	// // console.log($cookieStore);
-	// $cookieStore.remove("uesrId");
-	//
-	// if($cookieStore.get("uesrId")){
-	//
-	// }
-
-
 	$scope.credentials ={};
 	if($cookieStore.get("idSave")){
 		$scope.idSaveCheck = true;
 		$scope.credentials.userId = $cookieStore.get("uesrId");
 	}
-
-	// $scope.idSave = function(){
-	// 	if($scope.idSaveCheck) {
-	// 		$cookieStore.put("idSave", true);
-	// 	}else{
-	// 		$cookieStore.remove("idSave");
-	// 	}
-	// }
-
-
-
 
 	var authenticate = function(credentials, callback) {
 
@@ -95,44 +73,100 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 }]);
 
 //회원 리스트
-app.controller('userListController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
+app.controller('userController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
-	$scope.search ={};
-	var param = generateParam($scope.search);
-	httpGetList("/member", param, $scope, $http, true);
 
-	$scope.userInfoMod = function (userId){
-		$ctrl = {}
-		for(key in $scope.list){
-			if($scope.list[key].userId == userId){
-				$ctrl['list'] = $scope.list[key];
-				break;
+		pageInfo($rootScope, $location); //현재페이지 정보
+
+		httpGetList($http, $scope,'/system/userList' ); //사용자 리스트 조회
+
+		$scope.form = {'regUserId' : sessionStorage.getItem('id'),'pdaUseYn' : 'Y', 'userStat':'Y'}; //초기 form 상태
+
+
+
+		//입력양식(필수입력, readOnly) 변경
+		$scope.es = {'newForm':true,'pwForm':false,'modForm':false};
+		$scope.formChange =function(command, formData){
+
+			if(command == 'reset'){
+				$scope.form = {'regUserId' : sessionStorage.getItem('id'),'pdaUseYn' : 'Y', 'userStat':'Y' };
+				$scope.es ={};
+				$scope.es.newForm = true;
+
+			}else if(command == 'pw'){
+				if($scope.formChangeStat != 'mod'){
+					alert('변경할 사용자를 선택해주세요')
+				}else{
+					$scope.es ={};
+					$scope.es.pwForm = true;
+				}
+			}else if(command == 'mod'){
+				$scope.es ={};
+				$scope.es.modForm = true;
+				$scope.form = formData;
+			}
+			$scope.formChangeStat = command;
+		}
+
+		$scope.formSave = function(){
+			// console.log($scope.form);
+			if($scope.es.newForm == true){
+				if(!($scope.form.userPwd === $scope.pwCheck)){
+					modalAlert($uibModal, "사용자 추가","비밀번호를 확인해주세요");
+				}
+				// $http({
+				// 	method : 'POST',
+				// 	url : "/system/userSave",
+				// 	data  : $scope.form,
+				// 	headers: {'Content-Type':'application/json; charset=utf-8'}
+				// }).success(function(data){
+				// 	console.log(11);
+				// }).error(function(data){
+				// 	alert('정보 업데이트 실패');
+				// });
+			}
+
+		}
+
+
+
+		//검색
+		$scope.searchBtn = function(command){
+			if(command == 'group'){
+				const param = generateParam($scope.searchGroup);
+				httpGetList($http, $scope,'/system/userList', param );
+				$scope.search.storeCd = $scope.searchGroup.storeCd;
+				$scope.search.grade = $scope.searchGroup.grade;
+				$scope.search.userStat = $scope.searchGroup.userStat;
+			}else if(command == 'word'){
+				const param = generateParam($scope.searchWord);
+				httpGetList($http, $scope,'/system/userList', param );
+				$scope.search.word = $scope.searchWord.word;
+
 			}
 		}
-		$ctrl['commonCode'] = $scope.commonCode;
-		var modalInstance = $uibModal.open({
-			templateUrl: 'member/userAuthMod',
-			controller: 'userAuthModController',
-			controllerAs: '$ctrl'
-		});
-	}
 
-	$scope.goPage = function(page){
-		if($scope.current == page){
-	    	return;
-	    }
-		if($scope.end < page){
-			return;
+		//페이지 이동
+		$scope.goPage = function(page){
+			if($scope.current == page || $scope.end < page || page == 0){
+				return;
+			}
+			$scope.search.page = page - 1;
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/system/userList', param );
+		};
+
+		//페이지 사이즈 변경
+		$scope.pageSize = function(){
+			$scope.search.page = 0;
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/system/userList', param );
 		}
-		if(page == 0){
-			return;
-		}
-		$scope.search.page = page - 1;
-		param = generateParam($scope.search);
-		httpGetList("/member", param, $scope, $http);
-	};
 
 }]);
+
+
+
 
 //modal 사용자 권한 수정
 app.controller('userAuthModController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$window','$uibModalInstance',

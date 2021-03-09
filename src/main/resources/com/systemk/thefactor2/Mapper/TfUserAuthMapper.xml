@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.systemk.thefactor2.mapper.TfUserAuthMapper">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfUserAuthMapper">
     <select id="authSearch" resultType="HashMap" parameterType="java.util.HashMap">
         select
             *

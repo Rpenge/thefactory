@@ -15,45 +15,31 @@
 
 				<div>
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 상품 추가/수정</span>
+						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 재고실사작업</span>
 						<button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
 						<button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
 					</div>
 
-					<table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
+					<table class="table-bordered" style="width:100%;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
 						<tr>
-							<th style="width:10%;height:40px">브랜드</th>
-							<td style="width:15%;padding: 0;"><input type="text" class="form-control" placeholder="010000" ></td>
-							<th style="width:10%">성별</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="*****"></td>
-							<th style="width:10%">상품분류</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="관리자"></td>
-							<th style="width:10%">사이즈</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="관리자"></td>
+							<th style="width:10%;height:40px">실사일자</th>
+							<td style="width:15%;padding: 0;"><input type="text" class="form-control" placeholder="2021.04.01" ></td>
+							<th style="width:10%">시작일</th>
+							<td style="width:15%"><input type="text" class="form-control" placeholder="논현본점"></td>
+							<th style="width:10%">종료일</th>
+							<td style="width:15%"><input type="text" class="form-control" placeholder=""></td>
+							<th style="width:10%">완료여부</th>
+							<td style="width:15%"><input type="text" class="form-control" placeholder="수입입고"></td>
 						</tr>
 						<tr>
-							<th style="height:40px">상품코드</th>
-							<td><input type="text" class="form-control" placeholder="0000000337"></td>
-							<th>자체상품코드</th>
-							<td><input type="text" class="form-control" placeholder="ARNICA 18F"></td>
-							<th>상품명</th>
-							<td><input type="text" class="form-control" placeholder="18FW ADDA 아다 …"></td>
-							<th>자체상품명</th>
-							<td><input type="text" class="form-control" placeholder="18FW ADDA 아다…"></td>
-						</tr>
-						<tr>
-							<th style="height:40px">바코드</th>
-							<td><input type="text" class="form-control" placeholder="0000000001003"></td>
-							<th>태그ID</th>
-							<td><input type="text" class="form-control" placeholder="TF000000000100300.."></td>
-							<th>모델명</th>
-							<td><input type="text" class="form-control" placeholder="ARNICA"></td>
-							<th>제조사</th>
-							<td><input type="text" class="form-control" placeholder="MAX MARA"></td>
-						</tr>
-						<tr>
-							<th style="height:40px">원산지</th>
-							<td><input type="text" class="form-control" placeholder="Italy"></td>
+							<th style="height:40px">실사수량</th>
+							<td><input type="text" class="form-control" placeholder="BALENCIAGA"></td>
+							<th>RFID수량</th>
+							<td><input type="text" class="form-control" placeholder="여자"></td>
+							<th>EC수량</th>
+							<td><input type="text" class="form-control" placeholder="아우터"></td>
+							<th>등록자</th>
+							<td><input type="text" class="form-control" placeholder="M"></td>
 						</tr>
 
 					</table>
@@ -63,7 +49,7 @@
 
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
-					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 상품목록</span>
+					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 재고실사 목록</span>
 				</div>
 
 				<!--테이블 상단 구성-->
@@ -79,42 +65,42 @@
 						<h6 class="align-self-center">TOTAL ( 10 )</h6>
 					</div>
 
+					<button class="btn btn-outline-secondary p-2 table-top-btn" >확정</button>
 					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">삭제</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
 					<table class="table custom-table-1 table-hover text-center custom-align-middle" style="min-width:1100px;">
 						<thead>
-						<tr class="pointer">
-							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>
-							<th>브랜드</th>
-							<th>성별</th>
-							<th>상품분류</th>
-							<th>사이즈</th>
-							<th>상품코드</th>
-							<th>자체상품코드</th>
-							<th>상품명</th>
-							<th>바코드</th>
-							<th>태그ID</th>
-							<th>등록자</th>
-							<th>수정자</th>
-						</tr>
+							<tr class="pointer">
+								<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>
+								<th>실사일자</th>
+								<th>실사내역</th>
+								<th>시작일</th>
+								<th>종료일</th>
+								<th>매장</th>
+								<th>실사수량</th>
+								<th>등록자</th>
+								<th>수정자</th>
+								<th>완료여부</th>
+								<th>상세내역이동</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer" ng-init="value.isSelected = false;">
-							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.assetManagementSeq}}, !{{value.isSelected}})" ></td>
-							<td>Luis Vrtong</td>
-							<td>여자</td>
-							<td>상의</td>
-							<td>XS</td>
-							<td style="text-align: left;">0000000337</td>
-							<td style="text-align: left;">ARNICA 18F </td>
-							<td style="text-align: left;">18FW ADDA 아다 헤어 롱 코트 / 카멜</td>
-							<td>0000000001003</td>
-							<td>TF000000000100300001</td>
-							<td>{{value}}</td>
-							<td>{{value}}</td>
-						</tr>
+							<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer" ng-init="value.isSelected = false;">
+								<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.assetManagementSeq}}, !{{value.isSelected}})" ></td>
+								<td>2021.04.01</td>
+								<td>재고전체조사</td>
+								<td>2021.04.01</td>
+								<td>2021.04.01</td>
+								<td>논현본점</td>
+								<td>1212</td>
+								<td>systemk</td>
+								<td></td>
+								<td><i class="xi-check" style="color:lightgreen;font-weight: bolder;" ></i></td>
+								<td><button class="btn btn-outline-secondary"><i class="xi-share"></i></button></td>
+
+							</tr>
 						</tbody>
 					</table>
 				</div>
