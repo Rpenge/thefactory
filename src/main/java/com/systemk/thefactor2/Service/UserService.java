@@ -12,4 +12,10 @@ public interface UserService {
 
     public Map<String, Object> userSave(Map param) throws Exception;
 
+    public Map<String, Object> userUpdate(Map param) throws Exception;
+
+    public Map<String, Object> userPwUpdate(Map param) throws Exception;
+
+    public Map<String, Object> userWd(List param) throws Exception;
+
 }

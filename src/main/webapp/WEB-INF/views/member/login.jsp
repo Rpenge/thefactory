@@ -5,8 +5,8 @@
 	<div class="login-background" style="background-image:url('/resources/img/img_1 (1).png');background-size:100vw;height:100vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">
 		<div class="container-fluid" >
 <%--			<div style="background:white;width: 98%;height:80vh;opacity: 50%;position:fixed;"></div>--%>
-			<div class="form-signin" style="opacity: 95%;margin-top: 100px;">
-				<img src="/resources/img/ci/top-logo.png" style="width:100%;">
+			<div class="form-signin" style="opacity: 95%;margin-top: 150px;width:380px;">
+				<img src="/resources/img/ci/top-logo.png" style="width:100%;margin-bottom: 30px;">
 				<form role="form" ng-submit="login()" style="margin-bottom: 5px;">
 					<label for="j_username" class="sr-only">아이디</label>
 					<input type="text" class="form-control" ng-model="credentials.userId" placeholder="아이디" name="j_username" id="j_username" required autofocus>
@@ -26,7 +26,9 @@
 				<div class="text-center alert alert-danger" ng-show="error == '3002'">
 					관리자 승인 이후에 사용하실 수 있습니다.
 				</div>
-				<input type="checkbox" ng-model="idSaveCheck" ng-click="idSave()">아이디 기억하기
+				<div style="position:relative;left:220px;">
+					<input type="checkbox" ng-model="idSaveCheck" ng-click="idSave()"> 아이디 저장
+				</div>
 			</div>
 		</div>
 		<div class="footer d-flex justify-content-center" style="width:100%;padding: 10px;height: auto;position: fixed; bottom: 0px;">

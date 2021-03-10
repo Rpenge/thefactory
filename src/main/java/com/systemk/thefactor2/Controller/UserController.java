@@ -39,6 +39,7 @@ public class UserController {
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(30*60);
 		HashMap resultMap = new HashMap<>();
 
 		if(user != null) {
@@ -60,6 +61,7 @@ public class UserController {
 	@RequestMapping("/reUserAuth")
 	public Map user(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(30*60);
 		HashMap resultMap = new HashMap<>();
 
 		resultMap.put("userId", session.getAttribute("userId"));

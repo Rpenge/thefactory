@@ -12,15 +12,19 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	pageInfo($rootScope, $location);
 	// $window.scrollTo(0,0);
 
+
 	$http.get('/member/reUserAuth').success(function(data) {
-		$rootScope.commCode = data.commCode;
-		code();
+		console.log(data.userId);
 		if (data.userId) {
 			sessionStorage.setItem('id', data.userId);
 			$rootScope.topMenu = data.auth;
 		} else {
-			$location.url("/");
+			console.log(111);
+			logout($http, $rootScope, $location);
+			return;
 		}
+		$rootScope.commCode = data.commCode;
+		code();
 	});
 
 	//공통코드
@@ -40,24 +44,27 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	}
 
 	$scope.logout = function() {
-		$http({
-			method: 'POST',
-			url: '/member/logout',
-			data: {},
-			headers: {'Content-Type': 'application/json; charset=utf-8'}
-		}).success(function(data, status, headers, config) {
-			if(status == 200) {
-				$rootScope.authenticated = false;
-				$location.url("/");
-				sessionStorage.clear();
-			} else {
-				modalCall("에러발생");
-			}
-		}).error(function(data, status, headers, config) {
-		    $rootScope.authenticated = false;
-		    $location.url("/");
-		});
+		logout($http, $rootScope, $location);
+		// $http({
+		// 	method: 'POST',
+		// 	url: '/member/logout',
+		// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
+		// }).success(function(data, status, headers, config) {
+		// 	if(status == 200) {
+		// 		$rootScope.authenticated = false;
+		// 		$location.url("/");
+		// 		sessionStorage.clear();
+		// 	} else {
+		// 		modalCall("에러발생");
+		// 	}
+		// }).error(function(data, status, headers, config) {
+		//     $rootScope.authenticated = false;
+		//     $location.url("/");
+		// });
+
 	};
+
+
 
 	$scope.client;
 

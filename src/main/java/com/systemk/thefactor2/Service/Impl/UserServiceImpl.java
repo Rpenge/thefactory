@@ -8,8 +8,12 @@ import com.systemk.thefactor2.Mapper.PageMapper;
 import com.systemk.thefactor2.Mapper.TfUserMapper;
 import com.systemk.thefactor2.Util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -17,11 +21,15 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
 	private TfUserMapper tfUserMapper;
 
 	@Autowired
 	private PageMapper pageMapper;
 
+	//사용자 리스트 조회, 검색
 	@Override
 	public Map<String, Object> findList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
@@ -32,7 +40,6 @@ public class UserServiceImpl implements UserService {
 				mu.addLike("USER_ID", (String)param.get(key));
 				mu.addORLike("USER_NM", (String)param.get(key));
 			}
-
 			if (key.equals("size") || key.equals("page") || key.equals("word")) {
 				continue;
 			} else {
@@ -48,10 +55,57 @@ public class UserServiceImpl implements UserService {
 		return mu.getList();
 	}
 
+	// 사용자 등록
 	@Override
 	public Map<String, Object> userSave(Map param) throws Exception {
-		tfUserMapper.userSave(param);
-		return null;
+		Map map = new HashMap();
+		param.put("userPwd", bCryptPasswordEncoder.encode((String) param.get("userPwd")));
+		if(tfUserMapper.userSave(param) == 1){
+			map.put("resultCode", "S");
+		}else{
+			map.put("resultCode", "E");
+		}
+		return map;
+	}
+
+	// 사용자 정보변경
+	@Override
+	public Map<String, Object> userUpdate(Map param) throws Exception {
+		Map map = new HashMap();
+		if(tfUserMapper.userUpdate(param) == 1){
+			map.put("resultCode", "S");
+		}else{
+			map.put("resultCode", "E");
+		}
+		return map;
+	}
+
+	// 비밀번호 변경
+	@Override
+	public Map<String, Object> userPwUpdate(Map param) throws Exception {
+		Map map = new HashMap();
+		param.put("userPwd", bCryptPasswordEncoder.encode((String) param.get("userPwd")));
+		if(tfUserMapper.userPwUpdate(param) == 1){
+			map.put("resultCode", "S");
+		}else{
+			map.put("resultCode", "E");
+		}
+		return map;
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public Map<String, Object> userWd(List list) throws Exception {
+		Map map = new HashMap();
+		for(int i=0;i<list.size(); i++){
+			//tfUserMapper.userWd((int) list.get(i));
+			if(tfUserMapper.userWd((int) list.get(i)) != 1){
+				map.put("resultCode", "E");
+				return map;
+			}
+		}
+		map.put("resultCode", "S");
+		return map;
 	}
 
 

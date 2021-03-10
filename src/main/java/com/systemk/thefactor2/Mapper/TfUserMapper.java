@@ -14,6 +14,12 @@ public interface TfUserMapper {
 
     List<TfUserVO> userList(HashMap item);
 
-    void userSave(Map item);
+    int userSave(Map item);
+
+    int userUpdate(Map item);
+
+    int userPwUpdate(Map item);
+
+    int userWd(int item);
 
 }

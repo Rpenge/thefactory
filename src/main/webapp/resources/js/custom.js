@@ -1,9 +1,11 @@
-function userLoginCheck($http, $rootScope,$window, $location, credentials, callback){
-
+function userLoginCheck($http, $rootScope,$window, $location){
 	if(sessionStorage.getItem("id")){
 		$rootScope.authenticated = true;
 	}else{
-		$location.url("/");
+		$rootScope.authenticated = false;
+		$window.location.url("/");
+		sessionStorage.clear();
+		// logout($http, $rootScope, $location);
 	}
 	$rootScope.currentMenu = {};
 }
@@ -426,5 +428,25 @@ $.fn.rowspan = function(colIdx, isStats) {
 				that = (that == null) ? this : that;
 			});
 		});
+	});
+};
+
+
+function logout(http, rootScope, location) {
+	http({
+		method: 'POST',
+		url: '/member/logout',
+		headers: {'Content-Type': 'application/json; charset=utf-8'}
+	}).success(function(data, status, headers, config) {
+		if(status == 200) {
+			rootScope.authenticated = false;
+			location.url("/");
+			sessionStorage.clear();
+		} else {
+			modalCall("에러발생");
+		}
+	}).error(function(data, status, headers, config) {
+		rootScope.authenticated = false;
+		location.url("/");
 	});
 };

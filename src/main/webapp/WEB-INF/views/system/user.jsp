@@ -38,7 +38,7 @@
 			<td><select class="form-control" ng-model="searchGroup.userStat" style="width:200px;margin: 10px;height: 40px;">
 				<option value="">상태</option>
 				<option value="Y" >사용</option>
-				<option value="N">미사용</option>
+				<option value="N">탈퇴</option>
 			</select></td>
 
 			<button class="btn btn-outline-secondary" ng-click="searchBtn('group')" style="width:70px;margin:10px 30px;">검색</button>
@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<th style="width:10%"><span style="color:red;" ng-if="es.newForm || es.modForm">*</span> 이름</th>
-							<td style="width:15%"><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userNm"></td>
+							<td style="width:15%"><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userNm" ng-required='true'></td>
 							<th>직급</th>
 							<td><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userRankCd"></td>
 							<th>전화번호</th>
@@ -100,21 +100,21 @@
 
 							<th><span style="color:red;" ng-if="es.newForm || es.modForm">*</span> 권한</th>
 							<td>
-								<select class="form-control" ng-model="form.grade" ng-readonly="es.pwForm">
+								<select class="form-control" ng-model="form.grade" ng-readonly="es.pwForm" ng-required='true'>
 									<option value="">권한</option>
 									<option ng-repeat="value in grade" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
-							<th><span style="color:red;" ng-if="es.newForm || es.modForm">*</span> PDA사용</th>
+							<th>PDA사용</th>
 							<td><select class="form-control"  ng-model="form.pdaUseYn" ng-readonly="es.pwForm">
 								<option value="Y">사용</option>
 								<option value="N">미사용</option>
 							</select></td>
 
-							<th><span style="color:red;" ng-if="es.newForm || es.modForm">*</span> 상태</th>
+							<th>상태</th>
 							<td><select class="form-control"  ng-model="form.userStat" ng-init="form.userStat='Y'" ng-readonly="es.pwForm">
 								<option value="Y" >사용</option>
-								<option value="N">미사용</option>
+								<option value="N">탈퇴</option>
 							</select></td>
 							<th>등록자</th>
 							<td><input type="text" class="form-control" ng-readonly="true" ng-model="form.regUserId"></td>
@@ -140,15 +140,15 @@
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
-					<button class="btn btn-danger p-2 table-top-btn" ng-click="assetUpdate('DEL')">탈퇴</button>
+					<button class="btn btn-danger p-2 table-top-btn" ng-click="tableBtn('Withdrawal')">탈퇴</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
 				<table class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="min-width:1100px;">
 					<thead>
 						<tr class="pointer">
-							<th><input type="checkbox" ></th>
-<%--							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>--%>
+<%--							<th><input type="checkbox" ></th>--%>
+							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'perMemberNo')"></th>
 							<th ng-click="sort('')" >번호</th>
 							<th ng-click="sort('')" >아이디</th>
 							<th ng-click="sort('')" >이름</th>
@@ -158,13 +158,14 @@
 							<th ng-click="sort('')" >PDA사용여부</th>
 							<th ng-click="sort('')" >전화번호</th>
 							<th ng-click="sort('')" >이메일</th>
+							<th ng-click="sort('')" >상태</th>
 							<th ng-click="sort('')" >등록자</th>
 							<th ng-click="sort('')" >등록일자</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="value in list" class="pointer">
-							<td style="padding:25px;"><input type="checkbox" ></td>
+						<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.perMemberNo}})" ></td>
 							<td ng-click="formChange('mod',value)">{{value.perMemberNo}}</td>
 							<td ng-click="formChange('mod',value)">{{value.userId}}</td>
 							<td ng-click="formChange('mod',value)">{{value.userNm}}</td>
@@ -174,6 +175,7 @@
 							<td ng-click="formChange('mod',value)">{{value.pdaUseYn}}</td>
 							<td ng-click="formChange('mod',value)">{{value.userPhone}}</td>
 							<td ng-click="formChange('mod',value)">{{value.userEmail}}</td>
+							<td ng-click="formChange('mod',value)">{{value.userStat}}</td>
 							<td ng-click="formChange('mod',value)">{{value.regUserId}}</td>
 							<td ng-click="formChange('mod',value)">{{value.reqJoinDate | date:'yyyy-MM-dd HH:mm'}}</td>
 						</tr>
