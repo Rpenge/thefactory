@@ -45,6 +45,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/salesController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 
 <!--icon-->
 <link rel="shortcut icon" type="image/x-ic on" href="/resources/img/ci/sysk.png">
@@ -78,9 +79,9 @@
         </nav>
 
 
-		<nav class="navbar navbar-fixed-top d-flex dropdown" style="width:100%;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" ng-if="authenticated">
+		<nav class="navbar navbar-fixed-top d-flex dropdown" ng-if="authenticated" style="width:100%;height:95px;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" >
 
-			<div class="p-2">
+			<div class="p-2" >
 				<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
 			</div>
 
@@ -88,18 +89,23 @@
 			<div class="p-2 d-flex">
 				<div class="navbar-header">
 					<a href="">시스템관리</a>
+					<div class="tri" ng-if="currentMenu.GROUP_CD == 'SYSTEM'"></div>
 				</div>
 				<div class="navbar-header">
 					<a href="" ng-click="goMenu('sample/codeList')">기초정보관리</a>
+					<div class="tri" ng-if="currentMenu.GROUP_CD == 'BASE'"></div>
 				</div>
 				<div class="navbar-header">
 					<a href="">입출고관리</a>
+					<div class="tri" ng-if="currentMenu.GROUP_CD == 'INOUT'"></div>
 				</div>
 				<div class="navbar-header">
 					<a href="" >재고실사</a>
+					<div class="tri" ng-if="currentMenu.GROUP_CD == 'INVEN'"></div>
 				</div>
 				<div class="navbar-header">
 					<a href="" ng-click="goAssetManagementList()">재고현황</a>
+					<div class="tri" ng-if="currentMenu.GROUP_CD == 'STOCK'"></div>
 				</div>
 
 
@@ -334,6 +340,15 @@
 <%--						{{currentMenu}}--%>
 						<div class="d-flex" style="width: 100%;" ng-if="addQuick1">
 
+							<p style="margin:12px 10px;">구분</p>
+							<select class="form-control" style="width:150px;margin:5px;">
+								<option>전체</option>
+							</select>
+
+							<select class="form-control" style="width:150px;margin:5px;">
+								<option>전체</option>
+							</select>
+
 							<p style="margin:12px 10px;">일자검색</p>
 							<div class="row input-group" style="width:200px;margin:5px;">
 								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
@@ -350,12 +365,9 @@
 							</div>
 						</div>
 
+
 						<!-- 검색 공통 -->
 						<div class="d-flex" style="width: 100%;">
-							<select class="form-control" style="width:200px;margin: 10px;height: 40px;">
-								<option>매장</option>
-							</select>
-
 
 							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-click="qs1 = qs1==true ? false : true" readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
@@ -392,11 +404,11 @@
 							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
 								<option>사이즈</option>
 							</select>
-							<select class="form-control" style="width:200px;margin: 10px;height: 40px;">
+							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
 								<option>상품분류</option>
 							</select>
 							<button class="btn btn-outline-secondary" style="width:70px;margin:10px 30px;">검색</button>
-							<div class="d-flex" style="width:230px;margin: 10px;">
+							<div class="d-flex" style="width:280px;margin: 10px;">
 								<input type="text" class="form-control" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 								<button class="btn" style="position:relative;left:-40px;background: transparent;">
 									<i class="xi-search" style="font-size: 20px;"></i>
@@ -449,4 +461,6 @@
 		td.css('background', 'gray');
 		td.css('color', 'white');
 	}
+
+
 </script>

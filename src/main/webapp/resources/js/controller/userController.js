@@ -185,9 +185,13 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 			}
 		}
 
-		//테이블 버튼 사용
+		//테이블 버튼 사용(탈퇴)
 		$scope.tableBtn = function(command){
-			if(command == 'Withdrawal'){ // 탈퇴
+			if(command == 'Withdrawal'){
+				if(checkList.length < 1){
+					modalAlert($uibModal, "사용자 수정", "탈퇴할 회원을 선택해주세요.");
+					return;
+				}
 				$http({
 					method : 'POST',
 					url : "/system/userWd",

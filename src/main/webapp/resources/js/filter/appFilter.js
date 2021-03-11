@@ -127,4 +127,22 @@ app.filter('menuGroup', function() {
     };
 });
 
+//상태코드에 따른 값
+app.filter('YnWord', function() {
+    return function(data, command) {
+        switch (command){
+            case 1: {
+                if(data == 'Y') return '사용';
+                else if(data == 'N') return '탈퇴';
+            };
+            case 2: {
+                if(data == 'Y') return '사용';
+                else if(data == 'N') return '미사용';
+            };
+        }
+    };
+});
+
+
+
 

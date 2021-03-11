@@ -541,97 +541,12 @@ input:checked + .slider:before {
 	opacity:0.5;
 }
 
-/*@media(max-width:920px){*/
-/*	.dropdown{*/
-/*		display:none!important;*/
-/*	}*/
-
-/*	.navbar-nav .nav-item{*/
-/*		display:none!important;*/
-/*	}*/
-/*}*/
 
 #shadow-body{
 	width:1000px;
 	min-height:700px;
 }
 
-/*@media(max-width:768px){*/
-/*	.body-custom{*/
-/*		width: 100%;*/
-/*		padding: 0;*/
-/*	}*/
-
-/*	.body-contents {*/
-/*	    padding-top: 0;*/
-/*	    padding-bottom: 1rem;*/
-/*	    min-height: 35rem;*/
-/*	}*/
-/*	#shadow-body{*/
-/*		width:100%;*/
-/*	}*/
-
-/*	.boardBox-1{*/
-/*		height: 160px;*/
-/*		padding: 5px;*/
-/*	}*/
-/*	.small-box{*/
-/*		height: 150px;*/
-/*		border-radius: 8px;*/
-/*		padding: 10px;*/
-
-/*	}*/
-/*	.small-box p{*/
-/*		font-size: 0.9em;*/
-/*	}*/
-/*	.small-box a{*/
-/*		font-size: 0.8em;*/
-/*	}*/
-/*	.bg-icon-custom{*/
-/*		display: none;*/
-/*	}*/
-
-/*	.homeIntro{*/
-/*		font-size: 1.2em;*/
-/*	}*/
-
-/*	.graph{*/
-/*		height: 280px!important;*/
-/*		border-radius: 8px;*/
-/*	}*/
-/*	.custom-shadow-box{*/
-/*		width: 100%;*/
-/*		padding:5px;*/
-/*	}*/
-
-
-
-/*	.custom-select{*/
-/*		width: 110px!important;*/
-/*		margin: 3px;*/
-/*	}*/
-/*	.search-submit .custom-select{*/
-/*		width: 90px!important;*/
-/*	}*/
-
-/*	.table-box{*/
-/*		min-width:450px;*/
-/*		border : 1px solid whitesmoke;*/
-/*	}*/
-/*	.sidebar{*/
-/*		position: absolute;*/
-/*	}*/
-/*}*/
-
-
-/*@media(max-width:400px){*/
-/*	.table-box{*/
-/*		min-width:360px;*/
-/*	}*/
-/*	#shadow-body .table-box{*/
-/*		min-width:340px;*/
-/*	}*/
-/*}*/
 
 
 
@@ -711,14 +626,8 @@ input:checked + .slider:before {
 
 
 
-.table-striped-odd > tbody > tr:nth-child(2n) > td{
-	background-color: whitesmoke;
-}
-.table-striped-odd > thead > tr{
-	background-color : whitesmoke;
-	color: black;
-	box-shadow : 0 0 12px 0 lightgray inset;
-}
+
+
 .table{
 	font-size : 13px;
 }
@@ -790,14 +699,16 @@ a.nav-link{
 /* 메뉴 */
 .navbar-header{
 	width: 163px;
-	padding: 15px;
+	padding:17px;
 	text-align: center;
+	height: 60px;
 }
 
 .navbar-header a{
 	color: black;
 	/*font-weight: bold;*/
 	font-size: large;
+
 }
 
 @-webkit-keyframes main_dropdown {
@@ -805,7 +716,7 @@ a.nav-link{
 		height:10px;
 	}
 	100% {
-		height:200px;
+		height:150px;
 	}
 }
 
@@ -828,7 +739,7 @@ a.nav-link{
 	position: absolute;
 	left: 0;
 	top: 80px;
-	height:200px;
+	height:150px;
 	background-color: white;
 	width: 100%;
 	padding: 5px 5px 5px 315px;
@@ -933,4 +844,59 @@ a.nav-link{
 	margin-right:5px;
 	border-radius: 5px 5px 0 0;
 	border-bottom: 0;
+}
+/*테이블 홀수행 whiteSmoke*/
+.table-striped-odd > tbody > tr:nth-child(2n){
+	background-color: whitesmoke;
+}
+.table-striped-odd > thead > tr{
+	background-color : whitesmoke;
+	box-shadow : 0 0 12px 0 lightgray inset;
+}
+
+.tri{
+	margin: 0 auto;
+	width: 0px;height: 0px;
+	border-top:23px solid transparent;
+	border-bottom:10px solid lightgray;
+	border-right: 14px solid transparent;
+	border-left: 14px solid transparent;
+
+
+}
+
+
+.main-work-btn{
+	width:200px;
+	margin: 10px 30px;
+	height: 130px;
+	border:1px solid gray;
+	cursor:pointer;
+	overflow: hidden;
+	border-radius: 5px;
+	position:relative;
+}
+
+.add-tabs{
+	position:absolute;
+	top:0px;
+	width: 98%;
+	height:92%;
+	z-index: 1;
+	animation-name: fadeIn;
+	animation-duration:0.3s;
+}
+.add-tabs-btn{
+	position:relative;
+	width:150px;
+	height: 30px;
+	top:7px;
+	padding:0px;
+	border:1px solid lightgray;
+	border-bottom: 0;
+	border-radius: 8px 8px 0 0;
+}
+.table-fadeIn{
+	animation-name: fadeIn;
+	animation-duration:0.3s;
 }

@@ -23,12 +23,5 @@ public class SystemkAmsApplication {
         return resolver;
     }
 
-    @Bean
-    public BCryptPasswordEncoder BCryptPasswordEncoder(){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
-
-
 
 }

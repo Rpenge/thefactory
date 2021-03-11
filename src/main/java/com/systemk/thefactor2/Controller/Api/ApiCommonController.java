@@ -1,73 +1,46 @@
-//package com.systemk.thefactor2.Controller.Api;
-//
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.fasterxml.jackson.annotation.JsonView;
-//import com.systemk.spyder.Dto.ApiResultConstans;
-//import com.systemk.spyder.Dto.Response.ApiUserInfoResult;
-//import com.systemk.spyder.Entity.Main.View.View;
-//import com.systemk.spyder.Service.AppService;
-//import com.systemk.spyder.Service.InitService;
-//import com.systemk.spyder.Service.MobileService;
-//import com.systemk.spyder.Service.RfidTagStatusService;
-//import com.systemk.spyder.Service.UserService;
-//
-//@RestController
-//@RequestMapping("/api")
-//public class ApiCommonController {
-//
-//    @Autowired
-//    private UserService userService;
-//
-//    @Autowired
-//    private MobileService mobileService;
-//
-//    @Autowired
-//    private InitService initService;
-//
-//    @Autowired
-//    private RfidTagStatusService rfidTagStatusService;
-//
-//    @Autowired
-//    private AppService appService;
-//
-//    /**
-//     * 사용자 로그인(Get 방식)
-//     * @param userId
-//     * @param password
-//     * @param version
-//     * @param type
-//     * @param appType
-//     * @return
-//     * @throws Exception
-//     */
-//    @RequestMapping(value = "/member/login", method = RequestMethod.GET)
-//    public List<ApiUserInfoResult> restMemberLogin(@RequestParam(value = "userId", required = false, defaultValue = "") String userId,
-//                                                   @RequestParam(value = "password", required = false, defaultValue = "") String password,
-//                                                   @RequestParam(value = "version", required = false, defaultValue = "") String version,
-//                                                   @RequestParam(value = "type", required = false, defaultValue = "") String type,
-//                                                   @RequestParam(value = "appType", required = false, defaultValue = "1") String appType) throws Exception {
-//
-//        return userService.restMemberLogin(userId, password, version, type, appType);
-//    }
-//
+package com.systemk.thefactor2.Controller.Api;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.systemk.thefactor2.Util.ResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.*;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+
+@RestController
+@RequestMapping("/api")
+public class ApiCommonController {
+
+
+    // id,비밀번호, 버전,
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Map<String, Object> restMemberLogin(@RequestBody(required = false) Map<String, Object> data) throws Exception {
+        System.out.println(data);
+        Map map = new HashMap();
+        map.put("userId", "abs");
+        map.put("userNm", "aa");
+        map.put("grade", "010102");
+        map.put("gradeCd", "aa");
+        map.put("storeCd", "010101");
+        map.put("storeNm", "aa");
+
+
+
+        return ResultUtil.setCommonResult("S","로그인 테스트", map);
+    }
+
 //    @RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 //    public ApiUserInfoResult restMemberLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //
@@ -183,4 +156,4 @@
 //
 //        return new ResponseEntity<Map<String, Object>>(initService.resetRelease(), HttpStatus.OK);
 //    }
-//}
+}

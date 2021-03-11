@@ -166,23 +166,22 @@
 					<tbody>
 						<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
 							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.perMemberNo}})" ></td>
-							<td ng-click="formChange('mod',value)">{{value.perMemberNo}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userId}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userNm}}</td>
-							<td ng-click="formChange('mod',value)">{{value.storeCd | code: store}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userRankCd}}</td>
-							<td ng-click="formChange('mod',value)">{{value.grade | code: grade}}</td>
-							<td ng-click="formChange('mod',value)">{{value.pdaUseYn}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userPhone}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userEmail}}</td>
-							<td ng-click="formChange('mod',value)">{{value.userStat}}</td>
-							<td ng-click="formChange('mod',value)">{{value.regUserId}}</td>
-							<td ng-click="formChange('mod',value)">{{value.reqJoinDate | date:'yyyy-MM-dd HH:mm'}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.perMemberNo}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.userId}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.userNm}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.storeCd | code: store}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.userRankCd}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.grade | code: grade}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.pdaUseYn | YnWord: 2}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.userPhone}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.userEmail}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))" ng-class="{'text-danger' : value.userStat=='N'}">{{value.userStat | YnWord: 1}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regUserId}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.reqJoinDate | date:'yyyy-MM-dd HH:mm'}}</td>
 						</tr>
 					</tbody>
 				</table>
 				</div>
-
 
 				<div class="row d-flex justify-content-center">
 				<!-- 네비게이션 바 -->

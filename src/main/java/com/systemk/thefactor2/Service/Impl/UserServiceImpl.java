@@ -9,6 +9,7 @@ import com.systemk.thefactor2.Mapper.TfUserMapper;
 import com.systemk.thefactor2.Util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private TfUserMapper tfUserMapper;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> userSave(Map param) throws Exception {
 		Map map = new HashMap();
-		param.put("userPwd", bCryptPasswordEncoder.encode((String) param.get("userPwd")));
+		param.put("userPwd", passwordEncoder.encode((String) param.get("userPwd")));
 		if(tfUserMapper.userSave(param) == 1){
 			map.put("resultCode", "S");
 		}else{
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> userPwUpdate(Map param) throws Exception {
 		Map map = new HashMap();
-		param.put("userPwd", bCryptPasswordEncoder.encode((String) param.get("userPwd")));
+		param.put("userPwd", passwordEncoder.encode((String) param.get("userPwd")));
 		if(tfUserMapper.userPwUpdate(param) == 1){
 			map.put("resultCode", "S");
 		}else{

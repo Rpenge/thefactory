@@ -450,3 +450,15 @@ function logout(http, rootScope, location) {
 		location.url("/");
 	});
 };
+
+//테이블 tr 선택효과
+function selectTr(td){
+	const tr = td.parent();
+	const table = td.parent().parent();
+	table.children().removeClass('bg-secondary');
+	table.children().removeClass('text-white');
+	tr.addClass('bg-secondary');
+	tr.addClass('text-white');
+}
+
+

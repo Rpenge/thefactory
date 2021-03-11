@@ -1,19 +1,26 @@
-//package com.systemk.thefactor2.Service.Api.Impl;
-//
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class ApiCommonServiceImpl {
-//
-//    @Transactional(readOnly = true)
-////    @Override
-//    public List<ApiUserInfoResult> restMemberLogin(String userId, String password, String version, String type, String appType) throws Exception{
-//
+package com.systemk.thefactor2.Service.Api.Impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class ApiCommonServiceImpl {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Transactional(readOnly = true)
+//    @Override
+    public Map<String, Object> restMemberLogin(String userId, String password, String version, String type, String appType) throws Exception{
+
 //        List<ApiUserInfoResult> apiUserInfoList = new ArrayList<ApiUserInfoResult>();
 //
 //        if(password.equals("") || userId.equals("")){
@@ -109,4 +116,6 @@
 //
 //        return apiUserInfoList;
 //    }
-//}
+        return null;
+    }
+}
