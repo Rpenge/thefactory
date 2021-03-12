@@ -64,7 +64,7 @@
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;height:50px;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 사용자 추가/수정 <span style="color:red;font-size:15px;"> * 표시는 필수 입력 항목입니다.</span></span>
 
-						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" style="width:60px;">신규</button>
+						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('userList')" style="width:60px;">신규</button>
 						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.pwForm}" ng-click="formChange('pw')" style="width:125px;">비밀번호변경</button>
 						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' style="width:60px;">저장</button>
 					</div>
@@ -144,7 +144,7 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-				<table class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="min-width:1100px;">
+				<table id="userList" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="min-width:1100px;">
 					<thead>
 						<tr class="pointer">
 <%--							<th><input type="checkbox" ></th>--%>

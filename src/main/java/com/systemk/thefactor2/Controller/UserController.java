@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,9 @@ public class UserController {
 	@Autowired
 	private CommService commService;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
@@ -51,9 +55,12 @@ public class UserController {
 			List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
 			resultMap.put("auth", AuthList);
 
+			if(true){ // 자동로그인 체크한 경우
+				//resultMap.put("autoData", passwordEncoder.encode(user.getPassword()));
+
+			}
 
 		}
-
 	    return resultMap;
 	}
 

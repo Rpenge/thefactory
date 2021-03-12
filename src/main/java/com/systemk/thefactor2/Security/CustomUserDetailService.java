@@ -33,6 +33,9 @@ public class CustomUserDetailService implements UserDetailsService {
 		if(user == null){
 			throw new BadCredentialsException("3000");
 		}
+		if(user.getUserStat().equals("N")){
+			throw new BadCredentialsException("3001");
+		}
 
 		List<GrantedAuthority> authorities = buildUserAuthority(user);
 		return buildUserForAuthentication(user, authorities);

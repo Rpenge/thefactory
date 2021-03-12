@@ -461,4 +461,9 @@ function selectTr(td){
 	tr.addClass('text-white');
 }
 
+function tableTrDel(tableId){
+	$("#"+tableId).children().children().removeClass('bg-secondary');
+	$("#"+tableId).children().children().removeClass('text-white');
+}
+
 

@@ -5,23 +5,40 @@
 <html ng-app="myApp">
 <div class="d-flex flex-column" ng-show="authenticated">
 
-	<div class="d-flex justify-content-center" style="top:-310px;width:100%;height: 120px;position:relative;color:black;text-align: center;">
+	<div class="d-flex justify-content-center" style="top:-310px;width:800px;height: 100px;position:relative;color:black;text-align: center;margin:0 auto;">
 
-		<div style="width: 200px;z-index: 2;">
-			<p style="font-size: larger;font-weight: bold;">총 재고</p>
-			<p style="font-size: 40px;">10</p>
+		<div class="d-flex justify-content-around main-cnt-box">
+			<i class="xi-home-o" style="font-size: 70px;"></i>
+			<div>
+				<p class="main-cnt-font">총 재고</p>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+			</div>
 		</div>
 
-		<div style="width: 200px;z-index: 2;border-left:1px solid gray;border-right:1px solid gray;">
-			<p style="font-size: larger;font-weight: bold;">입고</p>
-			<p style="font-size: 40px;">15</p>
+		<div class="d-flex justify-content-around main-cnt-box">
+			<i class="xi-box" style="font-size: 70px;"></i>
+			<div>
+				<p class="main-cnt-font">입고</p>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+			</div>
 		</div>
 
-		<div style="width: 200px;z-index: 2;">
-			<p style="font-size: larger;font-weight: bold;">출고</p>
-			<p style="font-size: 40px;">50</p>
+		<div class="d-flex justify-content-around main-cnt-box">
+			<i class="xi-truck" style="font-size: 70px;"></i>
+			<div>
+				<p class="main-cnt-font">출고</p>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+			</div>
 		</div>
-		<div style="background: white;width:40%;height: 100%; opacity: 50%;position:absolute;z-index: 1;"></div>
+
+		<div class="d-flex justify-content-around main-cnt-box" style="padding:20px 0 20px 20px;border-right: 0px;">
+			<i class="xi-dropbox" style="font-size: 70px;"></i>
+			<div>
+				<p class="main-cnt-font" >판매/배송</p>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+			</div>
+		</div>
+		<div style="background: white;width:820px;height: 120px; opacity: 50%;position:absolute;z-index: 1;top:-10px;"></div>
 	</div>
 
 		<div style="background: transparent;width:100%;margin:0 auto;top:-70px;position:relative;">

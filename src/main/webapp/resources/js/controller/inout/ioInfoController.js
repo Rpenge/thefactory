@@ -9,6 +9,7 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 		$scope.addTabsOn = function(){
 			$scope.addTabs = true;
+			$scope.divFadeIn = true;
 			$scope.tab.in = true;
 		}
 
@@ -16,9 +17,8 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 
 		$scope.tabChange =function(command, data){
-			$scope.addTabs = false;
 
-
+			$scope.divFadeIn = false;
 			if(command == 'in'){
 				$scope.tab ={};
 				$scope.tab.in = true;
@@ -28,8 +28,16 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 			}else if(command == 'stk'){
 				$scope.tab ={};
 				$scope.tab.stk = true;
+			}else if(command == 'list'){
+				$scope.tab ={};
+				$scope.addTabs = false;
 			}
-			//$scope.formChangeStat = command;
+			setTimeout(function(){
+				$scope.divFadeIn = true;
+				$scope.$apply();
+			},300);
+
+
 		}
 
 

@@ -11,18 +11,18 @@
 
 		<!--contents-->
 		<div class="container-fluid body-custom" style="width:100%;">
-			<div class="body-contents">
+			<div class="body-contents" style="padding:0;">
 
 				<!--탭 메뉴-->
 				<div class="add-tabs" ng-show="addTabs">
-					<button class="btn btn-outline-secondary add-tabs-btn" ng-click="addTabs=false" >리스트</button>
-					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn' : tab.in}" ng-click="tabChange('in')">입고</button>
-					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn' : tab.out}" ng-click="tabChange('out')">출고</button>
-					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn' : tab.stk}" ng-click="tabChange('stk')">판매/배송</button>
-					<div style="width: 100%;height:100%;background: white;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;">
+					<button class="btn btn-outline-secondary add-tabs-btn" ng-click="tabChange('list')" style="border-right: 0;">리스트</button>
+					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.in}" ng-click="tabChange('in')">입고</button>
+					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.out}" ng-click="tabChange('out')">출고</button>
+					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.stk}" ng-click="tabChange('stk')">판매/배송</button>
+					<div class="div-fade-in" ng-show="divFadeIn" style="width: 100%;height:100%;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;overflow: hidden;">
 
 						<span style="font-size:20px;font-weight: bold;">2021.04.01 논현본점 입고내역</span>
-						<table class="table-bordered table-hover text-center custom-align-middle table-fadeIn" style="width:100%;margin-top:20px;">
+						<table class="table-bordered table-hover text-center custom-align-middle" style="width:100%;margin-top:20px;">
 							<thead>
 							<tr style="height: 35px;">
 								<th style="width:10%">일자</th>

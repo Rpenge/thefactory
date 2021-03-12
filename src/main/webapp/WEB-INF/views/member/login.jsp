@@ -14,18 +14,18 @@
 					<input type="password" class="form-control" ng-model="credentials.userPw" placeholder="비밀번호" name="j_password" id="j_password" required>
 					<button type="submit" class="btn btn-lg btn-secondary btn-block">로그인</button>
 				</form>
-				<div class="text-center alert alert-danger" ng-show="error == 'Bad credentials'">
+				<div class="text-center alert alert-danger" ng-show="error == 'Bad credentials'" style="padding:10px 0;">
 					패스워드를 확인하여 다시 시도해주세요.
 				</div>
-				<div class="text-center alert alert-danger" ng-show="error == '3000'">
+				<div class="text-center alert alert-danger" ng-show="error == '3000'" style="padding:10px 0;">
 					등록된 사용자가 아닙니다.
 				</div>
-				<div class="text-center alert alert-danger" ng-show="error == '3001'">
+				<div class="text-center alert alert-danger" ng-show="error == '3001'" style="padding:10px 0;">
 					사용 중지된 사용자입니다.
 				</div>
-				<div class="text-center alert alert-danger" ng-show="error == '3002'">
-					관리자 승인 이후에 사용하실 수 있습니다.
-				</div>
+<%--				<div class="text-center alert alert-danger" ng-show="error == '3002'" style="padding:10px 0;">--%>
+<%--					관리자 승인 이후에 사용하실 수 있습니다.--%>
+<%--				</div>--%>
 				<div style="position:relative;left:220px;">
 					<input type="checkbox" ng-model="idSaveCheck" ng-click="idSave()"> 아이디 저장
 				</div>

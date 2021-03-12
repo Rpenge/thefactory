@@ -19,7 +19,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 			sessionStorage.setItem('id', data.userId);
 			$rootScope.topMenu = data.auth;
 		} else {
-			console.log(111);
 			logout($http, $rootScope, $location);
 			return;
 		}

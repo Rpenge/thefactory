@@ -724,6 +724,12 @@ a.nav-link{
 	0% {
 		opacity:0%;
 	}
+	30% {
+		opacity:20%;
+	}
+	50% {
+		opacity:40%;
+	}
 	100% {
 		opacity:100%;
 	}
@@ -778,7 +784,7 @@ a.nav-link{
 	display:block;
 	/* 애니메이션 */
 	animation-name: fadeIn;
-	animation-duration:0.5s;
+	animation-duration:0.6s;
 }
 
 
@@ -865,11 +871,10 @@ a.nav-link{
 
 }
 
-
 .main-work-btn{
-	width:200px;
+	width:250px;
 	margin: 10px 30px;
-	height: 130px;
+	height: 150px;
 	border:1px solid gray;
 	cursor:pointer;
 	overflow: hidden;
@@ -880,23 +885,67 @@ a.nav-link{
 .add-tabs{
 	position:absolute;
 	top:0px;
-	width: 98%;
-	height:92%;
+	left:0px;
+	width: 100%;
+	height:100%;
+	background-color: white;
 	z-index: 1;
-	animation-name: fadeIn;
-	animation-duration:0.3s;
+	overflow: hidden;
 }
 .add-tabs-btn{
 	position:relative;
+	background: whitesmoke;
 	width:150px;
-	height: 30px;
-	top:7px;
+	height: 40px;
+	top:8px;
 	padding:0px;
+	margin-right: -6px;
+	border-radius: 0;
 	border:1px solid lightgray;
-	border-bottom: 0;
-	border-radius: 8px 8px 0 0;
 }
-.table-fadeIn{
-	animation-name: fadeIn;
-	animation-duration:0.3s;
+.active-btn-2{
+	background: white;
+	color: black;
+	border-bottom: 0px;
+	z-index: 2;
 }
+
+/*ng-show*/
+.add-tabs.ng-hide-remove {
+	opacity: 0%;
+	transition: all 0.2s ease-in-out;
+}
+.add-tabs.ng-hide-remove.ng-hide-remove-active {
+	opacity: 100%;
+}
+.add-tabs.ng-hide-add {
+	opacity: 100%;
+}
+.add-tabs.ng-hide-add.ng-hide-add-active {
+	opacity: 0%;
+	transition:all 0.2s ease-in-out;
+}
+
+
+<!--div 애니메이션-->
+.div-fade-in.ng-hide-add {
+	opacity: 100%;
+}
+.div-fade-in.ng-hide-add.ng-hide-add-active {
+	opacity: 0%;
+	transition: all 0.3s linear;
+}
+
+.main-cnt-font{
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0 10px 0 3px;
+}
+
+.main-cnt-box{
+	width: 200px;
+	z-index: 2;
+	padding:20px;
+	border-right:1px solid gray;"
+}
+
