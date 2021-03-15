@@ -11,7 +11,7 @@
 			<i class="xi-home-o" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font">총 재고</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck }}</span>
 			</div>
 		</div>
 
@@ -19,7 +19,7 @@
 			<i class="xi-box" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font">입고</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 
@@ -27,7 +27,7 @@
 			<i class="xi-truck" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font">출고</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 
@@ -35,7 +35,7 @@
 			<i class="xi-dropbox" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font" >판매/배송</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 		<div style="background: white;width:820px;height: 120px; opacity: 50%;position:absolute;z-index: 1;top:-10px;"></div>

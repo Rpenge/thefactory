@@ -4,5 +4,11 @@ app.controller('codeController', ['$scope', '$http', '$location','$rootScope', '
 
 	//현재페이지 정보
 	pageInfo($rootScope, $location);
+
+	$scope.codeSelect = function(){
+
+	}
+
+
 }]);
 

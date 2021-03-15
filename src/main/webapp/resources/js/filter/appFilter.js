@@ -143,6 +143,18 @@ app.filter('YnWord', function() {
     };
 });
 
+//값이 없으면 0
+app.filter('zeroCheck', function() {
+    return function(data) {
+        if(data) {
+            return data;
+        }
+        else{
+            return 0;
+        }
+
+    };
+});
 
 
 

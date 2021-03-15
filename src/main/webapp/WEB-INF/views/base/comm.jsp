@@ -17,18 +17,22 @@
             <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
         </div>
 
+<%--            {{commCode}}--%>
         <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
             <tr>
                 <th>코드</th>
-                <td style="width:70%;height: 40px;"><input type="text" class="form-control" placeholder="010000"></td>
+                <td style="width:70%;height: 40px;"><input type="text" class="form-control" ng-model="BCode.commCd"></td>
             </tr>
             <tr>
                 <th style="width:30%;">코드명</th>
-                <td style="width:70%;height: 40px;"><input type="text" class="form-control" placeholder="사용자"></td>
+                <td style="width:70%;height: 40px;"><input type="text" class="form-control" ng-model="BCode.commCdNm"></td>
             </tr>
             <tr>
                 <th>사용여부</th>
-                <td><select class="form-control"><option>Y</option></select></td>
+                <td><select class="form-control" ng-model="BCode.useYn">
+                    <option value="Y">Y</option>
+                    <option value="N">N</option>
+                </select></td>
             </tr>
 
         </table>
@@ -39,17 +43,11 @@
                     <th style="width:70%;">코드명</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="key in [1,2,3,4,5,6,7]">
-                        <td style="height: 50px;">010000</td>
-                        <td>사용자</td>
+                    <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='B'">
+                        <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
+                        <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
                     </tr>
-                    <tr>
-                        <td style="height: 50px;">020000</td>
-                        <td>장비</td>
-                    </tr>
-                <tr></tr>
-
-
+                    <tr></tr>
                 </tbody>
             </table>
         </div>
