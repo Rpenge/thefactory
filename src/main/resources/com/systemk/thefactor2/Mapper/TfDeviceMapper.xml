@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfDeviceMapper">
+    <select id="serialSearch" resultType="TfDeviceVO" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            TF_DEVICE
+        WHERE
+            SERIAL_NO = #{serialNo}
+        AND
+            DEVICE_GUB = #{deviceGub}
+    </select>
+
+</mapper>

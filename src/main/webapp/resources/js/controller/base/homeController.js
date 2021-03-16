@@ -1,6 +1,6 @@
 
-app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$rootScope', '$timeout', '$window','$uibModal',
-	function ($scope, $http, $location,$rootScope, $interval, $rootScope, $timeout, $window, $uibModal) {
+app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$timeout', '$window','$uibModal',
+	function ($scope, $http, $location,$rootScope, $interval, $timeout, $window, $uibModal) {
 
 		//현재페이지 정보
 		pageInfo($rootScope, $location);
@@ -110,9 +110,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 						padding: 20
 					}
 				}
-
 			});
-
 
 		}
 		function customStr(str){
@@ -120,13 +118,28 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 		}
 
 
+
+		//어플 업로드 열기
+		$scope.uploaderOpen = function(command){
+			if(command=='pda'){
+				$ctrl = {};
+				$ctrl['commonCode'] = $scope.commonCode;
+				var modalInstance = $uibModal.open({
+					backdrop: 'static',
+					templateUrl: 'modal/upload',
+					controller: 'uploadController',
+					controllerAs: '$ctrl',
+					size: 'SM'
+				});
+			}
+		}
+
 		//modal창 열기
 		$scope.modalOpen = function(command, data){
-
 			//자산등록창
 			if(command=='assetReg'){
 				$ctrl = {};
-				$ctrl['commonCode'] = $scope.commonCode;
+				$ctrl['device'] = $rootScope.device;
 				var modalInstance = $uibModal.open({
 					backdrop: 'static',
 					templateUrl: 'assetManagement/modal/assetRegist',
@@ -135,32 +148,35 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 					size: 'SM'
 				});
 			}
-			//자산등록창
-			else if(command=='proReg'){
-				$ctrl = {};
-				$ctrl['commonCode'] = $scope.commonCode;
-				var modalInstance = $uibModal.open({
-					backdrop: 'static',
-					templateUrl: 'sample/proReg',
-					controller: 'assetMgController_reg',
-					controllerAs: '$ctrl',
-					size: 'lg'
-				});
-			}
-			//유저등록창
-			else if(command=='userReg'){
-				$ctrl = {};
-				// $ctrl['commonCode'] = $scope.commonCode;
-				var modalInstance = $uibModal.open({
-					backdrop: 'static',
-					templateUrl: 'sample/userReg',
-					controller: 'assetMgController_reg',
-					controllerAs: '$ctrl',
-					size: 'lg'
-				});
-			}
+			// //자산등록창
+			// else if(command=='proReg'){
+			// 	$ctrl = {};
+			// 	$ctrl['commonCode'] = $scope.commonCode;
+			// 	var modalInstance = $uibModal.open({
+			// 		backdrop: 'static',
+			// 		templateUrl: 'sample/proReg',
+			// 		controller: 'assetMgController_reg',
+			// 		controllerAs: '$ctrl',
+			// 		size: 'lg'
+			// 	});
+			// }
+			// //유저등록창
+			// else if(command=='userReg'){
+			// 	$ctrl = {};
+			// 	// $ctrl['commonCode'] = $scope.commonCode;
+			// 	var modalInstance = $uibModal.open({
+			// 		backdrop: 'static',
+			// 		templateUrl: 'sample/userReg',
+			// 		controller: 'assetMgController_reg',
+			// 		controllerAs: '$ctrl',
+			// 		size: 'lg'
+			// 	});
+			// }
 
 		}
 
 }]);
+
+
+
 

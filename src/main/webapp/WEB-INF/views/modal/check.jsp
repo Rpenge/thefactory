@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
 </head>
-<script>
-
-</script>
 <body>
 	<div class="modal-content">
 		<div class="modal-header">

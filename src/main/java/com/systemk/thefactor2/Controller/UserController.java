@@ -54,11 +54,7 @@ public class UserController {
 
 			List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
 			resultMap.put("auth", AuthList);
-
-			if(true){ // 자동로그인 체크한 경우
-				//resultMap.put("autoData", passwordEncoder.encode(user.getPassword()));
-
-			}
+			//resultMap.put("commCode", commService.findList());
 
 		}
 	    return resultMap;
@@ -77,8 +73,16 @@ public class UserController {
 		List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
 		resultMap.put("auth", AuthList);
 
-		resultMap.put("commCode", commService.findList());
+		//resultMap.put("commCode", commService.findList());
 
+		return resultMap;
+	}
+
+	//새로고침 : 메뉴 + 권한 다시 조회
+	@RequestMapping("/getCode")
+	public Map getCode() throws Exception{
+		HashMap resultMap = new HashMap<>();
+		resultMap.put("commCode", commService.findList());
 		return resultMap;
 	}
 

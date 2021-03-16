@@ -139,8 +139,8 @@
 	</div>
 
 	<div>
-		<button class="btn btn-outline-secondary">고정형 리더기</button>
-		<button class="btn btn-outline-secondary">PDA APP</button>
+		<button class="btn btn-outline-secondary" ng-if="role=='010101'" ng-click="uploaderOpen()">고정형 리더기</button>
+		<button class="btn btn-outline-secondary" ng-if="role=='010101'" ng-click="uploaderOpen('pda')">PDA APP</button>
 	</div>
 </div>
 </html>

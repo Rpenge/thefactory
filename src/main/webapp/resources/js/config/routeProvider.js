@@ -2,7 +2,8 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 	$routeProvider
 		.when('/main/home', {templateUrl: '/main/home', controller: 'homeController', resolve: { auth: onlyLoggedIn , layout: pageCheck }})
 
-		.when('/member/login', {templateUrl: '/member/login', controller: 'loginController'})
+		// .when('/member/login', {templateUrl: '/member/login', controller: 'loginController'})
+		// .when('/member/appDown', {templateUrl:'/member/appDown', controller:'appController'})
 
 		.when('/system/user', {templateUrl:'/system/user', controller:'userController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
@@ -11,7 +12,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/base/product', {templateUrl:'/base/product', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/base/device', {templateUrl:'/base/device', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
-		.when('/inout/input', {templateUrl:'/inout/input', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inout/input', {templateUrl:'/inout/input', controller:'inputController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/output', {templateUrl:'/inout/output', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/sales', {templateUrl:'/inout/sales', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/ioInfo', {templateUrl:'/inout/ioInfo', controller:'ioInfoController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
@@ -21,10 +22,9 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 
 		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
-
-
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.otherwise({redirectTo: '/', templateUrl: '/member/login', controller: 'loginController' });
+		// .otherwise({redirectTo: '/member/login', templateUrl: '/member/login', controller: 'loginController' });
+		.otherwise({redirectTo: '/member/appDown', templateUrl: '/member/appDown', controller: 'appController' });
 
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 

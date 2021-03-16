@@ -2,11 +2,18 @@ package com.systemk.thefactor2.Service.Impl;
 
 
 
+import com.systemk.thefactor2.Config.ConstansConfig;
+import com.systemk.thefactor2.Mapper.TfApplicationMapper;
+import com.systemk.thefactor2.Mapper.TfDeviceMapper;
 import com.systemk.thefactor2.Service.UserService;
 import com.systemk.thefactor2.Util.MybatisUtil;
 import com.systemk.thefactor2.Mapper.PageMapper;
 import com.systemk.thefactor2.Mapper.TfUserMapper;
+import com.systemk.thefactor2.Util.ResultUtil;
 import com.systemk.thefactor2.Util.StringUtil;
+import com.systemk.thefactor2.VO.TfApplicationVO;
+import com.systemk.thefactor2.VO.TfDeviceVO;
+import com.systemk.thefactor2.VO.TfUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +33,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private TfUserMapper tfUserMapper;
+
+	@Autowired
+	private TfDeviceMapper tfDeviceMapper;
+
+	@Autowired
+	private TfApplicationMapper tfApplicationMapper;
 
 	@Autowired
 	private PageMapper pageMapper;
@@ -94,6 +107,7 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 
+	//사용자 탈퇴
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> userWd(List list) throws Exception {
@@ -108,6 +122,43 @@ public class UserServiceImpl implements UserService {
 		map.put("resultCode", "S");
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> PdaLogin(Map param) throws Exception {
+		HashMap item = new HashMap();
+		item.put("userId", param.get("userId"));
+
+		TfDeviceVO device = tfDeviceMapper.serialSearch(param);
+		TfApplicationVO lastVer = tfApplicationMapper.appLastVs();
+
+		if(device == null){																				// 장비 등록 여부
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_DEVICE_MSG);
+		}
+		if(!lastVer.getVersion().equals(param.get("version"))){											//어플 버전 확인
+			item = new HashMap();
+			item.put("appDownUrl", "http://"+param.get("appDownUrl")+"/#/member/appDown");
+			return ResultUtil.setCommonResult("U",ConstansConfig.VERSION_UPDATE_MSG, item);
+		}
+
+		TfUserVO user = tfUserMapper.login(item);
+		item.put("userNm", user.getUserNm());
+		item.put("storeCd", user.getStoreCd());
+		item.put("grade", user.getGrade());
+		if(user == null){																				// ID 등록 여부
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_USER_MSG);
+		} else if(!passwordEncoder.matches((CharSequence) param.get("userPwd"), user.getUserPwd())){ 	// 비밀번호 검증 실패
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_VALID_PASSWORD_MSG);
+		} else if(user.getUserStat().equals("N")){ 														// 계정 사용가능 여부
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_USE_USER_MSG);
+		} else if(user.getPdaUseYn().equals("N")){ 														// PDA 사용가능 여부
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_CHECK_ADMIN_MSG);
+		}
+
+		return ResultUtil.setCommonResult("S",ConstansConfig.LOGIN_SUCCESS_MSG, item);
+	}
+
+
+
 
 
 }

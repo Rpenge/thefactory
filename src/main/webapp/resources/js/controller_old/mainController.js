@@ -208,15 +208,15 @@ app.controller('statsModalController', ['$scope', '$http', '$element', 'close', 
 }]);
 
 
-app.controller('modalController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$uibModalInstance',
-	function ($scope, $http, $location, $routeParams, $rootScope, $uibModalInstance) {
-		$scope.title = $ctrl.title;
-		$scope.body = $ctrl.body;
-		$scope.ok = function() {
-			$uibModalInstance.close();
-	    };
-	    $scope.cancel = function() {
-	    	$uibModalInstance.dismiss();
-	    };
-	}
-]);
+// app.controller('modalController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$uibModalInstance',
+// 	function ($scope, $http, $location, $routeParams, $rootScope, $uibModalInstance) {
+// 		$scope.title = $ctrl.title;
+// 		$scope.body = $ctrl.body;
+// 		$scope.ok = function() {
+// 			$uibModalInstance.close();
+// 	    };
+// 	    $scope.cancel = function() {
+// 	    	$uibModalInstance.dismiss();
+// 	    };
+// 	}
+// ]);

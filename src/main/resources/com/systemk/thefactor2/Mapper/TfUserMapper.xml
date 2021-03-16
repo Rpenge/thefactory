@@ -18,8 +18,8 @@
              , USER_STAT
         FROM
             TF_USER
-        WHERE 1=1
-        AND USER_ID = #{userId}
+        WHERE
+            USER_ID = #{userId}
     </select>
 
     <select id="userList" resultType="TfUserVO" parameterType="java.util.HashMap">

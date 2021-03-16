@@ -28,6 +28,16 @@ public class MainController {
         return "modal/alert";
     }
 
+    @RequestMapping("/modal/upload")
+    public String modalUpload(Model model) {
+        return "modal/upload";
+    }
+
+    @RequestMapping("/member/appDown")
+    public String appDown(Model model) {
+        return "member/appDown";
+    }
+
 
     @RequestMapping("/base/comm")
     public String comm(Model model) {

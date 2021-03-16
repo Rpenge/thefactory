@@ -18,4 +18,6 @@ public interface UserService {
 
     public Map<String, Object> userWd(List param) throws Exception;
 
+    public Map<String, Object> PdaLogin(Map param) throws Exception;
+
 }

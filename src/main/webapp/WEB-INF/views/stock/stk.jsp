@@ -94,9 +94,6 @@
 				</div>
 
 
-
-
-
 				<div class="row d-flex justify-content-center">
 				<!-- 네비게이션 바 -->
 					<nav class=" text-center" >

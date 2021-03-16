@@ -1,25 +1,22 @@
 package com.systemk.thefactor2.Util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
 
-	public void upload(MultipartFile mf, String name, String path) {
-		String SAVE_PATH = path;
+	public void upload(MultipartFile mf, String name, String path) throws FileNotFoundException {
 		String originalFileName = mf.getOriginalFilename();
-		int pos = originalFileName.lastIndexOf(".");
-		String ext = "." + originalFileName.substring(pos + 1);
-
-		String saveFile = SAVE_PATH + name;
-		fileDelete(saveFile);
-		File fi = new File(saveFile + ext);
+		File fi = new File(path+originalFileName);
+		fi.getPath();
 		try {
 			mf.transferTo(fi);
 		} catch (IllegalStateException e) {

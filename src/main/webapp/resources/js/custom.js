@@ -383,13 +383,13 @@ function modalAlert(uibModal, title, body){
 	$ctrl = {};
 	$ctrl.title = title;
 	$ctrl.body = body;
-
 	var modalInstance = uibModal.open({
 		templateUrl: "modal/alert",
 		controller: "modalController",
 		controllerAs: '$ctrl'
 	});
 }
+
 //모달 확인창
 function modalCheck($uibModal, title, body, cb){
 	$ctrl = {};
@@ -402,7 +402,6 @@ function modalCheck($uibModal, title, body, cb){
 		controllerAs: '$ctrl'
 	});
 	modalInstance.result.then(function() {
-		console.log(cb);
 		cb();
 		//return true;
 	}, function () {
@@ -467,3 +466,28 @@ function tableTrDel(tableId){
 }
 
 
+function code(rootScope) {
+	rootScope.grade = []; // 권한목록
+	rootScope.store = []; // 매장목록
+	rootScope.device = []; // 매장목록
+	for (value of rootScope.commCode) {
+		var bcd = value.commCd.substr(0, 2);
+		var mcd = value.commCd.substr(2, 2);
+		var scd = value.commCd.substr(4, 2);
+		if (bcd == '01' && mcd == '01' && scd != '00') { // 사용자 권한
+			rootScope.grade.push(value);
+		} else if (bcd == '01' && mcd == '02' && scd != '00') { // 매장
+			rootScope.store.push(value);
+		} else if (bcd == '02' && mcd == '01' && scd != '00') { // 장비구분
+			rootScope.device.push(value);
+		}
+	}
+}
+
+function codeToNm(code, data) {
+	for(value of data){
+		if(value.commCd == code){
+			return value.commCdNm;
+		}
+	}
+};

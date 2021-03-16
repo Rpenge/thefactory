@@ -1,6 +1,7 @@
 app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
 	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
 
+
 	$scope.credentials ={};
 	if($cookieStore.get("idSave")){
 		$scope.idSaveCheck = true;
@@ -8,7 +9,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	}
 
 	var authenticate = function(credentials, callback) {
-
 		if($scope.idSaveCheck) {
 			$cookieStore.put("idSave", true);
 			$cookieStore.put("uesrId",credentials.userId);
@@ -17,7 +17,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 			$cookieStore.remove("uesrId");
 		}
 
-
 		var headers = credentials ? {authorization : "Basic "
 			+ btoa(credentials.userId + ":" + credentials.userPw)
 		} : {};
@@ -25,10 +24,12 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		$http.get('/member/userAuth', {headers : headers}).success(function(data) {
 			if (data.userId) {
 				sessionStorage.setItem('id', data.userId);
+				sessionStorage.setItem('role', data.role);
+				$rootScope.role = data.role;
 		        $rootScope.authenticated = true;
-
-		        //로그인했을때 메뉴목록 가져와서 저장
 				$rootScope.topMenu = data.auth;
+				//$rootScope.commCode = data.commCode;
+				//code($rootScope);
 			} else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;
@@ -55,7 +56,8 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	$scope.login = function() {
 		authenticate($scope.credentials, function() {
 	        if ($rootScope.authenticated) {
-	        	$location.url("/main/home");
+				$rootScope.reload();
+	        	//$location.url("/main/home");
 	        	$scope.error = '';
 	        } else {
 	        	$location.url("/");

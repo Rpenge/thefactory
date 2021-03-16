@@ -204,6 +204,8 @@ public class ConstansConfig {
 
 	public final static String BAD_PARAMETER_MSG = "검증되지 않은 파라미터입니다.";
 
+	public final static String NOT_FIND_DEVICE_MSG = "등록된 장비가 아닙니다.";
+
 	public final static String NOT_FIND_USER_MSG = "등록된 사용자가 아닙니다.";
 
 	public final static String NOT_VALID_PASSWORD_MSG = "비밀번호를 확인하여 다시 시도해주세요.";
@@ -363,7 +365,7 @@ public class ConstansConfig {
 	public final static String STORE_PDA_RETURN_NOT_FIND_BOXNUM_MSG = "해당 박스번호에 작업이 존재하지 않습니다";
 
 	public final static String STORE_PDA_RETURN_WORKED_DATA_NONE_MSG = "작업 내용이 없습니다";
-	
+
 	public final static String STORE_PDA_AFTER_RETURN_CONFIRM_DATE = "반품 마감일자가 지나서 작업할 수 없습니다";
 
 }
