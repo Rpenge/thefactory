@@ -55,7 +55,7 @@
 								</tr>
 							</thead> 
 							<tbody>
-								<tr ng-repeat="value in list.codeList" ng-init="value.isSelected = false;" style="background-color: white" >
+								<tr ng-repeat="value in list.commList" ng-init="value.isSelected = false;" style="background-color: white" >
 									<td><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.cmmnSeq}}, !{{value.isSelected}})"></td>
 									<td ng-click="addCode(value)" class="pointer">{{value.cmmnSeq}}</td>
 									<td ng-click="addCode(value)" class="pointer">{{value.code}}</td>

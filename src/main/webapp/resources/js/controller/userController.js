@@ -181,9 +181,8 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 				$scope.search.userStat = $scope.searchGroup.userStat;
 			}else if(command == 'word'){
 				const param = generateParam($scope.searchWord);
-				httpGetList($http, $scope,'/system/userList', param );
+				httpGetList($http, $scope,'/system/userList', param);
 				$scope.search.word = $scope.searchWord.word;
-
 			}
 		}
 

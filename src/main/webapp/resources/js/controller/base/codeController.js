@@ -1,14 +1,13 @@
+//코드 리스트
+app.controller('codeController', ['$scope', '$http', '$location','$rootScope', '$rootScope', '$window', '$filter', '$uibModal',
+	function ($scope, $http, $location,$rootScope, $rootScope, $window, $filter, $uibModal) {
 
-app.controller('codeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$rootScope', '$timeout', '$window','$uibModal',
-	function ($scope, $http, $location,$rootScope, $interval, $rootScope, $timeout, $window, $uibModal) {
+	pageInfo($rootScope, $location); //현재페이지 정보
 
-	//현재페이지 정보
-	pageInfo($rootScope, $location);
+	httpGetList($http, $scope,'/base/commList'); //코드 리스트 조회
 
-	$scope.codeSelect = function(){
-
-	}
-
+	$scope.codeSelect = function(){};
+	$scope.form = {};
 
 }]);
 

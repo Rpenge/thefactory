@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CommService {
 
-    public List<TfCommCodeVO> findList() throws Exception;
+    public List<TfCommCodeVO> commList() throws Exception;
 
 }

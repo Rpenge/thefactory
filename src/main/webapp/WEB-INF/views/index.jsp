@@ -91,7 +91,7 @@
 					<div class="tri" ng-if="currentMenu.GROUP_CD == 'SYSTEM'"></div>
 				</div>
 				<div class="navbar-header">
-					<a href="" ng-click="goMenu('sample/codeList')">기초정보관리</a>
+					<a href="" ng-click="goMenu('sample/commList')">기초정보관리</a>
 					<div class="tri" ng-if="currentMenu.GROUP_CD == 'BASE'"></div>
 				</div>
 				<div class="navbar-header">

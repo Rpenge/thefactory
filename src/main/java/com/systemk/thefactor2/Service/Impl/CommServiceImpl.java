@@ -20,8 +20,8 @@ public class CommServiceImpl implements CommService {
 
 
 	@Override
-	public List<TfCommCodeVO> findList() throws Exception {
-		return tfCommCodeMapper.codeList();
+	public List<TfCommCodeVO> commList() throws Exception {
+		return tfCommCodeMapper.commList();
 	}
 
 }
