@@ -13,10 +13,8 @@ import java.util.Date;
 @Data
 public class TfCommCodeVO {
     // 공통코드 Value Object Class
-    private String commCd;      // 코드 분류 코드
-    private String commCdNm;    // 대분류명
-    private String commCdNm2;   // 중분류명
-    private String commCdNm3;   // 소분류명
+    private String commCd;      // 코드
+    private String commCdNm;    // 코드명
     private String codeLevel;   // 코드레벨
     private int    dispSeq;     // 조회순서
     private String comment;     // 부연설명
