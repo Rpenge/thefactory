@@ -207,8 +207,7 @@
 							<p style="margin: 8px 0 5px 0">매장</p>
 							<select class="form-control" style="width: 180px;">
 								<option>전체</option>
-								<option>논현점</option>
-								<option>압구정점</option>
+								<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 							</select>
 						</div>
 
@@ -219,52 +218,21 @@
 						</div>
 						<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st1">
 
-							<table style="width:100%;">
-
-								<tr><td onclick="selectTd($(this))">CHANEL</td></tr>
-								<tr><td onclick="selectTd($(this))">ACNE STUDIOS</td></tr>
-								<tr><td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td></tr>
-								<tr><td onclick="selectTd($(this))">BALENCIAGA</td></tr>
-								<tr><td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td></tr>
-								<tr><td onclick="selectTd($(this))">COMME DES GARCONS</td></tr>
-								<tr><td onclick="selectTd($(this))">BOTTEGA VENETA</td></tr>
-								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-								<tr><td onclick="selectTd($(this))">ISABEL MARANT</td></tr>
-
+							<table id="lBrandTb" style="width:100%;">
+<%--								<tr ng-repeat="value in brandList"><td onclick="selectTd($(this))" style="padding:5px;">{{value.brandNm}}</td></tr>--%>
+								<tr ng-repeat="(key, value) in brandList">
+									<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>
+								</tr>
 							</table>
+
+
 						</div>
-
-<%--					<div class="d-flex justify-content-between left-body-menu"  ng-click="st2 = st2==true ? false : true">--%>
-<%--						<p style="margin: 8px 50px 5px 0;">조회 날짜</p>--%>
-<%--						<i style="margin: 8px;" class="xi-angle-down" ng-show="!st2"></i>--%>
-<%--						<i style="margin: 8px;" class="xi-angle-up" ng-show="st2"></i>--%>
-<%--					</div>--%>
-<%--					<div style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st2">--%>
-
-<%--						<div class="row input-group" style="width:250px;margin:5px;"> 시작일--%>
-<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
-<%--							<span class="input-group-append" >--%>
-<%--								<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>--%>
-<%--							</span>--%>
-<%--						</div>--%>
-
-<%--						<div class="row input-group" style="width:250px;margin:5px;"> 종료일--%>
-<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
-<%--							<span class="input-group-append" >--%>
-<%--								<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>--%>
-<%--							</span>--%>
-<%--						</div>--%>
-<%--					</div>--%>
 
 						<div  class="d-flex justify-content-between left-body-menu">
 							<p style="margin: 8px 0 5px 0">성별</p>
-							<select class="form-control" style="width: 180px;">
-								<option>전체</option>
-								<option>남성</option>
-								<option>여성</option>
+							<select class="form-control" ng-model="quickSearch.gender" ng-change="genderSelect(quickSearch.gender)" style="width: 180px;">
+								<option value="">전체</option>
+								<option ng-repeat="value in subBrand" ng-if="value.codeLevel=='M'" value="{{value.brandKindCd}}">{{value.brandNm}}</option>
 							</select>
 						</div>
 
@@ -275,17 +243,10 @@
 							<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
 						</div>
 						<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
-							<table class="table-bordered" style="width:100%;text-align: center;height: 50px;">
-
-								<tr style="margin:10px;">
-									<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">아우터</td>
-									<td onclick="selectTd($(this))" style="width:33.3%;">상의</td>
-									<td onclick="selectTd($(this))" style="width:33.3%;">하의</td>
-								</tr>
-								<tr style="margin:10px;">
-									<td onclick="selectTd($(this))" style="width:33.3%;padding:10px;">슈즈</td>
-									<td onclick="selectTd($(this))" style="width:33.3%;">가방</td>
-									<td onclick="selectTd($(this))" style="width:33.3%;">지갑</td>
+							<table style="width:100%;">
+								<tr ng-repeat="(key, value) in subBrandCls">
+<%--									<option value="{{value.brandKindCd}}">{{value.brandNm}}</option>--%>
+									<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="quickSearch.cls=value.brandKindCd">{{value.brandNm}} </td>
 								</tr>
 							</table>
 						</div>
@@ -301,12 +262,12 @@
 								<tr style="margin:10px;">
 									<td style="width:33.3%;padding:5px;">입고</td>
 									<td style="width:33.3%;">출고</td>
-									<td style="width:33.3%;">재고</td>
+									<td style="width:33.3%;">판매/배송</td>
 								</tr>
 								<tr style="margin:10px;">
 									<td style="width:33.3%;padding:15px;">15</td>
 									<td style="width:33.3%;border-left: 1px solid lightgray;border-right: 1px solid lightgray;">3</td>
-									<td style="width:33.3%;">3809</td>
+									<td style="width:33.3%;">38</td>
 								</tr>
 							</table>
 						</div>
@@ -336,28 +297,27 @@
 <%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
 
 						<!-- 검색 추가열 -->
-<%--						{{currentMenu}}--%>
 						<div class="d-flex" style="width: 100%;" ng-if="addQuick1">
 
 							<p style="margin:12px 10px;">구분</p>
-							<select class="form-control" style="width:150px;margin:5px;">
-								<option>전체</option>
+							<select class="form-control" ng-model="quickSearch.workGub" style="width:150px;margin:5px;">
+								<option value="">전체</option>
 							</select>
 
-							<select class="form-control" style="width:150px;margin:5px;">
-								<option>전체</option>
+							<select class="form-control" ng-model="quickSearch.detatilGub" style="width:150px;margin:5px;">
+								<option value="">전체</option>
 							</select>
 
 							<p style="margin:12px 10px;">일자검색</p>
 							<div class="row input-group" style="width:200px;margin:5px;">
-								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
 								<span class="input-group-append" >
 									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
 								</span>
 							</div>
 							<p style="margin:12px 10px;">~</p>
 							<div class="row input-group" style="width:200px;margin:5px;">
-								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
 								<span class="input-group-append" >
 									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>
 								</span>
@@ -368,51 +328,47 @@
 						<!-- 검색 공통 -->
 						<div class="d-flex" style="width: 100%;">
 
-							<select class="form-control" ng-model="quickSearch.gub" style="width:150px;margin: 10px;height: 40px;">
-								<option option="">검색구분</option>
+							<select class="form-control" ng-model="quickCommand.gub" style="width:150px;margin: 10px;height: 40px;">
+								<option value="">검색구분</option>
+								<option value="input">입고</option>
+								<option value="output">출고</option>
+								<option value="sales">판매/배송</option>
 							</select>
 
-							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="quickSearch.brand" ng-click="qs1 = qs1==true ? false : true" readonly>
+							<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true" readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
 							</label>
-							<div style="width:100%;height:150px;background: white;position:absolute;top:150px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
-								<div style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;" ng-click="qs1= false">X</div>
-								<table style="width:100%;">
-									<tr>
-										<td onclick="selectTd($(this))">CHANEL</td>
-										<td onclick="selectTd($(this))">ACNE STUDIOS</td>
-										<td onclick="selectTd($(this))">ALEXANDER MCQUEEN</td>
-										<td onclick="selectTd($(this))">BALENCIAGA</td>
-										<td onclick="selectTd($(this))">CHRISTIAN LOUBOUTIN</td>
-										<td onclick="selectTd($(this))">COMME DES GARCONS</td>
-									</tr>
-									<tr>
-										<td onclick="selectTd($(this))">BOTTEGA VENETA</td>
-										<td onclick="selectTd($(this))">ISABEL MARANT</td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+							<div style="width:100%;min-height:150px;background: white;position:absolute;top:150px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
+								<div onclick="tableTdDel('qBrandTb');tableTdDel('lBrandTb')" ng-click="qs1=false;brandSelect()" style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;">X</div>
+								<table id="qBrandTb" style="width:98%;vertical-align: top;" ng-click="qs1= false">
+									<tr ng-repeat="(key, value) in brandList" ng-if="key % 6 == 0">
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+1])" ng-if="brandList[key+1]">{{brandList[key+1].brandNm}} </td>
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+2])" ng-if="brandList[key+2]">{{brandList[key+2].brandNm}} </td>
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+3])" ng-if="brandList[key+3]">{{brandList[key+3].brandNm}} </td>
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+4])" ng-if="brandList[key+4]">{{brandList[key+4].brandNm}} </td>
+										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+5])" ng-if="brandList[key+5]">{{brandList[key+5].brandNm}} </td>
 									</tr>
 								</table>
 
 							</div>
 
+							<select class="form-control" ng-model="quickSearch.gender" ng-change="genderSelect(quickSearch.gender)" style="width:150px;margin: 10px;height: 40px;">
+								<option value="">성별</option>
+								<option ng-repeat="value in subBrand" ng-if="value.codeLevel=='M'" value="{{value.brandKindCd}}">{{value.brandNm}}</option>
+							</select>
+							<select class="form-control" ng-model="quickSearch.cls" style="width:150px;margin: 10px;height: 40px;">
+								<option value="">상품분류</option>
+								<option ng-repeat="value in subBrandCls" value="{{value.brandKindCd}}">{{value.brandNm}}</option>
+							</select>
 
-							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
-								<option>성별</option>
-							</select>
-							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
-								<option>사이즈</option>
-							</select>
-							<select class="form-control" style="width:150px;margin: 10px;height: 40px;">
-								<option>상품분류</option>
-							</select>
+							<input class="form-control" ng-model="quickSearch.size" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
+
 							<button class="btn btn-outline-secondary" style="width:70px;margin:10px 30px;">검색</button>
 							<div class="d-flex" style="width:280px;margin: 10px;">
-								<input type="text" class="form-control" style="height: 40px;border:0;border-bottom: 1px solid gray;">
+								<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 								<button class="btn" style="position:relative;left:-40px;background: transparent;">
 									<i class="xi-search" style="font-size: 20px;"></i>
 								</button>
@@ -454,16 +410,3 @@
 		</div>
 	</body>
 </html>
-
-<script>
-	function selectTd(td){
-		var table = td.parent().parent();
-		table.children().children().css('background', 'white');
-		table.children().children().css('color', 'black');
-
-		td.css('background', 'gray');
-		td.css('color', 'white');
-	}
-
-
-</script>

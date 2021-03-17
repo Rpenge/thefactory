@@ -37,7 +37,7 @@
 			<p style="margin:20px 10px;">회원상태</p>
 			<td><select class="form-control" ng-model="searchGroup.userStat" style="width:200px;margin: 10px;height: 40px;">
 				<option value="">상태</option>
-				<option value="Y" >사용</option>
+				<option value="Y">사용</option>
 				<option value="N">탈퇴</option>
 			</select></td>
 

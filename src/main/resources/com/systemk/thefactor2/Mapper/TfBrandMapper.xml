@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfBrandMapper">
+    <select id="brandList" resultType="TfBrandVO">
+       SELECT * FROM TF_BRAND
+       WHERE CODE_LEVEL = 'B'
+       ORDER BY BRAND_KIND_CD ASC
+    </select>
+
+    <select id="genderList" resultType="TfBrandVO" parameterType="String">
+        SELECT * FROM TF_BRAND
+        WHERE SUBSTR(BRAND_KIND_CD,1,2) = #{item}
+          AND CODE_LEVEL = 'M'
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+
+    <select id="clsList" resultType="TfBrandVO" parameterType="String">
+        SELECT * FROM TF_BRAND
+        WHERE substr(BRAND_KIND_CD,1,4) = #{item}
+          AND CODE_LEVEL = 'S'
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+
+    <select id="brandSubList" resultType="TfBrandVO" parameterType="String">
+        SELECT *
+        FROM TF_BRAND
+        WHERE SUBSTR(BRAND_KIND_CD, 1, 2) = #{item}
+            AND (
+                CODE_LEVEL = 'M'
+                OR
+                CODE_LEVEL = 'S'
+                )
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+</mapper>

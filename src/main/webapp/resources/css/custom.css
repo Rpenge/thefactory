@@ -350,16 +350,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.full button span {
-    background-color: limegreen;
-    border-radius: 32px;
-    color: black;
-}
-.partially button span {
-    background-color: orange;
-    border-radius: 32px;
-    color: black;
-}
+
 
 .fa-svg-icon {
     display: inline-block;
@@ -635,9 +626,6 @@ input:checked + .slider:before {
 	min-width: 200px;
 }
 
-.custom-table-1 > thead > tr{
-	box-shadow: 0px 3px 4px lightgray;
-}
 .custom-table-1 > tbody > tr{
 	box-shadow: 0px 1px 1px whitesmoke;
 }
@@ -648,11 +636,7 @@ input:checked + .slider:before {
 	color: gray;
 }
 
-/*@media print{*/
-/*	.noPrint {*/
-/*		display: none;*/
-/*	}*/
-/*}*/
+
 
 .table-content{
 	background-color: whitesmoke!important;
@@ -792,8 +776,8 @@ a.nav-link{
 .menuName{
 	color: black!important;
 	padding: 0 5px 3px 5px ;
-	/*font-weight: bolder;*/
 }
+
 .menuName:hover,
 .menuName:active,
 .menuName:link,
@@ -826,7 +810,7 @@ a.nav-link{
 .page-link{
 	color: black;
 }
-.btn-sm{
+.btn-sm-custom{
 	height: 30px;
 	margin: 5px 3px;
 }
@@ -856,8 +840,9 @@ a.nav-link{
 	background-color: whitesmoke;
 }
 .table-striped-odd > thead > tr{
-	background-color : whitesmoke;
-	box-shadow : 0 0 12px 0 lightgray inset;
+	background-color : dimgrey;
+	/*box-shadow : 0 0 12px 0 lightgray inset;*/
+	color: white;
 }
 
 .tri{
@@ -927,7 +912,7 @@ a.nav-link{
 }
 
 
-<!--div 애니메이션-->
+
 .div-fade-in.ng-hide-add {
 	opacity: 100%;
 }
@@ -949,3 +934,13 @@ a.nav-link{
 	border-right:1px solid gray;"
 }
 
+.select-table-pointer{
+	width:6%;
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 2px;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select:none;
+}

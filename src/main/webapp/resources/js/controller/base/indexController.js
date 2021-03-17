@@ -10,9 +10,12 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	//현재페이지 정보
 	pageInfo($rootScope, $location);
+	$scope.quickSearch = {};
+	$scope.view = {};
 
 	$http.get('/member/getCode').success(function(data) {
 		$rootScope.commCode = data.commCode;
+		$rootScope.brandList = data.brandList;
 		code($rootScope);
 	});
 
@@ -121,6 +124,35 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$scope.sideMenuDock = function(idx){
 		$scope.dock[idx] = $scope.dock[idx] ? false : true;
 	}
+
+	$scope.brandSelect = function(data){	//브랜드 선택
+		if(!data){
+			$scope.quickSearch.brand = null;
+			$scope.view.brand = null;
+			$scope.quickSearch.gender = "";
+			$scope.quickSearch.cls = "";
+			$scope.subBrandCls = [];
+			return;
+		}
+		$scope.quickSearch.brand = data.brandKindCd;
+		$scope.view.brand = data.brandNm;
+
+		$http.get('/member/brandSub?brandCd='+ data.brandKindCd.substr(0,2)).success(function(data) {
+			$scope.subBrand = data.brandSubList;
+		});
+	}
+
+	$scope.genderSelect = function(data){ //성별 선택
+		$scope.subBrandCls = [];
+		for(const value of $scope.subBrand){
+			if(data.substr(0,4) == value.brandKindCd.substr(0,4) && value.codeLevel == 'S'){
+				$scope.subBrandCls.push(value);
+			}
+		}
+
+	}
+
+	$scope.dateOptions = {'showWeeks':false} ;
 
 
 }]);

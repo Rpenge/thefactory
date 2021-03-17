@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.systemk.thefactor2.Security.LoginUser;
 
+import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Mapper.TfUserAuthMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +40,8 @@ public class UserController {
 	private CommService commService;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private BrandService brandService;
+
 
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
@@ -78,13 +81,24 @@ public class UserController {
 		return resultMap;
 	}
 
-	//새로고침 : 메뉴 + 권한 다시 조회
+	// 브랜드 , 공통코드 불러오기
 	@RequestMapping("/getCode")
 	public Map getCode() throws Exception{
 		HashMap resultMap = new HashMap<>();
 		resultMap.put("commCode", commService.findList());
+		resultMap.put("brandList", brandService.findBrand());
 		return resultMap;
 	}
+
+	//브랜드 하위 정보 불러오기
+	@RequestMapping(value = "/brandSub", method = RequestMethod.GET)
+	public Map getBrandSub(HttpServletRequest request) throws Exception{
+		HashMap resultMap = new HashMap<>();
+		resultMap.put("brandSubList", brandService.findBrandSub(request.getParameter("brandCd")));
+		return resultMap;
+	}
+
+
 
 
 	@RequestMapping(value="/logout", method = RequestMethod.POST)

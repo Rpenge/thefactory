@@ -65,24 +65,23 @@
 				<!--테이블 상단 구성-->
 				<div class="d-flex" style="margin:10px 0;">
 					<div class="d-flex mr-auto p-2" style="margin:0;padding:0!important;">
-						<select class="custom-select" ng-model="sizeValue" ng-change="pageSize(sizeValue)" style="width:150px;margin-right: 10px;">
-							<option value="">10개씩 보기</option>
+						<select class="custom-select" ng-model="search.size" ng-init="search.size = '10'" ng-change="pageSize()" style="width:150px;margin-right: 10px;">
+							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>
 							<option value="50">50개씩 보기</option>
-							<option value="total" style="color: red;">전체보기</option>
 						</select>
 
-						<h6 class="align-self-center">TOTAL ( 10 )</h6>
+						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
-					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">삭제</button>
+					<button class="btn btn-danger p-2 table-top-btn" ng-click="tableBtn('Withdrawal')">삭제</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table class="table custom-table-1 table-hover text-center custom-align-middle" style="min-width:1100px;">
+					<table class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="min-width:1100px;">
 						<thead>
 						<tr class="pointer">
-							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>
+							<th><input type="checkbox" ></th>
 							<th>순번</th>
 							<th>입고일자</th>
 							<th>입고매장</th>
@@ -101,25 +100,43 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer" ng-init="value.isSelected = false;">
-							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.assetManagementSeq}}, !{{value.isSelected}})" ></td>
-							<td>{{value}}</td>
-							<td>2021.04.01</td>
-							<td>논현본점</td>
-							<td>압구정점</td>
-							<td>점간입고</td>
-							<td>Luis Vrtong</td>
-							<td>여자</td>
-							<td>하의</td>
-							<td>S</td>
-							<td>0000000337</td>
-							<td>ARNICA 18F</td>
-							<td>0000000001003</td>
-							<td>TF000000000100300001</td>
-							<td>systemk</td>
-							<td>systemk</td>
+<%--						<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer">--%>
+<%--							<td style="padding:25px;"><input type="checkbox" ></td>--%>
+<%--							<td>{{value}}</td>--%>
+<%--							<td>2021.04.01</td>--%>
+<%--							<td>논현본점</td>--%>
+<%--							<td>압구정점</td>--%>
+<%--							<td>점간입고</td>--%>
+<%--							<td>Luis Vrtong</td>--%>
+<%--							<td>여자</td>--%>
+<%--							<td>하의</td>--%>
+<%--							<td>S</td>--%>
+<%--							<td>0000000337</td>--%>
+<%--							<td>ARNICA 18F</td>--%>
+<%--							<td>0000000001003</td>--%>
+<%--							<td>TF000000000100300001</td>--%>
+<%--							<td>systemk</td>--%>
+<%--							<td>systemk</td>--%>
 
-						</tr>
+<%--						</tr>--%>
+							<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+								<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.perMemberNo}})" ></td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInSeq}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInDate}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.inStoreNm}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.outStoreNm}}</td><!--출고매장-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInType}}</td><!--입고유형-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandKindCd}}</td><!--브랜드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandKindCd}}</td><!--성별-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandKindCd}}</td><!--상품분류-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td><!--사이즈-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.ecPrdCd}}</td><!--상품코드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td><!--자체상품코드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td><!--바코드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td><!--태그ID-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td><!--등록자-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modId}}</td><!--수정자-->
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -128,24 +145,23 @@
 					<!-- 네비게이션 바 -->
 					<nav class=" text-center" >
 						<ul class="pagination">
-							<li class="page-item">
-								<a href="" aria-label="Previous" ng-click="goPage(begin)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
+							<li class="page-item" ng-if="paging.current > 10">
+								<a href="" aria-label="Previous" ng-click="goPage(1)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
 							</li>
-							<li class="page-item">
-								<a href="" aria-label="Previous" ng-click="goPage(current - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
+							<li class="page-item" ng-if="paging.current > 10">
+								<a href="" aria-label="Previous" ng-click="goPage(paging.begin - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
 							</li>
-							<%--                            <li ng-repeat="pageNum in [begin, end] | makeRange" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>--%>
-							<li ng-repeat="pageNum in [1,2,3,4,5]" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
-							<li class="page-item">
-								<a href="" aria-label="Next" ng-click="goPage(current + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
+							<li ng-repeat="pageNum in [paging.begin, paging.end] | makeRange" class="page-item" ng-class="{'active-page' : paging.current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
+							<li class="page-item" ng-if="paging.end != paging.last">
+								<a href="" aria-label="Next" ng-click="goPage(paging.end + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
 							</li>
-							<li class="page-item">
-								<a href="" aria-label="Next" ng-click="goPage(end)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
+							<li class="page-item" ng-if="paging.end != paging.last">
+								<a href="" aria-label="Next" ng-click="goPage(paging.last)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
 							</li>
 						</ul>
 					</nav>
-
 				</div>
+
 			</div>
 		</div>
 	</section>

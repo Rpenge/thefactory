@@ -43,18 +43,18 @@
 <%--							<input type="file" id="excelUpload1" name="excel" onchange="angular.element(this).scope().excelUpload()" accept=".xlsx" style="border-bottom: 1px solid black;">--%>
 <%--						</form>--%>
 <%--						<button class="btn btn-outline-secondary btn-sm" ng-click="excelClick()"><i class="xi-file-upload-o"></i> EXCEL업로드</button>--%>
-						<div class="btn btn-sm" style="padding:0;">
+						<div class="btn btn-sm btn-sm-custom" style="padding:0;">
 							<input ng-model="file_path" style="border:0px;border-bottom: 1px solid gray;width: 100px;" disabled=disabled">
-							<label class="btn btn-outline-secondary btn-sm" style="margin:0;">업로드
+							<label class="btn btn-outline-secondary btn-sm btn-sm-custom" style="margin:0;">업로드
 							<input class="btn btn-outline-secondary" type="file" id="ex_filename" onchange="angular.element(this).scope().fileUpload(this.value)" hidden>
 							</label>
 						</div>
 
 
 
-						<button class="btn btn-outline-secondary btn-sm" ng-click="formDown()"><i class="xi-file-download-o"></i> 양식</button>
-						<button class="btn btn-primary btn-sm" ng-click="modalOpen('assetReg')">자산 등록</button>
-						<button class="btn btn-secondary btn-sm" ng-click="assetUpdate('DEL')">삭제</button>
+						<button class="btn btn-outline-secondary btn-sm btn-sm-custom" ng-click="formDown()"><i class="xi-file-download-o"></i> 양식</button>
+						<button class="btn btn-primary btn-sm btn-sm-custom" ng-click="modalOpen('assetReg')">자산 등록</button>
+						<button class="btn btn-secondary btn-sm btn-sm-custom" ng-click="assetUpdate('DEL')">삭제</button>
 					</div>
 				</div>
 				<!-- 테이블 생성 -->

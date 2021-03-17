@@ -465,7 +465,21 @@ function tableTrDel(tableId){
 	$("#"+tableId).children().children().removeClass('text-white');
 }
 
+function tableTdDel(tableId){
+	$("#"+tableId).children().children().children().css('background', 'white');
+	$("#"+tableId).children().children().children().css('color', 'black');
+}
 
+function selectTd(td){
+	var table = td.parent().parent();
+	table.children().children().css('background', 'white');
+	table.children().children().css('color', 'black');
+	td.css('background', 'gray');
+	td.css('color', 'white');
+}
+
+
+//코드정리
 function code(rootScope) {
 	rootScope.grade = []; // 권한목록
 	rootScope.store = []; // 매장목록
@@ -484,6 +498,7 @@ function code(rootScope) {
 	}
 }
 
+//코드를 코드명으로 변환
 function codeToNm(code, data) {
 	for(value of data){
 		if(value.commCd == code){
