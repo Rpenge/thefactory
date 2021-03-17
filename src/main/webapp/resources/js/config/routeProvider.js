@@ -9,9 +9,9 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/system/user', {templateUrl:'/system/user', controller:'userController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/base/comm', {templateUrl:'/base/comm', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.when('/base/brand', {templateUrl:'/base/brand', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.when('/base/product', {templateUrl:'/base/product', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.when('/base/device', {templateUrl:'/base/device', controller:'codeController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/brand', {templateUrl:'/base/brand', controller:'brandController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/product', {templateUrl:'/base/product', controller:'productController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/base/device', {templateUrl:'/base/device', controller:'deviceController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/inout/input', {templateUrl:'/inout/input', controller:'inputController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/output', {templateUrl:'/inout/output', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})

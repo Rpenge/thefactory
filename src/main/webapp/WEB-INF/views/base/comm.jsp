@@ -6,7 +6,6 @@
 
 <div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;">
 
-
     <!-- left body -->
     <div  style="width:20%;margin:3px;">
         <!--메뉴-->
@@ -17,22 +16,28 @@
             <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
         </div>
 
-<%--            {{commCode}}--%>
+<%--{{commCode}}--%>
         <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
             <tr>
                 <th>코드</th>
-                <td style="width:70%;height: 40px;"><input type="text" class="form-control" ng-model="BCode.commCd"></td>
+                <td style="width:70%;height: 40px;">
+                    <input type="text" class="form-control" ng-model="BCode.commCd">
+                </td>
             </tr>
             <tr>
                 <th style="width:30%;">코드명</th>
-                <td style="width:70%;height: 40px;"><input type="text" class="form-control" ng-model="BCode.commCdNm"></td>
+                <td style="width:70%;height: 40px;">
+                    <input type="text" class="form-control" ng-model="BCode.commCdNm">
+                </td>
             </tr>
             <tr>
                 <th>사용여부</th>
-                <td><select class="form-control" ng-model="BCode.useYn">
-                    <option value="Y">Y</option>
-                    <option value="N">N</option>
-                </select></td>
+                <td>
+                    <select class="form-control" ng-model="BCode.useYn">
+                        <option value="Y">Y</option>
+                        <option value="N">N</option>
+                    </select>
+                </td>
             </tr>
 
         </table>
@@ -69,8 +74,6 @@
             </ol>
         </div>
         <div>
-
-
         </div>
 
 
@@ -87,13 +90,17 @@
                     <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
                         <tr>
                             <th style="width:20%;height:40px">대분류코드</th>
-                            <td style="width:30%;padding: 0;"><input type="text" class="form-control" placeholder="010000" readonly></td>
+                            <td style="width:30%;padding: 0;">
+                                <input type="text" class="form-control" ng-model="form.commCd" placeholder="대분류코드" readonly>
+                            </td>
                             <th style="width:20%">대분류명</th>
-                            <td style="width:30%"><input type="text" class="form-control" placeholder="사용자" readonly></td>
+                            <td style="width:30%">
+                                <input type="text" class="form-control" placeholder="대분류명" readonly>
+                            </td>
                         </tr>
                         <tr>
                             <th style="height:40px">코드</th>
-                            <td><input type="text" class="form-control" placeholder="010100" readonly></td>
+                            <td><input type="text" class="form-control" placeholder="코드" readonly></td>
                             <th>코드명</th>
                             <td><input type="text" class="form-control"></td>
                         </tr>
@@ -101,7 +108,7 @@
                             <th>LEVEL</th>
                             <td><input type="text" class="form-control"></td>
                             <th>사용여부</th>
-                            <td><select class="form-control"><option>Y</option></select></td>
+                            <td><select class="form-control"><option>{{form.useYn}}</option></select></td>
                         </tr>
 
                     </table>
@@ -109,32 +116,16 @@
                     <div style="height: 231px;overflow: auto;border:1px solid whitesmoke;">
                         <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;">
                             <thead>
-                            <th style="width:15%">NO</th>
-                            <th style="width:25%">코드</th>
-                            <th style="width:40%;">코드명</th>
-                            <th style="width:20%">사용여부</th>
+                                <th style="width:25%">코드</th>
+                                <th style="width:40%;">코드명</th>
+                                <th style="width:20%">사용여부</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td style="height: 50px;">010000</td>
-                                <td>사용자</td>
-                                <td>Y</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td>Y</td>
-
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td></td>
-                            </tr>
-
+                                <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='M'">
+                                    <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
+                                    <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
+                                    <td onclick="selectTr($(this))">{{key.useYn}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -151,9 +142,9 @@
                     <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
                         <tr>
                             <th style="width:20%;height:40px">중분류코드</th>
-                            <td style="width:30%;padding: 0;"><input type="text" class="form-control" placeholder="010000" readonly></td>
+                            <td style="width:30%;padding: 0;"><input type="text" class="form-control" readonly></td>
                             <th style="width:20%">중분류명</th>
-                            <td style="width:30%"><input type="text" class="form-control" placeholder="사용자" readonly></td>
+                            <td style="width:30%"><input type="text" class="form-control" readonly></td>
                         </tr>
                         <tr>
                             <th style="height:40px">코드</th>
@@ -173,49 +164,20 @@
                     <div style="height: 231px;overflow: auto;border:1px solid whitesmoke;">
                         <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;">
                             <thead>
-                            <th style="width:15%">NO</th>
                             <th style="width:25%">코드</th>
                             <th style="width:40%;">코드명</th>
                             <th style="width:20%">사용여부</th>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td style="height: 50px;">010000</td>
-                                <td>사용자</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td></td>
-
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td style="height: 50px;">020000</td>
-                                <td>장비</td>
-                                <td></td>
-                            </tr>
-
+                                <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='S'">
+                                    <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
+                                    <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
+                                    <td onclick="selectTr($(this))">{{key.useYn}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
 
             <!--코드목록-->
@@ -224,33 +186,40 @@
                 <div class="d-flex" style="border-bottom: 1px solid lightgray;width:100%;">
                     <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 코드목록</span>
                 </div>
-                <div style="max-height: 530px;overflow: auto;border:1px solid whitesmoke;margin-top: 15px;">
-
+                <!--테이블 상단 구성-->
+                <div class="d-flex" style="margin:10px 0;">
+                    <div class="d-flex mr-auto p-2" style="margin:0;padding:0!important;">
+                        <select class="custom-select" ng-model="search.size" ng-init="search.size = '10'" ng-change="pageSize()" style="width:150px;margin-right: 10px;">
+                            <option value="10">10개씩 보기</option>
+                            <option value="20">20개씩 보기</option>
+                            <option value="50">50개씩 보기</option>
+                        </select>
+                        <h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
+                    </div>
+                </div>
+                <!-- 테이블 생성 -->
+                <div class="table-box">
                     <table class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
                         <thead>
-                            <th style="width:5%;">NO</th>
-                            <th style="width:10%">코드</th>
-                            <th style="width:15%;">코드명</th>
-                            <th style="width:10%;">분류</th>
-                            <th style="width:5%;">LEVEL</th>
-                            <th style="width:10%">등록자</th>
-                            <th style="width:15%">등록일자</th>
-                            <th style="width:10%">수정자</th>
-                            <th style="width:15%">수정일자</th>
-                            <th style="width:5%">사용여부</th>
+                                <th style="width:10%">코드번호</th>
+                                <th style="width:10%;">코드명</th>
+                                <th style="width:5%;">사용여부</th>
+                                <th style="width:10%">LEVEL</th>
+                                <th style="width:15%">등록자</th>
+                                <th style="width:10%">등록일자</th>
+                                <th style="width:15%">수정자</th>
+                                <th style="width:5%">수정일자</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="key in [1,2,3,4,5,6,7,8,9,10,11,12]">
-                                <td style="height: 50px;">{{key}}</td>
-                                <td>010000</td>
-                                <td>사용자</td>
-                                <td>소분류</td>
-                                <td>1</td>
-                                <td>admin</td>
-                                <td>2021-03-24</td>
-                                <td>admin</td>
-                                <td>2021-03-24</td>
-                                <td>Y</td>
+                            <tr ng-repeat="key in commCode">
+                                <td>{{key.commCd}}</td>
+                                <td>{{key.commCdNm}}</td>
+                                <td>{{key.useYn}}</td>
+                                <td>{{key.codeLevel}}</td>
+                                <td>{{key.regId}}</td>
+                                <td>{{key.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                                <td>{{key.modId}}</td>
+                                <td>{{key.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
                             </tr>
                         </tbody>
                     </table>

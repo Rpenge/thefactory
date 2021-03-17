@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface TfCommCodeMapper {
 
-    List<TfCommCodeVO> codeList();
+    List<TfCommCodeVO> commList();
 
 }

@@ -85,7 +85,7 @@ public class UserController {
 	@RequestMapping("/getCode")
 	public Map getCode() throws Exception{
 		HashMap resultMap = new HashMap<>();
-		resultMap.put("commCode", commService.findList());
+		resultMap.put("commCode", commService.commList());
 		resultMap.put("brandList", brandService.findBrand());
 		return resultMap;
 	}
