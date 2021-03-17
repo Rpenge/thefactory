@@ -20,8 +20,7 @@
 				<tbody>
 					<tr>
 						<th colspan="3" style="height:40px">최신업로드</th>
-						<td colspan="6" style="padding: 0;"><input type="text" class="form-control" ng-model="view.appNm" disabled></td>
-						<td colspan="1" style="padding: 0;"><button class="btn" ng-click="appDown(view.appDownUrl)" style="width:100%;">다운</button></td>
+						<td colspan="7" style="padding: 0;"><input type="text" class="form-control" ng-model="view.appNm" disabled></td>
 					</tr>
 					<tr>
 						<th colspan="2" style="height:40px">구분</th>
@@ -30,10 +29,14 @@
 						<td colspan="3"><input type="text" class="form-control" ng-model="view.regId" disabled></td>
 					</tr>
 					<tr>
-						<th colspan="2">등록일자</th>
+						<th colspan="2" >등록일자</th>
 						<td colspan="4"><input type="text" class="form-control" value="{{view.regDate | date:'yyyy-MM-dd HH:mm'}}" disabled></td>
 						<th colspan="2">version</th>
 						<td colspan="2"><input type="text" class="form-control" ng-model="view.version" disabled></td>
+					</tr>
+					<tr>
+						<td colspan="10" style="height: 60px;">
+						<button class="btn btn-outline-secondary" ng-click="appDown(view.appDownUrl)" style="width:100%;height: 60px;">다운</button></td>
 					</tr>
 
 				</tbody>

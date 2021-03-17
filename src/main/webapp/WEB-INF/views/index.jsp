@@ -368,7 +368,11 @@
 						<!-- 검색 공통 -->
 						<div class="d-flex" style="width: 100%;">
 
-							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-click="qs1 = qs1==true ? false : true" readonly>
+							<select class="form-control" ng-model="quickSearch.gub" style="width:150px;margin: 10px;height: 40px;">
+								<option option="">검색구분</option>
+							</select>
+
+							<input class="form-control" id="brandSearch" style="width:150px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="quickSearch.brand" ng-click="qs1 = qs1==true ? false : true" readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>

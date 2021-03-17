@@ -3,7 +3,8 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/main/home', {templateUrl: '/main/home', controller: 'homeController', resolve: { auth: onlyLoggedIn , layout: pageCheck }})
 
 		// .when('/member/login', {templateUrl: '/member/login', controller: 'loginController'})
-		// .when('/member/appDown', {templateUrl:'/member/appDown', controller:'appController'})
+		.when('/member/appDown', {templateUrl:'/member/appDown', controller:'appController'})
+		// .when({redirectTo: '/member/appDown', templateUrl: '/member/appDown', controller: 'appController' })
 
 		.when('/system/user', {templateUrl:'/system/user', controller:'userController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
@@ -23,8 +24,8 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		// .otherwise({redirectTo: '/member/login', templateUrl: '/member/login', controller: 'loginController' });
-		.otherwise({redirectTo: '/member/appDown', templateUrl: '/member/appDown', controller: 'appController' });
+		.otherwise({redirectTo: '/member/login', templateUrl: '/member/login', controller: 'loginController' });
+
 
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
