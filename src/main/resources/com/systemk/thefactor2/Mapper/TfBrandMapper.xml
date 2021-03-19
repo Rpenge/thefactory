@@ -33,4 +33,14 @@
                 )
         ORDER BY BRAND_KIND_CD ASC
     </select>
+
+    <select id="findBrand" resultType="TfBrandVO" parameterType="String">
+        SELECT *
+        FROM TF_BRAND
+        WHERE BRAND_KIND_CD = #{item}
+    </select>
+
+
+
+
 </mapper>

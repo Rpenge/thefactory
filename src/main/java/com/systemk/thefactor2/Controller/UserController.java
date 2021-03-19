@@ -52,13 +52,13 @@ public class UserController {
 		if(user != null) {
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("role", user.getRole());
+			session.setAttribute("storeCd", user.getStoreCd());
 			resultMap.put("userId", user.getUserId());
 			resultMap.put("role", user.getRole());
+			resultMap.put("storeCd", user.getStoreCd());
 
 			List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
 			resultMap.put("auth", AuthList);
-			//resultMap.put("commCode", commService.findList());
-
 		}
 	    return resultMap;
 	}
@@ -72,6 +72,7 @@ public class UserController {
 
 		resultMap.put("userId", session.getAttribute("userId"));
 		resultMap.put("role", session.getAttribute("role"));
+		resultMap.put("storeCd", session.getAttribute("storeCd"));
 
 		List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
 		resultMap.put("auth", AuthList);
@@ -97,9 +98,6 @@ public class UserController {
 		resultMap.put("brandSubList", brandService.findBrandSub(request.getParameter("brandCd")));
 		return resultMap;
 	}
-
-
-
 
 	@RequestMapping(value="/logout", method = RequestMethod.POST)
     public ResponseEntity<String> logoutPage (HttpServletRequest request, HttpServletResponse response) throws Exception {

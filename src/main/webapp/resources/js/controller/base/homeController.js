@@ -6,7 +6,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 		pageInfo($rootScope, $location);
 		var monthList = [];
 
-		$http.get('/home/homeInfo').success(function(data) {
+		$http.get('/home/homeInfo').success(function(data){
 			$scope.todayData = data.todayData;
 			monthList = data.monthData;
 			chartDraw();

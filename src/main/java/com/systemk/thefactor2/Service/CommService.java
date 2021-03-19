@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface CommService {
 
+
     public List<TfCommCodeVO> commList() throws Exception;
+
+    public String codeToNm(String code);
 
 }

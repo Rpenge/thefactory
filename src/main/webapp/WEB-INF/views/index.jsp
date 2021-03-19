@@ -366,7 +366,7 @@
 
 							<input class="form-control" ng-model="quickSearch.size" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
 
-							<button class="btn btn-outline-secondary" style="width:70px;margin:10px 30px;">검색</button>
+							<button class="btn btn-outline-secondary" ng-click="goGroupSearch('IO1')" style="width:70px;margin:10px 30px;">검색</button>
 							<div class="d-flex" style="width:280px;margin: 10px;">
 								<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 								<button class="btn" style="position:relative;left:-40px;background: transparent;">

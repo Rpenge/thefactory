@@ -35,4 +35,10 @@
         WHERE
             COMM_CD = #{commCd}
     </update>
+
+    <!--코드조회-->
+    <select id="findCode" resultType="TfCommCodeVO" parameterType="String">
+        SELECT * FROM TF_COMM_CODE
+        WHERE COMM_CD = #{item}
+    </select>
 </mapper>

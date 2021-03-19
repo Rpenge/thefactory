@@ -28,8 +28,13 @@ public class InoutTotServiceImpl implements InoutTotService {
 	private TfInoutTotalMapper tfInoutTotalMapper;
 
 	@Override
-	public TfInoutTotalVO todayWork() {
-		return tfInoutTotalMapper.todayWork();
+	public TfInoutTotalVO todayWork(Map param) {
+		return tfInoutTotalMapper.todayWork(param);
+	}
+
+	@Override
+	public Map todayWorkAll() {
+		return tfInoutTotalMapper.todayWorkAll();
 	}
 
 	@Override

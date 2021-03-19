@@ -18,10 +18,15 @@ public class CommServiceImpl implements CommService {
 	@Autowired
 	private TfCommCodeMapper tfCommCodeMapper;
 
-
 	@Override
 	public List<TfCommCodeVO> commList() throws Exception {
 		return tfCommCodeMapper.commList();
+	}
+
+	@Override
+	public String codeToNm(String code) {
+		TfCommCodeVO vo = tfCommCodeMapper.findCode(code);
+		return vo.getCommCdNm();
 	}
 
 }

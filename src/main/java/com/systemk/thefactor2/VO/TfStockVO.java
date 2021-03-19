@@ -17,19 +17,16 @@ public class TfStockVO {
     private String stockStoreCd;    // 매장코드
     private String stockStoreNm;    // 실사 매장명
     private String brandKindCd;     // 브랜드상품분류 코드
-    private String ecPrdCd;         // 상품코드
     private String tfPrdCd;         // 자체상품코드
-    private String ecPrdNm;         // 상품명
-    private String tfPrdNm;         // 자체상품명
+    private String tfPrdNm;         // 상품명
     private String tfPrdBarcode;    // 자체상품 바코드
-    private String tfPrdTagid;      // 자체상품 태그아이디
     private String prdSize;         // 사이즈
-    private String locationCd;      // 로케이션코드
-    private int    curStockCnt;     // 현재 재고 수량
-    private int    realStockCnt;    // 실제 재고 수량
-    private int    stdStockCnt;     // 적정 재고 수량
+    private String prdSizeCd;       // 사이즈코드
+    private int    curStockCnt;     // EC현재 재고 수량
+    private int    realStockCnt;    // EC실제 재고 수량
+    private int    stdStockCnt;     // EC적정 재고 수량
+    private int    rfidStockCnt;    // RFID재고 수량
     private int    inventoryCnt;    // 재고조사 수량
-    private String sellYn;          // 판매(재고여부)
     private Date   regDate;         // 등록일시
     private String regId;           // 등록자
     private Date   modDate;         // 수정일시

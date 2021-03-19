@@ -25,4 +25,10 @@ public class BrandServiceImpl implements BrandService {
 	public List<TfBrandVO> findBrandSub(String brandCd) throws Exception {
 		return tfBrandMapper.brandSubList(brandCd);
 	}
+
+	@Override
+	public String codeToNm(String code) {
+		TfBrandVO vo = tfBrandMapper.findBrand(code);
+		return vo.getBrandNm();
+	}
 }

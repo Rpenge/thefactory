@@ -14,7 +14,7 @@ import java.util.Date;
 public class TfTagPublishVO {
     // RFID TAG 발행정보 Value Object Class
     private long   tagWriteSeq;     // 태그발행등록 일련번호
-    private int    writeSeq;        // WRITE 순번
+//    private int    writeSeq;        // WRITE 순번
     private String brandKindCd;     // 브랜드상품분류 코드
     private String ecPrdCd;         // 상품코드
     private String tfPrdCd;         // 자체상품코드

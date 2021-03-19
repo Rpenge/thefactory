@@ -12,13 +12,15 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	pageInfo($rootScope, $location);
 	$scope.quickSearch = {};
 	$scope.view = {};
+	$scope.currentMenu = {};
+	$scope.currentMenu.menuGroup ={};
+	$scope.dateOptions = {'showWeeks':false} ;
 
 	$http.get('/member/getCode').success(function(data) {
 		$rootScope.commCode = data.commCode;
 		$rootScope.brandList = data.brandList;
 		code($rootScope);
 	});
-
 
 
 	if(sessionStorage.getItem('id')){
@@ -31,51 +33,14 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				logout($http, $rootScope, $location);
 				return;
 			}
-			// $rootScope.commCode = data.commCode;
-			// code($rootScope);
 		});
 	}
 
-	// //공통코드
-	// $rootScope.grade = []; // 권한목록
-	// $rootScope.store = []; // 매장목록
-	// $rootScope.device = []; // 매장목록
-	// function code() {
-	// 	for (value of $rootScope.commCode) {
-	// 		var bcd = value.commCd.substr(0, 2);
-	// 		var mcd = value.commCd.substr(2, 2);
-	// 		var scd = value.commCd.substr(4, 2);
-	// 		if (bcd == '01' && mcd == '01' && scd != '00') { // 사용자 권한
-	// 			$rootScope.grade.push(value);
-	// 		} else if (bcd == '01' && mcd == '02' && scd != '00') { // 매장
-	// 			$rootScope.store.push(value);
-	// 		} else if (bcd == '02' && mcd == '01' && scd != '00') { // 장비구분
-	// 			$rootScope.device.push(value);
-	// 		}
-	// 	}
-	// }
 
 	$scope.logout = function() {
 		logout($http, $rootScope, $location);
-		// $http({
-		// 	method: 'POST',
-		// 	url: '/member/logout',
-		// 	headers: {'Content-Type': 'application/json; charset=utf-8'}
-		// }).success(function(data, status, headers, config) {
-		// 	if(status == 200) {
-		// 		$rootScope.authenticated = false;
-		// 		$location.url("/");
-		// 		sessionStorage.clear();
-		// 	} else {
-		// 		modalCall("에러발생");
-		// 	}
-		// }).error(function(data, status, headers, config) {
-		//     $rootScope.authenticated = false;
-		//     $location.url("/");
-		// });
 
 	};
-
 
 
 	$scope.client;
@@ -105,14 +70,24 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
     	$location.url("/main/home");
     };
 
-	$scope.goAssetManagementList = function(){
-    	$window.sessionStorage.removeItem("current");
-    	$location.url("/assetManagement/assetList");
-	};
+
 
 	$scope.goMenu = function(data){
 		$location.url(data.PGM_URL);
 	}
+
+	$scope.goGroupSearch = function(command){
+		for(const value of $scope.topMenu){
+			if(value.PGM_CD == command){
+				$rootScope.searchData = $scope.quickSearch;
+				$rootScope.searchMove = true;
+				$location.url('/inout/input');
+				return;
+			}
+		}
+
+	}
+
 
 	$scope.content = {'width':'100%'};
 	//사이드 메뉴 토글
@@ -149,10 +124,9 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				$scope.subBrandCls.push(value);
 			}
 		}
-
 	}
 
-	$scope.dateOptions = {'showWeeks':false} ;
+
 
 
 }]);

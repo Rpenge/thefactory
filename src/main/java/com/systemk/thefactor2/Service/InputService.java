@@ -9,5 +9,4 @@ public interface InputService {
     public Map<String, Object> findList(Map param) throws Exception;
 
 
-
 }

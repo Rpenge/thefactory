@@ -3,10 +3,15 @@ package com.systemk.thefactor2.Security;
 import java.util.Collection;
 
 import com.systemk.thefactor2.VO.TfUserVO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-
+@Getter
+@Setter
 public class LoginUser extends User {
 
 	private static final long serialVersionUID = 1L;
@@ -14,6 +19,8 @@ public class LoginUser extends User {
     private String userId;
 
     private String role;
+
+	private String storeCd;
 
     private String name;
 
@@ -23,31 +30,9 @@ public class LoginUser extends User {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.userId = userVO.getUserId();
 		this.role = userVO.getGrade();
+		this.storeCd = userVO.getStoreCd();
 		this.name = userVO.getUserNm();
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

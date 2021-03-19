@@ -11,7 +11,9 @@ import java.util.Map;
 @Mapper
 public interface TfInoutTotalMapper {
 
-    TfInoutTotalVO todayWork();
+    TfInoutTotalVO todayWork(Map item);
+
+    Map todayWorkAll();
 
     Map monthWork(int item);
 

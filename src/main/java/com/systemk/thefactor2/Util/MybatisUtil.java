@@ -96,6 +96,10 @@ public class MybatisUtil {
         this.tableSearch.put("size", size);
     }
 
+    public void setTotal(){
+        this.tableSearch.put("total", true);
+    }
+
     public void setTotalElements(int totalElements) {
         this.totalElements = totalElements;
         this.totalPages =  (int)Math.ceil((double) totalElements / size);

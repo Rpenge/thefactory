@@ -17,4 +17,6 @@ public interface TfBrandMapper {
 
     List<TfBrandVO> clsList(String item);
 
+    TfBrandVO findBrand(String code);
+
 }

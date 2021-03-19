@@ -14,4 +14,6 @@ public interface TfInputMapper {
 
     List<TfInputVO> inputList(HashMap item);
 
+    int inputNew(HashMap item);
+
 }

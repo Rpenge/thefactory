@@ -25,11 +25,10 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 			if (data.userId) {
 				sessionStorage.setItem('id', data.userId);
 				sessionStorage.setItem('role', data.role);
+				sessionStorage.setItem('storeCd', data.storeCd);
 				$rootScope.role = data.role;
 		        $rootScope.authenticated = true;
 				$rootScope.topMenu = data.auth;
-				//$rootScope.commCode = data.commCode;
-				//code($rootScope);
 			} else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;
@@ -57,7 +56,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		authenticate($scope.credentials, function() {
 	        if ($rootScope.authenticated) {
 				$rootScope.reload();
-	        	//$location.url("/main/home");
 	        	$scope.error = '';
 	        } else {
 	        	$location.url("/");

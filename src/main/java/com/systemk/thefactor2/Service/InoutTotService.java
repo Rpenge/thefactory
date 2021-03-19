@@ -8,7 +8,9 @@ import java.util.Map;
 
 public interface InoutTotService {
 
-    public TfInoutTotalVO todayWork();
+    public TfInoutTotalVO todayWork(Map param);
+
+    public Map todayWorkAll();
 
     public List<Map> monthWork();
 

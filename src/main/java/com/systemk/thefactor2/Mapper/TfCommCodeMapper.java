@@ -11,4 +11,6 @@ public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> commList();
 
+    TfCommCodeVO findCode(String code);
+
 }

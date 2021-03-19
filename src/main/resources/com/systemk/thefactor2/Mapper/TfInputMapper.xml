@@ -21,8 +21,21 @@
             order by ST_IN_SEQ desc
             </otherwise>
         </choose>
-            limit ${start}, ${size}
+
+        <choose>
+           <when test = "total != null">
+
+           </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
+
     </select>
+
+    <insert id="inputNew" statementType="CALLABLE" parameterType="java.util.HashMap">
+        { call input_new(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}
+    </insert>
 
 
 </mapper>

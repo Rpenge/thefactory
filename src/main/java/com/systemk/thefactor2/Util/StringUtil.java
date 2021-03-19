@@ -1,5 +1,8 @@
 package com.systemk.thefactor2.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StringUtil {
 
     public static String camelToSnake(String str)
@@ -9,6 +12,20 @@ public class StringUtil {
         str = str.replaceAll(regex, replacement).toLowerCase();
         return str;
     }
+
+    public static String dateFormat(Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        return format.format(date);
+    }
+
+    public static String dateFormatYMD(Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        return format.format(date);
+    }
+
+
 
 
 }

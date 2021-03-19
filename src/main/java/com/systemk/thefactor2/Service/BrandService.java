@@ -11,4 +11,6 @@ public interface BrandService {
 
     public List<TfBrandVO> findBrandSub(String brandCd) throws Exception;
 
+    public String codeToNm(String code);
+
 }
