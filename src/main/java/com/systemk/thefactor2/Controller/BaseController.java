@@ -1,15 +1,10 @@
 package com.systemk.thefactor2.Controller;
 
 import com.systemk.thefactor2.Service.CommService;
-import com.systemk.thefactor2.Service.UserService;
-import com.systemk.thefactor2.Util.RequestUtil;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,23 +24,28 @@ public class BaseController {
 		return commService.commList();
 	}
 
-	/*//기초정보관리 - 코드관리 - 코드 추가
+	@RequestMapping(value = "/findComm", method = RequestMethod.GET)
+	public String findComm(@RequestBody(required = false) @RequestParam("code") String code) throws Exception {
+		return commService.codeToNm(code);
+	}
+
+	//기초정보관리 - 코드관리 - 코드 추가
 	@RequestMapping(value="/commSave", method = RequestMethod.POST)
 	public Map commSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
-		return userService.userSave(map);
+		return commService.commSave(map);
 	}
 
 	//기초정보관리 - 코드관리 - 코드 수정
 	@RequestMapping(value="/commUpdate", method = RequestMethod.POST)
 	public Map commUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
-		return userService.userUpdate(map);
+		return commService.commUpdate(map);
 	}
 
 	//기초정보관리 - 코드관리 - 코드 삭제(update처리)
 	@RequestMapping(value="/commDelete", method = RequestMethod.POST)
 	public Map commDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
 		List<Integer> list = (List)map.get("prList");
-		return userService.userWd(list);
-	}*/
+		return commService.commDelete(map);
+	}
 
 }
