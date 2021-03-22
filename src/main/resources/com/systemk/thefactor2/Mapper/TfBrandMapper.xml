@@ -61,7 +61,7 @@
         INSERT INTO TF_BRAND
             (BRAND_KIND_CD, BRAND_NM, PRD_CNT, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
         VALUES(
-            #{brandKindCd}, #{brandNm}, #{prdCnt}, #{codeLevel}, 'Y', #{regDate}, #{regId}
+            #{brandKindCd}, #{brandNm}, #{prdCnt}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
               )
     </insert>
 
@@ -69,13 +69,12 @@
     <update id="brandUpdate" parameterType="java.util.Map">
         UPDATE TF_BRAND
         SET
-            BRAND_KIND_CD = #{brandKindCd}
           , BRAND_NM = #{brandNm}
           , PRD_CNT = #{prdCnt}
           , CODE_LEVEL = #{codeLevel}
           , USE_YN = #{useYn}
           , MOD_ID = #{modId}
-          , MOD_DATE = #{modDate}
+          , MOD_DATE = SYSDATE()
         WHERE
             BRAND_KIND_CD = #{brandKindCd}
     </update>

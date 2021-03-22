@@ -2,8 +2,10 @@ package com.systemk.thefactor2.Controller;
 
 import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
+import com.systemk.thefactor2.Service.ProductService;
 import com.systemk.thefactor2.VO.TfBrandVO;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
+import com.systemk.thefactor2.VO.TfProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ public class BaseController {
 	private CommService commService;
 	@Autowired
 	private BrandService brandService;
+	@Autowired
+	private ProductService productService;
 
 	//기초정보관리 - 코드관리 - 코드 리스트 조회(페이지 처리)
 	@RequestMapping(value="/commList", method = RequestMethod.GET)
@@ -68,5 +72,27 @@ public class BaseController {
 	public Map brandDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
 		List<Integer> list = (List)map.get("prList");
 		return brandService.brandDelete(map);
+	}
+
+	//기초정보관리 - 상품관리 - 상품 조회
+	@RequestMapping(value="/productList", method = RequestMethod.GET)
+	public List<TfProductVO> productList(HttpServletRequest request) throws Exception{
+		return productService.productList();
+	}
+	//기초정보관리 - 상품관리 - 상품 추가
+	@RequestMapping(value="/productSave", method = RequestMethod.POST)
+	public Map productSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
+		return productService.productSave(map);
+	}
+	//기초정보관리 - 상품관리 - 상품 수정
+	@RequestMapping(value="/productUpdate", method = RequestMethod.POST)
+	public Map productUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
+		return productService.productUpdate(map);
+	}
+	//기초정보관리 - 상품관리 - 상품 삭제(update처리)
+	@RequestMapping(value="/productDelete", method = RequestMethod.POST)
+	public Map productDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
+		List<Integer> list = (List)map.get("prList");
+		return productService.productDelete(map);
 	}
 }
