@@ -40,7 +40,53 @@
         WHERE BRAND_KIND_CD = #{item}
     </select>
 
+    <select id="brandAllList" resultType="TfBrandVO">
+        SELECT
+            BRAND_KIND_CD
+             , BRAND_NM
+             , PRD_CNT
+             , CODE_LEVEL
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM
+            TF_BRAND
+        WHERE 1=1
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
 
+    <!--브랜드 추가-->
+    <insert id="brandSave" parameterType="java.util.Map">
+        INSERT INTO TF_BRAND
+            (BRAND_KIND_CD, BRAND_NM, PRD_CNT, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
+        VALUES(
+            #{brandKindCd}, #{brandNm}, #{prdCnt}, #{codeLevel}, 'Y', #{regDate}, #{regId}
+              )
+    </insert>
 
+    <!--브랜드 수정-->
+    <update id="brandUpdate" parameterType="java.util.Map">
+        UPDATE TF_BRAND
+        SET
+            BRAND_KIND_CD = #{brandKindCd}
+          , BRAND_NM = #{brandNm}
+          , PRD_CNT = #{prdCnt}
+          , CODE_LEVEL = #{codeLevel}
+          , USE_YN = #{useYn}
+          , MOD_ID = #{modId}
+          , MOD_DATE = #{modDate}
+        WHERE
+            BRAND_KIND_CD = #{brandKindCd}
+    </update>
+
+    <!--브랜드 삭제-->
+    <update id="brandDelete" parameterType="java.util.Map">
+        UPDATE TF_BRAND
+        SET
+            USE_YN = 'N'
+        WHERE
+            BRAND_KIND_CD = #{brandKindCd}
+    </update>
 
 </mapper>

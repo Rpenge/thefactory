@@ -4,6 +4,7 @@ package com.systemk.thefactor2.Service;
 import com.systemk.thefactor2.VO.TfBrandVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BrandService {
 
@@ -13,4 +14,11 @@ public interface BrandService {
 
     public String codeToNm(String code);
 
+    public List<TfBrandVO> brandAllList() throws Exception;
+
+    public Map<String, Object> brandSave(Map param) throws Exception;
+
+    public Map<String, Object> brandUpdate(Map param) throws Exception;
+
+    public Map<String, Object> brandDelete(Map param) throws Exception;
 }
