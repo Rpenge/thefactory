@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * Created by gglee.
- * User: GwanGyuLEE
- * Date: 2021-03-02
- * Time: 오후 1:22
- */
 @Data
 public class TfDeviceStatVO {
     // RFID 리더기(고정형, 휴대형) 운영상탱 정보(C,U) Value Object Class

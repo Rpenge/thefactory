@@ -2,9 +2,11 @@ package com.systemk.thefactor2.Controller;
 
 import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
+import com.systemk.thefactor2.Service.DeviceService;
 import com.systemk.thefactor2.Service.ProductService;
 import com.systemk.thefactor2.VO.TfBrandVO;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
+import com.systemk.thefactor2.VO.TfDeviceVO;
 import com.systemk.thefactor2.VO.TfProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class BaseController {
 	private BrandService brandService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private DeviceService deviceService;
 
 	//기초정보관리 - 코드관리 - 코드 리스트 조회(페이지 처리)
 	@RequestMapping(value="/commList", method = RequestMethod.GET)
@@ -94,5 +98,27 @@ public class BaseController {
 	public Map productDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
 		List<Integer> list = (List)map.get("prList");
 		return productService.productDelete(map);
+	}
+
+	//기초정보관리 - 디바이스관리 - 디바이스 조회
+	@RequestMapping(value="/deviceList", method = RequestMethod.GET)
+	public List<TfDeviceVO> deviceList(HttpServletRequest request) throws Exception{
+		return deviceService.deviceList();
+	}
+	//기초정보관리 - 디바이스관리 - 디바이스 추가
+	@RequestMapping(value="/deviceSave", method = RequestMethod.POST)
+	public Map deviceSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
+		return deviceService.deviceSave(map);
+	}
+	//기초정보관리 - 디바이스관리 - 디바이스 수정
+	@RequestMapping(value="/deviceUpdate", method = RequestMethod.POST)
+	public Map deviceUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
+		return deviceService.deviceUpdate(map);
+	}
+	//기초정보관리 - 디바이스관리 - 디바이스 삭제(update처리)
+	@RequestMapping(value="/deviceDelete", method = RequestMethod.POST)
+	public Map deviceDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
+		List<Integer> list = (List)map.get("prList");
+		return deviceService.deviceDelete(map);
 	}
 }

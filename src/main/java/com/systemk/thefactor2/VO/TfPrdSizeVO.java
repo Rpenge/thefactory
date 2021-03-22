@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * Created by gglee.
- * User: GwanGyuLEE
- * Date: 2021-03-02
- * Time: 오후 1:45
- */
 @Data
 public class TfPrdSizeVO {
     // 상품분류별 사이즈(규격) Value Object Class

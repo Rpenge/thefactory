@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * Created by gglee.
- * User: GwanGyuLEE
- * Date: 2021-03-02
- * Time: 오후 2:32
- */
 @Data
 public class TfStockVO {
     // 재고 정보 Value Object Class
