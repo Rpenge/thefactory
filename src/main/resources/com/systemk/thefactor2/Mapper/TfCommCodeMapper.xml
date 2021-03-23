@@ -2,10 +2,101 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfCommCodeMapper">
-    <!--코드 목록-->
+    <!--코드 전체 목록-->
     <select id="commList" resultType="TfCommCodeVO">
-        SELECT * FROM TF_COMM_CODE
+        SELECT
+            COMM_CD
+            , COMM_CD_NM
+            , CODE_LEVEL
+            , DISP_SEQ
+            , COMMENT
+            , USE_YN
+            , REG_DATE
+            , REG_ID
+            , MOD_DATE
+            , MOD_ID
+        FROM TF_COMM_CODE
+        WHERE 1=1
         ORDER BY DISP_SEQ ASC , COMM_CD ASC
+    </select>
+    <!--코드 대분류 조회-->
+    <select id="commBList" resultType="TfCommCodeVO">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM TF_COMM_CODE
+        WHERE 1=1
+        AND CODE_LEVEL = 'B'
+        ORDER BY COMM_CD asc
+    </select>
+    <!--코드 중분류 조회-->
+    <select id="commMList" resultType="TfCommCodeVO" parameterType="String">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM TF_COMM_CODE
+        WHERE 1=1
+          AND SUBSTR(COMM_CD,1,2) = #{item}
+          AND CODE_LEVEL = 'M'
+        ORDER BY COMM_CD ASC
+    </select>
+    <!--코드 소분류 조회-->
+    <select id="commSList" resultType="TfCommCodeVO" parameterType="String">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM TF_COMM_CODE
+        WHERE 1=1
+          AND SUBSTR(COMM_CD,1,4) = #{item}
+          AND CODE_LEVEL = 'S'
+        ORDER BY COMM_CD ASC
+    </select>
+    <!--코드 중,소분류 조회-->
+    <select id="commMSList" resultType="TfCommCodeVO" parameterType="String">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM TF_COMM_CODE
+        WHERE 1=1
+          AND SUBSTR(COMM_CD, 1, 2) = #{item}
+          AND (
+                CODE_LEVEL = 'M'
+                OR
+                CODE_LEVEL = 'S'
+            )
+        ORDER BY COMM_CD ASC
     </select>
     <!--코드 추가-->
     <insert id="commSave" parameterType="java.util.Map">
@@ -35,8 +126,7 @@
         WHERE
             COMM_CD = #{commCd}
     </update>
-
-    <!--코드조회-->
+    <!--코드값으로 조회-->
     <select id="findCode" resultType="TfCommCodeVO" parameterType="String">
         SELECT * FROM TF_COMM_CODE
         WHERE COMM_CD = #{item}

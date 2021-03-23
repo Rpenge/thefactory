@@ -4,7 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="myApp">
 
-
 <div ng-show="authenticated" style="width:90%;margin:0 auto;">
 	<div class="container-fluid d-flex justify-content-center" style="padding:0!important;" ng-show="!mainPage">
 		<div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">
@@ -18,8 +17,6 @@
 
 	<!--상단 검색 보드-->
 	<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 80px;padding:5px 3%;">
-
-
 		<!-- 검색 -->
 		<div class="d-flex justify-content-center" style="width: 100%;">
 			<p style="margin:20px 10px;">소속매장</p>
@@ -52,10 +49,7 @@
 		</div>
 	</div>
 
-
-
 	<section class="d-flex justify-content-center">
-
 		<!--contents-->
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents">
@@ -202,7 +196,6 @@
 							</li>
 						</ul>
 					</nav>
-
 				</div>
 			</div>
 		</div>

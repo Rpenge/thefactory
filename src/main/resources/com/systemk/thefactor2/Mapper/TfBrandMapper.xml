@@ -2,26 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfBrandMapper">
+    <!--대분류-->
     <select id="brandList" resultType="TfBrandVO">
        SELECT * FROM TF_BRAND
        WHERE CODE_LEVEL = 'B'
        ORDER BY BRAND_KIND_CD ASC
     </select>
-
+    <!--성별중분류-->
     <select id="genderList" resultType="TfBrandVO" parameterType="String">
         SELECT * FROM TF_BRAND
         WHERE SUBSTR(BRAND_KIND_CD,1,2) = #{item}
           AND CODE_LEVEL = 'M'
         ORDER BY BRAND_KIND_CD ASC
     </select>
-
+    <!--세부항목소분류-->
     <select id="clsList" resultType="TfBrandVO" parameterType="String">
         SELECT * FROM TF_BRAND
         WHERE substr(BRAND_KIND_CD,1,4) = #{item}
           AND CODE_LEVEL = 'S'
         ORDER BY BRAND_KIND_CD ASC
     </select>
-
+    <!--중분류,소분류 같이-->
     <select id="brandSubList" resultType="TfBrandVO" parameterType="String">
         SELECT *
         FROM TF_BRAND
@@ -33,17 +34,17 @@
                 )
         ORDER BY BRAND_KIND_CD ASC
     </select>
-
+    <!--특정브랜드검색-->
     <select id="findBrand" resultType="TfBrandVO" parameterType="String">
         SELECT *
         FROM TF_BRAND
         WHERE BRAND_KIND_CD = #{item}
     </select>
-
+    <!--브랜드 전체목록-->
     <select id="detailSearch" resultType="java.util.Map" parameterType="String">
         select (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = #{item}) as clsNm,
                (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 4),'00')) as genderNm,
-               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 2),'0000')) as brandNm;
+               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 2),'0000')) as brandNm
     </select>
 
     <select id="brandAllList" resultType="TfBrandVO">

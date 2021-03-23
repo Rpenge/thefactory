@@ -12,12 +12,20 @@ public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> commList();
 
-    TfCommCodeVO findCode(String code);
+    List<TfCommCodeVO> commBList(String code);
+
+    List<TfCommCodeVO> commMList(String code);
+
+    List<TfCommCodeVO> commSList(String code);
+
+    List<TfCommCodeVO> commMSList(String code);
 
     int commSave(Map item);
 
     int commUpdate(Map item);
 
     int commDelete(Map item);
+
+    TfCommCodeVO findCode(String code);
 
 }

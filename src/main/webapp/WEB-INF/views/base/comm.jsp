@@ -10,52 +10,56 @@
     <div  style="width:20%;margin:3px;">
         <!--메뉴-->
         <div class="d-flex flex-column left-body">
-        <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
-            <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
-            <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
-            <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
-        </div>
-
-<%--{{commCode}}--%>
-        <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
-            <tr>
-                <th>코드</th>
-                <td style="width:70%;height: 40px;">
-                    <input type="text" class="form-control" ng-model="BCode.commCd">
-                </td>
-            </tr>
-            <tr>
-                <th style="width:30%;">코드명</th>
-                <td style="width:70%;height: 40px;">
-                    <input type="text" class="form-control" ng-model="BCode.commCdNm">
-                </td>
-            </tr>
-            <tr>
-                <th>사용여부</th>
-                <td>
-                    <select class="form-control" ng-model="BCode.useYn">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
-                </td>
-            </tr>
-
-        </table>
-        <div>
-            <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;min-height: 650px;">
+            <%--대분류 신규, 저장 input 영역 시작--%>
+            <form ng-submit="formSave()">
+                <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
+                    <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
+                    <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('commBList')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
+                    <button class="p-2 btn btn-outline-secondary" type="submit" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
+                </div>
+                <%--{{commCode}}--%>
+                <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
+                    <tr>
+                        <th>코드</th>
+                        <td style="width:70%;height: 40px;">
+                            <input type="text" class="form-control" ng-model="es.commCd">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:30%;">코드명</th>
+                        <td style="width:70%;height: 40px;">
+                            <input type="text" class="form-control" ng-model="es.commCdNm">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사용여부</th>
+                        <td>
+                            <select class="form-control" ng-model="es.useYn">
+                                <option value="">사용여부</option>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <%--대분류 신규, 저장 input 영역 끝--%>
+            <%--대분류 목록 영역 시작--%>
+            <table id="commBList" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;min-height: 120px;">
                 <thead>
-                    <th style="width:30%">코드</th>
-                    <th style="width:70%;">코드명</th>
+                    <tr>
+                        <th style="width:30%" ng-click="sort('')">코드</th>
+                        <th style="width:70%;" ng-click="sort('')">코드명</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='B'">
-                        <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
-                        <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
+                    <tr ng-repeat="key in commCode" class="pointer" ng-init="value.isSelected = false;" ng-if="key.codeLevel=='B'">
+                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 50px;">{{key.commCd}}</td>
+                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{key.commCdNm}}</td>
                     </tr>
-                    <tr></tr>
                 </tbody>
             </table>
-        </div>
+            <%--대분류 목록 영역 끝--%>
         </div>
     </div>
 
@@ -75,7 +79,6 @@
         </div>
         <div>
         </div>
-
 
         <!--contents-->
         <div class="body-custom" style="width:100%;">
@@ -108,7 +111,11 @@
                             <th>LEVEL</th>
                             <td><input type="text" class="form-control"></td>
                             <th>사용여부</th>
-                            <td><select class="form-control"><option>{{form.useYn}}</option></select></td>
+                            <td>
+                                <select class="form-control">
+                                    <option>{{form.useYn}}</option>
+                                </select>
+                            </td>
                         </tr>
 
                     </table>

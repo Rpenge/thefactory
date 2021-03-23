@@ -35,6 +35,27 @@ public class BaseController {
 	public List<TfCommCodeVO> commList(HttpServletRequest request) throws Exception{
 		return commService.commList();
 	}
+	//기초정보관리 - 코드관리 - 대분류 코드 조회
+	@RequestMapping(value = "/commBList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commBList(@RequestParam("code") String code) throws Exception {
+		return commService.commBList(code);
+	}
+	//기초정보관리 - 코드관리 - 중분류 코드 조회
+	@RequestMapping(value = "/commMList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commMList(@RequestParam("code") String code) throws Exception {
+		return commService.commMList(code);
+	}
+	//기초정보관리 - 코드관리 - 소분류 코드 조회
+	@RequestMapping(value = "/commSList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commSList(@RequestParam("code") String code) throws Exception {
+		return commService.commSList(code);
+	}
+	//기초정보관리 - 코드관리 - 중소분류 코드 조회
+	@RequestMapping(value = "/commMSList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commMSList(@RequestParam("code") String code) throws Exception {
+		return commService.commMSList(code);
+	}
+	//기초정보관리 - 코드관리 - 특정코드 조회
 	@RequestMapping(value = "/findComm", method = RequestMethod.GET)
 	public String findComm(@RequestBody(required = false) @RequestParam("code") String code) throws Exception {
 		return commService.codeToNm(code);

@@ -22,9 +22,23 @@ public class CommServiceImpl implements CommService {
 	}
 
 	@Override
-	public String codeToNm(String code) {
-		TfCommCodeVO vo = tfCommCodeMapper.findCode(code);
-		return vo.getCommCdNm();
+	public List<TfCommCodeVO> commBList(String code) throws Exception {
+		return tfCommCodeMapper.commBList(code);
+	}
+
+	@Override
+	public List<TfCommCodeVO> commMList(String code) throws Exception {
+		return tfCommCodeMapper.commMList(code);
+	}
+
+	@Override
+	public List<TfCommCodeVO> commSList(String code) throws Exception {
+		return tfCommCodeMapper.commSList(code);
+	}
+
+	@Override
+	public List<TfCommCodeVO> commMSList(String code) throws Exception {
+		return tfCommCodeMapper.commMSList(code);
 	}
 
 	@Override
@@ -60,4 +74,9 @@ public class CommServiceImpl implements CommService {
 		return map;
 	}
 
+	@Override
+	public String codeToNm(String code) {
+		TfCommCodeVO vo = tfCommCodeMapper.findCode(code);
+		return vo.getCommCdNm();
+	}
 }

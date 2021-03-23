@@ -48,28 +48,27 @@
 				<div class="main-work-btn" ng-click="modalOpen('assetReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 60%;"></div>
 <%--					<div style="width:100%;height: 100%;position: absolute;background: black;opacity: 50%;"></div>--%>
-					<img src="/resources/img/1.jpg" style="height:100%;" draggable="false">
-					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left:10px;top:8px;">입고</p>
+					<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 90px;top: 50px;">입고</p>
 				</div>
 
 				<div class="main-work-btn" ng-click="modalOpen('proReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 50%;"></div>
-					<img src="/resources/img/1.jpg" style="height:100%;" draggable="false">
-					<p style="font-size: 25px;color: whitesmoke;position:absolute;left:10px;top:10px;">출고</p>
+					<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 90px;top: 50px;">출고</p>
 				</div>
 
 				<div class="main-work-btn" ng-click="modalOpen('userReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
-					<img src="/resources/img/2.jpg" style="height:100%;" draggable="false">
-					<p style="font-size: 25px;color: whitesmoke;position:absolute;left:10px;top:10px;">판매/배송</p>
+					<img src="/resources/img/2.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 70px;top: 50px;">판매/배송</p>
 				</div>
 
 				<div class="main-work-btn" ng-click="modalOpen('proReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
-					<img src="/resources/img/3.jpg" style="height:100%;" draggable="false">
-					<p style="font-size: 22px;color: whitesmoke;position:absolute;left:10px;top:10px;">재고현황</p>
+					<img src="/resources/img/3.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 25px; color: whitesmoke; position: absolute;left: 70px;top: 50px;">재고현황</p>
 				</div>
-
 
 			</div>
 		</div>
