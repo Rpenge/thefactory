@@ -16,4 +16,11 @@ public interface BrandService {
 
     public Map detailSearch(String brandCd);
 
+    public List<TfBrandVO> brandAllList() throws Exception;
+
+    public Map<String, Object> brandSave(Map param) throws Exception;
+
+    public Map<String, Object> brandUpdate(Map param) throws Exception;
+
+    public Map<String, Object> brandDelete(Map param) throws Exception;
 }

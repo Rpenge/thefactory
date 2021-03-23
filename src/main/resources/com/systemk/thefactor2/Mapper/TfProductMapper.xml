@@ -2,14 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfProductMapper">
-
+    <!--상품 마스터 전체 목록-->
+    <select id="productList" resultType="TfBrandVO">
+        SELECT
+            PRD_REG_SEQ
+             , BRAND_KIND_CD
+             , EC_PRD_CD
+             , TF_PRD_CD
+             , EC_PRD_NM
+             , TF_PRD_NM
+             , PRD_MODEL_NM
+             , BRAND_MAKE_NM
+             , ORG_COUNTRY_NM
+             , BRAND_NM
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+             , USE_YN
+        FROM
+            TF_PRODUCT
+        WHERE 1=1
+        ORDER BY REG_DATE DESC, MOD_DATE DESC
+    </select>
+    <!--상품 마스터 등록-->
+    <insert id="productSave" parameterType="java.util.Map">
+        INSERT INTO TF_PRODUCT
+        (BRAND_KIND_CD, EC_PRD_CD, TF_PRD_CD, EC_PRD_NM, TF_PRD_NM, PRD_MODEL_NM, BRAND_MAKE_NM, ORG_COUNTRY_NM, BRAND_NM, REG_DATE, REG_ID, USE_YN)
+        VALUES(
+                  #{brandKindCd}, #{ecPrdCd}, #{tfPrdCd}, #{ecPrdNm}, #{tfPrdNm}, #{prdModelNm}, #{brandMakeNm}, #{orgCountryNm}, #{brandNm}, SYSDATE(), #{regId}, #{useYn}
+              )
+    </insert>
+    <!--상품 마스터 수정-->
+    <update id="productUpdate" parameterType="java.util.Map">
+        UPDATE TF_PRODUCT
+        SET
+            BRAND_KIND_CD = #{brandKindCd}
+          , EC_PRD_CD = #{ecPrdCd}
+          , TF_PRD_CD = #{tfPrdCd}
+          , EC_PRD_NM = #{ecPrdNm}
+          , TF_PRD_NM = #{tfPrdNm}
+          , PRD_MODEL_NM = #{prdModelNm}
+          , BRAND_MAKE_NM = #{brandMakeNm}
+          , ORG_COUNTRY_NM = #{orgCountryNm}
+          , BRAND_NM = #{brandNm}
+          , MOD_DATE = SYSDATE()
+          , MOD_ID = #{modId}
+          , USE_YN = #{useYn}
+        WHERE
+            PRD_REG_SEQ = #{prdRegSeq}
+    </update>
+    <!--상품 마스터 삭제-->
+    <update id="productDelete" parameterType="java.util.Map">
+        UPDATE TF_PRODUCT
+        SET
+            USE_YN = 'N'
+        WHERE
+            PRD_REG_SEQ = #{prdRegSeq}
+    </update>
 
     <select id="prdAndStk" resultType="Map" parameterType="java.util.Map">
         select * from tf_product tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
         where ts.TF_PRD_BARCODE = #{barcode} limit 1
     </select>
-
-
-
 
 </mapper>

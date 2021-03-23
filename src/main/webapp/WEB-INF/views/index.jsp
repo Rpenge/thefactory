@@ -47,7 +47,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
 <!--icon-->
-<link rel="shortcut icon" type="image/x-ic on" href="/resources/img/ci/sysk.png">
+<link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sb-admin.css">
@@ -69,7 +69,7 @@
             <!-- Top Menu Items -->
            	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 				<li class="nav-item" >
-					<a class="nav-link" href='' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i> 사용자정보 </a>
+					<a class="nav-link" href='/#/system/user' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i> 사용자정보 </a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#" ng-click="logout()"><i class="xi-log-out" aria-hidden="true"></i> 로그아웃</a>

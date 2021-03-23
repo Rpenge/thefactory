@@ -4,12 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * Created by gglee.
- * User: GwanGyuLEE
- * Date: 2021-03-02
- * Time: 오후 1:49
- */
 @Data
 public class TfBrandVO {
     // 상품 분류코드(브랜드별) Value Object Class

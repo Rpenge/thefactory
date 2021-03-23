@@ -7,31 +7,31 @@
         SELECT * FROM TF_COMM_CODE
         ORDER BY DISP_SEQ ASC , COMM_CD ASC
     </select>
-    <!--코드 저장-->
-    <insert id="codeSave" parameterType="java.util.Map">
+    <!--코드 추가-->
+    <insert id="commSave" parameterType="java.util.Map">
         INSERT INTO TF_COMM_CODE
             (COMM_CD, COMM_CD_NM, CODE_LEVEL, DISP_SEQ, COMMENT, USE_YN, REG_ID, REG_DATE)
         VALUES(
-            #{commCd,}, #{commCdNm}, #{codeLevel}, #{dispSeq}, #{comment}, #{useYn}, #{regId}, #{regDate}
+            #{commCd}, #{commCdNm}, #{codeLevel}, #{dispSeq}, #{comment}, #{useYn}, #{regId}, SYSDATE()
         )
     </insert>
-    <!--코드 업데이트-->
-    <update id="codeUpdate" parameterType="java.util.Map">
+    <!--코드 수정-->
+    <update id="commUpdate" parameterType="java.util.Map">
         UPDATE TF_COMM_CODE
         SET
             COMM_CD_NM = #{commCdNm}
           , CODE_LEVEL = #{codeLevel}
           , USE_YN = #{useYn}
           , MOD_ID = #{modId}
-          , MOD_DATE = #{modDate}
+          , MOD_DATE = SYSDATE()
         WHERE
             COMM_CD = #{commCd}
     </update>
-    <!--코드 삭제처리-->
-    <update id="codeDelete" parameterType="java.util.Map">
+    <!--코드 삭제-->
+    <update id="commDelete" parameterType="java.util.Map">
         UPDATE TF_COMM_CODE
         SET
-            USE_YN = #{useYn}
+            USE_YN = 'N'
         WHERE
             COMM_CD = #{commCd}
     </update>
