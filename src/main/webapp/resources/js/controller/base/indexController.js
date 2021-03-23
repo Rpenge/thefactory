@@ -31,10 +31,19 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 			if (data.userId) {
 				$rootScope.topMenu = data.auth;
 				$rootScope.role = data.role;
+				if(data.role == '010101' && $rootScope.quickSearch.storeCd == null){
+					$rootScope.quickSearch.storeCd = null;
+				}else if($rootScope.quickSearch.storeCd == null){
+					$rootScope.quickSearch.storeCd = sessionStorage.getItem('storeCd');
+				}
 			} else {
 				logout($http, $rootScope, $location);
 				return;
 			}
+		});
+
+		$http.get('/home/homeSimple').success(function(data){
+			$scope.todayData = data.todayData;
 		});
 	}
 

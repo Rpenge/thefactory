@@ -38,8 +38,25 @@
     </insert>
 
     <insert id="inputRe" statementType="CALLABLE" parameterType="java.util.HashMap">
-        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{deviceGub}, #{inType})}
+        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType})}
     </insert>
+
+
+    <select id="inputDeleteList" resultType="TfInputVO" parameterType="java.util.List">
+        SELECT
+        *
+        FROM
+        TF_INPUT
+        WHERE
+        ST_IN_SEQ IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
+    <delete id="inputDelete" parameterType="java.util.HashMap">
+        { call input_delete(${ST_IN_SEQ}, #{ST_IN_DATE}, #{USER_ID}, #{PRD_BARCODE}, #{TF_PRD_TAGID}, #{IN_STORE_CD}, #{ST_IN_TYPE})}
+    </delete>
 
 
 </mapper>

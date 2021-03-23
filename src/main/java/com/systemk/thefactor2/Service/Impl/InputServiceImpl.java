@@ -18,6 +18,7 @@ import com.systemk.thefactor2.VO.TfStockVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class InputServiceImpl implements InputService {
 		mu.setTable("TF_INPUT");
 
 		for(Object key : param.keySet()) {    //분류 처리
-			if(key.equals("startDate") || key.equals("endDate")){
+			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct")){
 				continue;
 			}
 
@@ -67,10 +68,14 @@ public class InputServiceImpl implements InputService {
 				mu.addLike((String)key, (String)param.get(key));
 			}else if(key.equals("BRAND_KIND_CD")){
 				mu.addStartLike((String)key, (String)param.get(key));
-			}else if(key.equals("ST_IN_TYPE")){
+			}else{
 				mu.addEqual((String)key, (String)param.get(key));
 			}
 		}
+		if(param.get("sort")!= null) {
+			mu.setSort(StringUtil.camelToSnake((String)param.get("sort")), (String) param.get("direct"));
+		}
+
 		if(param.get("startDate")!= null && param.get("endDate")!= null){
 			mu.addBetween("ST_IN_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
 		}
@@ -119,17 +124,45 @@ public class InputServiceImpl implements InputService {
 		map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));	//상품정보에서
 		map.put("prdCd", 	mapData.get("TF_PRD_CD"));		//상품정보에서
 		map.put("barcode", 	param.get("barcode"));	//  가져온 바코드
-		map.put("size", 	mapData.get("PRD_SIZE_CD"));		//재고정보에서
+		map.put("size", 	mapData.get("PRD_SIZE"));		//재고정보에서
 		map.put("tagId", 	param.get("tfPrdTagid"));		//  가져온 태그id
 		map.put("storeCd", 	param.get("inStoreCd"));	//  입고매장
 		map.put("storeNm", 	commService.codeToNm((String)param.get("inStoreCd")));	//  입고매장명
-		map.put("storeCd", 	outputData.get("outStoreCd"));	//  출고매장
-		map.put("storeNm", 	outputData.get("outStoreNm"));	//  출고매장명
+		map.put("outStoreCd", 	outputData.get("outStoreCd"));	//  출고매장
+		map.put("outStoreNm", 	outputData.get("outStoreNm"));	//  출고매장명
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
 		map.put("inType", 	param.get("stInType"));	//입고 코드
 
 		tfInputMapper.inputRe((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public Map<String, Object> inputDelete(Map param) throws Exception {
+		String userId = (String)param.get("userId");
+		List dList = (List)param.get("list");
+		System.out.println(dList);
+
+		List<TfInputVO> voList = tfInputMapper.inputDeleteList(dList);
+		for(TfInputVO vo : voList){
+			Map map = new HashMap();
+			map.put("ST_IN_SEQ",vo.getStInSeq());
+			map.put("ST_IN_DATE",vo.getStInDate());
+			map.put("USER_ID", (String)param.get("userId"));
+			map.put("PRD_BARCODE", vo.getBtPrdBarcode());
+			map.put("TF_PRD_TAGID", vo.getTfPrdTagid());
+			map.put("IN_STORE_CD", vo.getInStoreCd());
+			map.put("ST_IN_TYPE", vo.getStInType());
+			tfInputMapper.inputDelete((HashMap) map);
+		}
+		//seq를 통해 매장, 바코드, 태그번호, 입고일자  id, 작업코드
+//삭제시 input은 seq로 삭제, 태그발행은 태그번호로 삭제, 실재고는 태그번호로 삭제, 재고는  -1, total은 매장, 바코드
+
+		//신규발행 삭제 : 태그발행, 실재고, 입고 삭제, 재고, total -1
+		//점간이동 삭제 : 실재고, 입고 삭제, 재고,total -1
+		//반품입고 삭제 : 실재고, 입고 삭제, 재고 total -1(작업분류)
+		return null;
 	}
 
 

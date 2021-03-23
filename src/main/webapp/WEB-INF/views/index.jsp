@@ -45,6 +45,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/salesController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/outputController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
 <!--icon-->
 <link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
@@ -151,52 +152,8 @@
 
 		<div class="d-flex justify-content-left" ng-if="authenticated" >
 
-			<!--사이드바-->
-			<div>
-				<nav class="text-light bg-dark sidebar" ng-init="menu" ng-if="menu && authenticated" > <!-- 첫화면 사이드 메뉴 안보이게 -->
-					<div class="sidebar-sticky">
-						<ul class="nav flex-column">
-							<li class="nav-item" ng-show="authenticated && user.principal.role=='MT'"><a class="nav-link" href="" ng-click="sideMenuDock(0)"><i class="xi-user"></i> 사용자관리
-								<i class='xi-angle-down' ng-show="dock[0]"></i><i class='xi-angle-up' ng-show="!dock[0]"></i></a>
-								<ul class="nav sideBarDock" ng-show="dock[0]" >
-									<li><a class="nav-link" href="" ng-click="goUserList()">사용자 관리</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="" ng-click="sideMenuDock(1)"><i class="xi-book"></i> 자산관리
-								<i class='xi-angle-down' ng-show="dock[1]"></i><i class='xi-angle-up' ng-show="!dock[1]"></i></a>
-								<ul class="nav sideBarDock" ng-show="dock[1]" >
-									<li><a class="nav-link" href="" ng-click="goAssetManagementList()">자산 관리</a></li>
-									<li><a class="nav-link" href="" ng-click="goMenu('assetManagement/assetPrintList')">자산 프린트</a></li>
-									<li><a class="nav-link" href="" ng-click="goAssetStatusChange()">자산 상태 변경</a></li>
-									<li><a class="nav-link" href="" ng-click="goMenu('assetManagement/assetRepair')">수리 목록</a></li>
-									<li><a class="nav-link" href="" ng-click="goAssetDisList()">폐기자산 목록</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="" ng-click="sideMenuDock(2)"><i class="xi-library-books"></i> 자산정보조회
-								<i class='xi-angle-down' ng-show="dock[2]"></i><i class='xi-angle-up' ng-show="!dock[2]"></i></a>
-								<ul class="nav sideBarDock" ng-show="dock[2]" >
-									<li><a class="nav-link" href="" ng-click="goRfidChange()">자산 내역 조회</a></li>
-									<li><a class="nav-link" href="" ng-click="goRfidRegList()">등록 조회</a></li>
-									<li><a class="nav-link" href="" ng-click="goRfidMoveList()">이동 조회</a></li>
-									<li><a class="nav-link" href="" ng-click="goRfidWiList()">실사 조회</a></li>
-									<li><a class="nav-link" href="" ng-click="goRfidDisList()">폐기 조회</a></li>
-									<li><a class="nav-link" href="" ng-click="goRfidFailList()">전송 오류 조회</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="" ng-click="sideMenuDock(3)"><i class="xi-cog"></i> 기초정보 관리
-								<i class='xi-angle-down' ng-show="dock[3]"></i><i class='xi-angle-up' ng-show="!dock[3]"></i></a>
-								<ul class="nav sideBarDock" ng-show="dock[3]" >
-									<li><a class="nav-link" href="" ng-click="goCommonCode()">기초정보 관리</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-
 
 			<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
-
 
 				<!-- left body -->
 				<div style="width:20%;margin:3px;" ng-if="!mainPage">
@@ -205,8 +162,8 @@
 
 						<div class="d-flex justify-content-between left-body-menu">
 							<p style="margin: 8px 0 5px 0">매장</p>
-							<select class="form-control" style="width: 180px;">
-								<option>전체</option>
+							<select class="form-control" ng-model="quickSearch.storeCd" style="width: 180px;">
+								<option value="">전체</option>
 								<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 							</select>
 						</div>
@@ -253,7 +210,7 @@
 
 
 						<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:3px solid gray;background:whitesmoke;margin-top:100px;">
-							<p style="margin: 8px 50px 5px 0;">재고현황</p>
+							<p style="margin: 8px 50px 5px 0;">입출고현황</p>
 						</div>
 
 						<div class="form-group">
@@ -265,9 +222,9 @@
 									<td style="width:33.3%;">판매/배송</td>
 								</tr>
 								<tr style="margin:10px;">
-									<td style="width:33.3%;padding:15px;">15</td>
-									<td style="width:33.3%;border-left: 1px solid lightgray;border-right: 1px solid lightgray;">3</td>
-									<td style="width:33.3%;">38</td>
+									<td style="width:33.3%;padding:15px;">{{todayData.inTotcnt}}</td>
+									<td style="width:33.3%;border-left: 1px solid lightgray;border-right: 1px solid lightgray;">{{todayData.outTotcnt}}</td>
+									<td style="width:33.3%;">{{todayData.sellTotcnt}}</td>
 								</tr>
 							</table>
 						</div>
@@ -342,7 +299,7 @@
 						<div class="d-flex" style="width: 100%;">
 
 
-
+<%--							<input ng-model="quickSearch.storeCd" ng-click="qs1 = qs1==true ? false : true"  hidden>--%>
 							<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true"  readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
