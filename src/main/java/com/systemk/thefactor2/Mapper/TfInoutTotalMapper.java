@@ -13,6 +13,8 @@ public interface TfInoutTotalMapper {
 
     TfInoutTotalVO todayWork(Map item);
 
+    TfInoutTotalVO todayWorkAllVO();
+
     Map todayWorkAll();
 
     Map monthWork(int item);

@@ -40,6 +40,14 @@
         WHERE BRAND_KIND_CD = #{item}
     </select>
 
+    <select id="detailSearch" resultType="java.util.Map" parameterType="String">
+        select (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = #{item}) as clsNm,
+               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 4),'00')) as genderNm,
+               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 2),'0000')) as brandNm;
+    </select>
+
+
+
 
 
 

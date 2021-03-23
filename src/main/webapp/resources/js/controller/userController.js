@@ -115,10 +115,10 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 
 		//유저 등록, 수정, 비밀번호 변경
 		$scope.formSave = function(){
-			// console.log($scope.form);
 			if($scope.es.newForm == true){  //신규 계정 추가
 				if(!($scope.form.userPwd === $scope.pwCheck)){
 					modalAlert($uibModal, "사용자 추가","비밀번호를 확인해주세요");
+					return;
 				}
 				$http({
 					method : 'POST',
@@ -136,6 +136,7 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 			}else if($scope.es.pwForm == true){
 				if(!($scope.form.userPwd === $scope.pwCheck)){
 					modalAlert($uibModal, "비밀번호 변경","비밀번호를 확인해주세요.");
+					return;
 				}
 				$http({
 					method : 'POST',
@@ -165,7 +166,6 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 					alert('정보 업데이트 실패');
 				});
 			}
-
 		}
 
 
@@ -251,107 +251,3 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 
 
 }]);
-
-
-
-
-// //modal 사용자 권한 수정
-// app.controller('userAuthModController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$window','$uibModalInstance',
-//     function ($scope, $http, $location, $routeParams, $rootScope, $window, $uibModalInstance) {
-// 	$scope.commonCode = $ctrl.commonCode;
-//
-// 	$scope.regDateOpen = function() {
-// 	    $scope.regDate.open = true;
-// 	};
-// 	$scope.commonCode = $ctrl.commonCode;
-// 	$scope.regData = $ctrl.list;
-//
-// 	$scope.regData.role = $scope.regData.empAuthorization;
-//
-// 	//권한 수정
-// 	$scope.submit = function() {
-// 		if($scope.regData.role == null || $scope.regData.role == $scope.regData.empAuthorization){
-// 			alert('권한을 변경해주세요.');
-// 			retrun;
-// 		}else{
-// 			$scope.regData.empAuthorization = $scope.regData.role;
-// 		}
-//
-// 		$http({
-// 			method : 'PUT',
-// 			url : "/member/roleUpdate",
-// 			data  : $scope.regData,
-// 			headers: {'Content-Type':'application/json; charset=utf-8'}
-// 		}).success(function(data){
-// 			alert("권한이 수정되었습니다");
-// 			$uibModalInstance.close();
-// 			$rootScope.reload();
-// 		})
-// 		.error(function(data){
-// 			alert('실패');
-// 		});
-// 	};
-// 	$scope.close = function() {
-// 		$uibModalInstance.close();
-// 	};
-// }]);
-
-// //유저정보수정
-// app.controller('userInfoModController', ['$scope', '$http', '$location', '$routeParams', '$rootScope', '$window',
-//     function ($scope, $http, $location, $routeParams, $rootScope, $window) {
-//
-// 	$http({
-// 		method : 'GET',
-// 		url : "/member/userInfo",
-// 		headers: {'Content-Type':'application/json; charset=utf-8'}
-// 	}).success(function(data){
-// 		$scope.regData = data;
-// 	})
-// 	.error(function(data){
-// 		alert('실패');
-// 	});
-//
-// 	//사용자 정보 수정
-// 	$scope.submit = function() {
-// 		if($scope.regData.password && $scope.regData.password != $scope.regData.passwordC){
-// 			alert("비밀번호를 재확인 해주세요.");
-// 			return;
-// 		}
-// 		$http({
-// 			method : 'PUT',
-// 			url : "/member/roleUpdate",
-// 			data  : $scope.regData,
-// 			headers: {'Content-Type':'application/json; charset=utf-8'}
-// 		}).success(function(data){
-// 			alert("수정되었습니다");
-// 			$location.url("/");
-// 		})
-// 		.error(function(data){
-// 			alert('실패');
-// 		});
-// 	};
-// }]);
-
-
-// //회원가입
-// app.controller('userRegController', ['$scope', '$http', '$location', '$routeParams', '$rootScope',
-//     function ($scope, $http, $location, $routeParams, $rootScope) {
-// 	$scope.regData;
-// 	$scope.submit = function(){
-// 		$http({
-// 			method : 'POST',
-// 			url : "/member",
-// 			data : $scope.regData,
-// 			headers: {'Content-Type': 'application/json; charset=utf-8'}
-// 		}).success(function(data){
-// 			alert('가입신청 완료');
-// 			$location.url("/");
-// 		})
-// 		.error(function(data){
-// 			alert('실패');
-// 		});
-// 	}
-// 	$scope.goLogin = function(){
-// 		$location.url("/");
-// 	}
-// }]);

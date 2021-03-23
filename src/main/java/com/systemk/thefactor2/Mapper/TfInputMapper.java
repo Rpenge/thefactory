@@ -16,4 +16,6 @@ public interface TfInputMapper {
 
     int inputNew(HashMap item);
 
+    int inputRe(HashMap item);
+
 }

@@ -80,9 +80,7 @@ public class ApiCommonController {
     @RequestMapping(value = "/inputAddResult", method = RequestMethod.GET)
     public Map<String, Object> inputAddResult(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
-        HttpSession session = request.getSession();
-        param.put("userId", session.getAttribute("PdaUserId"));
-//        param.put("userId", "test");
+        param.put("userId",  request.getHeader("id"));
         param.put("deviceGub",request.getHeader("type"));
         return apiService.inputWork(param);
     }

@@ -54,6 +54,11 @@ public class MybatisUtil {
         search.add(str);
     }
 
+    public void addStartLike(String column, String findStr){
+        String str = "AND " +column + " like '"+ findStr+"%'";
+        search.add(str);
+    }
+
     public void addORLike(String column, String findStr){
         String str = "OR " +column + " like '%"+ findStr+"%'";
         search.add(str);

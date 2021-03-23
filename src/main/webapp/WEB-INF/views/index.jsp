@@ -45,7 +45,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/salesController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>
-
+	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
 <!--icon-->
 <link rel="shortcut icon" type="image/x-ic on" href="/resources/img/ci/sysk.png">
 
@@ -63,7 +63,7 @@
 	}
 </style>
 </head>
-	<body class="ng-cloak ">
+	<body class="ng-cloak " style="min-width:1280px;">
 		<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color: white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 60px;position: fixed;">
 			<i class="xi-box" style="color: white;font-size: small"> THEFACTOR2 재고관리</i>
             <!-- Top Menu Items -->
@@ -78,7 +78,7 @@
         </nav>
 
 
-		<nav class="navbar navbar-fixed-top d-flex dropdown" ng-if="authenticated" style="width:100%;height:95px;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" >
+		<nav class="navbar navbar-fixed-top d-flex dropdown" ng-if="authenticated" style="width:100%;min-width:1280px;height:95px;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" >
 
 			<div class="p-2" >
 				<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
@@ -279,7 +279,7 @@
 				<div style="width:80%;padding: 10px;">
 
 					<!--현재 메뉴명 : 메인페이지에서 숨김-->
-					<div class="container-fluid d-flex justify-content-center" style="padding:0!important;" ng-show="!mainPage">
+					<div class="container-fluid d-flex justify-content-center" ng-if="!mainPage" style="padding:0!important;" >
 						<div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">
 							<h4><a class="menuName" href="" ng-click="reload()">{{currentMenu.PGM_NM}}</a></h4>
 <%--							<h6 style="color:gray;">재고현황조회</h6>--%>
@@ -293,19 +293,32 @@
 					<!--상단 검색 보드-->
 					<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 3%;">
 
-						<div style="font-size:20px;margin: 5px;">Quick Search</div>
+						<div class="d-flex" style="border-bottom: 1px solid #f1f1f1;margin-bottom: 4px;">
+							<span style="font-size:20px;margin: 12px 13px 0 0;">Quick Search</span>
+
+							<select class="form-control" ng-model="quickCommand" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCommand)">
+								<option value="IO1">입고관리</option>
+								<option value="IO2">출고관리</option>
+								<option value="IO3">판매/배송관리</option>
+								<option value="IO4">입출고내역조회</option>
+								<option value="ST1">재고현황관리</option>
+							</select>
+
+						</div>
 <%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
 
 						<!-- 검색 추가열 -->
-						<div class="d-flex" style="width: 100%;" ng-if="addQuick1">
+						<div class="d-flex" style="width: 100%;" ng-if="quick1">
 
 							<p style="margin:12px 10px;">구분</p>
-							<select class="form-control" ng-model="quickSearch.workGub" style="width:150px;margin:5px;">
-								<option value="">전체</option>
+							<select class="form-control" ng-model="quickSearch.workGub" style="width:150px;margin:5px;" ng-disabled="gubDisabled">
+								<option value="">전체</option>workB
+								<option ng-repeat="value in workM" value="{{value.commCd}}">{{value.commCdNm}}</option>
 							</select>
 
 							<select class="form-control" ng-model="quickSearch.detatilGub" style="width:150px;margin:5px;">
 								<option value="">전체</option>
+								<option ng-repeat="value in workS" ng-if="detatilGub(value.commCd)" value="{{value.commCd}}">{{value.commCdNm}}</option>
 							</select>
 
 							<p style="margin:12px 10px;">일자검색</p>
@@ -328,14 +341,9 @@
 						<!-- 검색 공통 -->
 						<div class="d-flex" style="width: 100%;">
 
-							<select class="form-control" ng-model="quickCommand.gub" style="width:150px;margin: 10px;height: 40px;">
-								<option value="">검색구분</option>
-								<option value="input">입고</option>
-								<option value="output">출고</option>
-								<option value="sales">판매/배송</option>
-							</select>
 
-							<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true" readonly>
+
+							<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true"  readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
@@ -364,12 +372,12 @@
 								<option ng-repeat="value in subBrandCls" value="{{value.brandKindCd}}">{{value.brandNm}}</option>
 							</select>
 
-							<input class="form-control" ng-model="quickSearch.size" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
+							<input class="form-control" ng-model="quickSearch.prdSize" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
 
-							<button class="btn btn-outline-secondary" ng-click="goGroupSearch('IO1')" style="width:70px;margin:10px 30px;">검색</button>
+							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCommand)" style="width:70px;margin:10px 30px;">검색</button>
 							<div class="d-flex" style="width:280px;margin: 10px;">
 								<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
-								<button class="btn" style="position:relative;left:-40px;background: transparent;">
+								<button class="btn" ng-click="goSearch(quickCommand, 'word')" style="position:relative;left:-40px;background: transparent;">
 									<i class="xi-search" style="font-size: 20px;"></i>
 								</button>
 							</div>

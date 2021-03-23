@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfOutputMapper">
+
+
+<!--    <select id="inputList" resultType="TfInputVO" parameterType="java.util.HashMap">-->
+<!--        SELECT-->
+<!--            *-->
+<!--        FROM-->
+<!--            TF_INPUT-->
+<!--        WHERE 1=1-->
+<!--        <foreach collection="list" item="item">-->
+<!--            ${item}-->
+<!--        </foreach>-->
+<!--        <choose>-->
+<!--            <when test = "sort != null">-->
+<!--            order by ${sort} ${direct}-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--            order by ST_IN_SEQ desc-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+
+<!--        <choose>-->
+<!--           <when test = "total != null">-->
+
+<!--           </when>-->
+<!--            <otherwise>-->
+<!--                limit ${start}, ${size}-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+
+<!--    </select>-->
+
+<!--    <insert id="inputNew" statementType="CALLABLE" parameterType="java.util.HashMap">-->
+<!--        { call input_new(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}-->
+<!--    </insert>-->
+
+
+    <select id="outputSearch" resultType="TfOutputVO" parameterType="String">
+        select * from tf_output where TF_PRD_TAGID = #{item}
+    </select>
+
+</mapper>

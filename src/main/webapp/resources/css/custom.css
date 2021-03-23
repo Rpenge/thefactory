@@ -944,3 +944,15 @@ a.nav-link{
 	-khtml-user-select: none;
 	user-select:none;
 }
+.absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	right: 200px;
+	transform: translate(-50%, -50%);
+
+
+}
+#brandSearch:read-only{
+	background-color: white;
+}

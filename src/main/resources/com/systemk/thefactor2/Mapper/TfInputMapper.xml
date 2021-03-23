@@ -37,5 +37,9 @@
         { call input_new(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}
     </insert>
 
+    <insert id="inputRe" statementType="CALLABLE" parameterType="java.util.HashMap">
+        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{deviceGub}, #{inType})}
+    </insert>
+
 
 </mapper>

@@ -28,6 +28,11 @@ public class MainController {
         return "modal/alert";
     }
 
+    @RequestMapping("/modal/check")
+    public String modalCheck(Model model) {
+        return "modal/check";
+    }
+
     @RequestMapping("/modal/upload")
     public String modalUpload(Model model) {
         return "modal/upload";

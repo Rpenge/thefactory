@@ -21,7 +21,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/inven/inv', {templateUrl:'/inven/inv', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inven/invInfo', {templateUrl:'/inven/invInfo', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
-		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'stockController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.otherwise({redirectTo: '/member/login', templateUrl: '/member/login', controller: 'loginController' });
@@ -80,13 +80,13 @@ var pageCheck = function ($rootScope, $location) {
 		$rootScope.regPage = false;
 	}
 
-	//퀵 서치 추가
-	var addQuick1 = ['/base/product','/inout/input','/inout/ioInfo'];
-	if(addQuick1.includes($location.url())){
-		$rootScope.addQuick1 = true;
-	}else{
-		$rootScope.addQuick1 = false;
-	}
+	// //퀵 서치 추가
+	// var addQuick1 = ['/base/product','/inout/input','/inout/ioInfo'];
+	// if(addQuick1.includes($location.url())){
+	// 	$rootScope.addQuick1 = true;
+	// }else{
+	// 	$rootScope.addQuick1 = false;
+	// }
 
 
 };

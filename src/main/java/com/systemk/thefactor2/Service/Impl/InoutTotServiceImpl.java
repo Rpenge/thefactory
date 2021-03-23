@@ -29,7 +29,11 @@ public class InoutTotServiceImpl implements InoutTotService {
 
 	@Override
 	public TfInoutTotalVO todayWork(Map param) {
-		return tfInoutTotalMapper.todayWork(param);
+		if(param.get("storeCd")!= null) {
+			return tfInoutTotalMapper.todayWork(param);
+		}else{
+			return tfInoutTotalMapper.todayWorkAllVO();
+		}
 	}
 
 	@Override

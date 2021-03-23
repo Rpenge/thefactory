@@ -12,11 +12,22 @@ function userLoginCheck($http, $rootScope,$window, $location){
 
 //현재페이지 정보 저장
 function pageInfo($rootScope, $location){
+
 	if($rootScope.topMenu) {
 		for (var value of $rootScope.topMenu) {
 			if (value.PGM_URL == $location.url()) {
 				$rootScope.currentMenu = value;
+
+				if($rootScope.quick1List.includes(value.PGM_CD)){
+					$rootScope.quick1 = true;
+				}else{
+					$rootScope.quick1 = false;
+				}
+				$rootScope.quickCommand = value.PGM_CD;
+				$rootScope.addQuick($rootScope.quickCommand);
 			}
+
+
 		}
 	}
 }
@@ -184,7 +195,6 @@ function httpGetList(http, scope, url, param ){
 			scope.paging.total = angular.fromJson(data).totalElements;  // 29
 			scope.paging.begin = parseInt((scope.paging.current-1)/10) * 10 + 1  // 1 or -4  : 1  1~10, 11~20
 			scope.paging.end = Math.min(scope.paging.begin + 9, angular.fromJson(data).totalPages);
-
 
 			//10개씩
 			scope.paging.prev = parseInt((scope.paging.current -1) / 10) * 10;
@@ -484,6 +494,9 @@ function code(rootScope) {
 	rootScope.grade = []; // 권한목록
 	rootScope.store = []; // 매장목록
 	rootScope.device = []; // 매장목록
+	rootScope.workM = []; // 작업대분류
+	rootScope.workS = []; // 작업소분류
+	rootScope.prdSize = []; // 상품사이즈
 	for (value of rootScope.commCode) {
 		var bcd = value.commCd.substr(0, 2);
 		var mcd = value.commCd.substr(2, 2);
@@ -494,6 +507,14 @@ function code(rootScope) {
 			rootScope.store.push(value);
 		} else if (bcd == '02' && mcd == '01' && scd != '00') { // 장비구분
 			rootScope.device.push(value);
+		}
+		else if (bcd == '06' && mcd != '00' && scd == '00') { // 작업중분류
+			rootScope.workM.push(value);
+		}else if (bcd == '06' && scd != '00') { // 작업소분류
+			rootScope.workS.push(value);
+		}
+		else if (bcd == '05' && scd != '00') { // 장비구분
+			rootScope.prdSize.push(value);
 		}
 	}
 }

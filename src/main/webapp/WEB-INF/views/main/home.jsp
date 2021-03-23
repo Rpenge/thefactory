@@ -5,7 +5,7 @@
 <html ng-app="myApp">
 <div class="d-flex flex-column" ng-show="authenticated">
 
-	<div class="d-flex justify-content-center" style="top:-310px;width:800px;height: 100px;position:relative;color:black;text-align: center;margin:0 auto;">
+	<div class="d-flex justify-content-center absolute-center" style="top:550px;width:800px;height: 100px;color:black;text-align: center;">
 
 		<div class="d-flex justify-content-around main-cnt-box">
 			<i class="xi-home-o" style="font-size: 70px;"></i>
@@ -14,12 +14,11 @@
 				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck }}</span>
 			</div>
 		</div>
-
 		<div class="d-flex justify-content-around main-cnt-box">
 			<i class="xi-box" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font">입고</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.inTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 
@@ -27,7 +26,7 @@
 			<i class="xi-truck" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font">출고</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.outTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 
@@ -35,13 +34,13 @@
 			<i class="xi-dropbox" style="font-size: 70px;"></i>
 			<div>
 				<p class="main-cnt-font" >판매/배송</p>
-				<span style="font-size: 25px;font-weight: bold;">{{todayData.stockTotcnt | zeroCheck}}</span>
+				<span style="font-size: 25px;font-weight: bold;">{{todayData.sellTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
 		<div style="background: white;width:820px;height: 120px; opacity: 50%;position:absolute;z-index: 1;top:-10px;"></div>
 	</div>
 
-		<div style="background: transparent;width:100%;margin:0 auto;top:-70px;position:relative;">
+		<div style="background: transparent;width:100%;margin:0 auto;top:40px;position:relative;">
 			<p style="text-align: center;font-size:25px;font-weight: bold;">주요업무 <span style="font-size:13px;font-weight: normal;">바로가기</span></p>
 
 			<div class="d-flex justify-content-center" style="min-width: 350px;height: 180px;">
@@ -126,7 +125,7 @@
 <%--		</div>--%>
 <%--	</div>--%>
 
-	<div class="d-flex"style="position:relative;top:-70px;background: transparent;width:100%;margin:15px auto;height: 400px;border:1px solid lightgray;">
+	<div class="d-flex"style="position:relative;top:40px;background: transparent;width:100%;margin:15px auto;height: 400px;border:1px solid lightgray;">
 
 
 		<div id="chart1" style="width: 100%;padding: 20px;background: white;">

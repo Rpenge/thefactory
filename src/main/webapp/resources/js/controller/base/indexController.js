@@ -7,15 +7,17 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-
-	//현재페이지 정보
-	pageInfo($rootScope, $location);
-	$scope.quickSearch = {};
+	$rootScope.quickSearch = {}; //검색조건
+	$rootScope.quickSearchWord = {}; // 검색어
 	$scope.view = {};
-	$scope.currentMenu = {};
-	$scope.currentMenu.menuGroup ={};
-	$scope.dateOptions = {'showWeeks':false} ;
+	$scope.dateOptions = {'showWeeks':false}; // 달력 옵션
+	$rootScope.quickCommand = 'IO1';	//quick검색 초기값
+	$rootScope.currentMenu ={};
 
+	$rootScope.quickSearch.startDate = new Date();
+	$rootScope.quickSearch.endDate = new Date();
+
+	//공통코드 , 브랜드코드 조회
 	$http.get('/member/getCode').success(function(data) {
 		$rootScope.commCode = data.commCode;
 		$rootScope.brandList = data.brandList;
@@ -23,10 +25,10 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	});
 
 
+	//새로고침 : 세션확인 후 메뉴 다시 조회
 	if(sessionStorage.getItem('id')){
 		$http.get('/member/reUserAuth').success(function(data) {
 			if (data.userId) {
-				// sessionStorage.setItem('id', data.userId);
 				$rootScope.topMenu = data.auth;
 				$rootScope.role = data.role;
 			} else {
@@ -39,11 +41,10 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	$scope.logout = function() {
 		logout($http, $rootScope, $location);
-
 	};
 
 
-	$scope.client;
+	//$scope.client;
 
 	$scope.disconnection = function(){
 		if ($scope.client != null) {
@@ -71,36 +72,34 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
     };
 
 
-
+	//페이지 이동
 	$scope.goMenu = function(data){
 		$location.url(data.PGM_URL);
 	}
 
-	$scope.goGroupSearch = function(command){
+	//quick search
+	$rootScope.goSearch = function(command, word){
 		for(const value of $scope.topMenu){
 			if(value.PGM_CD == command){
-				$rootScope.searchData = $scope.quickSearch;
-				$rootScope.searchMove = true;
-				$location.url('/inout/input');
-				return;
+				if(!word){
+					$rootScope.searchMove = 1;
+				}else{
+					$rootScope.searchMove = 2;
+				}
+
+				if($location.url() == value.PGM_URL){
+					$scope.reload();
+				}else{
+					$location.url(value.PGM_URL);
+				}
+				break;
 			}
 		}
-
 	}
 
 
-	$scope.content = {'width':'100%'};
-	//사이드 메뉴 토글
-	$scope.menuToggle = function(){
-		$scope.menu = $scope.menu ? false : true;
-	}
-
-	$scope.dock = [true, true, true, true, true];
-	$scope.sideMenuDock = function(idx){
-		$scope.dock[idx] = $scope.dock[idx] ? false : true;
-	}
-
-	$scope.brandSelect = function(data){	//브랜드 선택
+	//브랜드 선택
+	$scope.brandSelect = function(data){
 		if(!data){
 			$scope.quickSearch.brand = null;
 			$scope.view.brand = null;
@@ -117,7 +116,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		});
 	}
 
-	$scope.genderSelect = function(data){ //성별 선택
+	//성별 선택
+	$scope.genderSelect = function(data){
 		$scope.subBrandCls = [];
 		for(const value of $scope.subBrand){
 			if(data.substr(0,4) == value.brandKindCd.substr(0,4) && value.codeLevel == 'S'){
@@ -127,6 +127,48 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	}
 
 
+	//quick search 검색구분 변경
+	$rootScope.quick1List = ['IO1', 'IO2','IO3','IO4'];
+	$rootScope.addQuick = function(command){
+		$rootScope.quickSearch.workGub = null;
+		if($rootScope.quick1List.includes(command)){
+			$rootScope.quick1 = true;
+		}else{
+			$rootScope.quick1 = false;
+		}
+		workGub(command)
+	}
+	$rootScope.addQuick($rootScope.quickCommand);
+
+	//quick search 검색구분 변경 : 구분값 변경 & disalbed 처리
+	function workGub(command){
+		const input = ['IO1'];
+		const output = ['IO2'];
+		const sell = ['IO3'];
+		if(input.includes(command)){
+			$rootScope.quickSearch.workGub = '060100';
+			$scope.gubDisabled = true;
+		}else if(output.includes(command)){
+			$rootScope.quickSearch.workGub = '060200';
+			$scope.gubDisabled = true;
+		}else if(sell.includes(command)){
+			$rootScope.quickSearch.workGub = '060300';
+			$scope.gubDisabled = true;
+		}else{
+			$scope.gubDisabled = false;
+		}
+	}
+
+	//상위 작업구분 변경
+	$scope.detatilGub = function(data){
+		if($scope.quickSearch.workGub == null){
+			return false;
+		}
+		if($scope.quickSearch.workGub.substr(0,4) == data.substr(0,4)){
+			return true;
+		}
+		return false;
+	}
 
 
 }]);

@@ -5,7 +5,7 @@
 
 
     <select id="findStockInfo" resultType="TfStockVO" parameterType="String">
-        select * from tf_stock ts where TF_PRD_BARCODE = #{item};
+        select * from tf_stock ts where TF_PRD_BARCODE = #{item} limit 1;
     </select>
 
 

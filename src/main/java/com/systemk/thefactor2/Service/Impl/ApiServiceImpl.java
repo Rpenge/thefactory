@@ -151,22 +151,24 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> searchPrd(Map param) throws Exception {
 		Map map = new HashMap();
+		Date date = new Date();
+		String ymd = StringUtil.dateFormatYMD(date);
 
 		String barcode = (String)param.get("barcode");
-		String preTagId = "T" + barcode.substring(barcode.length()-11, barcode.length());
+		String preTagId = "T" + ymd.substring(2,4)+ barcode.substring(barcode.length()-10, barcode.length());
 		String tagId ="";
 		String lastNum = tfTagPublishMapper.selectLastNum(preTagId);
 		if(lastNum == null){
-			tagId = preTagId + "0001";
+			tagId = preTagId + "001";
 		}else{
-			tagId = preTagId + String.format("%04d", Integer.parseInt(lastNum) + 1);
+			tagId = preTagId + String.format("%03d", Integer.parseInt(lastNum) + 1);
 		}
 		TfStockVO vo = tfStockMapper.findStockInfo(barcode);
 		map.put("prdCd", vo.getTfPrdCd());
 		map.put("prdName", vo.getTfPrdNm());
 		map.put("prdSeason", vo.getTfPrdNm().split(" ")[0]);
 		map.put("tagId", tagId);
-		map.put("brand", brandService.codeToNm(vo.getBrandKindCd()));
+		map.put("brand", brandService.codeToNm(vo.getBrandKindCd().substring(0,2)+"0000"));
 		map.put("brandCd", vo.getBrandKindCd());
 		map.put("prdSize", vo.getPrdSize());
 		map.put("prdSizeCd", vo.getPrdSizeCd());
@@ -193,8 +195,6 @@ public class ApiServiceImpl implements ApiService {
 		map.put("tagStat", 	"040101");	//신규발행 코드 : 고정
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
 		map.put("inType", 	"060101");	//신규입고 코드 : 고정
-
-		System.out.println(map);
 
 		tfInputMapper.inputNew((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");

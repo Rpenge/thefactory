@@ -4,6 +4,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 
 		//현재페이지 정보
 		pageInfo($rootScope, $location);
+		$rootScope.quick1 = true;
 		var monthList = [];
 
 		$http.get('/home/homeInfo').success(function(data){

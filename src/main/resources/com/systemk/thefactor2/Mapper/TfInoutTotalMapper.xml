@@ -15,6 +15,14 @@
         </if>
     </select>
 
+    <select id="todayWorkAllVO" resultType="TfInoutTotalVO">
+        select IN_OUT_DATE , sum(IN_TOTCNT) as IN_TOTCNT, sum(OUT_TOTCNT) as OUT_TOTCNT, sum(SELL_TOTCNT) as SELL_TOTCNT, sum(STOCK_TOTCNT) as STOCK_TOTCNT
+        FROM
+            TF_INOUT_TOTAL
+        WHERE
+            IN_OUT_DATE = DATE_FORMAT( NOW(), '%Y%m%d') group by IN_OUT_DATE
+    </select>
+
     <select id="todayWorkAll" resultType="java.util.Map">
         select IN_OUT_DATE , sum(IN_TOTCNT) as inputCount, sum(OUT_TOTCNT) as outputCount, sum(SELL_TOTCNT) as sellCount, sum(STOCK_TOTCNT) as stockCount
         FROM
@@ -42,10 +50,10 @@
             tf_inout_total
         where
             IN_OUT_DATE like CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - ${item} MONTH), '%Y%m'), '%')
-        <if test="storeCd != null">
-            AND
-            STORE_CD = #{storeCd}
-        </if>
+<!--        <if test="storeCd != null">-->
+<!--            AND-->
+<!--            STORE_CD = #{storeCd}-->
+<!--        </if>-->
     </select>
 
 </mapper>
