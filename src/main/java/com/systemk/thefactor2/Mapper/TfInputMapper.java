@@ -18,4 +18,8 @@ public interface TfInputMapper {
 
     int inputRe(HashMap item);
 
+    List<TfInputVO> inputDeleteList(List item);
+
+    int inputDelete(HashMap item);
+
 }

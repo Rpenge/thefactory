@@ -29,6 +29,10 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 				$rootScope.role = data.role;
 		        $rootScope.authenticated = true;
 				$rootScope.topMenu = data.auth;
+				if(data.role == '010101'){
+					$rootScope.storeCd = null;
+				}
+				$rootScope.storeCd = data.storeCd;
 			} else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;

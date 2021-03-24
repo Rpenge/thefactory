@@ -12,5 +12,7 @@ public interface InputService {
 
     public Map<String, Object> inputAddResult(Map param) throws Exception;
 
+    public Map<String, Object> inputDelete(Map param) throws Exception;
+
 
 }

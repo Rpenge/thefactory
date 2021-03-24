@@ -15,8 +15,8 @@
 		</div>
 		<div class="modal-body">{{body}}</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-primary" ng-click="ok()">ok</button>
-			<button type="button" class="btn btn-secondary" ng-click="cancel()" data-dismiss="modal">cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="ok()">확인</button>
+			<button type="button" class="btn btn-secondary" ng-click="cancel()" data-dismiss="modal">취소</button>
 		</div>
 	</div>
 </body>

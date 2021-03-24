@@ -188,7 +188,7 @@ public class ApiServiceImpl implements ApiService {
 		map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));	//상품정보에서
 		map.put("prdCd", 	mapData.get("TF_PRD_CD"));		//상품정보에서
 		map.put("barcode", 	param.get("barcode"));	//  가져온 바코드
-		map.put("size", 	mapData.get("PRD_SIZE_CD"));		//재고정보에서
+		map.put("size", 	mapData.get("PRD_SIZE"));		//재고정보에서
 		map.put("tagId", 	param.get("tagId"));		//  가져온 태그id
 		map.put("storeCd", 	param.get("storeCd"));	//  입고매장
 		map.put("storeNm", 	commService.codeToNm((String)param.get("storeCd")));	//  입고매장명

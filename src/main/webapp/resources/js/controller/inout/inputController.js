@@ -3,10 +3,17 @@
 app.controller('inputController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-		pageInfo($rootScope, $location);
 
+		pageInfo($rootScope, $location);
+		$scope.form ={};
+
+console.log($rootScope.quickSearch.storeCd);
 		if($rootScope.searchMove == 1){									//페이지 이동후 검색
 			$scope.search = {};
+			if($rootScope.quickSearch.storeCd != null){
+				$scope.search['IN_STORE_CD'] = $rootScope.quickSearch.storeCd;
+			}
+
 			if($rootScope.quickSearch.brand != null){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.brand.substr(0,2);
 			}
@@ -30,19 +37,19 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 			$scope.search['endDate'] = endDate;
 
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/inout/inputList', param );
+			httpGetList($http, $scope,'/input/inputList', param );
 		}else if($rootScope.searchMove == 2) {	//단어 검색
 			$scope.search = $rootScope.quickSearchWord;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/inout/inputList', param )
+			httpGetList($http, $scope,'/input/inputList', param )
 		}else{															//일반 페이지 이동
-			httpGetList($http, $scope,'/inout/inputList' );
+			httpGetList($http, $scope,'/input/inputList' );
 		}
 		$rootScope.searchMove = false;
 
 
+		//폼 형식
 		$scope.es = {'newForm':true,'modForm':false};
-
 		$scope.formChange =function(command, data){
 
 			if(command == 'reset'){
@@ -66,7 +73,7 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 				// $scope.inView.brand = formData.brand;
 				// $scope.brandSelect(formData.brand, $scope.genderSelect, formData.gender, formData.cls);
 				// $scope.inView.gender = formData.gender;
-				$scope.inView.prdSize = codeToNm(formData.prdSize, $rootScope.prdSize);
+				// $scope.inView.prdSize = codeToNm(formData.prdSize, $rootScope.prdSize);
 			}
 		}
 
@@ -110,7 +117,11 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 		//태그ID로 출고 데이터 조회
 		$scope.tagSearch = false;
 		$scope.inputAdd = function(){
-			$http.get('/inout/inputAdd?tagId='+ $scope.form.tfPrdTagid).success(function(data) {
+			if($scope.form.tfPrdTagid == null){
+				modalAlert($uibModal, "입고등록","태그ID를 확인해 주세요");
+				return;
+			}
+			$http.get('/input/inputAdd?tagId='+ $scope.form.tfPrdTagid).success(function(data) {
 				$scope.form = {};
 				$scope.inView = {};
 				$scope.es ={};
@@ -119,9 +130,12 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 				$scope.form.barcode = data.btPrdBarcode;
 				$scope.inView = data;
 				$scope.tagSearch = true;
-				console.log(data);
+				if(data == ""){
+					modalAlert($uibModal, "입고등록","태그ID를 조회하지 못했습니다");
+				}
 			});
 		}
+
 
 		//웹에서 입고는 반품과 점간이동만, 또는 수정
 		$scope.formSave = function(){
@@ -131,13 +145,13 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 					return;
 				}
 				if(!(($scope.form.stInType == '060102') || ($scope.form.stInType == '060104'))){
-					modalAlert($uibModal, "입고등록","웹에서는 점간입고와 반품입고만 가능합니다");
+					modalAlert($uibModal, "입고등록","웹에서는 점간입고와 반품입고만 가능합니다. 신규입고는 PDA를 통해 작업해주세요.");
 					return;
 				}
 				modalCheck($uibModal, "입고등록", "입고 등록하시겠습니까?", function(){
 					$http({
 						method : 'POST',
-						url : "/inout/inputAddResult",
+						url : "/input/inputAddResult",
 						data  : $scope.form,
 						headers: {'Content-Type':'application/json; charset=utf-8'}
 					}).success(function(data){
@@ -148,41 +162,28 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 					}).error(function(data){
 						alert('정보 업데이트 실패');
 					});
-
-				});
-				// $http({
-				// 	method : 'POST',
-				// 	url : "/inout/inputAddResult",
-				// 	data  : $scope.form,
-				// 	headers: {'Content-Type':'application/json; charset=utf-8'}
-				// }).success(function(data){
-				// 	if(data.resultCode == 'S') {
-				// 		modalAlert($uibModal, "입고등록", "입고정보가 추가되었습니다");
-				// 	}
-				// 	$rootScope.reload();
-				// }).error(function(data){
-				// 	alert('정보 업데이트 실패');
-				// });
-			}else if($scope.es.modForm == true) {
-
-				//수정 : 입고테이블 데이터 변경 , 실재고테이블 데이터 위치 변경, 재고테이블 재고 위치 변경
-				modalCheck($uibModal, "입고수정", "입고 정보를 수정하시겠습니까?", function () {
-					$http({
-						method: 'POST',
-						url: "/inout/inputAddResult",
-						data: $scope.form,
-						headers: {'Content-Type': 'application/json; charset=utf-8'}
-					}).success(function (data) {
-						if (data.resultCode == 'S') {
-							modalAlert($uibModal, "사용자 수정", "사용자 정보가 변경 되었습니다.");
-						}
-						$rootScope.reload();
-					}).error(function (data) {
-						alert('정보 업데이트 실패');
-					});
-
 				});
 			}
+			// else if($scope.es.modForm == true) {
+			//
+			// 	//수정 : 입고테이블 데이터 변경 , 실재고테이블 데이터 위치 변경, 재고테이블 재고 위치 변경
+			// 	modalCheck($uibModal, "입고수정", "입고 정보를 수정하시겠습니까?", function () {
+			// 		$http({
+			// 			method: 'POST',
+			// 			url: "/input/inputAddResult",
+			// 			data: $scope.form,
+			// 			headers: {'Content-Type': 'application/json; charset=utf-8'}
+			// 		}).success(function (data) {
+			// 			if (data.resultCode == 'S') {
+			// 				modalAlert($uibModal, "사용자 수정", "사용자 정보가 변경 되었습니다.");
+			// 			}
+			// 			$rootScope.reload();
+			// 		}).error(function (data) {
+			// 			alert('정보 업데이트 실패');
+			// 		});
+			//
+			// 	});
+			// }
 		}
 
 
@@ -193,14 +194,86 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 			}
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/inout/inputList', param );
+			httpGetList($http, $scope,'/input/inputList', param );
 		};
 
 		//페이지 사이즈 변경
 		$scope.pageSize = function(){
 			$scope.search.page = 0;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/inout/inputList', param );
+			httpGetList($http, $scope,'/input/inputList', param );
+		}
+
+		//정렬
+		$scope.sort = function(sortName){
+			$scope.search.direct = $scope.search.direct=="asc" ? "desc" : "asc";
+			$scope.search.sort = sortName;
+			param = generateParam($scope.search);
+			httpGetList($http, $scope,'/input/inputList', param );
+
+			var sortIcon = document.getElementById('sortIcon');
+			if(sortIcon != null){
+				document.getElementById('sortIcon').remove('');
+			}
+
+			var sortHead = document.getElementById(sortName);
+			if($scope.search.direct=="desc"){
+				sortHead.innerHTML+=" <i id='sortIcon' class='xi-caret-down'/>";
+			}else{
+				sortHead.innerHTML+=" <i id='sortIcon' class='xi-caret-up'/>";
+			}
+		};
+
+
+		var checkList = []; //체크박스 리스트
+
+		//체크박스 전체 체크
+		$scope.checkAll = function(status, prKey){
+			const tempList = [];
+			for(const key in $scope.list){
+				$scope.list[key].isSelected = status;
+				tempList.push($scope.list[key][prKey]);
+			}
+			if(status){
+				checkList = tempList;
+			}else{
+				checkList = [];
+			}
+			console.log(checkList);
+		}
+		//체크박스 리스트 추가, 삭제
+		$scope.checkBox = function(status, select){
+			const index = checkList.indexOf(select);
+			if( index == -1 && status ){
+				checkList.push(select);
+			}else{
+				checkList.splice(index, index+1);
+			}
+			console.log(checkList);
+		}
+
+
+		//테이블 버튼 사용(삭제)
+		$scope.tableBtn = function(command){
+			if(command == 'Withdrawal'){
+				if(checkList.length < 1){
+					modalAlert($uibModal, "입고삭제", "데이터를 선택해주세요.");
+					return;
+				}
+				$http({
+					method : 'POST',
+					url : "/input/inputDelete",
+					data  :  {'list' :checkList},
+					headers: {'Content-Type':'application/json; charset=utf-8'}
+				}).success(function(data){
+					if(data.resultCode == 'S') {
+						modalAlert($uibModal, "입고삭제", "데이터가 삭제되었습니다");
+					}
+					// $rootScope.reload();
+				}).error(function(data){
+					alert('정보 업데이트 실패');
+				});
+			}
 		}
 
 }]);

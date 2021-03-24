@@ -14,7 +14,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/base/device', {templateUrl:'/base/device', controller:'deviceController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/inout/input', {templateUrl:'/inout/input', controller:'inputController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
-		.when('/inout/output', {templateUrl:'/inout/output', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inout/output', {templateUrl:'/inout/output', controller:'outputController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/sales', {templateUrl:'/inout/sales', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/ioInfo', {templateUrl:'/inout/ioInfo', controller:'ioInfoController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 

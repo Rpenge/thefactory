@@ -33,6 +33,15 @@ public class HomeController {
 		return resultMap;
 	}
 
+	//시스템관리 - 사용자 및 권한 관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
+	@RequestMapping(value="/homeSimple", method = RequestMethod.GET)
+	public Map<String, Object> homeSimple(HttpServletRequest request) throws Exception{
+		Map resultMap = new HashMap();
+		Map param = RequestUtil.reqParamToMap(request);
+		resultMap.put("todayData",inoutTotService.todayWork(param));
+		return resultMap;
+	}
+
 
 
 }

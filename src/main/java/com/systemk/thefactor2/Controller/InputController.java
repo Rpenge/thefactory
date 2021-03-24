@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/inout")
+@RequestMapping("/input")
 public class InputController {
 
 
@@ -46,6 +46,14 @@ public class InputController {
 		map.put("userId", session.getAttribute("userId"));
 		map.put("deviceGub", "020103");
 		return inputService.inputAddResult(map);
+	}
+
+	//입출고관리 - 입고관리 : 입고 삭제
+	@RequestMapping(value = "/inputDelete", method = RequestMethod.POST)
+	public Map<String, Object> inputDelete(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		map.put("userId", session.getAttribute("userId"));
+		return inputService.inputDelete(map);
 	}
 
 

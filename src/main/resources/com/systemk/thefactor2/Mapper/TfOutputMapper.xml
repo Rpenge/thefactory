@@ -4,38 +4,34 @@
 <mapper namespace="com.systemk.thefactor2.Mapper.TfOutputMapper">
 
 
-<!--    <select id="inputList" resultType="TfInputVO" parameterType="java.util.HashMap">-->
-<!--        SELECT-->
-<!--            *-->
-<!--        FROM-->
-<!--            TF_INPUT-->
-<!--        WHERE 1=1-->
-<!--        <foreach collection="list" item="item">-->
-<!--            ${item}-->
-<!--        </foreach>-->
-<!--        <choose>-->
-<!--            <when test = "sort != null">-->
-<!--            order by ${sort} ${direct}-->
-<!--            </when>-->
-<!--            <otherwise>-->
-<!--            order by ST_IN_SEQ desc-->
-<!--            </otherwise>-->
-<!--        </choose>-->
+    <select id="outList" resultType="TfOutputVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_OUTPUT
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by ST_OUT_SEQ desc
+            </otherwise>
+        </choose>
 
-<!--        <choose>-->
-<!--           <when test = "total != null">-->
+        <choose>
+            <when test = "total != null">
 
-<!--           </when>-->
-<!--            <otherwise>-->
-<!--                limit ${start}, ${size}-->
-<!--            </otherwise>-->
-<!--        </choose>-->
+            </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
 
-<!--    </select>-->
-
-<!--    <insert id="inputNew" statementType="CALLABLE" parameterType="java.util.HashMap">-->
-<!--        { call input_new(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}-->
-<!--    </insert>-->
+    </select>
 
 
     <select id="outputSearch" resultType="TfOutputVO" parameterType="String">
