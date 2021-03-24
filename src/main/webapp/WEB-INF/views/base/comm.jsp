@@ -10,52 +10,56 @@
     <div  style="width:20%;margin:3px;">
         <!--메뉴-->
         <div class="d-flex flex-column left-body">
-        <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
-            <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
-            <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
-            <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
-        </div>
-
-<%--{{commCode}}--%>
-        <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
-            <tr>
-                <th>코드</th>
-                <td style="width:70%;height: 40px;">
-                    <input type="text" class="form-control" ng-model="BCode.commCd">
-                </td>
-            </tr>
-            <tr>
-                <th style="width:30%;">코드명</th>
-                <td style="width:70%;height: 40px;">
-                    <input type="text" class="form-control" ng-model="BCode.commCdNm">
-                </td>
-            </tr>
-            <tr>
-                <th>사용여부</th>
-                <td>
-                    <select class="form-control" ng-model="BCode.useYn">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
-                </td>
-            </tr>
-
-        </table>
-        <div>
-            <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;min-height: 650px;">
+            <%--대분류 신규, 저장 input 영역 시작--%>
+            <form ng-submit="formSave()">
+                <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
+                    <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
+                    <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('commBList')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
+                    <button class="p-2 btn btn-outline-secondary" type="submit" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
+                </div>
+                <%--{{commCode}}--%>
+                <table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
+                    <tr>
+                        <th>코드</th>
+                        <td style="width:70%;height: 40px;">
+                            <input type="text" class="form-control" ng-model="es.commCd">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:30%;">코드명</th>
+                        <td style="width:70%;height: 40px;">
+                            <input type="text" class="form-control" ng-model="es.commCdNm">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사용여부</th>
+                        <td>
+                            <select class="form-control" ng-model="es.useYn">
+                                <option value="">사용여부</option>
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <%--대분류 신규, 저장 input 영역 끝--%>
+            <%--대분류 목록 영역 시작--%>
+            <table id="commBList" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;min-height: 120px;">
                 <thead>
-                    <th style="width:30%">코드</th>
-                    <th style="width:70%;">코드명</th>
+                    <tr>
+                        <th style="width:30%" ng-click="sort('')">코드</th>
+                        <th style="width:70%;" ng-click="sort('')">코드명</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='B'">
-                        <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
-                        <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
+                    <tr ng-repeat="key in commCode" class="pointer" ng-init="value.isSelected = false;" ng-if="key.codeLevel=='B'">
+                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 50px;">{{key.commCd}}</td>
+                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{key.commCdNm}}</td>
                     </tr>
-                    <tr></tr>
                 </tbody>
             </table>
-        </div>
+            <%--대분류 목록 영역 끝--%>
         </div>
     </div>
 
@@ -75,7 +79,6 @@
         </div>
         <div>
         </div>
-
 
         <!--contents-->
         <div class="body-custom" style="width:100%;">
@@ -108,7 +111,11 @@
                             <th>LEVEL</th>
                             <td><input type="text" class="form-control"></td>
                             <th>사용여부</th>
-                            <td><select class="form-control"><option>{{form.useYn}}</option></select></td>
+                            <td>
+                                <select class="form-control">
+                                    <option>{{form.useYn}}</option>
+                                </select>
+                            </td>
                         </tr>
 
                     </table>
@@ -199,30 +206,53 @@
                 </div>
                 <!-- 테이블 생성 -->
                 <div class="table-box">
-                    <table class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
+                    <table id="findList" class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
                         <thead>
-                                <th style="width:10%">코드번호</th>
-                                <th style="width:10%;">코드명</th>
-                                <th style="width:5%;">사용여부</th>
-                                <th style="width:10%">LEVEL</th>
-                                <th style="width:15%">등록자</th>
-                                <th style="width:10%">등록일자</th>
-                                <th style="width:15%">수정자</th>
-                                <th style="width:5%">수정일자</th>
+                            <tr class="pointer">
+                                <th ng-click="sort('')" style="width:10%">코드번호</th>
+                                <th ng-click="sort('')" style="width:10%;">코드명</th>
+                                <th ng-click="sort('')" style="width:5%;">사용여부</th>
+                                <th ng-click="sort('')" style="width:10%">LEVEL</th>
+                                <th ng-click="sort('')" style="width:15%">등록자</th>
+                                <th ng-click="sort('')" style="width:10%">등록일자</th>
+                                <th ng-click="sort('')" style="width:15%">수정자</th>
+                                <th ng-click="sort('')" style="width:5%">수정일자</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="key in commCode">
-                                <td>{{key.commCd}}</td>
-                                <td>{{key.commCdNm}}</td>
-                                <td>{{key.useYn}}</td>
-                                <td>{{key.codeLevel}}</td>
-                                <td>{{key.regId}}</td>
-                                <td>{{key.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
-                                <td>{{key.modId}}</td>
-                                <td>{{key.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCd}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.useYn}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.codeLevel}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modId}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <!-- 네비게이션 바 -->
+                    <nav class=" text-center" >
+                        <ul class="pagination">
+                            <li class="page-item" ng-if="paging.current > 10">
+                                <a href="" aria-label="Previous" ng-click="goPage(1)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
+                            </li>
+                            <li class="page-item" ng-if="paging.current > 10">
+                                <a href="" aria-label="Previous" ng-click="goPage(paging.begin - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
+                            </li>
+                            <li ng-repeat="pageNum in [paging.begin, paging.end] | makeRange" class="page-item" ng-class="{'active-page' : paging.current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
+                            <li class="page-item" ng-if="paging.end != paging.last">
+                                <a href="" aria-label="Next" ng-click="goPage(paging.end + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
+                            </li>
+                            <li class="page-item" ng-if="paging.end != paging.last">
+                                <a href="" aria-label="Next" ng-click="goPage(paging.last)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

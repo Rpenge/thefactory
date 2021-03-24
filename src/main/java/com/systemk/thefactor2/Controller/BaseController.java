@@ -4,6 +4,7 @@ import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Service.DeviceService;
 import com.systemk.thefactor2.Service.ProductService;
+import com.systemk.thefactor2.Util.RequestUtil;
 import com.systemk.thefactor2.VO.TfBrandVO;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
 import com.systemk.thefactor2.VO.TfDeviceVO;
@@ -30,11 +31,38 @@ public class BaseController {
 	@Autowired
 	private DeviceService deviceService;
 
-	//기초정보관리 - 코드관리 - 코드 리스트 조회(페이지 처리)
+	//기초정보관리 - 코드관리 - 코드 리스트 조회 메인에서도 사용
 	@RequestMapping(value="/commList", method = RequestMethod.GET)
 	public List<TfCommCodeVO> commList(HttpServletRequest request) throws Exception{
 		return commService.commList();
 	}
+	//기초정보관리 - 코드관리 - 코드 리스트 조회 페이징 처리
+	@RequestMapping(value = "findList", method = RequestMethod.GET)
+	public Map<String, Object> findList(HttpServletRequest request) throws Exception {
+		Map param = RequestUtil.reqParamToMap(request);
+		return commService.findList(param);
+	}
+	//기초정보관리 - 코드관리 - 대분류 코드 조회
+	@RequestMapping(value = "/commBList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commBList(@RequestParam("code") String code) throws Exception {
+		return commService.commBList(code);
+	}
+	//기초정보관리 - 코드관리 - 중분류 코드 조회
+	@RequestMapping(value = "/commMList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commMList(@RequestParam("code") String code) throws Exception {
+		return commService.commMList(code);
+	}
+	//기초정보관리 - 코드관리 - 소분류 코드 조회
+	@RequestMapping(value = "/commSList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commSList(@RequestParam("code") String code) throws Exception {
+		return commService.commSList(code);
+	}
+	//기초정보관리 - 코드관리 - 중소분류 코드 조회
+	@RequestMapping(value = "/commMSList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commMSList(@RequestParam("code") String code) throws Exception {
+		return commService.commMSList(code);
+	}
+	//기초정보관리 - 코드관리 - 특정코드 조회
 	@RequestMapping(value = "/findComm", method = RequestMethod.GET)
 	public String findComm(@RequestBody(required = false) @RequestParam("code") String code) throws Exception {
 		return commService.codeToNm(code);
