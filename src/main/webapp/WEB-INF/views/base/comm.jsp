@@ -34,10 +34,8 @@
                     <tr>
                         <th>사용여부</th>
                         <td>
-                            <select class="form-control" ng-model="es.useYn">
-                                <option value="">사용여부</option>
-                                <option value="Y">Y</option>
-                                <option value="N">N</option>
+                            <select class="form-control" ng-model="data.useYnList" name="useYn">
+                                <option ng-repeat="row in useYnList" value="{{row.id}}">{{row.name}}</option>
                             </select>
                         </td>
                     </tr>
@@ -229,6 +227,7 @@
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modId}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
+
                             </tr>
                         </tbody>
                     </table>

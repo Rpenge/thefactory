@@ -1,6 +1,14 @@
 //코드 리스트
 app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
+		$scope.data = {
+			useYn : ""
+		}
+		$scope.useYnList = [
+			{id:"", name: "사용여부"},
+			{id:"Y", name: "사용"},
+			{id:"N", name: "미사용"}
+		];
 
 		pageInfo($rootScope, $location); //현재페이지 정보
 
@@ -12,7 +20,7 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 
 
 		//입력양식(필수입력, readOnly) 변경
-		$scope.formChange =function(command, data){
+		$scope.formChange = function(command, data){
 
 			if(command === 'reset'){
 				$scope.form = {'useYn':'Y'};
