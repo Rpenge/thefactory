@@ -56,4 +56,36 @@
 <!--        </if>-->
     </select>
 
+
+
+    <select id="inoutList" resultType="TfInoutTotalVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_INOUT_TOTAL
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by IN_OUT_DATE desc
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test = "total != null">
+
+            </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
+
+    </select>
+
+
 </mapper>

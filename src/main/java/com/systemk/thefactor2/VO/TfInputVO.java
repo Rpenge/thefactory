@@ -9,7 +9,6 @@ public class TfInputVO {
     // 입고정보 Value Object Class
     private long   stInSeq;         // 매장 입고등록 일련번호
     private String stInDate;        // 입고일자
-    private int    stInprdSeq;      // 입고순번
     private String inStoreCd;       // 입고 매장코드
     private String inStoreNm;       // 입고 매장명
     private String brandKindCd;     // 브랜드상품분류 코드

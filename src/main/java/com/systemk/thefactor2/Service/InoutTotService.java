@@ -8,6 +8,8 @@ import java.util.Map;
 
 public interface InoutTotService {
 
+    public Map<String, Object> findList(Map param) throws Exception;
+
     public TfInoutTotalVO todayWork(Map param);
 
     public Map todayWorkAll();

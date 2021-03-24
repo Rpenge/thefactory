@@ -38,4 +38,24 @@
         select * from tf_output where TF_PRD_TAGID = #{item}
     </select>
 
+    <insert id="outputAdd" statementType="CALLABLE" parameterType="java.util.HashMap">
+        { call output(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{inStoreCd}, #{inStoreNm}, #{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{outType})}
+    </insert>
+
+    <select id="outDeleteList" resultType="TfOutputVO" parameterType="java.util.List">
+        SELECT
+        *
+        FROM
+        TF_OUTPUT
+        WHERE
+        ST_OUT_SEQ IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
+    <delete id="outDelete" parameterType="java.util.HashMap">
+        { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType})}
+    </delete>
+
 </mapper>

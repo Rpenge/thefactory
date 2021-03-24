@@ -94,7 +94,7 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:1450px;">
+					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width: 1450px;">
 						<thead>
 						<tr class="pointer">
 							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
@@ -110,6 +110,7 @@
 							<th>자체상품코드</th>
 							<th>바코드</th>
 							<th>태그ID</th>
+							<th>등록일시</th>
 							<th>등록자</th>
 						</tr>
 						</thead>
@@ -128,6 +129,7 @@
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td><!--자체상품코드-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td><!--바코드-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td><!--태그ID-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td><!--등록자-->
 							</tr>
 						</tbody>

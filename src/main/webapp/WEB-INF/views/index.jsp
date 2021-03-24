@@ -42,7 +42,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/controller/salesController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/salesController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/outputController.js?v=${version}"></script>
@@ -305,7 +305,7 @@
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
 							</label>
-							<div style="width:100%;min-height:150px;background: white;position:absolute;top:150px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
+							<div style="width:100%;min-height:150px;background: white;position:absolute;top:180px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
 								<div onclick="tableTdDel('qBrandTb');tableTdDel('lBrandTb')" ng-click="qs1=false;brandSelect()" style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;">X</div>
 								<table id="qBrandTb" style="width:98%;vertical-align: top;" ng-click="qs1= false">
 									<tr ng-repeat="(key, value) in brandList" ng-if="key % 6 == 0">

@@ -13,11 +13,12 @@
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents ">
 
-				<div>
+				<form ng-submit="formSave()">
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 출고작업 추가/수정</span>
-						<button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
-						<button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
+						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 출고작업 추가 <span style="color:red;font-size:15px;"> * 표시는 필수 입력 항목입니다.</span></span>
+
+						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>
+						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>
 					</div>
 
 					<!-- 태그ID 검색, 입고예정 매장 선택 , 출고유형선택 -->
@@ -26,37 +27,52 @@
 							<th style="width:10%;height:40px"><span style="color:red;">*</span> 태그ID</th>
 							<td class="d-flex" style="padding: 0;"><input type="text" class="form-control" style="width:80%;" ng-model="form.tfPrdTagid" ng-required="true"><button class="btn btn-secondary" type="button" ng-click="inputAdd()" style="width:20%;padding:0px;"><i class="xi-search" style="font-size: 20px;"></i></button></td>
 							<th style="width:10%">출고매장</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="논현본점"></td>
+							<td style="width:15%">
+								<select class="form-control" ng-model="form.outStoreCd" ng-required="true" disabled>
+									<option value="">매장</option>
+									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+								</select>
+							</td>
 							<th style="width:10%">입고예정매장</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="압구정점"></td>
-							<th style="width:10%">출고유형</th>
-							<td style="width:15%"><input type="text" class="form-control" placeholder="점간출고"></td>
+							<td style="width:15%">
+								<select class="form-control" ng-model="form.inStoreCd">
+									<option value="">매장</option>
+									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+								</select>
+							</td>
+							<th style="width:10%"><span style="color:red;">*</span> 출고유형</th>
+							<td style="width:15%">
+								<select class="form-control" ng-model="form.stOutType" ng-required="true">
+									<option value="">출고유형</option>
+									<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0602'" value="{{value.commCd}}">{{value.commCdNm}}</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<th style="height:40px">브랜드</th>
-							<td><input type="text" class="form-control" placeholder="BALENCIAGA"></td>
+							<td><input type="text" class="form-control" ng-model="inView.brandNm" disabled></td>
 							<th>성별</th>
-							<td><input type="text" class="form-control" placeholder="여자"></td>
+							<td><input type="text" class="form-control" ng-model="inView.genderNm" disabled></td>
 							<th>상품분류</th>
-							<td><input type="text" class="form-control" placeholder="아우터"></td>
+							<td><input type="text" class="form-control" ng-model="inView.clsNm" disabled></td>
 							<th>사이즈</th>
-							<td><input type="text" class="form-control" placeholder="M"></td>
+							<td><input type="text" class="form-control" ng-model="inView.prdSize" disabled></td>
 						</tr>
 						<tr>
 							<th style="height:40px">출고일자</th>
-							<td><input type="text" class="form-control" placeholder="2021.04.01" ></td>
+							<td><input type="text" class="form-control" ng-model="inView.stOutDate" disabled></td>
 							<th>상품코드</th>
-							<td><input type="text" class="form-control" placeholder="0000000337"></td>
+							<td><input type="text" class="form-control" ng-model="inView.ecPrdCd" disabled></td>
 							<th>자체상품코드</th>
-							<td><input type="text" class="form-control" placeholder="ARNICA 18F"></td>
+							<td><input type="text" class="form-control" ng-model="inView.tfPrdCd" disabled></td>
 							<th>바코드</th>
-							<td><input type="text" class="form-control" placeholder="0000000001003"></td>
+							<td><input type="text" class="form-control" ng-model="inView.btPrdBarcode" disabled></td>
 
 						</tr>
 
 					</table>
 
-				</div>
+				</form>
 
 
 
@@ -80,60 +96,14 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-<%--					<table class="table custom-table-1 table-hover text-center custom-align-middle" style="min-width:1100px;">--%>
-<%--						<thead>--%>
-<%--						<tr class="pointer">--%>
-<%--							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>--%>
-<%--							<th>순번</th>--%>
-<%--							<th>출고일자</th>--%>
-<%--							<th>출고매장</th>--%>
-<%--							<th>입고매장</th>--%>
-<%--							<th>출고유형</th>--%>
-<%--							<th>브랜드</th>--%>
-<%--							<th>성별</th>--%>
-<%--							<th>상품분류</th>--%>
-<%--							<th>사이즈</th>--%>
-<%--							<th>상품코드</th>--%>
-<%--							<th>자체상품코드</th>--%>
-<%--							<th>바코드</th>--%>
-<%--							<th>태그ID</th>--%>
-<%--							<th>등록자</th>--%>
-<%--							<th>수정자</th>--%>
-<%--						</tr>--%>
-<%--						</thead>--%>
-<%--						<tbody>--%>
-<%--						<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer" ng-init="value.isSelected = false;">--%>
-<%--							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.assetManagementSeq}}, !{{value.isSelected}})" ></td>--%>
-<%--							<td>{{value}}</td>--%>
-<%--							<td>2021.04.01</td>--%>
-<%--							<td>논현본점</td>--%>
-<%--							<td>압구정점</td>--%>
-<%--							<td>점간입고</td>--%>
-<%--							<td>Luis Vrtong</td>--%>
-<%--							<td>여자</td>--%>
-<%--							<td>하의</td>--%>
-<%--							<td>S</td>--%>
-<%--							<td>0000000337</td>--%>
-<%--							<td>ARNICA 18F</td>--%>
-<%--							<td>0000000001003</td>--%>
-<%--							<td>TF000000000100300001</td>--%>
-<%--							<td>systemk</td>--%>
-<%--							<td>systemk</td>--%>
 
-<%--						</tr>--%>
-<%--						</tbody>--%>
-<%--					</table>--%>
-
-
-
-					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:1450px;">
+					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width:1450px;">
 						<thead>
 						<tr class="pointer">
-							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
+							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stOutSeq')"></th>
 							<th>순번</th>
 							<th>출고일자</th>
 							<th>출고매장</th>
-							<th>입고예정매장</th>
 							<th>출고유형</th>
 							<th>브랜드</th>
 							<th>성별</th>
@@ -143,16 +113,16 @@
 							<th>자체상품코드</th>
 							<th>바코드</th>
 							<th>태그ID</th>
+							<th>등록일시</th>
 							<th>등록자</th>
 						</tr>
 						</thead>
 						<tbody>
 						<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
-							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stInSeq}})" ></td>
+							<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stOutSeq}})" ></td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutSeq}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutDate}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.outStoreNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.inStoreNm}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutType | code: workS}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandNm}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td>
@@ -162,6 +132,7 @@
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
 						</tr>
 						</tbody>

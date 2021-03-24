@@ -222,6 +222,8 @@ public class ConstansConfig {
 
 	public final static String NOT_FIND_DATA_MSG = "해당 정보를 찾을 수 없습니다.";
 
+	public final static String NOT_FIND_STOCK_MSG = "해당 재고정보를 찾을 수 없습니다.";
+
 	public final static String SUCCESS_MSG = "성공하였습니다.";
 
 	public final static String VERSION_UPDATE_MSG = "버전 업데이트가 필요합니다.";

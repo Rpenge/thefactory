@@ -5,6 +5,10 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 		pageInfo($rootScope, $location); //현재페이지 정보
 
+
+		httpGetList($http, $scope,'/inout/inoutList' );
+
+
 		$scope.tab = {'in':false,'out':false,'stk':false};
 
 		$scope.addTabsOn = function(){
@@ -12,8 +16,6 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 			$scope.divFadeIn = true;
 			$scope.tab.in = true;
 		}
-
-
 
 
 		$scope.tabChange =function(command, data){

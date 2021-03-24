@@ -39,7 +39,7 @@ public class InputController {
 		return inputService.searchPrd(param);
 	}
 
-	//입출고관리 - 입고관리 : 반품입고, 점간이동 저장
+	//입출고관리 - 입고관리 : 반품입고, 점간이동 추가
 	@RequestMapping(value = "/inputAddResult", method = RequestMethod.POST)
 	public Map<String, Object> inputAddResult(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();

@@ -88,7 +88,7 @@ app.filter('myLimitTo', [function(){
     };
 }]);
 
-//날짜 형식 변경 : 오라클에 String으로 저장된 값 변경용, DB수정된다면 뺄거
+//날짜 형식 변경 : 오라클에 String으로 저장된 값 변경
 app.filter('StringToDateForm', function() {
     return function(st) {
         return st.substr(0,4)+'/'+st.substr(4,2)+'/'+st.substr(6,2)+' ' +st.substr(8,2)+':'+st.substr(10,2)+':'+st.substr(12,2);

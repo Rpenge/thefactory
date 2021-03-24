@@ -47,6 +47,12 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	private TfProductMapper tfProductMapper;
 
+	@Autowired
+	private TfAcStockMapper tfAcStockMapper;
+
+	@Autowired
+	private TfOutputMapper tfOutputMapper;
+
 
 	@Autowired
 	private InoutTotService inoutTotService;
@@ -87,14 +93,16 @@ public class ApiServiceImpl implements ApiService {
 		}
 
 		TfUserVO user = tfUserMapper.login(item);
-		item.put("userNm", user.getUserNm());
-		item.put("storeCd", user.getStoreCd());
-		item.put("gradeCd", user.getGrade());
-		item.put("storeNm", commService.codeToNm(user.getStoreCd()));
-		item.put("grade", commService.codeToNm(user.getGrade()));
-		if(user == null){																				// ID 등록 여부
+		try {
+			item.put("userNm", user.getUserNm());
+			item.put("storeCd", user.getStoreCd());
+			item.put("gradeCd", user.getGrade());
+			item.put("storeNm", commService.codeToNm(user.getStoreCd()));
+			item.put("grade", commService.codeToNm(user.getGrade()));
+		}catch(Exception e){
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_USER_MSG);
-		} else if(!passwordEncoder.matches((CharSequence) param.get("userPwd"), user.getUserPwd())){ 	// 비밀번호 검증 실패
+		}
+		if(!passwordEncoder.matches((CharSequence) param.get("userPwd"), user.getUserPwd())){ 	// 비밀번호 검증 실패
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_VALID_PASSWORD_MSG);
 		} else if(user.getUserStat().equals("N")){ 														// 계정 사용가능 여부
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_USE_USER_MSG);
@@ -149,7 +157,7 @@ public class ApiServiceImpl implements ApiService {
 
 
 	@Override
-	public Map<String, Object> searchPrd(Map param) throws Exception {
+	public Map<String, Object> searchPrd(Map param) throws Exception{
 		Map map = new HashMap();
 		Date date = new Date();
 		String ymd = StringUtil.dateFormatYMD(date);
@@ -158,20 +166,24 @@ public class ApiServiceImpl implements ApiService {
 		String preTagId = "T" + ymd.substring(2,4)+ barcode.substring(barcode.length()-10, barcode.length());
 		String tagId ="";
 		String lastNum = tfTagPublishMapper.selectLastNum(preTagId);
-		if(lastNum == null){
+		if(lastNum == null || lastNum == ""){
 			tagId = preTagId + "001";
 		}else{
 			tagId = preTagId + String.format("%03d", Integer.parseInt(lastNum) + 1);
 		}
 		TfStockVO vo = tfStockMapper.findStockInfo(barcode);
-		map.put("prdCd", vo.getTfPrdCd());
-		map.put("prdName", vo.getTfPrdNm());
-		map.put("prdSeason", vo.getTfPrdNm().split(" ")[0]);
-		map.put("tagId", tagId);
-		map.put("brand", brandService.codeToNm(vo.getBrandKindCd().substring(0,2)+"0000"));
-		map.put("brandCd", vo.getBrandKindCd());
-		map.put("prdSize", vo.getPrdSize());
-		map.put("prdSizeCd", vo.getPrdSizeCd());
+		try {
+			map.put("prdCd", vo.getTfPrdCd());
+			map.put("prdName", vo.getTfPrdNm());
+			map.put("prdSeason", vo.getTfPrdNm().split(" ")[0]);
+			map.put("tagId", tagId);
+			map.put("brand", brandService.codeToNm(vo.getBrandKindCd().substring(0, 2) + "0000"));
+			map.put("brandCd", vo.getBrandKindCd());
+			map.put("prdSize", vo.getPrdSize());
+			map.put("prdSizeCd", vo.getPrdSizeCd());
+		}catch (Exception e){
+			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
+		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",map);
 	}
 
@@ -194,10 +206,54 @@ public class ApiServiceImpl implements ApiService {
 		map.put("storeNm", 	commService.codeToNm((String)param.get("storeCd")));	//  입고매장명
 		map.put("tagStat", 	"040101");	//신규발행 코드 : 고정
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
+		if(param.get("status").equals("")){
+			//status 확인 후 입고?
+		}
 		map.put("inType", 	"060101");	//신규입고 코드 : 고정
 
 		tfInputMapper.inputNew((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");
+	}
+
+	@Override
+	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
+
+		List<Map<String, String>> reusltList = new ArrayList<Map<String, String>>();
+		for(Map<String, String> map : param){
+			Map<String, String> resultMap = new HashMap<String, String>();
+			resultMap.put("tagId",map.get("tagId"));
+			String prdNm = tfAcStockMapper.stockCheck(map.get("tagId"));
+			if(prdNm != null){
+				resultMap.put("prdNm",prdNm);
+				resultMap.put("mappingYn","Y");
+			}else{
+				resultMap.put("mappingYn","N");
+			}
+			reusltList.add(resultMap);
+
+		}
+		return ResultUtil.setCommonResult("S","성공하였습니다", reusltList);
+	}
+
+
+
+//	@Override
+	public Map<String, Object> outputList(Map param) throws Exception {
+		MybatisUtil mu = new MybatisUtil();
+		List list = new ArrayList();
+		mu.addBetween("ST_OUT_DATE", (String)param.get("startDate"), (String)param.get("endDate"));
+		mu.setTotal();
+		mu.addEqual("substring(ST_OUT_TYPE,1,4)", "0603");
+		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
+		for(TfOutputVO vo : voList){
+			Map map = new HashMap();
+			map.put("seq", vo.getStOutSeq());
+			map.put("name", vo.getTfPrdNm());
+			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
+			list.add(map);
+		}
+
+		return ResultUtil.setCommonResult("S","성공하였습니다",list);
 	}
 
 

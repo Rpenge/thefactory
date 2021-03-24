@@ -1,0 +1,33 @@
+package com.systemk.thefactor2.Controller;
+
+import com.systemk.thefactor2.Service.InoutTotService;
+import com.systemk.thefactor2.Util.RequestUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
+@Slf4j
+@RestController
+@RequestMapping("/inout")
+public class InoutController {
+
+    @Autowired
+    private InoutTotService inoutTotService;
+
+
+    //입출고관리 - 입출고내역조회 : 리스트 조회
+    @RequestMapping(value="/inoutList", method = RequestMethod.GET)
+    public Map<String, Object> inputList(HttpServletRequest request) throws Exception{
+        Map param = RequestUtil.reqParamToMap(request);
+        return inoutTotService.findList(param);
+    }
+
+
+
+
+}

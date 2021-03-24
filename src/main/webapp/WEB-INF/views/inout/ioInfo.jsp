@@ -78,21 +78,19 @@
 				<!--테이블 상단 구성-->
 				<div class="d-flex" style="margin:10px 0;">
 					<div class="d-flex mr-auto p-2" style="margin:0;padding:0!important;">
-						<select class="custom-select" ng-model="sizeValue" ng-change="pageSize(sizeValue)" style="width:150px;margin-right: 10px;">
-							<option value="">10개씩 보기</option>
+						<select class="custom-select" ng-model="search.size" ng-init="search.size = '10'" ng-change="pageSize()" style="width:150px;margin-right: 10px;">
+							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>
 							<option value="50">50개씩 보기</option>
-							<option value="total" style="color: red;">전체보기</option>
 						</select>
 
-						<h6 class="align-self-center">TOTAL ( 10 )</h6>
+						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
-					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">..</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table class="table-bordered table-hover text-center custom-align-middle" style="min-width:1100px;width:100%;">
+					<table id="listTable" class="table-bordered table-hover text-center custom-align-middle" style="min-width:1100px;width:100%;">
 						<thead>
 						<tr style="height: 35px;">
 							<th rowspan="2" style="width:13%;">일자</th>
@@ -117,21 +115,21 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer">
-							<td style="height: 45px;">2021.04.01</td>
-							<td ng-click="addTabsOn()">논현본점</td>
-							<td>500</td>
-							<td>400</td>
-							<td>1000</td>
-							<td>10</td>
-							<td>10</td>
-							<td>1000</td>
-							<td>10</td>
-							<td>10</td>
-							<td>1000</td>
-							<td>10</td>
-							<td>10</td>
-							<td>10</td>
+						<tr ng-repeat="(key, value) in list" class="pointer">
+							<td >{{value.inOutDate}}</td>
+							<td ng-click="addTabsOn()" style="height: 45px;">{{value.storeCd | code : store}}</td>
+							<td>{{value.inNewcnt}}</td>
+							<td>{{value.inMovcnt}}</td>
+							<td>{{value.inIncnt}}</td>
+							<td>{{value.inRetcnt}}</td>
+							<td>{{value.inTotcnt}}</td>
+							<td>{{value.outOutcnt}}</td>
+							<td>{{value.outMovcnt}}</td>
+							<td>{{value.outTotcnt}}</td>
+							<td>{{value.sellStcnt}}</td>
+							<td>{{value.sellOnlcnt}}</td>
+							<td>{{value.sellTotcnt}}</td>
+							<td>{{value.stockTotcnt}}</td>
 						</tr>
 						</tbody>
 					</table>
@@ -166,3 +164,9 @@
 </html>
 
 
+<script>
+	$(document).ready(function() {
+		$('#listTable').rowspan (0);
+	});
+
+</script>

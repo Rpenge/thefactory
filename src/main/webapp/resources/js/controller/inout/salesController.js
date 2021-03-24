@@ -1,4 +1,4 @@
-app.controller('outputController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
+app.controller('salesController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
 		pageInfo($rootScope, $location);
@@ -31,18 +31,18 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 			$scope.search['endDate'] = endDate;
 
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/output/outList', param );
+			httpGetList($http, $scope,'/output/salesList', param );
 		}else if($rootScope.searchMove == 2) {	//단어 검색
 			$scope.search = $rootScope.quickSearchWord;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/output/outList', param )
+			httpGetList($http, $scope,'/output/salesList', param );
 		}else{															//일반 페이지 이동
-			httpGetList($http, $scope,'/output/outList' );
+			httpGetList($http, $scope,'/output/salesList' );
 		}
 		$rootScope.searchMove = false;
 
 
-		// //폼 형식
+		//폼 형식
 		$scope.es = {'newForm':true,'modForm':false};
 		$scope.formChange =function(command, data){
 
@@ -69,11 +69,12 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 		}
 
 
-		//태그ID로 출고 데이터 조회
+		//태그 ID로 출고 데이터 조회
 		$scope.tagSearch = false;
 		$scope.inputAdd = function(){
+
 			if($scope.form.tfPrdTagid == null){
-				modalAlert($uibModal, "출고등록","태그ID를 확인해 주세요.");
+				modalAlert($uibModal, "판매등록","태그ID를 확인해 주세요.");
 				return;
 			}
 			$http.get('/stock/stkSearch?tagId='+ $scope.form.tfPrdTagid).success(function(data) {
@@ -87,7 +88,7 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 				$scope.inView = data;
 				$scope.tagSearch = true;
 				if(Object.keys(data).length == 0){
-					modalAlert($uibModal, "출고등록","태그ID를 확인해 주세요. 재고가 존재하는 상품만 조회가능합니다.");
+					modalAlert($uibModal, "판매등록","태그ID를 확인해 주세요. 재고가 존재하는 상품만 조회가능합니다.");
 				}
 			});
 		}
@@ -97,15 +98,10 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 		$scope.formSave = function(){
 			if($scope.es.newForm == true){
 				if(!$scope.tagSearch){
-					modalAlert($uibModal, "출고등록","태그ID 조회 후 등록 가능합니다");
+					modalAlert($uibModal, "판매등록","태그ID 조회 후 판매처리 가능합니다");
 					return;
 				}
-
-				if($scope.form.stOutType == "060202" && $scope.form.inStoreCd == null){
-					modalAlert($uibModal, "출고등록","점간이동은 입고예정매장을 선택해주세요");
-					return;
-				}
-				modalCheck($uibModal, "출고등록", "출고 등록하시겠습니까?", function(){
+				modalCheck($uibModal, "판매등록", "판매 등록하시겠습니까?", function(){
 					$http({
 						method : 'POST',
 						url : "/output/outputAdd",
@@ -113,7 +109,7 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 						headers: {'Content-Type':'application/json; charset=utf-8'}
 					}).success(function(data){
 						if(data.resultCode == 'S') {
-							modalAlert($uibModal, "출고등록", "출고정보가 추가되었습니다");
+							modalAlert($uibModal, "판매등록", "판매정보가 추가되었습니다");
 						}
 						$rootScope.reload();
 					}).error(function(data){
@@ -131,14 +127,14 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 			}
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/output/outList', param );
+			httpGetList($http, $scope,'/output/salesList', param );
 		};
 
 		//페이지 사이즈 변경
 		$scope.pageSize = function(){
 			$scope.search.page = 0;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/output/inputList', param );
+			httpGetList($http, $scope,'/output/salesList', param );
 		}
 
 		// //정렬
@@ -210,4 +206,5 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 			}
 		}
 
-}]);
+	}]
+);

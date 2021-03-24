@@ -14,4 +14,10 @@ public interface TfOutputMapper {
 
     TfOutputVO outputSearch(String tagId);
 
+    int outputAdd(HashMap item);
+
+    List<TfOutputVO> outDeleteList(List item);
+
+    int outDelete(HashMap item);
+
 }

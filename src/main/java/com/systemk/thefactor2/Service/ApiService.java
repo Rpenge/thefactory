@@ -2,6 +2,7 @@ package com.systemk.thefactor2.Service;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 public interface ApiService {
@@ -17,5 +18,7 @@ public interface ApiService {
     public Map<String, Object> searchPrd(Map param) throws Exception;
 
     public Map<String, Object> inputWork(Map param) throws Exception;
+
+    public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception;
 
 }

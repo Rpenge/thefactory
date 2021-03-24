@@ -55,7 +55,7 @@ public class InputServiceImpl implements InputService {
 		mu.setTable("TF_INPUT");
 
 		for(Object key : param.keySet()) {    //분류 처리
-			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct")){
+			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page")){
 				continue;
 			}
 
@@ -130,7 +130,7 @@ public class InputServiceImpl implements InputService {
 		map.put("storeNm", 	commService.codeToNm((String)param.get("inStoreCd")));	//  입고매장명
 		map.put("outStoreCd", 	outputData.get("outStoreCd"));	//  출고매장
 		map.put("outStoreNm", 	outputData.get("outStoreNm"));	//  출고매장명
-		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
+		map.put("deviceGub",param.get("deviceGub"));	//장비값 :
 		map.put("inType", 	param.get("stInType"));	//입고 코드
 
 		tfInputMapper.inputRe((HashMap) map);
@@ -156,13 +156,8 @@ public class InputServiceImpl implements InputService {
 			map.put("ST_IN_TYPE", vo.getStInType());
 			tfInputMapper.inputDelete((HashMap) map);
 		}
-		//seq를 통해 매장, 바코드, 태그번호, 입고일자  id, 작업코드
-//삭제시 input은 seq로 삭제, 태그발행은 태그번호로 삭제, 실재고는 태그번호로 삭제, 재고는  -1, total은 매장, 바코드
 
-		//신규발행 삭제 : 태그발행, 실재고, 입고 삭제, 재고, total -1
-		//점간이동 삭제 : 실재고, 입고 삭제, 재고,total -1
-		//반품입고 삭제 : 실재고, 입고 삭제, 재고 total -1(작업분류)
-		return null;
+		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
 

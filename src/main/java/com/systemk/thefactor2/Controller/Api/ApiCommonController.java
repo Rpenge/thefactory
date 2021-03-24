@@ -87,6 +87,21 @@ public class ApiCommonController {
 
 
 
+    //판매 - 판매 리스트
+    @RequestMapping(value = "/outputList", method = RequestMethod.GET)
+    public Map<String, Object> outputList(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        return apiService.inputList(param);
+    }
+
+
+    //출고 - 태그로 출고시킬 데이터 조회
+    @RequestMapping(value = "/outDataSearch", method = RequestMethod.POST)
+    public Map<String, Object> outDataSearch(@RequestBody(required = false) List<Map<String, String>> data, HttpServletRequest request) throws Exception {
+        return apiService.outDataSearch(data);
+    }
+
+
 
 
 
