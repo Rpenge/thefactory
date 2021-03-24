@@ -206,30 +206,53 @@
                 </div>
                 <!-- 테이블 생성 -->
                 <div class="table-box">
-                    <table class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
+                    <table id="findList" class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
                         <thead>
-                                <th style="width:10%">코드번호</th>
-                                <th style="width:10%;">코드명</th>
-                                <th style="width:5%;">사용여부</th>
-                                <th style="width:10%">LEVEL</th>
-                                <th style="width:15%">등록자</th>
-                                <th style="width:10%">등록일자</th>
-                                <th style="width:15%">수정자</th>
-                                <th style="width:5%">수정일자</th>
+                            <tr class="pointer">
+                                <th ng-click="sort('')" style="width:10%">코드번호</th>
+                                <th ng-click="sort('')" style="width:10%;">코드명</th>
+                                <th ng-click="sort('')" style="width:5%;">사용여부</th>
+                                <th ng-click="sort('')" style="width:10%">LEVEL</th>
+                                <th ng-click="sort('')" style="width:15%">등록자</th>
+                                <th ng-click="sort('')" style="width:10%">등록일자</th>
+                                <th ng-click="sort('')" style="width:15%">수정자</th>
+                                <th ng-click="sort('')" style="width:5%">수정일자</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="key in commCode">
-                                <td>{{key.commCd}}</td>
-                                <td>{{key.commCdNm}}</td>
-                                <td>{{key.useYn}}</td>
-                                <td>{{key.codeLevel}}</td>
-                                <td>{{key.regId}}</td>
-                                <td>{{key.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
-                                <td>{{key.modId}}</td>
-                                <td>{{key.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                            <tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCd}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.useYn}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.codeLevel}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modId}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <!-- 네비게이션 바 -->
+                    <nav class=" text-center" >
+                        <ul class="pagination">
+                            <li class="page-item" ng-if="paging.current > 10">
+                                <a href="" aria-label="Previous" ng-click="goPage(1)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
+                            </li>
+                            <li class="page-item" ng-if="paging.current > 10">
+                                <a href="" aria-label="Previous" ng-click="goPage(paging.begin - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
+                            </li>
+                            <li ng-repeat="pageNum in [paging.begin, paging.end] | makeRange" class="page-item" ng-class="{'active-page' : paging.current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
+                            <li class="page-item" ng-if="paging.end != paging.last">
+                                <a href="" aria-label="Next" ng-click="goPage(paging.end + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
+                            </li>
+                            <li class="page-item" ng-if="paging.end != paging.last">
+                                <a href="" aria-label="Next" ng-click="goPage(paging.last)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

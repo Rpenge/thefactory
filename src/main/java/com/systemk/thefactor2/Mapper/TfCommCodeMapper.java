@@ -3,6 +3,7 @@ package com.systemk.thefactor2.Mapper;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> commList();
+
+    List<TfCommCodeVO> findList(HashMap item);
 
     List<TfCommCodeVO> commBList(String code);
 

@@ -19,6 +19,35 @@
         WHERE 1=1
         ORDER BY DISP_SEQ ASC , COMM_CD ASC
     </select>
+    <!--코드 목록-->
+    <select id="findList" resultType="TfCommCodeVO" parameterType="java.util.HashMap">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM
+             TF_COMM_CODE
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test="sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                ORDER BY DISP_SEQ ASC , COMM_CD ASC
+            </otherwise>
+        </choose>
+            limit ${start}, ${size}
+    </select>
     <!--코드 대분류 조회-->
     <select id="commBList" resultType="TfCommCodeVO">
         SELECT

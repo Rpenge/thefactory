@@ -9,6 +9,8 @@ import java.util.Map;
 public interface CommService {
     // 코드목록
     public List<TfCommCodeVO> commList() throws Exception;
+
+    public Map<String, Object> findList(Map param) throws Exception;
     // 대분류
     public List<TfCommCodeVO> commBList(String code) throws Exception;
     // 중분류

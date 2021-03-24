@@ -4,10 +4,11 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 
 		pageInfo($rootScope, $location); //현재페이지 정보
 
-		httpGetList($http, $scope,'/base/commList' ); //코드리스트 조회
+		httpGetList($http, $scope,'/base/findList' ); //코드리스트 조회
 
-		$scope.form = {'useYn':'Y'}; //초기 form 상태
-		$scope.es = {'newForm':true, 'modForm':false};
+		var checkList = []; //체크박스 리스트
+		$scope.form = {}; //초기 form 상태
+		$scope.es = {};
 
 
 		//입력양식(필수입력, readOnly) 변경
@@ -66,6 +67,21 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 			}
 		}
 
+		//검색
+		$scope.searchBtn = function(command){
+			if(command == 'group'){
+				const param = generateParam($scope.searchGroup);
+				httpGetList($http, $scope,'/base/findList', param );
+				$scope.search.commCd = $scope.searchGroup.commCd;
+				$scope.search.commLevel = $scope.searchGroup.commLevel;
+				$scope.search.useYn = $scope.searchGroup.useYn;
+			}else if(command == 'word'){
+				const param = generateParam($scope.searchWord);
+				httpGetList($http, $scope,'/base/findList', param);
+				$scope.search.word = $scope.searchWord.word;
+			}
+		}
+
 		//테이블 버튼 사용(삭제)
 		$scope.tableBtn = function(command){
 			if(command == 'Withdrawal'){
@@ -96,14 +112,14 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 			}
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/base/commList', param );
+			httpGetList($http, $scope,'/base/findList', param );
 		};
 
 		//페이지 사이즈 변경
 		$scope.pageSize = function(){
 			$scope.search.page = 0;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/base/commList', param );
+			httpGetList($http, $scope,'/base/findList', param );
 		}
 
 
