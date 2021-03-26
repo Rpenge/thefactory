@@ -15,7 +15,7 @@ public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> findList(HashMap item);
 
-    List<TfCommCodeVO> commBList(String code);
+    List<TfCommCodeVO> commBList();
 
     List<TfCommCodeVO> commMList(String code);
 

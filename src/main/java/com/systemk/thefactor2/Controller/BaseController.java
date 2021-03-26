@@ -12,8 +12,10 @@ import com.systemk.thefactor2.VO.TfProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +45,9 @@ public class BaseController {
 		return commService.findList(param);
 	}
 	//기초정보관리 - 코드관리 - 대분류 코드 조회
-	@RequestMapping(value = "/commBList", method = RequestMethod.GET)
-	public List<TfCommCodeVO> commBList(@RequestParam("code") String code) throws Exception {
-		return commService.commBList(code);
+	@RequestMapping(value = "commBList", method = RequestMethod.GET)
+	public List<TfCommCodeVO> commBList(HttpServletRequest request) throws Exception {
+		return commService.commBList();
 	}
 	//기초정보관리 - 코드관리 - 중분류 코드 조회
 	@RequestMapping(value = "/commMList", method = RequestMethod.GET)
