@@ -432,6 +432,10 @@ input:checked + .slider:before {
 	vertical-align: middle !important;
 }
 
+.table-td-hover td:hover{
+	background-color: whitesmoke;
+}
+
 
 
 

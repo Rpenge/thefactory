@@ -3,6 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfStockMapper">
 
+    <select id="stockList" resultType="TfStockVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_STOCK
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by STOCK_REG_SEQ ASC
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
+    </select>
+
 
     <select id="findStockInfo" resultType="TfStockVO" parameterType="String">
         select * from tf_stock ts where TF_PRD_BARCODE = #{item} limit 1;

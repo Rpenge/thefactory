@@ -1,43 +1,84 @@
-
-//회원 리스트
-app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
-	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
+app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal','$timeout',
+	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal,$timeout) {
 
 		pageInfo($rootScope, $location); //현재페이지 정보
 
 
-		httpGetList($http, $scope,'/inout/inoutList' );
+		if($rootScope.searchMove == 1){									//페이지 이동후 검색
+			$scope.search = {};
+
+			const startDate = formatDate3($rootScope.quickSearch.startDate);
+			const endDate = formatDate3($rootScope.quickSearch.endDate);
+
+			$scope.search['startDate'] = startDate;
+			$scope.search['endDate'] = endDate;
+
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/inout/inoutList', param );
+		}else{															//일반 페이지 이동
+			httpGetList($http, $scope,'/inout/inoutList' );
+		}
+		$rootScope.searchMove = false;
+
+		// httpGetList($http, $scope, '/inout/inoutList');
 
 
-		$scope.tab = {'in':false,'out':false,'stk':false};
+		tableAbs(); //테이블 병합
 
-		$scope.addTabsOn = function(){
+
+		$scope.tab = {'in': false, 'out': false, 'sell': false};
+		$scope.form = {};
+		$scope.inView = {};
+
+		$scope.addTabsOn = function (data) {
 			$scope.addTabs = true;
 			$scope.divFadeIn = true;
 			$scope.tab.in = true;
+
+			$scope.inView['STORE_CD'] = data.storeCd;
+			$scope.inView['ST_DATE'] = data.inOutDate;
+			$scope.tabChange('in')
+
 		}
 
-
-		$scope.tabChange =function(command, data){
-
+		$scope.tabChange = function (command) {
+			const form ={};
+			$scope.tab = {};
 			$scope.divFadeIn = false;
-			if(command == 'in'){
-				$scope.tab ={};
+			if (command == 'in') {
 				$scope.tab.in = true;
-			}else if(command == 'out'){
-				$scope.tab ={};
+				$scope.inView['ST_TYPE'] = '060100';
+
+				form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				const param = generateParam(form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'out') {
 				$scope.tab.out = true;
-			}else if(command == 'stk'){
-				$scope.tab ={};
-				$scope.tab.stk = true;
-			}else if(command == 'list'){
-				$scope.tab ={};
+				$scope.inView['ST_TYPE'] = '060200';
+
+				form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				form['ST_OUT_TYPE'] = '060200';
+				const param = generateParam(form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'sell') {
+				$scope.tab.sell = true;
+				$scope.inView['ST_TYPE'] = '060300';
+
+				form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				form['ST_OUT_TYPE'] = '060300';
+				const param = generateParam(form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'list') {
+				$scope.inView = {};
 				$scope.addTabs = false;
 			}
-			setTimeout(function(){
+			setTimeout(function () {
 				$scope.divFadeIn = true;
 				$scope.$apply();
-			},300);
+			}, 300);
 
 
 		}
@@ -83,20 +124,44 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 		// }
 
 		//페이지 이동
-		$scope.goPage = function(page){
-			if($scope.current == page || $scope.end < page || page == 0){
+		$scope.goPage = function (page) {
+			if ($scope.current == page || $scope.end < page || page == 0) {
 				return;
 			}
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/system/userList', param );
-		};
+			httpGetList($http, $scope, '/inout/inoutList', param);
+			tableAbs();
+
+		}
+
+		$scope.goSubPage = function (page) {
+			if ($scope.current == page || $scope.end < page || page == 0) {
+				return;
+			}
+			$scope.form.page = page - 1;
+			const param = generateParam($scope.form);
+			httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+		}
+
+
 
 		//페이지 사이즈 변경
 		$scope.pageSize = function(){
 			$scope.search.page = 0;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/system/userList', param );
+			httpGetList($http, $scope,'/inout/inoutList', param );
+			tableAbs();
 		}
+
+		function tableAbs(){
+			$scope.result = $timeout(function(){
+				$('#listTable').rowspan(0);
+				return;
+			},70);
+		}
+
+
+
 
 }]);

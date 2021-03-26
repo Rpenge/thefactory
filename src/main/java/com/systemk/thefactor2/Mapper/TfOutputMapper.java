@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -19,5 +20,7 @@ public interface TfOutputMapper {
     List<TfOutputVO> outDeleteList(List item);
 
     int outDelete(HashMap item);
+
+    List<Map> outSubList(HashMap item);
 
 }

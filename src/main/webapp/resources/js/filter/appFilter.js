@@ -20,23 +20,6 @@ app.filter('makeRange', function() {
     };
 });
 
-app.filter('makeRange2', function() {
-    return function(current, total, end) {
-    	//10개씩 보기
-    	var end = parseInt( total/10 ) + 1;
-        var current = parseInt(current-1);
-        var ten = parseInt(current / 10) ;
-        var last = ten*10 + 10;
-        last = last > end ? end : last ;
-        result = [];
-        for(var i = ten * 10 + 1 ; i <= last; i++ ){
-            result.push(i);
-        }
-        return result;
-    };
-});
-
-
 
 app.filter('stringToHex', function () {
 
@@ -94,6 +77,17 @@ app.filter('StringToDateForm', function() {
         return st.substr(0,4)+'/'+st.substr(4,2)+'/'+st.substr(6,2)+' ' +st.substr(8,2)+':'+st.substr(10,2)+':'+st.substr(12,2);
     };
 });
+
+//상태코드에 따른 값
+app.filter('dateFormCustom', function() {
+    return function(date, ext) {
+        if(date == null){
+            return;
+        }
+        return date.substr(0,4)+ext+date.substr(4,2)+ext+date.substr(6,2)
+    };
+});
+
 //상태코드에 따른 값
 app.filter('StatusChange', function() {
     return function(status_no) {
@@ -106,6 +100,9 @@ app.filter('StatusChange', function() {
 
 app.filter('code', function() {
     return function(code, data) {
+        if(!data){
+            return null;
+        }
     	for(value of data){
     	    if(value.commCd == code){
     	        return value.commCdNm;

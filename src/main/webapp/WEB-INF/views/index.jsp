@@ -202,7 +202,6 @@
 						<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
 							<table style="width:100%;">
 								<tr ng-repeat="(key, value) in subBrandCls">
-<%--									<option value="{{value.brandKindCd}}">{{value.brandNm}}</option>--%>
 									<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="quickSearch.cls=value.brandKindCd">{{value.brandNm}} </td>
 								</tr>
 							</table>
@@ -264,7 +263,7 @@
 						</div>
 <%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
 
-						<!-- 검색 추가열 -->
+						<!-- 검색열1 -->
 						<div class="d-flex" style="width: 100%;" ng-if="quick1">
 
 							<p style="margin:12px 10px;">구분</p>
@@ -280,26 +279,42 @@
 
 							<p style="margin:12px 10px;">일자검색</p>
 							<div class="row input-group" style="width:200px;margin:5px;">
-								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
 								<span class="input-group-append" >
 									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
 								</span>
 							</div>
 							<p style="margin:12px 10px;">~</p>
 							<div class="row input-group" style="width:200px;margin:5px;">
-								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="dateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
 								<span class="input-group-append" >
 									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>
 								</span>
 							</div>
 						</div>
 
+						<!-- 검색 추가2 -->
+						<div class="d-flex" style="width: 100%;" ng-if="quick2">
+							<p style="margin:12px 10px;">일자검색</p>
+							<div class="row input-group" style="width:200px;margin:5px;">
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<span class="input-group-append" >
+									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+								</span>
+							</div>
+							<p style="margin:12px 10px;">~</p>
+							<div class="row input-group" style="width:200px;margin:5px;">
+								<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
+								<span class="input-group-append" >
+									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+								</span>
+							</div>
+							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCommand)" style="width:70px;margin:5px 30px;">검색</button>
+						</div>
 
-						<!-- 검색 공통 -->
-						<div class="d-flex" style="width: 100%;">
 
-
-<%--							<input ng-model="quickSearch.storeCd" ng-click="qs1 = qs1==true ? false : true"  hidden>--%>
+						<!-- 검색 3 -->
+						<div class="d-flex" style="width: 100%;" ng-if="quick3">
 							<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true"  readonly>
 							<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
@@ -317,7 +332,6 @@
 										<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+5])" ng-if="brandList[key+5]">{{brandList[key+5].brandNm}} </td>
 									</tr>
 								</table>
-
 							</div>
 
 							<select class="form-control" ng-model="quickSearch.gender" ng-change="genderSelect(quickSearch.gender)" style="width:150px;margin: 10px;height: 40px;">

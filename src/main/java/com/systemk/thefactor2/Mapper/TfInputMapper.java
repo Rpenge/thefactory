@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -22,4 +23,6 @@ public interface TfInputMapper {
 
     int inputDelete(HashMap item);
 
+
+    List<Map> inSubList(HashMap item);
 }

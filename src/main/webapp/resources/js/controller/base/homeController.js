@@ -2,13 +2,22 @@
 app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$timeout', '$window','$uibModal',
 	function ($scope, $http, $location,$rootScope, $interval, $timeout, $window, $uibModal) {
 
+
+		$rootScope.quickSearch = {}; //검색조건
+		$rootScope.quickSearchWord = {}; // 검색어
+		$scope.view = {};
+		$rootScope.quickSearch.startDate = new Date( new Date().setMonth( new Date().getMonth() - 1));
+		$rootScope.quickSearch.endDate = new Date();
+
+
+		$rootScope.quickCommand = 'IO1';	//quick검색 초기값
 		//현재페이지 정보
 		pageInfo($rootScope, $location);
 		$rootScope.quick1 = true;
 		var monthList = [];
 
 		$http.get('/home/homeInfo').success(function(data){
-			$scope.todayData = data.todayData;
+			$rootScope.todayData = data.todayData;
 			monthList = data.monthData;
 			chartDraw();
 		});

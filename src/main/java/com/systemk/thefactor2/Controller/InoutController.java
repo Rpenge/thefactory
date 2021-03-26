@@ -28,6 +28,17 @@ public class InoutController {
     }
 
 
+    //입출고관리 - 입출고 부가 정보 조회
+    @RequestMapping(value="/inoutSubList", method = RequestMethod.GET)
+    public Map<String, Object> inoutSubList(HttpServletRequest request) throws Exception{
+        Map param = RequestUtil.reqParamToMap(request);
+        if(param.get("ST_OUT_TYPE") != null){
+            return inoutTotService.findOutSubList(param);
+        }
+        return inoutTotService.findInSubList(param);
+    }
+
+
 
 
 }

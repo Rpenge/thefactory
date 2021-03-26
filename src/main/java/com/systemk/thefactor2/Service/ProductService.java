@@ -1,7 +1,6 @@
 package com.systemk.thefactor2.Service;
 
 
-import com.systemk.thefactor2.VO.TfBrandVO;
 import com.systemk.thefactor2.VO.TfProductVO;
 
 import java.util.List;

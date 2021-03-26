@@ -207,6 +207,28 @@ function httpGetList(http, scope, url, param ){
 	);
 }
 
+function httpGetSubList(http, scope, url, param ){
+	if(!param){
+		param = '';
+	}
+	http.get(url + param).success(
+		function(data) {
+			scope.subList = angular.fromJson(data).content;
+			scope.subPaging = {};
+			scope.subPaging.current = angular.fromJson(data).number + 1;  // 1
+			scope.subPaging.total = angular.fromJson(data).totalElements;  // 29
+			scope.subPaging.begin = parseInt((scope.subPaging.current-1)/10) * 10 + 1  // 1 or -4  : 1  1~10, 11~20
+			scope.subPaging.end = Math.min(scope.subPaging.begin + 9, angular.fromJson(data).totalPages);
+
+			//10개씩
+			scope.subPaging.prev = parseInt((scope.paging.current -1) / 10) * 10;
+			scope.subPaging.next = scope.subPaging.prevSub + 11 ;
+			scope.subPaging.last = parseInt((scope.subPaging.total/10)+1);
+		}
+	);
+}
+
+
 /**
  * Modal confirm 콜백 공통
  * @param message
@@ -487,6 +509,8 @@ function selectTd(td){
 	td.css('background', 'gray');
 	td.css('color', 'white');
 }
+
+
 
 
 //코드정리

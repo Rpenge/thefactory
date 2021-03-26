@@ -94,7 +94,6 @@ app.controller('salesController', ['$scope', '$http', '$location', '$rootScope',
 		}
 
 
-		//웹에서 입고는 반품과 점간이동만, 또는 수정
 		$scope.formSave = function(){
 			if($scope.es.newForm == true){
 				if(!$scope.tagSearch){

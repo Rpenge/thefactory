@@ -10,12 +10,14 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
 	$scope.view = {};
-	$scope.dateOptions = {'showWeeks':false}; // 달력 옵션
+
 	$rootScope.quickCommand = 'IO1';	//quick검색 초기값
 	$rootScope.currentMenu ={};
 
-	$rootScope.quickSearch.startDate = new Date();
+	$rootScope.quickSearch.startDate = new Date( new Date().setMonth( new Date().getMonth() - 1));
 	$rootScope.quickSearch.endDate = new Date();
+	$scope.startDateOptions = {'showWeeks':false, 'maxDate':$rootScope.quickSearch.endDate}; // 달력 옵션
+	$scope.endDateOptions = {'showWeeks':false,'maxDate':new Date()}; // 달력 옵션
 
 	//공통코드 , 브랜드코드 조회
 	$http.get('/member/getCode').success(function(data) {
@@ -137,13 +139,27 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 
 	//quick search 검색구분 변경
-	$rootScope.quick1List = ['IO1', 'IO2','IO3','IO4'];
+	$rootScope.quick1List = ['IO1', 'IO2','IO3'];
+	$rootScope.quick2List = ['IO4'];
+	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1'];
 	$rootScope.addQuick = function(command){
 		$rootScope.quickSearch.workGub = null;
 		if($rootScope.quick1List.includes(command)){
 			$rootScope.quick1 = true;
 		}else{
 			$rootScope.quick1 = false;
+		}
+
+		if($rootScope.quick2List.includes(command)){
+			$rootScope.quick2 = true;
+		}else{
+			$rootScope.quick2 = false;
+		}
+
+		if($rootScope.quick3List.includes(command)){
+			$rootScope.quick3 = true;
+		}else{
+			$rootScope.quick3 = false;
 		}
 		workGub(command)
 	}

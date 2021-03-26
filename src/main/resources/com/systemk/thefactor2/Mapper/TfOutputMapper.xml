@@ -58,4 +58,16 @@
         { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType})}
     </delete>
 
+
+    <select id="outSubList" resultType="Map" parameterType="java.util.HashMap">
+        select ST_OUT_DATE as ST_DATE ,OUT_STORE_CD as STORE_CD ,ST_OUT_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt
+        from tf_output
+        where 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, TF_PRD_NM
+        limit ${start}, ${size}
+    </select>
+
 </mapper>

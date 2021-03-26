@@ -2,9 +2,7 @@ package com.systemk.thefactor2.Service.Impl;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.systemk.thefactor2.Mapper.PageMapper;
-import com.systemk.thefactor2.Mapper.TfInoutTotalMapper;
-import com.systemk.thefactor2.Mapper.TfUserMapper;
+import com.systemk.thefactor2.Mapper.*;
 import com.systemk.thefactor2.Service.InoutTotService;
 import com.systemk.thefactor2.Service.UserService;
 import com.systemk.thefactor2.Util.MybatisUtil;
@@ -26,11 +24,19 @@ import java.util.Map;
 public class InoutTotServiceImpl implements InoutTotService {
 
 
+
+
 	@Autowired
 	private TfInoutTotalMapper tfInoutTotalMapper;
 
 	@Autowired
 	private PageMapper pageMapper;
+
+	@Autowired
+	private TfInputMapper tfInputMapper;
+
+	@Autowired
+	private TfOutputMapper tfOutputMapper;
 
 	@Override
 	public Map<String, Object> findList(Map param) throws Exception {
@@ -72,6 +78,51 @@ public class InoutTotServiceImpl implements InoutTotService {
 
 		mu.setContent(tfInoutTotalMapper.inoutList(mu.getTableSearch())); //리스트 조회
 
+		return mu.getList();
+	}
+
+	@Override
+	public Map<String, Object> findInSubList(Map param) throws Exception {
+
+		MybatisUtil mu = new MybatisUtil();
+		mu.setTable("TF_INPUT");
+
+		for(Object key : param.keySet()) {    //분류 처리
+			if(key.equals("page")){
+				continue;
+			}
+			mu.addEqual((String)key, (String)param.get(key));
+		}
+		if(param.get("page")!=null)
+			mu.setPage(Integer.parseInt((String)param.get("page")));
+
+		mu.setTotalElements(pageMapper.inPageRecord(mu.getTableSearch()));
+		mu.setContent(tfInputMapper.inSubList(mu.getTableSearch()));
+		return mu.getList();
+	}
+
+	@Override
+	public Map<String, Object> findOutSubList(Map param) throws Exception {
+
+		MybatisUtil mu = new MybatisUtil();
+		mu.setTable("TF_OUTPUT");
+
+		for(Object key : param.keySet()) {    //분류 처리
+			if (key.equals("ST_OUT_TYPE")) {
+				if(key.equals("page")){
+					continue;
+				}
+				String type = (String)param.get(key);
+				mu.addStartLike((String)key, type.substring(0,4));
+				continue;
+			}
+			mu.addEqual((String)key, (String)param.get(key));
+		}
+		if(param.get("page")!=null)
+			mu.setPage(Integer.parseInt((String)param.get("page")));
+
+		mu.setTotalElements(pageMapper.outPageRecord(mu.getTableSearch()));
+		mu.setContent(tfOutputMapper.outSubList(mu.getTableSearch()));
 		return mu.getList();
 	}
 

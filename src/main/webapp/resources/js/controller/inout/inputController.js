@@ -7,7 +7,6 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 		pageInfo($rootScope, $location);
 		$scope.form ={};
 
-console.log($rootScope.quickSearch.storeCd);
 		if($rootScope.searchMove == 1){									//페이지 이동후 검색
 			$scope.search = {};
 			if($rootScope.quickSearch.storeCd != null){
@@ -269,7 +268,7 @@ console.log($rootScope.quickSearch.storeCd);
 					if(data.resultCode == 'S') {
 						modalAlert($uibModal, "입고삭제", "데이터가 삭제되었습니다");
 					}
-					// $rootScope.reload();
+					$rootScope.reload();
 				}).error(function(data){
 					alert('정보 업데이트 실패');
 				});

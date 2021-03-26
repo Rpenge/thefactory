@@ -18,11 +18,11 @@
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-click="tabChange('list')" style="border-right: 0;">리스트</button>
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.in}" ng-click="tabChange('in')">입고</button>
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.out}" ng-click="tabChange('out')">출고</button>
-					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.stk}" ng-click="tabChange('stk')">판매/배송</button>
+					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.sell}" ng-click="tabChange('sell')">판매/배송</button>
 					<div class="div-fade-in" ng-show="divFadeIn" style="width: 100%;height:100%;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;overflow: hidden;">
 
-						<span style="font-size:20px;font-weight: bold;">2021.04.01 논현본점 입고내역</span>
-						<table class="table-bordered table-hover text-center custom-align-middle" style="width:100%;margin-top:20px;">
+						<span style="font-size:20px;font-weight: bold;">{{inView.ST_DATE | dateFormCustom:'.'}} {{inView.STORE_CD | code:store}}  {{inView.ST_TYPE | code:workM}}내역</span>
+						<table class="table-bordered table-hover text-center custom-align-middle table-striped-odd" style="width:100%;margin-top:20px;" ng-if="subList.length > 0">
 							<thead>
 							<tr style="height: 35px;">
 								<th style="width:10%">일자</th>
@@ -30,46 +30,43 @@
 								<th style="width:10%">구분</th>
 								<th style="width:35%">상품명</th>
 								<th style="width:15%">수량</th>
-								<th style="width:20%">등록일시</th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer">
-								<td style="height: 45px;">2021.04.01</td>
-								<td ng-click="btnTabOn()">논현본점</td>
-								<td>신규입고</td>
-								<td>400</td>
-								<td>1000</td>
-								<td>2021.04.01 11:12:11</td>
+							<tr ng-repeat="(key, value) in subList">
+								<td style="height: 45px;">{{value.ST_DATE}}</td>
+								<td>{{value.STORE_CD | code:store}}</td>
+								<td>{{value.ST_TYPE | code:workS}}</td>
+								<td>{{value.TF_PRD_NM}}</td>
+								<td>{{value.cnt}}</td>
 							</tr>
 							</tbody>
 						</table>
 
-						<div class="row d-flex justify-content-center">
+						<div class="row d-flex justify-content-center" ng-if="subList.length > 0">
 							<!-- 네비게이션 바 -->
 							<nav class=" text-center" >
 								<ul class="pagination">
-									<li class="page-item">
-										<a href="" aria-label="Previous" ng-click="goPage(begin)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
+									<li class="page-item" ng-if="subPaging.current > 10">
+										<a href="" aria-label="Previous" ng-click="goSubPage(1)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
 									</li>
-									<li class="page-item">
-										<a href="" aria-label="Previous" ng-click="goPage(current - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
+									<li class="page-item" ng-if="subPaging.current > 10">
+										<a href="" aria-label="Previous" ng-click="goSubPage(subPaging.begin - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
 									</li>
-									<%--                            <li ng-repeat="pageNum in [begin, end] | makeRange" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>--%>
-									<li ng-repeat="pageNum in [1,2,3,4,5]" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
-									<li class="page-item">
-										<a href="" aria-label="Next" ng-click="goPage(current + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
+									<li ng-repeat="pageNum in [subPaging.begin, subPaging.end] | makeRange" class="page-item" ng-class="{'active-page' : subPaging.current == pageNum}" ><a href="" ng-click="goSubPage(pageNum)" class="page-link">{{pageNum}}</a></li>
+									<li class="page-item" ng-if="subPaging.end != subPaging.last">
+										<a href="" aria-label="Next" ng-click="goSubPage(subPaging.end + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
 									</li>
-									<li class="page-item">
-										<a href="" aria-label="Next" ng-click="goPage(end)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
+									<li class="page-item" ng-if="subPaging.end != subPaging.last">
+										<a href="" aria-label="Next" ng-click="goSubPage(subPaging.last)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
 									</li>
 								</ul>
 							</nav>
-
 						</div>
 
 					</div>
 				</div>
+				<!--탭 메뉴 종류-->
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
 					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 입출고 내역 조회</span>
@@ -90,7 +87,7 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table id="listTable" class="table-bordered table-hover text-center custom-align-middle" style="min-width:1100px;width:100%;">
+					<table id="listTable" class="table-bordered table-td-hover text-center custom-align-middle" style="min-width:1100px;width:100%;" my-repeat-directive>
 						<thead>
 						<tr style="height: 35px;">
 							<th rowspan="2" style="width:13%;">일자</th>
@@ -115,21 +112,21 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in list" class="pointer">
-							<td >{{value.inOutDate}}</td>
-							<td ng-click="addTabsOn()" style="height: 45px;">{{value.storeCd | code : store}}</td>
-							<td>{{value.inNewcnt}}</td>
-							<td>{{value.inMovcnt}}</td>
-							<td>{{value.inIncnt}}</td>
-							<td>{{value.inRetcnt}}</td>
-							<td>{{value.inTotcnt}}</td>
-							<td>{{value.outOutcnt}}</td>
-							<td>{{value.outMovcnt}}</td>
-							<td>{{value.outTotcnt}}</td>
-							<td>{{value.sellStcnt}}</td>
-							<td>{{value.sellOnlcnt}}</td>
-							<td>{{value.sellTotcnt}}</td>
-							<td>{{value.stockTotcnt}}</td>
+						<tr ng-repeat="(key, value) in list"  class="pointer">
+							<td>{{value.inOutDate}}</td>
+							<td ng-click="addTabsOn(value)" style="height: 45px;">{{value.storeCd | code : store}}</td>
+							<td ng-click="addTabsOn(value)">{{value.inNewcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.inMovcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.inIncnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.inRetcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.inTotcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.outOutcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.outMovcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.outTotcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.sellStcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.sellOnlcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.sellTotcnt}}</td>
+							<td ng-click="addTabsOn(value)">{{value.stockTotcnt}}</td>
 						</tr>
 						</tbody>
 					</table>
@@ -139,34 +136,24 @@
 					<!-- 네비게이션 바 -->
 					<nav class=" text-center" >
 						<ul class="pagination">
-							<li class="page-item">
-								<a href="" aria-label="Previous" ng-click="goPage(begin)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
+							<li class="page-item" ng-if="paging.current > 10">
+								<a href="" aria-label="Previous" ng-click="goPage(1)" class="page-link"><span aria-hidden="true">&laquo;</span></a>
 							</li>
-							<li class="page-item">
-								<a href="" aria-label="Previous" ng-click="goPage(current - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
+							<li class="page-item" ng-if="paging.current > 10">
+								<a href="" aria-label="Previous" ng-click="goPage(paging.begin - 1)" class="page-link"><span aria-hidden="true">&lt;</span></a>
 							</li>
-							<%--                            <li ng-repeat="pageNum in [begin, end] | makeRange" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>--%>
-							<li ng-repeat="pageNum in [1,2,3,4,5]" class="page-item" ng-class="{'active-page' : current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
-							<li class="page-item">
-								<a href="" aria-label="Next" ng-click="goPage(current + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
+							<li ng-repeat="pageNum in [paging.begin, paging.end] | makeRange" class="page-item" ng-class="{'active-page' : paging.current == pageNum}" ><a href="" ng-click="goPage(pageNum)" class="page-link">{{pageNum}}</a></li>
+							<li class="page-item" ng-if="paging.end != paging.last">
+								<a href="" aria-label="Next" ng-click="goPage(paging.end + 1)" class="page-link"><span aria-hidden="true">&gt;</span></a>
 							</li>
-							<li class="page-item">
-								<a href="" aria-label="Next" ng-click="goPage(end)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
+							<li class="page-item" ng-if="paging.end != paging.last">
+								<a href="" aria-label="Next" ng-click="goPage(paging.last)" class="page-link"><span aria-hidden="true">&raquo;</span></a>
 							</li>
 						</ul>
 					</nav>
-
 				</div>
 			</div>
 		</div>
 	</section>
 </div>
 </html>
-
-
-<script>
-	$(document).ready(function() {
-		$('#listTable').rowspan (0);
-	});
-
-</script>

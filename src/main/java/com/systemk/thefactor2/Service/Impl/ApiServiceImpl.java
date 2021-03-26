@@ -3,10 +3,7 @@ package com.systemk.thefactor2.Service.Impl;
 
 import com.systemk.thefactor2.Config.ConstansConfig;
 import com.systemk.thefactor2.Mapper.*;
-import com.systemk.thefactor2.Service.ApiService;
-import com.systemk.thefactor2.Service.BrandService;
-import com.systemk.thefactor2.Service.CommService;
-import com.systemk.thefactor2.Service.InoutTotService;
+import com.systemk.thefactor2.Service.*;
 import com.systemk.thefactor2.Util.MybatisUtil;
 import com.systemk.thefactor2.Util.ResultUtil;
 import com.systemk.thefactor2.Util.StringUtil;
@@ -62,6 +59,9 @@ public class ApiServiceImpl implements ApiService {
 
 	@Autowired
 	private BrandService brandService;
+
+	@Autowired
+	private OutputService outputService;
 
 
 	@Override
@@ -140,6 +140,9 @@ public class ApiServiceImpl implements ApiService {
 		MybatisUtil mu = new MybatisUtil();
 		List list = new ArrayList();
 		mu.addBetween("ST_IN_DATE", (String)param.get("startDate"), (String)param.get("endDate"));
+		if(param.get("state") != null){
+			mu.addEqual("ST_IN_TYPE", (String)param.get("state"));
+		}
 		mu.setTotal();
 		List<TfInputVO> voList = tfInputMapper.inputList(mu.getTableSearch()); //리스트 조회
 		for(TfInputVO vo : voList){
@@ -206,14 +209,41 @@ public class ApiServiceImpl implements ApiService {
 		map.put("storeNm", 	commService.codeToNm((String)param.get("storeCd")));	//  입고매장명
 		map.put("tagStat", 	"040101");	//신규발행 코드 : 고정
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
-		if(param.get("status").equals("")){
-			//status 확인 후 입고?
-		}
-		map.put("inType", 	"060101");	//신규입고 코드 : 고정
+		map.put("inType", 	param.get("state"));	//신규입고 코드 : 신규/입고
 
 		tfInputMapper.inputNew((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
+
+
+//	@Override
+//	public Map<String, Object> inputAddResult(Map param) throws Exception {
+//
+//		Map map = new HashMap();
+//		Map outputData = outputService.outputSearch((String) param.get("tagId"));
+//		map.put("barcode", outputData.get("BT_PRD_BARCODE"));
+//		Map mapData = tfProductMapper.prdAndStk(param);
+//
+//		Date date = new Date();
+//		map.put("ymd", StringUtil.dateFormatYMD(date));		//오늘날짜
+//		map.put("userId", 	param.get("userId"));		//현재유저
+//		map.put("brandCd", 	mapData.get("BRAND_KIND_CD"));	//상품정보에서
+//		map.put("prdNm", 	mapData.get("TF_PRD_NM"));		//상품정보에서
+//		map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));	//상품정보에서
+//		map.put("prdCd", 	mapData.get("TF_PRD_CD"));		//상품정보에서
+//		map.put("barcode", 	mapData.get("TF_PRD_BARCODE"));	//  가져온 바코드
+//		map.put("size", 	mapData.get("PRD_SIZE"));		//재고정보에서
+//		map.put("tagId", 	param.get("tagId"));		//  가져온 태그id
+//		map.put("storeCd", 	param.get("inStoreCd"));	//  입고매장
+//		map.put("storeNm", 	commService.codeToNm((String)param.get("inStoreCd")));	//  입고매장명
+//		map.put("outStoreCd", 	outputData.get("outStoreCd"));	//  출고매장
+//		map.put("outStoreNm", 	outputData.get("outStoreNm"));	//  출고매장명
+//		map.put("deviceGub",param.get("deviceGub"));	//장비값 :
+//		map.put("inType", 	param.get("stInType"));	//입고 코드
+//
+//		tfInputMapper.inputRe((HashMap) map);
+//		return ResultUtil.setCommonResult("S","성공하였습니다");
+//	}
 
 	@Override
 	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
@@ -237,13 +267,21 @@ public class ApiServiceImpl implements ApiService {
 
 
 
-//	@Override
+	@Override
 	public Map<String, Object> outputList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		List list = new ArrayList();
 		mu.addBetween("ST_OUT_DATE", (String)param.get("startDate"), (String)param.get("endDate"));
 		mu.setTotal();
-		mu.addEqual("substring(ST_OUT_TYPE,1,4)", "0603");
+
+		String state = (String)param.get("state");
+		if (state.substring(4,6).equals("00")){
+			mu.addEqual("substring(ST_OUT_TYPE,1,4)", state.substring(0, 4));
+		}else {
+			mu.addEqual("ST_OUT_TYPE", state);
+		}
+
+
 		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
 		for(TfOutputVO vo : voList){
 			Map map = new HashMap();
@@ -254,6 +292,40 @@ public class ApiServiceImpl implements ApiService {
 		}
 
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
+	}
+
+	@Override
+	public Map<String, Object> outputAdd(List<Map<String, String>> paramList, String userId, String device) throws Exception {
+
+		for(Map param : paramList){
+			TfAcStockVO vo = tfAcStockMapper.findStockByTagId((String)param.get("tagId")); // 실재고 정보 조회
+			Map map = new HashMap();
+			map.put("barcode", vo.getTfPrdBarcode());
+			Map mapData = tfProductMapper.prdAndStk(map);
+
+			Date date = new Date();
+			map.put("ymd", StringUtil.dateFormatYMD(date));
+			map.put("userId", 	userId);
+			map.put("brandCd", 	mapData.get("BRAND_KIND_CD"));
+			map.put("prdNm", 	mapData.get("TF_PRD_NM"));
+			map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));
+			map.put("prdCd", 	mapData.get("TF_PRD_CD"));
+//			map.put("barcode", 	vo.getTfPrdBarcode());  //
+			map.put("size", 	mapData.get("PRD_SIZE"));
+			map.put("tagId", 	param.get("tagId"));
+			if(param.get("state").equals("060202")) {
+				map.put("inStoreCd", param.get("storeCd"));
+				map.put("inStoreNm", commService.codeToNm((String)param.get("storeCd")));
+			}
+			map.put("outStoreCd", vo.getStoreCd());	//  출고매장
+			map.put("outStoreNm", commService.codeToNm(vo.getStoreCd()));
+			map.put("deviceGub",device);
+			map.put("outType", 	param.get("state"));
+
+ 			tfOutputMapper.outputAdd((HashMap) map);
+		}
+
+		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
 

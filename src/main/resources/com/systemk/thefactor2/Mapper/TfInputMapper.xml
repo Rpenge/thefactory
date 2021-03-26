@@ -59,4 +59,19 @@
     </delete>
 
 
+    <select id="inSubList" resultType="Map" parameterType="java.util.HashMap">
+        select ST_IN_DATE as ST_DATE ,IN_STORE_CD as STORE_CD, ST_IN_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt
+        from tf_input
+        where 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        group by ST_IN_DATE, IN_STORE_CD,  ST_IN_TYPE, TF_PRD_NM
+        limit ${start}, ${size}
+    </select>
+
+
+
+
+
 </mapper>
