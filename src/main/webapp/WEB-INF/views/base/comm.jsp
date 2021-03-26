@@ -14,7 +14,7 @@
             <form ng-submit="formSave()">
                 <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
                     <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
-                    <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('commBList')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
+                    <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : form.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('list')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
                     <button class="p-2 btn btn-outline-secondary" type="submit" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
                 </div>
                 <%--{{commCode}}--%>
@@ -22,20 +22,21 @@
                     <tr>
                         <th>코드</th>
                         <td style="width:70%;height: 40px;">
-                            <input type="text" class="form-control" ng-model="es.commCd">
+                            <input type="text" class="form-control bCommCd" ng-model="form.commCd">
                         </td>
                     </tr>
                     <tr>
                         <th style="width:30%;">코드명</th>
                         <td style="width:70%;height: 40px;">
-                            <input type="text" class="form-control" ng-model="es.commCdNm">
+                            <input type="text" class="form-control bCommCdNm" ng-model="form.commCdNm">
                         </td>
                     </tr>
                     <tr>
                         <th>사용여부</th>
                         <td>
-                            <select class="form-control" ng-model="data.useYnList" name="useYn">
-                                <option ng-repeat="row in useYnList" value="{{row.id}}">{{row.name}}</option>
+                            <select class="form-control bUseYn" ng-model="form.useYn" ng-init="form.useYn='Y'">
+                                <option value="Y" >사용</option>
+                                <option value="N">미사용</option>
                             </select>
                         </td>
                     </tr>
@@ -43,7 +44,7 @@
             </form>
             <%--대분류 신규, 저장 input 영역 끝--%>
             <%--대분류 목록 영역 시작--%>
-            <table id="commBList" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;min-height: 120px;">
+            <table id="blist" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;min-height: 120px;">
                 <thead>
                     <tr>
                         <th style="width:30%" ng-click="sort('')">코드</th>
@@ -51,9 +52,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="key in commCode" class="pointer" ng-init="value.isSelected = false;" ng-if="key.codeLevel=='B'">
-                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 50px;">{{key.commCd}}</td>
-                        <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{key.commCdNm}}</td>
+                    <tr ng-repeat="value in commCode" class="pointer" ng-init="value.isSelected = false;" ng-if="value.codeLevel=='B'">
+                        <td ng-click="formChange('mod',value)" style="height: 50px;">{{value.commCd}}</td>
+                        <td ng-click="formChange('mod',value)">{{value.commCdNm}}</td>
+                        <td ng-click="formChange('mod',value)" style="display: none;">{{value.useYn}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -80,11 +82,14 @@
 
         <!--contents-->
         <div class="body-custom" style="width:100%;">
+
             <div class="d-flex justify-content-center">
                 <div style="width: 48%;margin:10px;">
+                    <%--중분류 신규, 저장 input 영역 시작--%>
+                    <form1 ng-submit="formSave1()">
                     <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
                         <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 중분류</span>
-                        <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
+                        <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('commMList')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
                         <button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
                     </div>
 
@@ -92,51 +97,64 @@
                         <tr>
                             <th style="width:20%;height:40px">대분류코드</th>
                             <td style="width:30%;padding: 0;">
-                                <input type="text" class="form-control" ng-model="form.commCd" placeholder="대분류코드" readonly>
+                                <input type="text" class="form-control bCommCd" ng-model="form.commCd" readonly>
                             </td>
                             <th style="width:20%">대분류명</th>
                             <td style="width:30%">
-                                <input type="text" class="form-control" placeholder="대분류명" readonly>
+                                <input type="text" class="form-control bCommCdNm" ng-model="form.commCdNm" readonly>
                             </td>
                         </tr>
                         <tr>
                             <th style="height:40px">코드</th>
-                            <td><input type="text" class="form-control" placeholder="코드" readonly></td>
+                            <td><input type="text" class="form-control mCommCd" ng-model="form1.commCd" placeholder="코드" readonly></td>
+
                             <th>코드명</th>
-                            <td><input type="text" class="form-control"></td>
+                            <td><input type="text" class="form-control mCommCdNm" ng-model="form1.commCdNm"></td>
                         </tr>
                         <tr>
                             <th>LEVEL</th>
-                            <td><input type="text" class="form-control"></td>
+                            <td>
+                                <input type="text" class="form-control mLevel" ng-model="form1.codeLevel">
+                            </td>
                             <th>사용여부</th>
                             <td>
-                                <select class="form-control">
-                                    <option>{{form.useYn}}</option>
+                                <select class="form-control mUseYn" ng-model="form.useYn">
+                                    <option value="사용" >사용</option>
+                                    <option value="미사용">미사용</option>
                                 </select>
                             </td>
-                        </tr>
 
+
+                        </tr>
                     </table>
 
-                    <div style="height: 231px;overflow: auto;border:1px solid whitesmoke;">
-                        <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;">
-                            <thead>
-                                <th style="width:25%">코드</th>
-                                <th style="width:40%;">코드명</th>
-                                <th style="width:20%">사용여부</th>
-                            </thead>
+                    <%--중분류 신규, 저장 input 영역 끝--%>
+                    <%--중분류 목록 영역 시작--%>
+                    <table style="width: 100%;text-align: center;font-size: medium; height: 231px; overflow: auto;" class="table custom-table-1 table-hover text-center table-striped custom-align-middle">
+                        <thead>
+                        <th style="width:25%" ng-click="sort('')">코드</th>
+                        <th style="width:40%" ng-click="sort('')">코드명</th>
+                        <th style="width:20%" ng-click="sort('')">사용여부</th>
+                        </thead>
+                    </table>
+                    <div style="height: 231px; overflow: auto; border:1px solid whitesmoke;">
+                        <table id="mlist" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;">
                             <tbody>
-                                <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='M'">
-                                    <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
-                                    <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
-                                    <td onclick="selectTr($(this))">{{key.useYn}}</td>
+                                <tr ng-repeat="value in commCode" class="pointer" ng-init="value.isSelected = false;" ng-if="value.codeLevel=='M'">
+                                    <td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 50px;" >{{value.commCd}}</td>
+                                    <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
+                                    <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.useYn | YnWord: 2}}</td>
+                                    <td ng-click="formChange('mod',value)" style="display: none;">{{value.codeLevel}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    </form1>
+                    <%--중분류 목록 영역 끝--%>
                 </div>
 
                 <div style="width: 48%;margin:10px;">
+                    <%--소분류 신규, 저장 input 영역 시작--%>
                     <div class="d-flex">
                         <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
                             <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 소분류</span>
@@ -161,13 +179,18 @@
                             <th>LEVEL</th>
                             <td><input type="text" class="form-control"></td>
                             <th>사용여부</th>
-                            <td><select class="form-control"><option>Y</option></select></td>
+                            <td>
+                                <select class="form-control" ng-model="form.useYn" ng-init="form.useYn='Y'" name="useYn">
+                                    <option value="사용" >사용</option>
+                                    <option value="미사용">미사용</option>
+                                </select>
+                            </td>
                         </tr>
-
                     </table>
-
+                    <%--소분류 신규, 저장 input 영역 끝--%>
+                    <%--소분류 목록 영역 시작--%>
                     <div style="height: 231px;overflow: auto;border:1px solid whitesmoke;">
-                        <table class="table-bordered" style="width: 100%;text-align: center;font-size: medium;">
+                        <table class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width: 100%;text-align: center;font-size: medium;">
                             <thead>
                             <th style="width:25%">코드</th>
                             <th style="width:40%;">코드명</th>
@@ -177,11 +200,12 @@
                                 <tr ng-repeat="key in commCode" ng-if="key.codeLevel=='S'">
                                     <td onclick="selectTr($(this))" style="height: 50px;" >{{key.commCd}}</td>
                                     <td onclick="selectTr($(this))">{{key.commCdNm}}</td>
-                                    <td onclick="selectTr($(this))">{{key.useYn}}</td>
+                                    <td onclick="selectTr($(this))">{{value.useYn | YnWord: 2}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <%--소분류 목록 영역 시작--%>
                 </div>
             </div>
 
@@ -204,9 +228,10 @@
                 </div>
                 <!-- 테이블 생성 -->
                 <div class="table-box">
-                    <table id="findList" class="table-bordered" style="width:100%;text-align: center;font-size: medium;">
+                    <table id="findList" class="table custom-table-1 table-hover text-center table-striped custom-align-middle" style="width:100%;text-align: center;font-size: medium;">
                         <thead>
                             <tr class="pointer">
+                                <th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'commCd')"></th>
                                 <th ng-click="sort('')" style="width:10%">코드번호</th>
                                 <th ng-click="sort('')" style="width:10%;">코드명</th>
                                 <th ng-click="sort('')" style="width:5%;">사용여부</th>
@@ -219,15 +244,15 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+                                <td style="width: 2%; padding:20px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.commCd}})" ></td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCd}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
-                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.useYn}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.useYn | YnWord: 2}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.codeLevel}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modId}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.modDate | date:'yyyy-MM-dd HH:mm'}}</td>
-
                             </tr>
                         </tbody>
                     </table>
@@ -257,6 +282,45 @@
         </div>
     </div>
 </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#blist tr").click(function () {
+                var str = "";
+                var tdArr = new Array();
+                var tr = $(this);
+                var td = tr.children();
+
+                // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+                td.each(function(i){
+                    tdArr.push(td.eq(i).text());
+                });
+                console.log("배열에 담긴 값 : "+tdArr);
+
+                $('.bCommCd').val(tdArr[0]);
+                $('.bCommCdNm').val(tdArr[1]);
+                $('.bUseYn').val(tdArr[2]);
+            });
+
+            $("#mlist tr").click(function () {
+                var str = "";
+                var tdArr = new Array();
+                var tr = $(this);
+                var td = tr.children();
+
+                // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+                td.each(function(i){
+                    tdArr.push(td.eq(i).text());
+                });
+                console.log("배열에 담긴 값 : "+tdArr);
+
+                $('.mCommCd').val(tdArr[0]);
+                $('.mCommCdNm').val(tdArr[1]);
+                $('.mUseYn').val(tdArr[2]);
+                $('.mLevel').val(tdArr[3]);
+            });
+        });
+    </script>
 </html>
 
 
