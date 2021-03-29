@@ -14,7 +14,7 @@ public interface CommService {
     // 대분류
     public List<TfCommCodeVO> commBList() throws Exception;
     // 중분류
-    public List<TfCommCodeVO> commMList(String code) throws Exception;
+    public List<TfCommCodeVO> commMList(String commCd) throws Exception;
     // 소분류
     public List<TfCommCodeVO> commSList(String code) throws Exception;
     // 중소분류
