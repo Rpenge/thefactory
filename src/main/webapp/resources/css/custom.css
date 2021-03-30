@@ -960,3 +960,7 @@ a.nav-link{
 #brandSearch:read-only{
 	background-color: white;
 }
+
+.table-box .bg-secondary{
+	background-color: lightgray!important;
+}

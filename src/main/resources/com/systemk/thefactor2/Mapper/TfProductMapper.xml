@@ -66,4 +66,10 @@
         where ts.TF_PRD_BARCODE = #{barcode} limit 1
     </select>
 
+    <select id="prdAndStkDetail" resultType="Map" parameterType="java.util.Map">
+        select ts.TF_PRD_NM as name, PRD_SIZE as size, TF_PRD_BARCODE as barcode from tf_product tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
+        where EC_PRD_CD = #{item} group by TF_PRD_BARCODE
+    </select>
+
+
 </mapper>

@@ -7,16 +7,42 @@
             COUNT (*)
         from
             ${table}
-        where 1=1
+        where true
         <foreach collection="list" item="item">
             ${item}
         </foreach>
     </select>
 
+    <select id="stkPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+        COUNT (*)
+        from
+        tf_stock ts left outer join tf_product tp on
+        ts.TF_PRD_CD = tp.TF_PRD_CD
+        where true
+        <if test="STORE_CD != null">
+            AND STOCK_STORE_CD = #{STORE_CD}
+        </if>
+        <if test="PRD_SIZE != null">
+            AND PRD_SIZE = #{PRD_SIZE}
+        </if>
+        <if test="BRAND_KIND_CD != null">
+            AND BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+    </select>
+
+    <select id="stkExPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+            COUNT (*)
+        from
+            tf_stock ts
+        where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
+    </select>
+
     <select id="inPageRecord" resultType="INT" parameterType="java.util.HashMap">
         select count(*) as cnt
         from (select 1 from ${table}
-            where 1=1
+            where true
         <foreach collection="list" item="item">
             ${item}
         </foreach>
@@ -27,7 +53,7 @@
     <select id="outPageRecord" resultType="INT" parameterType="java.util.HashMap">
         select count(*) as cnt
         from (select 1 from ${table}
-        where 1=1
+        where true
         <foreach collection="list" item="item">
             ${item}
         </foreach>

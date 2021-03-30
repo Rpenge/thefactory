@@ -29,6 +29,7 @@ public class FileController {
 	}
 
 
+	//어플리케이션 업로드
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	public Map<String, String> upload(@RequestPart(value = "uploadApp", required = false) MultipartFile mf,
 									  HttpServletRequest request) {
@@ -47,7 +48,7 @@ public class FileController {
 		}
 		return map;
 	}
-
+	//어플리케이션 업로드 DB등록
 	@RequestMapping(value="/uploadReg", method = RequestMethod.POST)
 	public Map<String, Object> uploadReg(@RequestBody(required = false) Map map, HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
@@ -59,12 +60,5 @@ public class FileController {
 
 
 
-
-//	public String startStrCheck(String str) {
-//		if(str.charAt(0) == ',') {
-//			str = str.substring(1);
-//		}
-//		return str;
-//	}
 
 }

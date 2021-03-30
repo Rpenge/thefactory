@@ -26,8 +26,6 @@ function pageInfo($rootScope, $location){
 				$rootScope.quickCommand = value.PGM_CD;
 				$rootScope.addQuick($rootScope.quickCommand);
 			}
-
-
 		}
 	}
 }
@@ -200,9 +198,9 @@ function httpGetList(http, scope, url, param ){
 			scope.paging.prev = parseInt((scope.paging.current -1) / 10) * 10;
 			scope.paging.next = scope.paging.prev + 11 ;
 			scope.paging.last = parseInt((scope.paging.total/scope.search.size)+1);
-			// if(init){
-			// 	scope.ajaxFinish = true;
-			// }
+			if((scope.paging.total / scope.search.size) < scope.paging.last){
+				scope.paging.last = scope.paging.last -1;
+			}
 		}
 	);
 }
@@ -487,9 +485,9 @@ function selectTr(td){
 	const tr = td.parent();
 	const table = td.parent().parent();
 	table.children().removeClass('bg-secondary');
-	table.children().removeClass('text-white');
+	table.children().removeClass('font-weight-bold');
 	tr.addClass('bg-secondary');
-	tr.addClass('text-white');
+	tr.addClass('font-weight-bold');
 }
 
 function tableTrDel(tableId){

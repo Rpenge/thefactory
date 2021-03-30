@@ -17,33 +17,35 @@
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 출고작업 추가 <span style="color:red;font-size:15px;"> * 표시는 필수 입력 항목입니다.</span></span>
 
-						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>
-						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>
+<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>--%>
+<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>--%>
 					</div>
 
 					<!-- 태그ID 검색, 입고예정 매장 선택 , 출고유형선택 -->
 					<table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
 						<tr>
-							<th style="width:10%;height:40px"><span style="color:red;">*</span> 태그ID</th>
-							<td class="d-flex" style="padding: 0;"><input type="text" class="form-control" style="width:80%;" ng-model="form.tfPrdTagid" ng-required="true"><button class="btn btn-secondary" type="button" ng-click="inputAdd()" style="width:20%;padding:0px;"><i class="xi-search" style="font-size: 20px;"></i></button></td>
+							<th style="width:10%;height:40px"> 태그ID</th>
+							<td class="d-flex" style="padding: 0;"><input type="text" class="form-control" ng-model="form.tfPrdTagid" ng-required="true" disabled>
+<%--								<button class="btn btn-secondary" type="button" ng-click="inputAdd()" style="width:20%;padding:0px;"><i class="xi-search" style="font-size: 20px;"></i></button>--%>
+							</td>
 							<th style="width:10%">출고매장</th>
 							<td style="width:15%">
 								<select class="form-control" ng-model="form.outStoreCd" ng-required="true" disabled>
-									<option value="">매장</option>
+<%--									<option value="">매장</option>--%>
 									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
 							<th style="width:10%">입고예정매장</th>
 							<td style="width:15%">
-								<select class="form-control" ng-model="form.inStoreCd">
-									<option value="">매장</option>
+								<select class="form-control" ng-model="form.inStoreCd" disabled>
+<%--									<option value="">매장</option>--%>
 									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
-							<th style="width:10%"><span style="color:red;">*</span> 출고유형</th>
+							<th style="width:10%"> 출고유형</th>
 							<td style="width:15%">
-								<select class="form-control" ng-model="form.stOutType" ng-required="true">
-									<option value="">출고유형</option>
+								<select class="form-control" ng-model="form.stOutType" ng-required="true" disabled>
+<%--									<option value="">출고유형</option>--%>
 									<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0602'" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>

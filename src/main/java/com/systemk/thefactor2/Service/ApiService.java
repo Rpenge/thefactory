@@ -19,10 +19,16 @@ public interface ApiService {
 
     public Map<String, Object> inputWork(Map param) throws Exception;
 
+    public Map<String, Object> inputReWork(Map param) throws Exception;
+
     Map<String, Object> outputList(Map param) throws Exception;
 
     public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception;
 
     public Map<String, Object> outputAdd(List<Map<String, String>> paramList, String userId, String device) throws Exception;
+
+    public Map<String, Object> findStock(Map param) throws Exception;
+
+    public Map<String, Object> commonCd(Map param) throws Exception;
 
 }

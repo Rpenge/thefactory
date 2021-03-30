@@ -22,4 +22,8 @@ public interface TfProductMapper {
 
     Map prdAndStk(Map item);
 
+    List<Map> prdAndStkDetail(String prdAndStkDetail);
+
+
+
 }

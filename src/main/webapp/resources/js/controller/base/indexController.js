@@ -29,6 +29,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	//새로고침 : 세션확인 후 메뉴 다시 조회
 	if(sessionStorage.getItem('id')){
+
+		$rootScope.userId = sessionStorage.getItem('id');
 		$http.get('/member/reUserAuth').success(function(data) {
 			if (data.userId) {
 				$rootScope.topMenu = data.auth;
@@ -112,14 +114,14 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	//브랜드 선택
 	$scope.brandSelect = function(data){
 		if(!data){
-			$scope.quickSearch.brand = null;
+			$rootScope.quickSearch.brand = null;
 			$scope.view.brand = null;
-			$scope.quickSearch.gender = "";
-			$scope.quickSearch.cls = "";
+			$rootScope.quickSearch.gender = "";
+			$rootScope.quickSearch.cls = "";
 			$scope.subBrandCls = [];
 			return;
 		}
-		$scope.quickSearch.brand = data.brandKindCd;
+		$rootScope.quickSearch.brand = data.brandKindCd;
 		$scope.view.brand = data.brandNm;
 
 		$http.get('/member/brandSub?brandCd='+ data.brandKindCd.substr(0,2)).success(function(data) {

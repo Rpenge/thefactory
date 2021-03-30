@@ -13,7 +13,11 @@
 
 
     <select id="stockCheck" resultType="String" parameterType="String">
-        select TF_PRD_NM from tf_ac_stock tas inner join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE where tas.TF_PRD_TAGID = #{item} limit 1;
+        select TF_PRD_NM from tf_ac_stock tas inner join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE where tas.TF_PRD_TAGID = #{item} limit 1
+    </select>
+
+    <select id="findTagId" resultType="String" parameterType="String">
+        select TF_PRD_TAGID from tf_ac_stock where TF_PRD_BARCODE = #{item}
     </select>
 
 

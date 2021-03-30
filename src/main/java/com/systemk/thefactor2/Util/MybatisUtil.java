@@ -44,6 +44,15 @@ public class MybatisUtil {
         tableSearch.put("table", tableName);
     }
 
+    public void leftJoin(String tableName, String join1, String join2){
+        String str = "left outer join " + tableName + " on "+ tableSearch.get("table") +"." + join1 +" = " + tableName+"."+ join2;
+        tableSearch.put("joinTable", str);
+    }
+
+    public void addStr(String key, String value){
+        tableSearch.put(key, value);
+    }
+
     public void addEqual(String column, String findStr){
         String str = "AND " + column + " = '"+ findStr+"'";
         search.add(str);

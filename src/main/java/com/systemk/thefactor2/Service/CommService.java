@@ -27,4 +27,6 @@ public interface CommService {
     public Map<String, Object> commDelete(Map param) throws Exception;
     // 코드 -> 코드명
     public String codeToNm(String code);
+
+    public Map nmToCdKV();
 }

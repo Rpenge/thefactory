@@ -77,22 +77,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 						backgroundColor: 'rgba(75, 192, 192, 0.2)',
 						borderColor: 'rgba(25, 99, 132, 1)',
 						borderWidth: 1
-					}
-					// , {
-					// 	label: '재고',
-					// 	data: [
-					// 		monthList[5].stockTotcnt,
-					// 		monthList[4].stockTotcnt,
-					// 		monthList[3].stockTotcnt,
-					// 		monthList[2].stockTotcnt,
-					// 		monthList[1].stockTotcnt,
-					// 		monthList[0].stockTotcnt,
-					// 	],
-					// 	backgroundColor: 'rgba(75, 192, 192, 0.2)',
-					// 	borderColor: 'rgba(25, 99, 132, 1)',
-					// 	borderWidth: 1
-					// }
-					]
+					}]
 				},
 				options: {
 					legend: {
@@ -121,7 +106,6 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 					}
 				}
 			});
-
 		}
 		function customStr(str){
 			return (str.substr(4,2)*1) + '월';
@@ -158,33 +142,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 					size: 'SM'
 				});
 			}
-			// //자산등록창
-			// else if(command=='proReg'){
-			// 	$ctrl = {};
-			// 	$ctrl['commonCode'] = $scope.commonCode;
-			// 	var modalInstance = $uibModal.open({
-			// 		backdrop: 'static',
-			// 		templateUrl: 'sample/proReg',
-			// 		controller: 'assetMgController_reg',
-			// 		controllerAs: '$ctrl',
-			// 		size: 'lg'
-			// 	});
-			// }
-			// //유저등록창
-			// else if(command=='userReg'){
-			// 	$ctrl = {};
-			// 	// $ctrl['commonCode'] = $scope.commonCode;
-			// 	var modalInstance = $uibModal.open({
-			// 		backdrop: 'static',
-			// 		templateUrl: 'sample/userReg',
-			// 		controller: 'assetMgController_reg',
-			// 		controllerAs: '$ctrl',
-			// 		size: 'lg'
-			// 	});
-			// }
-
 		}
-
 }]);
 
 

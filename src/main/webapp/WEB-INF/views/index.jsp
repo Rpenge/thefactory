@@ -70,7 +70,8 @@
             <!-- Top Menu Items -->
            	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 				<li class="nav-item" >
-					<a class="nav-link" href='/#/system/user' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i> 사용자정보 </a>
+<%--					<a class="nav-link" href='/#/system/user' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i>사용자정보 </a>--%>
+					<a class="nav-link" style="margin-right:20px;"> {{userId}}님 반갑습니다</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#" ng-click="logout()"><i class="xi-log-out" aria-hidden="true"></i> 로그아웃</a>

@@ -6,20 +6,19 @@ app.controller('outputController', ['$scope', '$http', '$location', '$rootScope'
 
 		if($rootScope.searchMove == 1){									//페이지 이동후 검색
 			$scope.search = {};
-			if($rootScope.quickSearch.storeCd != null){
+			if($rootScope.quickSearch.storeCd){
 				$scope.search['OUT_STORE_CD'] = $rootScope.quickSearch.storeCd;
 			}
-
-			if($rootScope.quickSearch.brand != null){
+			if($rootScope.quickSearch.brand){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.brand.substr(0,2);
 			}
-			if($rootScope.quickSearch.gender != null){
+			if($rootScope.quickSearch.gender){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.gender.substr(0,4);
 			}
-			if($rootScope.quickSearch.cls != null){
+			if($rootScope.quickSearch.cls){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.cls;
 			}
-			if($rootScope.quickSearch.detatilGub != null){
+			if($rootScope.quickSearch.detatilGub){
 				$scope.search['ST_OUT_TYPE'] = $rootScope.quickSearch.detatilGub;
 			}
 			$scope.search['PRD_SIZE'] = $rootScope.quickSearch.prdSize;

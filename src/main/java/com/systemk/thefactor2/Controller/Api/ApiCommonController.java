@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.systemk.thefactor2.Config.ConstansConfig;
 import com.systemk.thefactor2.Service.ApiService;
 import com.systemk.thefactor2.Util.RequestUtil;
+import com.systemk.thefactor2.Util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,10 +74,12 @@ public class ApiCommonController {
 
         param.put("userId", request.getHeader("id"));
         param.put("deviceGub", request.getHeader("type"));
-        if(param.get("state") == "060101" || param.get("state") == "060103"){   // 신규입고, 입고
+        if(param.get("state").equals("060101") || param.get("state").equals("060103")){   // 신규입고, 입고
             return apiService.inputWork(param);
-        }else{                                                                  //반품, 점간입고
-            return apiService.inputWork(param);
+        }else if(param.get("state").equals("060102") || param.get("state").equals("060104")){   //반품, 점간입고
+            return apiService.inputReWork(param);
+        }else{
+            return ResultUtil.setCommonResult("E", ConstansConfig.PDA_STATE_DATA_NONE_MSG);
         }
 
     }
@@ -100,6 +104,22 @@ public class ApiCommonController {
     @RequestMapping(value = "/outputAdd", method = RequestMethod.POST)
     public Map<String, Object> outputAdd(@RequestBody(required = false) List<Map<String, String>> data, HttpServletRequest request) throws Exception {
         return apiService.outputAdd(data, request.getHeader("id"), "020102");
+    }
+
+
+
+    //찾기 -
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public Map<String, Object> find(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        return apiService.findStock(param);
+    }
+
+    //공통코드 - 공통코드 전송
+    @RequestMapping(value = "/code", method = RequestMethod.GET)
+    public Map<String, Object> code(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        return apiService.commonCd(param);
     }
 
 

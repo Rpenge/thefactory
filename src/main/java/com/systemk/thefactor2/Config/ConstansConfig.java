@@ -368,6 +368,8 @@ public class ConstansConfig {
 
 	public final static String STORE_PDA_RETURN_WORKED_DATA_NONE_MSG = "작업 내용이 없습니다";
 
+	public final static String PDA_STATE_DATA_NONE_MSG = "작업 코드가 없습니다";
+
 	public final static String STORE_PDA_AFTER_RETURN_CONFIRM_DATE = "반품 마감일자가 지나서 작업할 수 없습니다";
 
 }

@@ -23,6 +23,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 
 		$http.get('/member/userAuth', {headers : headers}).success(function(data) {
 			if (data.userId) {
+				$rootScope.userId = data.userId;
 				sessionStorage.setItem('id', data.userId);
 				sessionStorage.setItem('role', data.role);
 				sessionStorage.setItem('storeCd', data.storeCd);
