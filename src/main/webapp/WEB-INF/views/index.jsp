@@ -42,6 +42,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/brandController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/salesController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>

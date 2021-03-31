@@ -3,6 +3,7 @@ package com.systemk.thefactor2.Mapper;
 import com.systemk.thefactor2.VO.TfBrandVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 public interface TfBrandMapper {
 
     // 브랜드 전체목록
-    List<TfBrandVO> brandAllList();
+    List<TfBrandVO> brandAllList(HashMap item);
     // 브랜드 추가
     int brandSave(Map item);
     // 브랜드 수정

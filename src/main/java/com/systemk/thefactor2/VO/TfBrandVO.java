@@ -15,4 +15,5 @@ public class TfBrandVO {
     private String regId;       // 등록자
     private Date   modDate;     // 수정일시
     private String modId;       // 수정자
+    private String useYn;       // 브랜드 사용여부
 }

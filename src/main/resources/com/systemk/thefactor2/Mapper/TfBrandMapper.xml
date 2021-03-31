@@ -47,7 +47,7 @@
                (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 2),'0000')) as brandNm
     </select>
 
-    <select id="brandAllList" resultType="TfBrandVO">
+    <select id="brandAllList" resultType="TfBrandVO" parameterType="java.util.HashMap">
         SELECT
             BRAND_KIND_CD
              , BRAND_NM
@@ -57,10 +57,22 @@
              , REG_ID
              , MOD_DATE
              , MOD_ID
+             , USE_YN
         FROM
             TF_BRAND
         WHERE 1=1
-        ORDER BY BRAND_KIND_CD ASC
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test="sort != null">
+                ORDER BY ${sort} ${direct}
+            </when>
+            <otherwise>
+                ORDER BY BRAND_KIND_CD ASC
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
     </select>
 
     <!--브랜드 추가-->
