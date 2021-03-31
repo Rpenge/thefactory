@@ -58,8 +58,8 @@ public class CommServiceImpl implements CommService {
 	}
 
 	@Override
-	public List<TfCommCodeVO> commMList(String code) throws Exception {
-		return tfCommCodeMapper.commMList(code);
+	public List<TfCommCodeVO> commMList(String commCd) throws Exception {
+		return tfCommCodeMapper.commMList(commCd);
 	}
 
 	@Override

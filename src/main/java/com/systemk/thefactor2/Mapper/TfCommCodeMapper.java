@@ -17,7 +17,7 @@ public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> commBList();
 
-    List<TfCommCodeVO> commMList(String code);
+    List<TfCommCodeVO> commMList(String commCd);
 
     List<TfCommCodeVO> commSList(String code);
 

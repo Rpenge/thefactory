@@ -51,8 +51,8 @@ public class BaseController {
 	}
 	//기초정보관리 - 코드관리 - 중분류 코드 조회
 	@RequestMapping(value = "/commMList", method = RequestMethod.GET)
-	public List<TfCommCodeVO> commMList(@RequestParam("code") String code) throws Exception {
-		return commService.commMList(code);
+	public List<TfCommCodeVO> commMList(@RequestParam("commCd") String commCd) throws Exception {
+		return commService.commMList(commCd);
 	}
 	//기초정보관리 - 코드관리 - 소분류 코드 조회
 	@RequestMapping(value = "/commSList", method = RequestMethod.GET)
