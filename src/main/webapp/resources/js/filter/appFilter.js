@@ -98,6 +98,16 @@ app.filter('StatusChange', function() {
     };
 });
 
+app.filter('codeLevelChange', function() {
+    return function(status_no) {
+        switch (status_no){
+            case 'B': return '대분류';
+            case 'M': return '중분류';
+            case 'S': return '소분류';
+        }
+    };
+});
+
 app.filter('code', function() {
     return function(code, data) {
         if(!data){

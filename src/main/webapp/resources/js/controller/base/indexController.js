@@ -9,9 +9,10 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
+	$rootScope.quickCmd = {};
 	$scope.view = {};
 
-	$rootScope.quickCommand = 'IO1';	//quick검색 초기값
+	$rootScope.quickCmd.cmd = 'IO1';	//quick검색 초기값
 	$rootScope.currentMenu ={};
 
 	$rootScope.quickSearch.startDate = new Date( new Date().setMonth( new Date().getMonth() - 1));
@@ -142,8 +143,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	//quick search 검색구분 변경
 	$rootScope.quick1List = ['IO1', 'IO2','IO3'];
-	$rootScope.quick2List = ['IO4'];
-	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1'];
+	$rootScope.quick2List = ['IO4','IV1','IV2'];
+	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1','BS3'];
 	$rootScope.addQuick = function(command){
 		$rootScope.quickSearch.workGub = null;
 		if($rootScope.quick1List.includes(command)){

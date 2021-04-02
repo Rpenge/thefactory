@@ -38,6 +38,10 @@
         select * from tf_output where TF_PRD_TAGID = #{item}
     </select>
 
+    <select id="outWorkSearch" resultType="TfOutputVO" parameterType="java.util.Map">
+        select * from tf_output where TF_PRD_TAGID = #{tagId} and ST_OUT_TYPE like '${stOutType}%' order by ST_OUT_SEQ desc limit 1
+    </select>
+
     <insert id="outputAdd" statementType="CALLABLE" parameterType="java.util.HashMap">
         { call output(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{inStoreCd}, #{inStoreNm}, #{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{outType})}
     </insert>

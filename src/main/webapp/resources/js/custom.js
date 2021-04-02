@@ -23,8 +23,9 @@ function pageInfo($rootScope, $location){
 				}else{
 					$rootScope.quick1 = false;
 				}
-				$rootScope.quickCommand = value.PGM_CD;
-				$rootScope.addQuick($rootScope.quickCommand);
+				$rootScope.quickCmd.cmd = value.PGM_CD;
+				$rootScope.addQuick($rootScope.quickCmd.cmd);
+
 			}
 		}
 	}
@@ -197,10 +198,10 @@ function httpGetList(http, scope, url, param ){
 			//10개씩
 			scope.paging.prev = parseInt((scope.paging.current -1) / 10) * 10;
 			scope.paging.next = scope.paging.prev + 11 ;
-			scope.paging.last = parseInt((scope.paging.total/scope.search.size)+1);
-			if((scope.paging.total / scope.search.size) < scope.paging.last){
-				scope.paging.last = scope.paging.last -1;
-			}
+			scope.paging.last = parseInt( ((scope.paging.total - 1) /scope.search.size)+1);
+			// if((scope.paging.total / scope.search.size) < scope.paging.last){
+			// 	scope.paging.last = scope.paging.last -1;
+			// }
 		}
 	);
 }
@@ -480,6 +481,8 @@ function logout(http, rootScope, location) {
 	});
 };
 
+
+
 //테이블 tr 선택효과
 function selectTr(td){
 	const tr = td.parent();
@@ -492,7 +495,7 @@ function selectTr(td){
 
 function tableTrDel(tableId){
 	$("#"+tableId).children().children().removeClass('bg-secondary');
-	$("#"+tableId).children().children().removeClass('text-white');
+	$("#"+tableId).children().children().removeClass('font-weight-bold');
 }
 
 function tableTdDel(tableId){
@@ -549,3 +552,9 @@ function codeToNm(code, data) {
 		}
 	}
 };
+
+
+function pad(n, width) {
+	n = n + '';
+	return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}

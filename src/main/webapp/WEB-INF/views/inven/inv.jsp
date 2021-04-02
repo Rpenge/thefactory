@@ -13,6 +13,16 @@
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents ">
 
+				재고조사
+
+
+				- 실사 데이터를 받아서 날자별, 매장별로 쌓는다
+				- 실사 현황테이블
+				seq, 날짜, 매장, 매장재고수량, 실사수량, pda확정여부
+
+
+
+
 				<div>
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 재고실사작업</span>
@@ -41,9 +51,7 @@
 							<th>등록자</th>
 							<td><input type="text" class="form-control" placeholder="M"></td>
 						</tr>
-
 					</table>
-
 				</div>
 
 
@@ -73,7 +81,7 @@
 					<table class="table custom-table-1 table-hover text-center custom-align-middle" style="min-width:1100px;">
 						<thead>
 							<tr class="pointer">
-								<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}})"></th>
+								<th><input type="checkbox"></th>
 								<th>실사일자</th>
 								<th>실사내역</th>
 								<th>시작일</th>
@@ -87,8 +95,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer" ng-init="value.isSelected = false;">
-								<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox({{value.assetManagementSeq}}, !{{value.isSelected}})" ></td>
+							<tr ng-repeat="(key, value) in [1,2,3,4,5,6,7,8,9,10]" class="pointer">
+								<td style="padding:25px;"><input type="checkbox"  ></td>
 								<td>2021.04.01</td>
 								<td>재고전체조사</td>
 								<td>2021.04.01</td>

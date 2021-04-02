@@ -66,9 +66,9 @@
     <!--브랜드 추가-->
     <insert id="brandSave" parameterType="java.util.Map">
         INSERT INTO TF_BRAND
-            (BRAND_KIND_CD, BRAND_NM, PRD_CNT, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
+            (BRAND_KIND_CD, BRAND_NM, CODE_ALIGN, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
         VALUES(
-            #{brandKindCd}, #{brandNm}, #{prdCnt}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
+            #{brandKindCd}, #{brandNm}, #{codeAlign}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
               )
     </insert>
 
@@ -76,8 +76,8 @@
     <update id="brandUpdate" parameterType="java.util.Map">
         UPDATE TF_BRAND
         SET
-          , BRAND_NM = #{brandNm}
-          , PRD_CNT = #{prdCnt}
+          BRAND_NM = #{brandNm}
+          , CODE_ALIGN = #{codeAlign}
           , CODE_LEVEL = #{codeLevel}
           , USE_YN = #{useYn}
           , MOD_ID = #{modId}

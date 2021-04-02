@@ -17,6 +17,7 @@
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;height:50px;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 입고 조회</span>
 
+
 <%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>--%>
 <%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>--%>
 					</div>

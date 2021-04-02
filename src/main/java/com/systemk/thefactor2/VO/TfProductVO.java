@@ -17,6 +17,7 @@ public class TfProductVO {
     private String brandMakeNm;     // 제조사 명
     private String orgCountryNm;    // 원산지 명
     private String brandNm;         // 브랜드 명
+    private String ecSizeNm;        // 사이즈 종류
     private Date   regDate;         // 등록일시
     private String regId;           // 등록자
     private Date   modDate;         // 수정일시

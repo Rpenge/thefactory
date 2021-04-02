@@ -36,6 +36,20 @@ public class ExcelController {
 		return map;
 	}
 
+	//엑셀파일 상품정보 저장
+	@RequestMapping("/productUpload")
+	public Map<String, String> productUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
+		String userId = (String) request.getSession().getAttribute("userId");
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			map = excelService.productExcelUpload(mf, userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("resultCode", "E");
+		}
+		return map;
+	}
+
 
 
 

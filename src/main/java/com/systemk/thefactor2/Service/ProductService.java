@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface ProductService {
 
-    public List<TfProductVO> productList() throws Exception;
+    public Map<String, Object> productList(Map param) throws Exception;
 
     public Map<String, Object> productSave(Map param) throws Exception;
 

@@ -13,6 +13,8 @@ public interface TfOutputMapper {
 
     List<TfOutputVO> outList(HashMap item);
 
+    TfOutputVO outWorkSearch(Map item);
+
     TfOutputVO outputSearch(String tagId);
 
     int outputAdd(HashMap item);

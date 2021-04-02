@@ -18,7 +18,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/inout/sales', {templateUrl:'/inout/sales', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inout/ioInfo', {templateUrl:'/inout/ioInfo', controller:'ioInfoController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
-		.when('/inven/inv', {templateUrl:'/inven/inv', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/inven/inv', {templateUrl:'/inven/inv', controller:'invController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.when('/inven/invInfo', {templateUrl:'/inven/invInfo', controller:'salesController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'stockController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})

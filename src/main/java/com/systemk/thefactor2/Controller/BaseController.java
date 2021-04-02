@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,12 +94,16 @@ public class BaseController {
 	}
 	//기초정보관리 - 브랜드관리 - 브랜드 추가
 	@RequestMapping(value="/brandSave", method = RequestMethod.POST)
-	public Map brandSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map brandSave(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("regId", (String)session.getAttribute("userId"));
 		return brandService.brandSave(map);
 	}
 	//기초정보관리 - 브랜드관리 - 브랜드 수정
 	@RequestMapping(value="/brandUpdate", method = RequestMethod.POST)
-	public Map brandUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map brandUpdate(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("modId", (String)session.getAttribute("userId"));
 		return brandService.brandUpdate(map);
 	}
 	//기초정보관리 - 브랜드관리 - 브랜드 삭제(update처리)
@@ -110,8 +115,9 @@ public class BaseController {
 
 	//기초정보관리 - 상품관리 - 상품 조회
 	@RequestMapping(value="/productList", method = RequestMethod.GET)
-	public List<TfProductVO> productList(HttpServletRequest request) throws Exception{
-		return productService.productList();
+	public Map<String, Object> productList(HttpServletRequest request) throws Exception{
+		Map param = RequestUtil.reqParamToMap(request);
+		return productService.productList(param);
 	}
 	//기초정보관리 - 상품관리 - 상품 추가
 	@RequestMapping(value="/productSave", method = RequestMethod.POST)
@@ -126,7 +132,6 @@ public class BaseController {
 	//기초정보관리 - 상품관리 - 상품 삭제(update처리)
 	@RequestMapping(value="/productDelete", method = RequestMethod.POST)
 	public Map productDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
-		List<Integer> list = (List)map.get("prList");
 		return productService.productDelete(map);
 	}
 

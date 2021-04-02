@@ -11,6 +11,7 @@ import com.systemk.thefactor2.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -174,17 +175,21 @@ public class ApiServiceImpl implements ApiService {
 		}else{
 			tagId = preTagId + String.format("%03d", Integer.parseInt(lastNum) + 1);
 		}
-		TfStockVO vo = tfStockMapper.findStockInfo(barcode);
+//		TfStockVO vo = tfStockMapper.findStockInfo(barcode);
+		Map mapData = tfProductMapper.prdAndStk(param);
+		String brand = (String)mapData.get("BRAND_KIND_CD");
+		String prdNm = (String)mapData.get("TF_PRD_NM");
 		try {
-			map.put("prdCd", vo.getTfPrdCd());
-			map.put("prdName", vo.getTfPrdNm());
-			map.put("prdSeason", vo.getTfPrdNm().split(" ")[0]);
+			map.put("prdCd", mapData.get("TF_PRD_CD"));
+			map.put("prdName", prdNm);
+			map.put("prdSeason", prdNm.split(" ")[0]);
 			map.put("tagId", tagId);
-			map.put("brand", brandService.codeToNm(vo.getBrandKindCd().substring(0, 2) + "0000"));
-			map.put("brandCd", vo.getBrandKindCd());
-			map.put("prdSize", vo.getPrdSize());
-			map.put("prdSizeCd", vo.getPrdSizeCd());
+			map.put("brand", brandService.codeToNm(brand.substring(0, 2) + "0000"));
+			map.put("brandCd", brand);
+			map.put("prdSize", mapData.get("PRD_SIZE"));
+//			map.put("prdSizeCd", vo.getPrdSizeCd());
 		}catch (Exception e){
+			e.printStackTrace();
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",map);
@@ -220,19 +225,22 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	//반품, 점간이동입고
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> inputReWork(Map param) throws Exception {
 		Map map = new HashMap();
 		Map outputData = outputService.outputSearch((String) param.get("tagId"));
 
 		if(outputData == null){
-			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
+			throw new Exception(ConstansConfig.NOT_FIND_OUTPUT_MSG);
+//			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
 		}
 
 		param.put("barcode", outputData.get("btPrdBarcode"));
 		Map mapData = tfProductMapper.prdAndStk(param);
 		if(mapData == null){
-			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
+//			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
+			throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
 		}
 
 		Date date = new Date();
@@ -253,6 +261,98 @@ public class ApiServiceImpl implements ApiService {
 		map.put("inType", 	param.get("state"));
 
 		tfInputMapper.inputRe((HashMap) map);
+		return ResultUtil.setCommonResult("S","성공하였습니다");
+	}
+
+	//출고테이블 tagId로 판매 데이터 조회
+	@Override
+	public Map<String, Object> saleDataSearch(List<Map<String, String>> param) throws Exception {
+		List<Map> resultList = new ArrayList<Map>();
+		for(Map paramMap : param){
+			Map map = new HashMap();
+			map.put("tagId", paramMap.get("tagId"));
+			map.put("stOutType", "0603");
+			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
+			Map resultMap = new HashMap();
+			if(vo == null){
+				resultMap.put("tagId", paramMap.get("tagId"));
+				resultMap.put("mappingYn", "N");
+				resultList.add(resultMap);
+				continue;
+			}
+			resultMap.put("prdNm", vo.getTfPrdNm());
+			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("mappingYn", "Y");
+			resultList.add(resultMap);
+		}
+
+		return ResultUtil.setCommonResult("S","성공하였습니다", resultList);
+	}
+
+	//출고테이블 tagId로 점간출고 데이터 조회
+	@Override
+	public Map<String, Object> moveOutDataSearch(List<Map<String, String>> param) throws Exception {
+		List<Map> resultList = new ArrayList<Map>();
+		for(Map paramMap : param){
+			Map map = new HashMap();
+			map.put("tagId", paramMap.get("tagId"));
+			map.put("stOutType", "060202");
+			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
+			Map resultMap = new HashMap();
+			if(vo == null){
+				resultMap.put("tagId", paramMap.get("tagId"));
+				resultMap.put("mappingYn", "N");
+				resultList.add(resultMap);
+				continue;
+			}
+			resultMap.put("prdNm", vo.getTfPrdNm());
+			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("mappingYn", "Y");
+			resultList.add(resultMap);
+		}
+
+		return ResultUtil.setCommonResult("S","성공하였습니다", resultList);
+	}
+
+	//반품, 점간이동입고
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception {
+
+		String resultCode = "";
+		String resultMessage = "";
+
+		for(Map param : paramList){
+			Map outputData = outputService.outputSearch((String) param.get("tagId"));
+			if(outputData == null){
+				throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
+			}
+			param.put("barcode", outputData.get("btPrdBarcode"));
+			Map mapData = tfProductMapper.prdAndStk(param);
+			if(mapData == null){
+				throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
+			}
+			Map map = new HashMap();
+			Date date = new Date();
+			map.put("ymd", StringUtil.dateFormatYMD(date));
+			map.put("userId", 	data.get("userId"));
+			map.put("brandCd", 	mapData.get("BRAND_KIND_CD"));
+			map.put("prdNm", 	mapData.get("TF_PRD_NM"));
+			map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));
+			map.put("prdCd", 	mapData.get("TF_PRD_CD"));
+			map.put("barcode", 	param.get("barcode"));
+			map.put("size", 	mapData.get("PRD_SIZE"));
+			map.put("tagId", 	param.get("tagId"));
+			map.put("storeCd", 	param.get("storeCd"));
+			map.put("storeNm", 	commService.codeToNm((String)param.get("storeCd")));
+			map.put("outStoreCd", 	outputData.get("outStoreCd"));
+			map.put("outStoreNm", 	outputData.get("outStoreNm"));
+			map.put("deviceGub",data.get("deviceGub"));
+			map.put("inType", 	param.get("state"));
+
+			tfInputMapper.inputRe((HashMap) map);
+
+		}
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
@@ -367,6 +467,34 @@ public class ApiServiceImpl implements ApiService {
 		}
 
 		return ResultUtil.setCommonResult("S","성공하였습니다");
+	}
+
+	@Override
+	public Map<String, Object> findAcStkList(Map param) throws Exception {
+		List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd"));
+
+		Map resultMap = new HashMap();
+		for(Map map : acList){
+			if(resultMap.containsKey(map.get("TF_PRD_BARCODE"))){
+				Map mapData = (Map) resultMap.get(map.get("TF_PRD_BARCODE"));
+				List tagList = (List) mapData.get("tagList");
+				tagList.add(map.get("TF_PRD_TAGID"));
+				mapData.put("tagList", tagList);
+				mapData.put("stockCount", tagList.size());
+			}else {
+				Map tempMap = new HashMap();
+				List tagList = new ArrayList<>();
+				tempMap.put("name", map.get("TF_PRD_NM"));
+				tempMap.put("size", map.get("PRD_SIZE"));
+				tempMap.put("barcode", map.get("TF_PRD_BARCODE"));
+				tagList.add(map.get("TF_PRD_TAGID"));
+				tempMap.put("stockCount", tagList.size());
+				tempMap.put("tagList", tagList);
+				resultMap.put(map.get("TF_PRD_BARCODE"), tempMap);
+			}
+		}
+		List list = new ArrayList<>(resultMap.values());
+		return ResultUtil.setCommonResult("S","성공하였습니다", list);
 	}
 
 	@Override

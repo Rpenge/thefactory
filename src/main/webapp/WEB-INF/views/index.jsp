@@ -42,10 +42,13 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/brandController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/productController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/salesController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/ioInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/inputController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/outputController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/inven/invController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
 <!--icon-->
 <link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
@@ -97,7 +100,7 @@
 					<div class="tri" ng-if="currentMenu.GROUP_CD == 'BASE'"></div>
 				</div>
 				<div class="navbar-header">
-					<a href="">입출고관리</a>
+					<a href="">입출고조회</a>
 					<div class="tri" ng-if="currentMenu.GROUP_CD == 'INOUT'"></div>
 				</div>
 				<div class="navbar-header">
@@ -112,17 +115,17 @@
 
 				<div class="dropdown-content" ng-style="dropDown">
 					<div  class="dropdown-board" >
-						<span>시스템 관리</span>
+						<span>시스템관리</span>
 						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'SYSTEM'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board" >
-						<span>기초정보 관리</span>
+						<span>기초정보관리</span>
 						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'BASE'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
 					<div class="dropdown-board" >
-						<span>입출고 관리</span>
+						<span>입출고조회</span>
 						<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'INOUT'"> &#176; {{value.PGM_NM}}</a>
 					</div>
 
@@ -253,13 +256,22 @@
 						<div class="d-flex" style="border-bottom: 1px solid #f1f1f1;margin-bottom: 4px;">
 							<span style="font-size:20px;margin: 12px 13px 0 0;">Quick Search</span>
 
-							<select class="form-control" ng-model="quickCommand" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCommand)">
-								<option value="IO1">입고관리</option>
-								<option value="IO2">출고관리</option>
-								<option value="IO3">판매/배송관리</option>
+							<select class="form-control" ng-model="quickCmd.cmd" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCmd.cmd)">
+								<option value="IO1">입고조회</option>
+								<option value="IO2">출고조회</option>
+								<option value="IO3">판매/배송조회</option>
 								<option value="IO4">입출고내역조회</option>
+								<option value="BS3">상품관리</option>
+								<option value="IV1">재고실사관리</option>
+								<option value="IV2">재고실사내역조회</option>
 								<option value="ST1">재고현황관리</option>
 							</select>
+
+<%--							<span class="p-2" style="font-size:16px;margin: 8px 12px 0 22px;">매장</span>--%>
+<%--							<select class="form-control" ng-model="quickSearch.storeCd" style="width: 120px;margin-top: 10px;margin-bottom:5px;height: 40px;">--%>
+<%--								<option value="">전체</option>--%>
+<%--								<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>--%>
+<%--							</select>--%>
 
 						</div>
 <%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
@@ -310,7 +322,7 @@
 									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
 								</span>
 							</div>
-							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCommand)" style="width:70px;margin:5px 30px;">검색</button>
+							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;">검색</button>
 						</div>
 
 
@@ -321,7 +333,7 @@
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
 								<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="qs1"></i>
 							</label>
-							<div style="width:100%;min-height:150px;background: white;position:absolute;top:180px;left:0px;z-index: 1;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
+							<div style="width:100%;min-height:150px;background: white;position:absolute;margin-top:65px;left:0px;z-index: 3;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
 								<div onclick="tableTdDel('qBrandTb');tableTdDel('lBrandTb')" ng-click="qs1=false;brandSelect()" style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;">X</div>
 								<table id="qBrandTb" style="width:98%;vertical-align: top;" ng-click="qs1= false">
 									<tr ng-repeat="(key, value) in brandList" ng-if="key % 6 == 0">
@@ -346,10 +358,10 @@
 
 							<input class="form-control" ng-model="quickSearch.prdSize" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
 
-							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCommand)" style="width:70px;margin:10px 30px;">검색</button>
+							<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:10px 30px;">검색</button>
 							<div class="d-flex" style="width:280px;margin: 10px;">
 								<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
-								<button class="btn" ng-click="goSearch(quickCommand, 'word')" style="position:relative;left:-40px;background: transparent;">
+								<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
 									<i class="xi-search" style="font-size: 20px;"></i>
 								</button>
 							</div>

@@ -12,6 +12,7 @@ import com.systemk.thefactor2.Service.ApiService;
 import com.systemk.thefactor2.Util.RequestUtil;
 import com.systemk.thefactor2.Util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -76,14 +77,37 @@ public class ApiCommonController {
         param.put("deviceGub", request.getHeader("type"));
         if(param.get("state").equals("060101") || param.get("state").equals("060103")){   // 신규입고, 입고
             return apiService.inputWork(param);
-        }else if(param.get("state").equals("060102") || param.get("state").equals("060104")){   //반품, 점간입고
-            return apiService.inputReWork(param);
         }else{
             return ResultUtil.setCommonResult("E", ConstansConfig.PDA_STATE_DATA_NONE_MSG);
         }
-
     }
 
+    //입고등록 - 리스트 처리
+    @RequestMapping(value = "/inputAddList", method = RequestMethod.POST)
+    public Map<String, Object> inputAddList(@RequestBody(required = false) List<Map> param, HttpServletRequest request) {
+        Map map = new HashMap();
+        map.put("userId",request.getHeader("id"));
+        map.put("deviceGub", request.getHeader("type"));
+        try {
+            return apiService.inputReWorkList(param, map);
+        }catch (Exception e){
+            return ResultUtil.setCommonResult("E", e.getMessage());
+        }
+    }
+
+
+    //반품입고 할 데이터 조회 (판매 데이터에서 조회)
+    @RequestMapping(value = "/saleDataSearch", method = RequestMethod.POST)
+    public Map<String, Object> saleDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
+        System.out.println(data);
+        return apiService.saleDataSearch(data);
+    }
+
+    //반품입고 할 데이터 조회 (점간출고 데이터에서 조회)
+    @RequestMapping(value = "/moveOutDataSearch", method = RequestMethod.POST)
+    public Map<String, Object> moveOutDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
+        return apiService.moveOutDataSearch(data);
+    }
 
     //판매/출고 - 판매 리스트
     @RequestMapping(value = "/outputList", method = RequestMethod.GET)
@@ -107,6 +131,13 @@ public class ApiCommonController {
     }
 
 
+
+    //재고실사정보 - 매장별 현재고 목록
+    @RequestMapping(value = "/stock", method = RequestMethod.GET)
+    public Map<String, Object> stock(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        return apiService.findAcStkList(param);
+    }
 
     //찾기 -
     @RequestMapping(value = "/find", method = RequestMethod.GET)

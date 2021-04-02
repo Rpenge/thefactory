@@ -142,7 +142,6 @@ public class InputServiceImpl implements InputService {
 	public Map<String, Object> inputDelete(Map param) throws Exception {
 		String userId = (String)param.get("userId");
 		List dList = (List)param.get("list");
-		System.out.println(dList);
 
 		List<TfInputVO> voList = tfInputMapper.inputDeleteList(dList);
 		for(TfInputVO vo : voList){

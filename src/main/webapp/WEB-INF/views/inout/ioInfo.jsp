@@ -21,8 +21,6 @@
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.sell}" ng-click="tabChange('sell')">판매/배송</button>
 					<div class="div-fade-in" ng-show="divFadeIn" style="width: 100%;height:100%;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;overflow: hidden;">
 
-
-
 						<span style="font-size:20px;font-weight: bold;">{{inView.ST_DATE | dateFormCustom:'.'}} {{inView.STORE_CD | code:store}}  {{inView.ST_TYPE | code:workM}}내역</span>
 
 						<div ng-if="subList.length == 0">

@@ -3,7 +3,6 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 		pageInfo($rootScope, $location); //현재페이지 정보
 
-
 		if($rootScope.searchMove == 1){									//페이지 이동후 검색
 			$scope.search = {};
 
@@ -12,6 +11,7 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 			$scope.search['startDate'] = startDate;
 			$scope.search['endDate'] = endDate;
+			$scope.search['STORE_CD'] = $rootScope.quickSearch.storeCd;
 
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inout/inoutList', param );
@@ -19,8 +19,6 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 			httpGetList($http, $scope,'/inout/inoutList' );
 		}
 		$rootScope.searchMove = false;
-
-		// httpGetList($http, $scope, '/inout/inoutList');
 
 
 		tableAbs(); //테이블 병합

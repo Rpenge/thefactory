@@ -13,4 +13,6 @@ public interface ExcelService {
 
     Map stockExcelUpload(MultipartFile mf, String userId) throws Exception;
 
+    Map productExcelUpload(MultipartFile mf, String userId) throws Exception;
+
 }

@@ -5,6 +5,7 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 
 		pageInfo($rootScope, $location);
 
+		var Discordance = false;
 
 		// httpGetList($http, $scope,'/stock/stockList' );
 
@@ -26,7 +27,6 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			httpGetList($http, $scope,'/stock/stockList', param );
 		}else if($rootScope.searchMove == 2) { //단어 검색
 			const param = generateParam($rootScope.quickSearchWord);
-			console.log(param);
 			httpGetList($http, $scope,'/stock/stockList', param )
 		}else{
 			httpGetList($http, $scope,'/stock/stockList' );
@@ -36,10 +36,15 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		//차이 발생 목록
 		$scope.stkDif = function(command){
 			if(command == 'dis') {
-				const cmd = {"ex": "true"};
-				const param = generateParam(cmd);
+				Discordance = true;
+				$scope.search['ex'] = true;
+				$scope.search['page'] = 0;
+				const param = generateParam($scope.search);
 				httpGetList($http, $scope, '/stock/stockList', param);
 			}else{
+				Discordance = false;
+				$scope.search['ex'] = null;
+				$scope.search['page'] = 0;
 				const param = generateParam($scope.search);
 				httpGetList($http, $scope,'/stock/stockList', param );
 			}
@@ -49,6 +54,11 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		$scope.goPage = function(page){
 			if($scope.current == page || $scope.end < page || page == 0){
 				return;
+			}
+			if(Discordance){
+				$scope.search['ex'] = true;
+			}else{
+				$scope.search['ex'] = null;
 			}
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
@@ -95,17 +105,5 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			});
 		}
 
-		// function uploadReg(data){
-		// 	$http({
-		// 		method : 'POST',
-		// 		url : "/uploadReg",
-		// 		data : data,
-		// 	}).success(function(data){
-		// 		modalAlert($uibModal, "어플리케이션 등록", "업로드 완료 되었습니다");
-		// 		$uibModalInstance.close();
-		// 	}).error(function(data){
-		// 		modalAlert($uibModal, "어플리케이션 등록", "업로드 데이터 등록 실패");
-		// 	});
-		// }
 
 }]);

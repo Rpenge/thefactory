@@ -21,11 +21,19 @@ public interface ApiService {
 
     public Map<String, Object> inputReWork(Map param) throws Exception;
 
+    public Map<String, Object> saleDataSearch(List<Map<String, String>> param) throws Exception;
+
+    public Map<String, Object> moveOutDataSearch(List<Map<String, String>> param) throws Exception;
+
+    public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception;
+
     Map<String, Object> outputList(Map param) throws Exception;
 
     public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception;
 
     public Map<String, Object> outputAdd(List<Map<String, String>> paramList, String userId, String device) throws Exception;
+
+    public Map<String, Object> findAcStkList(Map param) throws Exception;
 
     public Map<String, Object> findStock(Map param) throws Exception;
 

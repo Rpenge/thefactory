@@ -70,28 +70,28 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box" style="overflow: auto;">
-					<table class="table-bordered table-striped-odd" id="listTable" style="width:1625px;text-align: center;" >
+					<table class="table-bordered table-striped-odd" id="listTable" style="width:1450px;text-align: center;" >
 						<thead style="background: whitesmoke;">
 							<tr>
-								<th rowspan="2" style="width:90px;">No</th>
-								<th rowspan="2" style="width:310px;">품목명</th>
-								<th rowspan="2" style="width:110px;">매장</th>
-								<th rowspan="2" style="width:150px;">브랜드</th>
-								<th rowspan="2" style="width:100px;">성별</th>
-								<th rowspan="2" style="width:100px;">상품구분</th>
-								<th rowspan="2" style="width:110px;">사이즈</th>
+								<th rowspan="2" style="width:80px;">No</th>
+								<th rowspan="2" style="width:275px;">품목명</th>
+								<th rowspan="2" style="width:90px;">매장</th>
+								<th rowspan="2" style="width:140px;">브랜드</th>
+								<th rowspan="2" style="width:90px;">성별</th>
+								<th rowspan="2" style="width:90px;">상품구분</th>
+								<th rowspan="2" style="width:80px;">사이즈</th>
 								<th style="height: 40px;">EC재고</th>
 								<th colspan="6">RFID 재고관리 시스템</th>
 								<th rowspan="2">재고차이</th>
 							</tr>
 							<tr>
-								<th style="height: 40px;width:80px;">현재고</th>
-								<th style="width:80px;">입고</th>
-								<th style="width:80px;">츨고</th>
-								<th style="width:80px;font-size: 13px;">판매(매장)</th>
+								<th style="height:40px;width:75px;">현재고</th>
+								<th style="width:75px;">입고</th>
+								<th style="width:75px;">츨고</th>
+								<th style="width:75px;font-size: 13px;">판매(매장)</th>
 								<th style="width:80px;font-size: 13px;">판매(온라인)</th>
-								<th style="width:80px;">실사수량</th>
-								<th style="width:80px;">실재고</th>
+								<th style="width:75px;">실사수량</th>
+								<th style="width:75px;">실재고</th>
 							</tr>
 						</thead>
 						<tbody>

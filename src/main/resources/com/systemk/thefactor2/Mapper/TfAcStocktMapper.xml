@@ -6,6 +6,9 @@
 
 
 
+    <select id="findAcStock" resultType="java.util.Map" parameterType="String">
+        select * from tf_ac_stock tas left outer join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE and tas.STORE_CD = ts.STOCK_STORE_CD where tas.STORE_CD = #{item}
+    </select>
 
     <select id="findStockByTagId" resultType="TfAcStockVO" parameterType="java.util.Map">
         select * from tf_ac_stock where TF_PRD_TAGID = #{item};

@@ -3,66 +3,94 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfProductMapper">
     <!--상품 마스터 전체 목록-->
-    <select id="productList" resultType="TfBrandVO">
+<!--    <select id="productList" resultType="TfBrandVO">-->
+<!--        SELECT-->
+<!--            PRD_REG_SEQ-->
+<!--             , BRAND_KIND_CD-->
+<!--             , EC_PRD_CD-->
+<!--             , TF_PRD_CD-->
+<!--             , EC_PRD_NM-->
+<!--             , TF_PRD_NM-->
+<!--             , PRD_MODEL_NM-->
+<!--             , BRAND_MAKE_NM-->
+<!--             , ORG_COUNTRY_NM-->
+<!--             , BRAND_NM-->
+<!--             , REG_DATE-->
+<!--             , REG_ID-->
+<!--             , MOD_DATE-->
+<!--             , MOD_ID-->
+<!--             , USE_YN-->
+<!--        FROM-->
+<!--            TF_PRODUCT-->
+<!--        WHERE 1=1-->
+<!--        ORDER BY REG_DATE DESC, MOD_DATE DESC-->
+<!--    </select>-->
+    <select id="productList" resultType="TfProductVO" parameterType="java.util.HashMap">
         SELECT
-            PRD_REG_SEQ
-             , BRAND_KIND_CD
-             , EC_PRD_CD
-             , TF_PRD_CD
-             , EC_PRD_NM
-             , TF_PRD_NM
-             , PRD_MODEL_NM
-             , BRAND_MAKE_NM
-             , ORG_COUNTRY_NM
-             , BRAND_NM
-             , REG_DATE
-             , REG_ID
-             , MOD_DATE
-             , MOD_ID
-             , USE_YN
+        *
         FROM
-            TF_PRODUCT
-        WHERE 1=1
-        ORDER BY REG_DATE DESC, MOD_DATE DESC
+        TF_PRODUCT
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by PRD_REG_SEQ desc
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test = "total != null">
+            </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
     </select>
+
+
     <!--상품 마스터 등록-->
     <insert id="productSave" parameterType="java.util.Map">
         INSERT INTO TF_PRODUCT
-        (BRAND_KIND_CD, EC_PRD_CD, TF_PRD_CD, EC_PRD_NM, TF_PRD_NM, PRD_MODEL_NM, BRAND_MAKE_NM, ORG_COUNTRY_NM, BRAND_NM, REG_DATE, REG_ID, USE_YN)
+        (BRAND_KIND_CD, EC_PRD_CD, TF_PRD_CD, EC_PRD_NM, TF_PRD_NM, PRD_MODEL_NM, BRAND_MAKE_NM, ORG_COUNTRY_NM, BRAND_NM, EC_SIZE_NM, REG_DATE, REG_ID, USE_YN)
         VALUES(
-                  #{brandKindCd}, #{ecPrdCd}, #{tfPrdCd}, #{ecPrdNm}, #{tfPrdNm}, #{prdModelNm}, #{brandMakeNm}, #{orgCountryNm}, #{brandNm}, SYSDATE(), #{regId}, #{useYn}
+                  #{brandKindCd}, #{ecPrdCd}, #{tfPrdCd}, #{ecPrdNm}, #{tfPrdNm}, #{prdModelNm}, #{brandMakeNm}, #{orgCountryNm}, #{brandNm}, #{ecSizeNm} , SYSDATE(), #{regId}, #{useYn}
               )
     </insert>
     <!--상품 마스터 수정-->
     <update id="productUpdate" parameterType="java.util.Map">
         UPDATE TF_PRODUCT
         SET
-            BRAND_KIND_CD = #{brandKindCd}
-          , EC_PRD_CD = #{ecPrdCd}
-          , TF_PRD_CD = #{tfPrdCd}
-          , EC_PRD_NM = #{ecPrdNm}
+            EC_PRD_NM = #{ecPrdNm}
           , TF_PRD_NM = #{tfPrdNm}
           , PRD_MODEL_NM = #{prdModelNm}
           , BRAND_MAKE_NM = #{brandMakeNm}
           , ORG_COUNTRY_NM = #{orgCountryNm}
-          , BRAND_NM = #{brandNm}
+          , EC_SIZE_NM = #{ecSizeNm}
           , MOD_DATE = SYSDATE()
           , MOD_ID = #{modId}
           , USE_YN = #{useYn}
         WHERE
-            PRD_REG_SEQ = #{prdRegSeq}
+            PRD_REG_SEQ = ${prdRegSeq}
     </update>
     <!--상품 마스터 삭제-->
-    <update id="productDelete" parameterType="java.util.Map">
-        UPDATE TF_PRODUCT
-        SET
-            USE_YN = 'N'
-        WHERE
-            PRD_REG_SEQ = #{prdRegSeq}
-    </update>
+<!--    <update id="productDelete" parameterType="java.util.Map">-->
+<!--        UPDATE TF_PRODUCT-->
+<!--        SET-->
+<!--            USE_YN = 'N'-->
+<!--        WHERE-->
+<!--            PRD_REG_SEQ = #{prdRegSeq}-->
+<!--    </update>-->
+    <delete id="productDelete" parameterType="Integer">
+        delete from TF_PRODUCT where PRD_REG_SEQ = ${prdRegSeq}
+    </delete>
 
     <select id="prdAndStk" resultType="Map" parameterType="java.util.Map">
-        select * from tf_product tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
+        select * from TF_PRODUCT tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
         where ts.TF_PRD_BARCODE = #{barcode} limit 1
     </select>
 
@@ -70,6 +98,29 @@
         select ts.TF_PRD_NM as name, PRD_SIZE as size, TF_PRD_BARCODE as barcode from tf_product tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
         where EC_PRD_CD = #{item} group by TF_PRD_BARCODE
     </select>
+
+    <select id="productCheck" resultType="Integer" parameterType="java.util.Map">
+        select count(*) from TF_PRODUCT
+        WHERE TF_PRD_CD = #{tfPrdCd}
+    </select>
+
+    <update id="prdExcelUpdate" parameterType="java.util.Map">
+        UPDATE TF_PRODUCT
+        SET
+            BRAND_KIND_CD = #{brandKindCd}
+          , EC_PRD_NM = #{ecPrdNm}
+          , TF_PRD_NM = #{tfPrdNm}
+          , PRD_MODEL_NM = #{prdModelNm}
+          , BRAND_MAKE_NM = #{brandMakeNm}
+          , ORG_COUNTRY_NM = #{orgCountryNm}
+          , BRAND_NM = #{brandNm}
+          , EC_SIZE_NM = #{ecSizeNm}
+          , MOD_DATE = SYSDATE()
+          , MOD_ID = #{regId}
+          , USE_YN = #{useYn}
+        WHERE
+            TF_PRD_CD = #{tfPrdCd}
+    </update>
 
 
 </mapper>
