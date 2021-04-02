@@ -977,7 +977,6 @@ a.nav-link{
 .scroll-custom::-webkit-scrollbar-thumb {
 	border-radius: 3px;
 	background-color: lightgray;
-	visibility: hidden;
 }
 
 .scroll-custom::-webkit-scrollbar-button {

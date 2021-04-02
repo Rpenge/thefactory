@@ -213,3 +213,4 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 
 
 }]);
+

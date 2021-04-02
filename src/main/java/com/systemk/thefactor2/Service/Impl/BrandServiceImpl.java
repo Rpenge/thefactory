@@ -1,8 +1,11 @@
 package com.systemk.thefactor2.Service.Impl;
 
 
+import com.systemk.thefactor2.Mapper.PageMapper;
 import com.systemk.thefactor2.Mapper.TfBrandMapper;
 import com.systemk.thefactor2.Service.BrandService;
+import com.systemk.thefactor2.Util.MybatisUtil;
+import com.systemk.thefactor2.Util.StringUtil;
 import com.systemk.thefactor2.VO.TfBrandVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ public class BrandServiceImpl implements BrandService {
 
 	@Autowired
 	private TfBrandMapper tfBrandMapper;
+
+	@Autowired
+	private PageMapper pageMapper;
 
 	@Override
 	public List<TfBrandVO> findBrand() throws Exception {
@@ -45,8 +51,28 @@ public class BrandServiceImpl implements BrandService {
 
 	// 브랜드 전체 목록
 	@Override
-	public List<TfBrandVO> brandAllList() throws Exception {
-		return tfBrandMapper.brandAllList();
+	public Map<String, Object> brandAllList(Map param) throws Exception {
+		MybatisUtil mu = new MybatisUtil();
+		mu.setTable("tf_brand");
+
+		for (Object key : param.keySet()) {
+			if (key.equals("word")) {
+				mu.addLike("brand_kind_cd", (String) param.get(key));
+				mu.addLike("brand_nm", (String) param.get(key));
+			}
+			if (key.equals("size") || key.equals("page") || key.equals("word")) {
+				continue;
+			} else {
+				mu.addEqual(StringUtil.camelToSnake((String) key), (String) param.get(key));
+			}
+		}
+		mu.setTotalElements(pageMapper.pageRecord(mu.getTableSearch()));
+		if (param.get("page")!=null)
+			mu.setPage(Integer.parseInt((String) param.get("page")));
+		if (param.get("size")!=null)
+			mu.setSize(Integer.parseInt((String) param.get("size")));
+		mu.setContent(tfBrandMapper.brandAllList(mu.getTableSearch()));
+		return mu.getList();
 	}
 	// 브랜드 추가
 	@Override

@@ -87,10 +87,12 @@ public class BaseController {
 		return commService.commDelete(map);
 	}
 
-	//기초정보관리 - 브랜드관리 - 브랜드 조회
+
+	//기초정보관리 - 브랜드관리 - 브랜드 조회 목록
 	@RequestMapping(value="/brandList", method = RequestMethod.GET)
-	public List<TfBrandVO> brandAllList(HttpServletRequest request) throws Exception{
-		return brandService.brandAllList();
+	public Map<String, Object> brandAllList(HttpServletRequest request) throws Exception{
+		Map param = RequestUtil.reqParamToMap(request);
+		return brandService.brandAllList(param);
 	}
 	//기초정보관리 - 브랜드관리 - 브랜드 추가
 	@RequestMapping(value="/brandSave", method = RequestMethod.POST)

@@ -43,14 +43,12 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 			}
 		}
 
-
 		$scope.bclick = function(value){
 			console.log(value);
 			$scope.form.bCommCd = value.commCd;
 			$scope.form.bCommCdNm = value.commCdNm;
 			$scope.form.bUseYn = value.useYn;
 		}
-
 		$scope.mclick = function(value) {
 			console.log(value);
 			$scope.form.mCommCd = value.commCd;
@@ -58,7 +56,6 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 			$scope.form.mCodeLevel = value.codeLevel;
 			$scope.form.mUseYn = value.useYn;
 		}
-
 		$scope.sclick = function(value) {
 			console.log(value);
 			$scope.form.sCommCd = value.commCd;

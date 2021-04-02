@@ -146,6 +146,11 @@ app.filter('YnWord', function() {
                 if(data == 'Y') return '사용';
                 else if(data == 'N') return '미사용';
             };
+            case 3: {
+                if (data == 'B') return '대분류';
+                else if (data == 'M') return '중분류';
+                else if (data == 'S') return '소분류';
+            }
         }
     };
 });
