@@ -6,7 +6,14 @@
     <select id="brandList" resultType="TfBrandVO">
        SELECT * FROM TF_BRAND
        WHERE CODE_LEVEL = 'B'
+       AND USE_YN = 'Y'
        ORDER BY BRAND_KIND_CD ASC
+    </select>
+
+    <select id="brandTotalList" resultType="TfBrandVO">
+        SELECT * FROM TF_BRAND
+        WHERE CODE_LEVEL = 'B'
+        ORDER BY BRAND_KIND_CD ASC
     </select>
     <!--성별중분류-->
     <select id="genderList" resultType="TfBrandVO" parameterType="String">
@@ -78,9 +85,9 @@
     <!--브랜드 추가-->
     <insert id="brandSave" parameterType="java.util.Map">
         INSERT INTO TF_BRAND
-            (BRAND_KIND_CD, BRAND_NM, CODE_ALIGN, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
+            (BRAND_KIND_CD, BRAND_NM, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
         VALUES(
-            #{brandKindCd}, #{brandNm}, #{codeAlign}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
+            #{brandKindCd}, #{brandNm}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
               )
     </insert>
 
@@ -89,7 +96,6 @@
         UPDATE TF_BRAND
         SET
           BRAND_NM = #{brandNm}
-          , CODE_ALIGN = #{codeAlign}
           , CODE_LEVEL = #{codeLevel}
           , USE_YN = #{useYn}
           , MOD_ID = #{modId}

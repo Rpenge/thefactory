@@ -13,6 +13,8 @@ public interface TfCommCodeMapper {
 
     List<TfCommCodeVO> commList();
 
+    List<TfCommCodeVO> commTotalList();
+
     List<TfCommCodeVO> findList(HashMap item);
 
     List<TfCommCodeVO> commBList();

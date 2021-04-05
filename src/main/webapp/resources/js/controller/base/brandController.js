@@ -4,10 +4,8 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 		pageInfo($rootScope, $location); //현재페이지 정보
 		$scope.inView = {};
 
-		$http.get('/member/getCode').success(function(data) {
-			$rootScope.commCode = data.commCode;
+		$http.get('/member/getTotBrand').success(function(data) {
 			$rootScope.brandList = data.brandList;
-			code($rootScope);
 		});
 
 		//대분류

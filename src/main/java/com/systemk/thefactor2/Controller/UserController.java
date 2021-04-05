@@ -91,6 +91,20 @@ public class UserController {
 		return resultMap;
 	}
 
+	@RequestMapping("/getTotCode")
+	public Map getTotCode() throws Exception{
+		HashMap resultMap = new HashMap<>();
+		resultMap.put("commCode", commService.commTotList());
+		return resultMap;
+	}
+
+	@RequestMapping("/getTotBrand")
+	public Map getTotBrand() throws Exception{
+		HashMap resultMap = new HashMap<>();
+		resultMap.put("brandList", brandService.findTotalBrand());
+		return resultMap;
+	}
+
 	//브랜드 하위 정보 불러오기
 	@RequestMapping(value = "/brandSub", method = RequestMethod.GET)
 	public Map getBrandSub(HttpServletRequest request) throws Exception{

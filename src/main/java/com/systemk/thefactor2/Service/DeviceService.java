@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface DeviceService {
-    public List<TfDeviceVO> deviceList() throws Exception;
+    public Map<String, Object> deviceList(Map param) throws Exception;
 
     public Map<String, Object> deviceSave(Map param) throws Exception;
 

@@ -96,8 +96,8 @@
                             <td><input type="text" class="form-control" ng-model="MGub.brandNm"></td>
                         </tr>
                         <tr>
-                            <th>LEVEL</th>
-                            <td><input type="text" class="form-control" ng-model="MGub.codeAlign"></td>
+<%--                            <th>LEVEL</th>--%>
+<%--                            <td><input type="text" class="form-control" ng-model="MGub.codeAlign"></td>--%>
                             <th>사용여부</th>
                             <td>
                                 <select class="form-control" ng-model="MGub.useYn">
@@ -154,8 +154,8 @@
                             <td><input type="text" class="form-control" ng-model="SGub.brandNm"></td>
                         </tr>
                         <tr>
-                            <th>LEVEL</th>
-                            <td><input type="text" class="form-control" ng-model="SGub.codeAlign"></td>
+<%--                            <th>정렬</th>--%>
+<%--                            <td><input type="text" class="form-control" ng-model="SGub.codeAlign"></td>--%>
                             <th>사용여부</th>
                             <td>
                                 <select class="form-control" ng-model="SGub.useYn">
@@ -169,10 +169,10 @@
                     <div class="table-box scroll-custom" style="height: 220px;border-top:1px solid whitesmoke;border-bottom:1px solid whitesmoke;">
                         <table class="table-bordered" style="width: 99.5%;text-align: center;font-size: 14px;;">
                             <thead>
-                            <th style="width:15%">NO</th>
-                            <th style="width:25%">코드</th>
-                            <th style="width:40%;">코드명</th>
-                            <th style="width:20%">사용여부</th>
+                                <th style="width:15%">NO</th>
+                                <th style="width:25%">코드</th>
+                                <th style="width:40%;">코드명</th>
+                                <th style="width:20%">사용여부</th>
                             </thead>
                             <tbody class="pointer">
                             <tr ng-repeat="(key, value) in clsList" style="height: 40px;" ng-class="clickInit(key)">
@@ -201,7 +201,7 @@
                         <th style="width:8%">성별</th>
                         <th style="width:10%;">상품분류</th>
                         <th style="width:10%;">분류</th>
-                        <th style="width:5%;">LEVEL</th>
+<%--                        <th style="width:5%;">LEVEL</th>--%>
                         <th style="width:8%">등록자</th>
                         <th style="width:10%">등록일자</th>
                         <th style="width:8%">수정자</th>
@@ -215,7 +215,7 @@
                             <td><span ng-if="value.codeLevel == 'M'">{{value.brandNm}}</span></td>
                             <td><span ng-if="value.codeLevel == 'S'">{{value.brandNm}}</span></td>
                             <td>{{value.codeLevel | codeLevelChange}}</td>
-                            <td>{{value.codeAlign}}</td>
+<%--                            <td>{{value.codeAlign}}</td>--%>
                             <td>{{value.regId}}</td>
                             <td>{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
                             <td>{{value.modId}}</td>

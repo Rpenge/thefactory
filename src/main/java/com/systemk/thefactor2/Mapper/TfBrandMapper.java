@@ -13,6 +13,7 @@ public interface TfBrandMapper {
 
     // 브랜드 전체목록
     List<TfBrandVO> brandAllList(HashMap item);
+
     // 브랜드 추가
     int brandSave(Map item);
     // 브랜드 수정
@@ -21,6 +22,8 @@ public interface TfBrandMapper {
     int brandDelete(Map item);
 
     List<TfBrandVO> brandList();
+
+    List<TfBrandVO> brandTotalList();
 
     List<TfBrandVO> brandSubList(String item);
 

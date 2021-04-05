@@ -72,12 +72,16 @@ public class BaseController {
 	}
 	//기초정보관리 - 코드관리 - 코드 추가
 	@RequestMapping(value="/commSave", method = RequestMethod.POST)
-	public Map commSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map commSave(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("regId", (String)session.getAttribute("userId"));
 		return commService.commSave(map);
 	}
 	//기초정보관리 - 코드관리 - 코드 수정
 	@RequestMapping(value="/commUpdate", method = RequestMethod.POST)
-	public Map commUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map commUpdate(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("modId", (String)session.getAttribute("userId"));
 		return commService.commUpdate(map);
 	}
 	//기초정보관리 - 코드관리 - 코드 삭제(update처리)
@@ -139,23 +143,27 @@ public class BaseController {
 
 	//기초정보관리 - 디바이스관리 - 디바이스 조회
 	@RequestMapping(value="/deviceList", method = RequestMethod.GET)
-	public List<TfDeviceVO> deviceList(HttpServletRequest request) throws Exception{
-		return deviceService.deviceList();
+	public Map<String, Object> deviceList(HttpServletRequest request) throws Exception{
+		Map param = RequestUtil.reqParamToMap(request);
+		return deviceService.deviceList(param);
 	}
 	//기초정보관리 - 디바이스관리 - 디바이스 추가
 	@RequestMapping(value="/deviceSave", method = RequestMethod.POST)
-	public Map deviceSave(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map deviceSave(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("regId", (String)session.getAttribute("userId"));
 		return deviceService.deviceSave(map);
 	}
 	//기초정보관리 - 디바이스관리 - 디바이스 수정
 	@RequestMapping(value="/deviceUpdate", method = RequestMethod.POST)
-	public Map deviceUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
+	public Map deviceUpdate(@RequestBody(required = false) Map<String, String> map, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		map.put("modId", (String)session.getAttribute("userId"));
 		return deviceService.deviceUpdate(map);
 	}
 	//기초정보관리 - 디바이스관리 - 디바이스 삭제(update처리)
 	@RequestMapping(value="/deviceDelete", method = RequestMethod.POST)
 	public Map deviceDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
-		List<Integer> list = (List)map.get("prList");
 		return deviceService.deviceDelete(map);
 	}
 }

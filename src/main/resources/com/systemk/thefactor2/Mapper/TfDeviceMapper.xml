@@ -3,28 +3,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfDeviceMapper">
     <!--디바이스 전체 목록-->
+<!--    <select id="deviceList" resultType="TfDeviceVO">-->
+<!--        SELECT-->
+<!--            DEVICE_SEQ-->
+<!--             , STORE_CD-->
+<!--             , STORE_NM-->
+<!--             , DEVICE_GUB-->
+<!--             , SERIAL_NO-->
+<!--             , MODEL_NO-->
+<!--             , SET_IP-->
+<!--             , MAC_NO-->
+<!--             , SET_NAME-->
+<!--             , SET_DATE-->
+<!--             , DEVICE_STAT-->
+<!--             , COMM_TYPE-->
+<!--             , MANUFACT-->
+<!--             , REG_DATE-->
+<!--             , REG_ID-->
+<!--             , MOD_DATE-->
+<!--             , MOD_ID-->
+<!--        FROM TF_DEVICE-->
+<!--        WHERE 1=1-->
+<!--        ORDER BY REG_DATE DESC, MOD_DATE DESC-->
+<!--    </select>-->
     <select id="deviceList" resultType="TfDeviceVO">
         SELECT
-            DEVICE_SEQ
-             , STORE_CD
-             , STORE_NM
-             , DEVICE_GUB
-             , SERIAL_NO
-             , MODEL_NO
-             , SET_IP
-             , MAC_NO
-             , SET_NAME
-             , SET_DATE
-             , DEVICE_STAT
-             , COMM_TYPE
-             , MANUFACT
-             , REG_DATE
-             , REG_ID
-             , MOD_DATE
-             , MOD_ID
-        FROM TF_DEVICE
-        WHERE 1=1
-        ORDER BY REG_DATE DESC, MOD_DATE DESC
+        *
+        FROM
+        TF_DEVICE
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by DEVICE_SEQ desc
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
     </select>
     <!--디바이스 등록-->
     <insert id="deviceSave" parameterType="java.util.Map">
@@ -56,15 +75,18 @@
             DEVICE_SEQ = #{deviceSeq}
     </update>
     <!--디바이스 폐기-->
-    <update id="deviceDelete" parameterType="java.util.Map">
-        UPDATE TF_DEVICE
-        SET
-            DEVICE_STAT = #{deviceStat}
-          , MOD_DATE = SYSDATE()
-          , MOD_ID = #{modId}
-        WHERE
-            DEVICE_SEQ = #{deviceSeq}
-    </update>
+    <delete id="deviceDelete" parameterType="Integer">
+        delete from TF_DEVICE where DEVICE_SEQ = ${deviceSeq}
+    </delete>
+<!--    <update id="deviceDelete" parameterType="java.util.Map">-->
+<!--        UPDATE TF_DEVICE-->
+<!--        SET-->
+<!--            DEVICE_STAT = #{deviceStat}-->
+<!--          , MOD_DATE = SYSDATE()-->
+<!--          , MOD_ID = #{modId}-->
+<!--        WHERE-->
+<!--            DEVICE_SEQ = #{deviceSeq}-->
+<!--    </update>-->
 
     <select id="serialSearch" resultType="TfDeviceVO" parameterType="java.util.Map">
         SELECT

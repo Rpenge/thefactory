@@ -13,6 +13,7 @@ function userLoginCheck($http, $rootScope,$window, $location){
 //현재페이지 정보 저장
 function pageInfo($rootScope, $location){
 
+
 	if($rootScope.topMenu) {
 		for (var value of $rootScope.topMenu) {
 			if (value.PGM_URL == $location.url()) {
@@ -313,6 +314,16 @@ function formatDate3(date) {
 	return result;
 }
 
+//yyyy-MM-dd HH:mm:ss
+function formatDate4(date) {
+	var tostr = date.toString()
+	var month = '' + (date.getMonth() + 1);
+	var tostr = tostr.split(' ');
+
+	if (month.length < 2) month = '0' + month;
+	var result = tostr[3]+'-'+month+'-'+tostr[2] +' '+tostr[4];
+	return result;
+}
 
 function listGb(path, search ){
 	var listGb;
@@ -482,7 +493,6 @@ function logout(http, rootScope, location) {
 };
 
 
-
 //테이블 tr 선택효과
 function selectTr(td){
 	const tr = td.parent();
@@ -518,10 +528,12 @@ function selectTd(td){
 function code(rootScope) {
 	rootScope.grade = []; // 권한목록
 	rootScope.store = []; // 매장목록
-	rootScope.device = []; // 매장목록
+	rootScope.device = []; //장비구분
 	rootScope.workM = []; // 작업대분류
 	rootScope.workS = []; // 작업소분류
 	rootScope.prdSize = []; // 상품사이즈
+	rootScope.deviceStat = []; // 장비상태
+	rootScope.commType = []; // 통신구분
 	for (value of rootScope.commCode) {
 		var bcd = value.commCd.substr(0, 2);
 		var mcd = value.commCd.substr(2, 2);
@@ -532,14 +544,18 @@ function code(rootScope) {
 			rootScope.store.push(value);
 		} else if (bcd == '02' && mcd == '01' && scd != '00') { // 장비구분
 			rootScope.device.push(value);
-		}
-		else if (bcd == '06' && mcd != '00' && scd == '00') { // 작업중분류
+		} else if (bcd == '06' && mcd != '00' && scd == '00') { // 작업중분류
 			rootScope.workM.push(value);
-		}else if (bcd == '06' && scd != '00') { // 작업소분류
+		} else if (bcd == '06' && scd != '00') { // 작업소분류
 			rootScope.workS.push(value);
-		}
-		else if (bcd == '05' && scd != '00') { // 장비구분
+		} else if (bcd == '05' && scd != '00') { // 장비구분
 			rootScope.prdSize.push(value);
+		}
+		else if (bcd == '02' && mcd == '03' && scd != '00') { // 장비상태
+			rootScope.deviceStat.push(value);
+		}
+		else if (bcd == '02' && mcd == '04' && scd != '00') { // 장비상태
+			rootScope.commType.push(value);
 		}
 	}
 }

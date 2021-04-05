@@ -2,90 +2,211 @@
 app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-		pageInfo($rootScope, $location); //현재페이지 정보
-		httpGetList($http, $scope,'/base/findList' ); //코드리스트 조회
+		pageInfo($rootScope, $location);
+		$scope.inView = {};
+		console.log(document.referrer);
 
-		//페이지 이동
-		$scope.goPage = function(page){
-			if($scope.current == page || $scope.end < page || page == 0){
-				return;
+		$http.get('/member/getTotCode').success(function(data) {
+			$rootScope.commCode = data.commCode;
+		});
+
+		//대분류
+		$scope.esB = {'newForm':false,'modForm':false};
+		$scope.formChangeB = function(command, data){
+
+			if(command == 'reset'){
+				$scope.esB ={};
+				$scope.esB.newForm = true;
+				var maxNum = '010000';
+				for(const value of $scope.commCode){
+					if(value.commCd > maxNum){
+						maxNum = value.commCd ;
+					}
+				}
+				maxNum = pad(((maxNum.substring(0,2)*1) + 1),2) + '0000';
+				$scope.BGub = {'useYn':'Y', 'commCd':maxNum};
+			}else if(command == 'mod'){
+				$scope.esB ={};
+				$scope.esB.modForm = true;
+				$scope.genderList = [];
+				const formData = {}
+				for(const key in data){
+					formData[key] = data[key];
+				}
+				$scope.BGub = formData;
+				$scope.inView.BGubCd = formData.commCd;
+				$scope.inView.BGubCdNm = formData.commCdNm;
+
+				$scope.MCode = [];
+				$scope.commList = [];
+				const currentCode = formData.commCd.substr(0, 2);
+				for(value of $rootScope.commCode){
+					if(value.commCd.indexOf(currentCode) == 0){
+						$scope.commList.push(value);
+					}
+					if(value.commCd.indexOf(currentCode) == 0 && value.codeLevel == 'M') {
+						$scope.MCode.push(value);
+					}
+				}
+				// $scope.formChangeM('mod', $scope.MCode[0]);
+
+
+				if($scope.MCode.length) {
+					$scope.formChangeM('mod', $scope.MCode[0]);
+				}else{
+					//하위코드 데이터가 없는 경우
+					$scope.SCode = [];
+					$scope.MGub ={};
+					$scope.SGub ={};
+					$scope.inView.MGubCd = null;
+					$scope.inView.MGubCdNm = null;
+					return;
+				}
 			}
-			$scope.search.page = page - 1;
-			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/base/findList', param );
-		};
-		//페이지 사이즈 변경
-		$scope.pageSize = function(){
-			$scope.search.page = 0;
-			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/base/findList', param );
 		}
-		//체크박스 전체 체크
-		$scope.checkAll = function(status, prKey){
-			const tempList = [];
-			for(const key in $scope.list){
-				$scope.list[key].isSelected = status;
-				tempList.push($scope.list[key][prKey]);
+
+
+		//중분류
+		$scope.esM = {'newForm':false,'modForm':true};
+		$scope.formChangeM =function(command, data){
+			if(command == 'reset'){
+				$scope.esM ={};
+				$scope.esM.newForm = true;
+				var maxNum = $scope.inView.BGubCd;
+				for(const value of $scope.MCode){
+					if(value.commCd > maxNum){
+						maxNum = value.commCd ;
+					}
+				}
+				maxNum = pad(((maxNum.substring(0,4)*1) + 1), 4) + '00';
+				$scope.MGub = {'useYn':'Y', 'commCd':maxNum};
+			}else if(command == 'mod'){
+				$scope.SCode = [];
+				$scope.esM ={};
+				$scope.esM.modForm = true;
+				const formData = {}
+				for(const key in data){
+					formData[key] = data[key];
+				}
+				$scope.MGub = formData;
+				$scope.inView.MGubCd = formData.commCd;
+				$scope.inView.MGubCdNm = formData.commCdNm;
+				const currentCode = formData.commCd.substr(0, 4);
+				for(value of $scope.commCode){
+					if(value.commCd.indexOf(currentCode) == 0 && value.codeLevel == 'S'){
+						$scope.SCode.push(value);
+					}
+				}
+				// $scope.formChangeS('mod', $scope.SCode[0]);
+
+				if($scope.SCode.length) {
+					$scope.formChangeS('mod', $scope.SCode[0]);
+				}else{
+					$scope.SGub ={};
+					return;
+				}
 			}
-			if(status){
-				checkList = tempList;
-			}else{
-				checkList = [];
+		}
+
+		//소분류
+		$scope.esS = {'newForm':false,'modForm':true};
+		$scope.formChangeS =function(command, data){
+			if(command == 'reset'){
+				$scope.esS ={};
+				$scope.esS.newForm = true;
+				var maxNum = $scope.inView.MGubCd;
+				for(const value of $scope.SCode){
+					if(value.commCd > maxNum){
+						maxNum = value.commCd ;
+					}
+				}
+				maxNum = pad(((maxNum.substring(0,6)*1) + 1), 6);
+				$scope.SGub = {'useYn':'Y', 'commCd':maxNum};
+			}else if(command == 'mod'){
+				$scope.esS ={};
+				$scope.esS.modForm = true;
+				const formData = {}
+				for(const key in data){
+					formData[key] = data[key];
+				}
+				$scope.SGub = formData;
 			}
 		}
-		//체크박스 리스트 추가, 삭제
-		$scope.checkBox = function(status, select){
-			const index = checkList.indexOf(select);
-			if( index == -1 && status ){
-				checkList.push(select);
-			}else{
-				checkList.splice(index, index+1);
+
+		$scope.formSave = function(cmd){
+			if(cmd == 'BGub'){
+				if($scope.esB.newForm == true){
+					$scope.BGub.codeLevel = 'B';
+					commSave($scope.BGub);
+				}else if($scope.esB.modForm == true){
+					commUpdate($scope.BGub);
+				}
+			}else if(cmd == 'MGub'){
+				if($scope.esM.newForm == true){
+					$scope.MGub.codeLevel = 'M';
+					commSave($scope.MGub);
+				}else if($scope.esM.modForm == true){
+					commUpdate($scope.MGub);
+				}
+			}else if(cmd == 'SGub'){
+				if($scope.esS.newForm == true){
+					$scope.SGub.codeLevel = 'S';
+					commSave($scope.SGub);
+				}else if($scope.esS.modForm == true){
+					commUpdate($scope.SGub);
+				}
 			}
 		}
 
-		$scope.bclick = function(value){
-			console.log(value);
-			$scope.form.bCommCd = value.commCd;
-			$scope.form.bCommCdNm = value.commCdNm;
-			$scope.form.bUseYn = value.useYn;
+		//브랜드 추가
+		function commSave(data){
+			modalCheck($uibModal, "코드추가", "코드 정보를 추가하시겠습니까?", function () {
+				$http({
+					method: 'POST',
+					url: "/base/commSave",
+					data: data,
+					headers: {'Content-Type': 'application/json; charset=utf-8'}
+				}).success(function (data) {
+					if (data.resultCode == 'S') {
+						modalAlert($uibModal, "코드추가", "코드 정보가 추가 되었습니다.");
+					}
+					$scope.reload();
+				}).error(function (data) {
+					alert('정보 업데이트 실패');
+				});
+
+			});
 		}
-		$scope.mclick = function(value) {
-			console.log(value);
-			$scope.form.mCommCd = value.commCd;
-			$scope.form.mCommCdNm = value.commCdNm;
-			$scope.form.mCodeLevel = value.codeLevel;
-			$scope.form.mUseYn = value.useYn;
+
+		//브랜드 정보 수정
+		function commUpdate(data){
+			modalCheck($uibModal, "코드변경", "코드 정보를 변경하시겠습니까?", function () {
+				$http({
+					method: 'POST',
+					url: "/base/commUpdate",
+					data: data,
+					headers: {'Content-Type': 'application/json; charset=utf-8'}
+				}).success(function (data) {
+					if (data.resultCode == 'S') {
+						modalAlert($uibModal, "코드변경", "코드 정보가 변경 되었습니다.");
+					}
+					$scope.reload();
+				}).error(function (data) {
+					alert('정보 업데이트 실패');
+				});
+
+			});
 		}
-		$scope.sclick = function(value) {
-			console.log(value);
-			$scope.form.sCommCd = value.commCd;
-			$scope.form.sCommCdNm = value.commCdNm;
-			$scope.form.sCodeLevel = value.codeLevel;
-			$scope.form.sUseYn = value.useYn;
-		}
 
-
-
-
-
-
-
-
-
-		/*httpBList($http, $scope,'/base/commBList' ); //대분류코드 리스트 조회*/
-		/*$http({
-			method: 'GET',
-			url: '/base/commBList',
-			responseType: 'json',
-			headers : {
-				"Content-Type": "application/json; charset=utf-8",
-				"Accept": "application/json"
+		$scope.clickInit = function(key){
+			if(key == 0){
+				return {'bg-secondary':'true', 'font-weight-bold':'true'}
 			}
-		}).then(function(response) {
-			console.log("Success");
-			console.log(response.data);
-			$scope.ccode = response.data;
-		}, function(error) {
-			console.log("Error" + error);
-		});*/
-	}]);
+		}
+
+		$(document).ready(function() {
+			$scope.formChangeB('mod', $rootScope.commCode[0]);
+		});
+
+	}]
+);

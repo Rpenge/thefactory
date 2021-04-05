@@ -16,8 +16,6 @@
 				<form ng-submit="formSave()">
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;height:50px;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 입고 조회</span>
-
-
 <%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>--%>
 <%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>--%>
 					</div>
@@ -42,7 +40,7 @@
 									<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0601'" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
-							<th style="width:10%">출고매장</th>
+							<th style="width:10%"> 출고매장</th>
 							<td style="width:15%">
 								<select class="form-control" ng-model="form.outStoreCd" disabled>
 <%--									<option value="">매장</option>--%>
@@ -75,8 +73,6 @@
 
 				</form>
 
-
-
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
 					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 입고목록</span>
 				</div>
@@ -89,7 +85,6 @@
 							<option value="20">20개씩 보기</option>
 							<option value="50">50개씩 보기</option>
 						</select>
-
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
@@ -99,15 +94,15 @@
 				<div class="table-box">
 					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width: 1450px;">
 						<thead>
-						<tr class="pointer">
+						<tr class="pointer" >
 							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
-							<th ng-click="sort('stInSeq')" id="stInSeq">순번</th>
+							<th ng-click="sort('stInSeq')" id="stInSeq" style="width:50px;">순번</th>
 							<th ng-click="sort('stInDate')" id="stInDate">입고일자</th>
-							<th>입고매장</th>
-							<th>입고유형</th>
+							<th style="width:80px;">입고매장</th>
+							<th style="width:80px;">입고유형</th>
 							<th>브랜드</th>
 							<th>성별</th>
-							<th>상품분류</th>
+							<th style="width:80px;">상품분류</th>
 							<th>사이즈</th>
 							<th>상품코드</th>
 							<th>자체상품코드</th>

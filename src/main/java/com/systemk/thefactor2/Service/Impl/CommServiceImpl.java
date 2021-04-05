@@ -28,6 +28,11 @@ public class CommServiceImpl implements CommService {
 	}
 
 	@Override
+	public List<TfCommCodeVO> commTotList() throws Exception {
+		return tfCommCodeMapper.commTotalList();
+	}
+
+	@Override
 	public Map<String, Object> findList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("tf_comm_code");

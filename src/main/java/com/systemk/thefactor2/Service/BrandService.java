@@ -10,6 +10,8 @@ public interface BrandService {
 
     public List<TfBrandVO> findBrand() throws Exception;
 
+    public List<TfBrandVO> findTotalBrand() throws Exception;
+
     public List<TfBrandVO> findBrandSub(String brandCd) throws Exception;
 
     public String codeToNm(String brandCd);

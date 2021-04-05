@@ -16,7 +16,23 @@
             , MOD_DATE
             , MOD_ID
         FROM TF_COMM_CODE
-        WHERE 1=1
+        WHERE USE_YN = 'Y'
+        ORDER BY DISP_SEQ ASC , COMM_CD ASC
+    </select>
+
+    <select id="commTotalList" resultType="TfCommCodeVO">
+        SELECT
+            COMM_CD
+             , COMM_CD_NM
+             , CODE_LEVEL
+             , DISP_SEQ
+             , COMMENT
+             , USE_YN
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+        FROM TF_COMM_CODE
         ORDER BY DISP_SEQ ASC , COMM_CD ASC
     </select>
     <!--코드 목록-->
@@ -64,6 +80,7 @@
         FROM TF_COMM_CODE
         WHERE 1=1
         AND CODE_LEVEL = 'B'
+        AND USE_YN = 'Y'
         ORDER BY COMM_CD asc
     </select>
     <!--코드 중분류 조회-->
@@ -82,7 +99,6 @@
         FROM TF_COMM_CODE
         WHERE 1=1
           AND SUBSTR(COMM_CD,1,2) = #{item}
-          AND CODE_LEVEL = 'M'
         ORDER BY COMM_CD ASC
     </select>
     <!--코드 소분류 조회-->

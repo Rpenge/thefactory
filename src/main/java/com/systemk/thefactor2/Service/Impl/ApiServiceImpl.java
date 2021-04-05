@@ -440,6 +440,9 @@ public class ApiServiceImpl implements ApiService {
 
 		for(Map param : paramList){
 			TfAcStockVO vo = tfAcStockMapper.findStockByTagId((String)param.get("tagId")); // 실재고 정보 조회
+			if(vo == null){
+				return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_RFID_TAG_MSG);
+			}
 			Map map = new HashMap();
 			map.put("barcode", vo.getTfPrdBarcode());
 			Map mapData = tfProductMapper.prdAndStk(map);

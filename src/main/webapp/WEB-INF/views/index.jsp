@@ -42,6 +42,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/base/deviceController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/brandController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/productController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inout/salesController.js?v=${version}"></script>
@@ -294,8 +295,8 @@
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
 						<span class="input-group-append" >
-									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
-								</span>
+							<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true"> <i class="xi-calendar"></i></button>
+						</span>
 					</div>
 					<p style="margin:12px 10px;">~</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
