@@ -13,7 +13,7 @@ public interface TfAcStockMapper {
 
     TfAcStockVO findStockByTagId(String tagId);
 
-    String stockCheck(String tagId);
+    Map stockCheck(String tagId);
 
     List<String> findTagId(String barcode);
 

@@ -39,7 +39,7 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 		}else if($rootScope.searchMove == 2) {	//단어 검색
 			$scope.search = $rootScope.quickSearchWord;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/input/inputList', param )
+			httpGetList($http, $scope,'/input/inputList', param );
 		}else{															//일반 페이지 이동
 			httpGetList($http, $scope,'/input/inputList' );
 		}

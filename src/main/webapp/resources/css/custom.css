@@ -2,10 +2,14 @@ html, body {
 	font-family: "Roboto","Noto Sans KR", "Nanum Gothic",Malgun Gothic,Dotum,sans-serif;
 }
 
+
 body {
 	background-color: #f8f9fa!important;
 	font-size: 0.95rem;
+	transform: scale(0.91, 0.91) translateX(-5.1%) translateY(-5%);
+	width:110%;
 }
+
 
 .body-contents {
     min-height: 45rem;
@@ -779,6 +783,8 @@ a.nav-link{
 /*body contents*/
 .menuName{
 	color: black!important;
+	opacity: 0.9;
+	font-weight: 450;
 	padding: 0 5px 3px 5px ;
 }
 
@@ -841,12 +847,21 @@ a.nav-link{
 }
 /*테이블 홀수행 whiteSmoke*/
 .table-striped-odd > tbody > tr:nth-child(2n){
-	background-color: whitesmoke;
+	background-color: #fbfbfb;
 }
 .table-striped-odd > thead > tr{
 	background-color : dimgrey;
 	/*box-shadow : 0 0 12px 0 lightgray inset;*/
 	color: white;
+}
+.table-striped-odd th,
+.table-striped-odd thead{
+	background-color : dimgrey;
+	border:0px;
+}
+
+.table-hover tbody tr:hover{
+	background-color : #eeeeee!important;
 }
 
 .tri{
@@ -856,8 +871,6 @@ a.nav-link{
 	border-bottom:10px solid lightgray;
 	border-right: 14px solid transparent;
 	border-left: 14px solid transparent;
-
-
 }
 
 .main-work-btn{
@@ -969,7 +982,6 @@ a.nav-link{
 
 .scroll-custom::-webkit-scrollbar {
 	width: 6px;
-
 }
 .scroll-custom::-webkit-scrollbar-track {
 	background-color: transparent;
@@ -983,3 +995,11 @@ a.nav-link{
 	width: 0;
 	height: 0;
 }
+
+
+.table-disabled{
+	background-color: lightgray!important;
+	opacity: 75%;
+	pointer-events: none;
+}
+

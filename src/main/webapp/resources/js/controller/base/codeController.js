@@ -204,9 +204,12 @@ app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', 
 			}
 		}
 
-		$(document).ready(function() {
-			$scope.formChangeB('mod', $rootScope.commCode[0]);
-		});
+
+		$scope.formChangeB('mod', $rootScope.commCode[0]);
+
+		// $(document).ready(function() {
+		// 	$scope.formChangeB('mod', $rootScope.commCode[0]);
+		// });
 
 	}]
 );

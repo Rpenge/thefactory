@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfInvStatusMapper">
+
+
+    <!--재고실사 현황 리스트 조회-->
+    <select id="invStatusList" resultType="TfInvStatusVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_INV_STATUS
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by ST_INV_SEQ desc
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
+    </select>
+
+    <!--재고실사 현황 조회-->
+    <select id="findInvStatus" parameterType="java.util.Map" resultType="TfInvStatusVO">
+        select * from TF_INV_STATUS
+        where ST_INV_DATE = #{stInvDate}
+        AND ST_INV_STORE = #{storeCd}
+    </select>
+
+
+
+
+    <!--재고실사 현황 생성-->
+    <select id="createInvStatus" parameterType="java.util.Map" resultType="TfInvStatusVO">
+        INSERT INTO TF_INV_STATUS
+        (ST_INV_DATE, ST_INV_STORE, ST_TAR_CNT, ST_INV_CNT,ST_PDA_YN,  ST_INV_YN, REG_DATE, REG_ID)
+        VALUES(#{stInvDate}, #{storeCd}, ${stTarCnt}, 0, 'N', 'N', now(), #{regId})
+            RETURNING *
+    </select>
+
+
+    <!--현황 업데이트(실사수량, PDA확정여부, 재고실사 종료여부)-->
+    <update id="updateInvStatus" parameterType="java.util.Map">
+        UPDATE tf_inv_status
+        SET ST_INV_CNT= ${stInvCnt}, ST_PDA_YN=#{stPdaYn}, ST_INV_YN=#{stInvYn}, MOD_DATE=#{modDate}, MOD_ID=#{modId}
+        WHERE ST_INV_DATE = #{stInvDate}
+        AND ST_INV_STORE = #{stInvStore}
+        AND ST_PDA_YN = #{stPdaYn}
+    </update>
+
+
+</mapper>

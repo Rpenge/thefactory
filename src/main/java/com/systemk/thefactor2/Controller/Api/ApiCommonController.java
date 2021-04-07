@@ -26,8 +26,6 @@ public class ApiCommonController {
     private ApiService apiService;
 
 
-
-
     // id,비밀번호, 버전,
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map<String, Object> MemberLogin(@RequestHeader("type") String deviceGub,
@@ -72,7 +70,6 @@ public class ApiCommonController {
     @RequestMapping(value = "/inputAddResult", method = RequestMethod.GET)
     public Map<String, Object> inputAddResult(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
-
         param.put("userId", request.getHeader("id"));
         param.put("deviceGub", request.getHeader("type"));
         if(param.get("state").equals("060101") || param.get("state").equals("060103")){   // 신규입고, 입고
@@ -99,7 +96,6 @@ public class ApiCommonController {
     //반품입고 할 데이터 조회 (판매 데이터에서 조회)
     @RequestMapping(value = "/saleDataSearch", method = RequestMethod.POST)
     public Map<String, Object> saleDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
-        System.out.println(data);
         return apiService.saleDataSearch(data);
     }
 
@@ -131,12 +127,22 @@ public class ApiCommonController {
     }
 
 
-
     //재고실사정보 - 매장별 현재고 목록
     @RequestMapping(value = "/stock", method = RequestMethod.GET)
     public Map<String, Object> stock(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
         return apiService.findAcStkList(param);
+    }
+
+    //재고실사 - 실사목록 받아서 업데이트
+    @RequestMapping(value = "/inventory", method = RequestMethod.POST)
+    public Map<String, Object> inventory(@RequestBody(required = false) Map data, HttpServletRequest request) throws Exception {
+        data.put("regId", request.getHeader("id"));
+        apiService.createInven(data);
+
+
+
+        return null;
     }
 
     //찾기 -

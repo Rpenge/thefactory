@@ -5,7 +5,7 @@
 <html ng-app="myApp">
 
 
-<div ng-show="authenticated">
+<div ng-show="authenticated" style="width:90%;margin:0 auto;">
 
     <div class="container-fluid d-flex justify-content-center" style="padding:0!important;" ng-show="!mainPage">
         <div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">

@@ -12,11 +12,11 @@ function userLoginCheck($http, $rootScope,$window, $location){
 
 //현재페이지 정보 저장
 function pageInfo($rootScope, $location){
-
-
+	var url = $location.url();
+	url = url.split('?');
 	if($rootScope.topMenu) {
 		for (var value of $rootScope.topMenu) {
-			if (value.PGM_URL == $location.url()) {
+			if (value.PGM_URL == url[0]) {
 				$rootScope.currentMenu = value;
 
 				if($rootScope.quick1List.includes(value.PGM_CD)){
@@ -26,7 +26,6 @@ function pageInfo($rootScope, $location){
 				}
 				$rootScope.quickCmd.cmd = value.PGM_CD;
 				$rootScope.addQuick($rootScope.quickCmd.cmd);
-
 			}
 		}
 	}
@@ -574,3 +573,4 @@ function pad(n, width) {
 	n = n + '';
 	return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
+

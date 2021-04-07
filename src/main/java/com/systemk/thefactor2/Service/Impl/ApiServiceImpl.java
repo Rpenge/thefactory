@@ -51,6 +51,12 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	private TfOutputMapper tfOutputMapper;
 
+	@Autowired
+	private TfInventoryMapper tfInventoryMapper;
+
+	@Autowired
+	private TfInvStatusMapper tfInvStatusMapper;
+
 
 	@Autowired
 	private InoutTotService inoutTotService;
@@ -110,7 +116,6 @@ public class ApiServiceImpl implements ApiService {
 		} else if(user.getPdaUseYn().equals("N")){ 														// PDA 사용가능 여부
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_CHECK_ADMIN_MSG);
 		}
-
 		return ResultUtil.setCommonResult("S",ConstansConfig.LOGIN_SUCCESS_MSG, item);
 	}
 
@@ -118,10 +123,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> workCount(Map param) throws Exception {
-
-
 		Date date = new Date();
-
 		Map map = new HashMap();
 		if(param.get("storeCd")!=null){
 			TfInoutTotalVO vo = inoutTotService.todayWork(param);
@@ -154,7 +156,6 @@ public class ApiServiceImpl implements ApiService {
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			list.add(map);
 		}
-
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
 	}
 
@@ -187,7 +188,6 @@ public class ApiServiceImpl implements ApiService {
 			map.put("brand", brandService.codeToNm(brand.substring(0, 2) + "0000"));
 			map.put("brandCd", brand);
 			map.put("prdSize", mapData.get("PRD_SIZE"));
-//			map.put("prdSizeCd", vo.getPrdSizeCd());
 		}catch (Exception e){
 			e.printStackTrace();
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
@@ -282,6 +282,7 @@ public class ApiServiceImpl implements ApiService {
 			}
 			resultMap.put("prdNm", vo.getTfPrdNm());
 			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			resultMap.put("mappingYn", "Y");
 			resultList.add(resultMap);
 		}
@@ -307,6 +308,7 @@ public class ApiServiceImpl implements ApiService {
 			}
 			resultMap.put("prdNm", vo.getTfPrdNm());
 			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			resultMap.put("mappingYn", "Y");
 			resultList.add(resultMap);
 		}
@@ -391,17 +393,18 @@ public class ApiServiceImpl implements ApiService {
 
 		List<Map<String, String>> reusltList = new ArrayList<Map<String, String>>();
 		for(Map<String, String> map : param){
-			Map<String, String> resultMap = new HashMap<String, String>();
+			Map resultMap = new HashMap<String, String>();
 			resultMap.put("tagId",map.get("tagId"));
-			String prdNm = tfAcStockMapper.stockCheck(map.get("tagId"));
-			if(prdNm != null){
-				resultMap.put("prdNm",prdNm);
+			Map stMap = tfAcStockMapper.stockCheck(map.get("tagId"));
+			if(stMap != null){
+				resultMap.put("prdNm", stMap.get("tfPrdNm"));
+				resultMap.put("regDate",StringUtil.dateFormat((Date) stMap.get("regDate")));
 				resultMap.put("mappingYn","Y");
+
 			}else{
 				resultMap.put("mappingYn","N");
 			}
 			reusltList.add(resultMap);
-
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다", reusltList);
 	}
@@ -421,8 +424,6 @@ public class ApiServiceImpl implements ApiService {
 		}else {
 			mu.addEqual("ST_OUT_TYPE", state);
 		}
-
-
 		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
 		for(TfOutputVO vo : voList){
 			Map map = new HashMap();
@@ -431,7 +432,6 @@ public class ApiServiceImpl implements ApiService {
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			list.add(map);
 		}
-
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
 	}
 
@@ -454,7 +454,6 @@ public class ApiServiceImpl implements ApiService {
 			map.put("prdNm", 	mapData.get("TF_PRD_NM"));
 			map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));
 			map.put("prdCd", 	mapData.get("TF_PRD_CD"));
-//			map.put("barcode", 	vo.getTfPrdBarcode());  //
 			map.put("size", 	mapData.get("PRD_SIZE"));
 			map.put("tagId", 	param.get("tagId"));
 			if(param.get("state").equals("060202")) {
@@ -468,7 +467,6 @@ public class ApiServiceImpl implements ApiService {
 
  			tfOutputMapper.outputAdd((HashMap) map);
 		}
-
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
@@ -498,6 +496,90 @@ public class ApiServiceImpl implements ApiService {
 		}
 		List list = new ArrayList<>(resultMap.values());
 		return ResultUtil.setCommonResult("S","성공하였습니다", list);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public Map<String, Object> createInven(Map param) throws Exception {
+		Date date = new Date();
+		param.put("stInvDate", StringUtil.dateFormatYMD(date));
+		List<String> tagList = (List) param.get("tagList");
+		param.remove("tagList");
+
+		TfInvStatusVO vo = tfInvStatusMapper.findInvStatus(param);
+		int stInvCnt = 0;
+
+		if(vo == null){
+			List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd")); // 선택 매장의 실재고 데이터
+			param.put("stTarCnt", acList.size());
+			vo = tfInvStatusMapper.createInvStatus(param); //재고실사 시작시 신규현황을 생성하고 키값 리턴
+
+			for(Map map : acList){
+				Map invMap = new HashMap();
+				invMap.put("stInvSeq", vo.getStInvSeq());
+				invMap.put("tfPrdTagid", map.get("TF_PRD_TAGID"));
+				invMap.put("stInvDate", param.get("stInvDate"));
+				invMap.put("invStoreCd", map.get("STORE_CD"));
+				invMap.put("tfPrdCd", map.get("TF_PRD_CD"));
+				invMap.put("tfPrdNm", map.get("TF_PRD_NM"));
+				invMap.put("btPrdBarcode", map.get("TF_PRD_BARCODE"));
+				invMap.put("prdSize", map.get("PRD_SIZE"));
+				if(tagList.contains(map.get("TF_PRD_TAGID"))){
+					stInvCnt += 1;
+					invMap.put("invYn", "Y");
+				}else{
+					invMap.put("invYn", "N");
+				}
+				invMap.put("regId", param.get("regId"));
+				tfInventoryMapper.inventorySave(invMap);
+			}
+		}else{	//재고실사 현황이 생성되어있을때 실사정보 업데이트
+			stInvCnt = vo.getStInvCnt();
+
+			for(String tagId : tagList){
+				Map invMap = new HashMap();
+				invMap.put("stInvSeq", vo.getStInvSeq());
+				invMap.put("tfPrdTagid", tagId);
+				invMap.put("modDate", new Date());
+				invMap.put("modId", param.get("regId"));
+				if(tfInventoryMapper.invUpdate(invMap) == 1) {
+					stInvCnt += 1;
+				}
+			}
+			vo.setModDate(new Date());
+			vo.setModId((String) param.get("regId"));
+		}
+		vo.setStInvCnt(stInvCnt);
+		tfInvStatusMapper.updateInvStatus(vo);
+
+//		int newStInvSeq = tfInvStatusMapper.createInvStatus(param); //재고실사 시작시 신규현황을 생성하고 키값 리턴
+//
+//		List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd")); // 선택 매장의 실재고 데이터
+//
+//		for(Map map : acList){
+//			Map invMap = new HashMap();
+//			invMap.put("stInvSeq", newStInvSeq);
+//			invMap.put("tfPrdTagid", map.get("TF_PRD_TAGID"));
+//			invMap.put("stInvDate", param.get("stInvDate"));
+//			invMap.put("invStoreCd", map.get("STORE_CD"));
+//			invMap.put("tfPrdCd", map.get("TF_PRD_CD"));
+//			invMap.put("tfPrdNm", map.get("TF_PRD_NM"));
+//			invMap.put("btPrdBarcode", map.get("TF_PRD_BARCODE"));
+//			invMap.put("prdSize", map.get("PRD_SIZE"));
+//			if(tagList.contains(map.get("TF_PRD_TAGID"))){
+//				invMap.put("invYn", "Y");
+//			}else{
+//				invMap.put("invYn", "N");
+//			}
+//			invMap.put("regId", param.get("regId"));
+//			tfInventoryMapper.inventorySave(invMap);
+//		}
+
+
+
+
+		//현황이 생성되있을시 태그id와 seq를 가지고 업데이트
+		return null;
 	}
 
 	@Override

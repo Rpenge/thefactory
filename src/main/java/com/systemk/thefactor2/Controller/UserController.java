@@ -67,7 +67,7 @@ public class UserController {
 	@RequestMapping("/reUserAuth")
 	public Map user(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(30*60);
+		session.setMaxInactiveInterval(60*60*24); //60분x60초x24시간
 		HashMap resultMap = new HashMap<>();
 
 		resultMap.put("userId", session.getAttribute("userId"));

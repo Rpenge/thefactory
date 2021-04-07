@@ -35,8 +35,12 @@ public interface ApiService {
 
     public Map<String, Object> findAcStkList(Map param) throws Exception;
 
+    public Map<String, Object> createInven(Map param) throws Exception;
+
     public Map<String, Object> findStock(Map param) throws Exception;
 
     public Map<String, Object> commonCd(Map param) throws Exception;
+
+
 
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfInventoryMapper">
+
+    <select id="invenList" resultType="TfInventoryVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_INVENTORY
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by ST_INV_SEQ desc
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
+    </select>
+
+    <insert id="inventorySave" parameterType="java.util.Map">
+        INSERT INTO tf_inventory
+        (ST_INV_SEQ, TF_PRD_TAGID, ST_INV_DATE, INV_STORE_CD, TF_PRD_CD, TF_PRD_NM, BT_PRD_BARCODE, PRD_SIZE, INV_YN, REG_DATE, REG_ID)
+        VALUES(${stInvSeq}, #{tfPrdTagid}, #{stInvDate}, #{invStoreCd}, #{tfPrdCd}, #{tfPrdNm}, #{btPrdBarcode}, #{prdSize}, #{invYn}, now(), #{regId});
+    </insert>
+
+    <update id="invUpdate" parameterType="java.util.Map">
+        UPDATE TF_INVENTORY
+        SET INV_YN = 'Y',
+            MOD_DATE = #{modDate, jdbcType=TIMESTAMP},
+            MOD_ID = #{modId, jdbcType=VARCHAR}
+        WHERE ST_INV_SEQ = ${stInvSeq}
+        AND TF_PRD_TAGID = #{tfPrdTagid}
+        AND INV_YN = 'N'
+    </update>
+
+
+
+    <update id="manualInvUpdate" parameterType="java.util.Map">
+        UPDATE TF_INVENTORY
+        SET
+            INV_YN = 'Y'
+          , MIS_WORK = #{misWork}
+          , INV_COMMENT = #{invComment}
+          , MOD_DATE = SYSDATE()
+          , MOD_ID = #{modId}
+        WHERE
+            ST_INVEN_SEQ = ${stInvenSeq}
+    </update>
+
+
+</mapper>
