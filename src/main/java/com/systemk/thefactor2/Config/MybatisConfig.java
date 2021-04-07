@@ -18,7 +18,7 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setDataSource(dataSource);
         /* 맵퍼 xml 파일 경로 설정 */
         Resource[] resources = new PathMatchingResourcePatternResolver()
-                .getResources("classpath:com/systemk/thefactor2/mapper/*Mapper.xml");
+                .getResources("classpath:com/systemk/thefactor2/Mapper/*Mapper.xml");
         sqlSessionFactoryBean.setMapperLocations(resources);
         /* alias 설정 */
         sqlSessionFactoryBean.setTypeAliasesPackage("com.systemk.thefactor2.VO");
