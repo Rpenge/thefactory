@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>systemk_thefactor2</name>
-	<description>ams project for Spring Boot</description>
+	<description>thefactor2 project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfInoutTotalMapper">
+
     <select id="todayWork" resultType="TfInoutTotalVO" parameterType="java.util.Map">
         SELECT
            *
@@ -50,13 +51,7 @@
             tf_inout_total
         where
             IN_OUT_DATE like CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - ${item} MONTH), '%Y%m'), '%')
-<!--        <if test="storeCd != null">-->
-<!--            AND-->
-<!--            STORE_CD = #{storeCd}-->
-<!--        </if>-->
     </select>
-
-
 
     <select id="inoutList" resultType="TfInoutTotalVO" parameterType="java.util.HashMap">
         SELECT
@@ -84,8 +79,6 @@
                 limit ${start}, ${size}
             </otherwise>
         </choose>
-
     </select>
-
 
 </mapper>

@@ -3,13 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfTagPublishMapper">
 
-
     <select id="selectLastNum" resultType="String" parameterType="String">
         select substr(TF_PRD_TAGID, 14, 3)
         from tf_tag_publish ttp
         where substr(TF_PRD_TAGID,1,13) = #{item}
         order by TF_PRD_TAGID desc limit 1;
     </select>
-
 
 </mapper>

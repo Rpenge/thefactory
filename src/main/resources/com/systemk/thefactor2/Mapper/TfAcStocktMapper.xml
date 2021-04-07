@@ -3,9 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfAcStockMapper">
 
-
-
-
     <select id="findAcStock" resultType="java.util.Map" parameterType="String">
         select * from tf_ac_stock tas left outer join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE and tas.STORE_CD = ts.STOCK_STORE_CD where tas.STORE_CD = #{item}
     </select>
@@ -14,7 +11,6 @@
         select * from tf_ac_stock where TF_PRD_TAGID = #{item};
     </select>
 
-
     <select id="stockCheck" resultType="java.util.Map" parameterType="String">
         select TF_PRD_NM as tfPrdNm, tas.REG_DATE as regDate from tf_ac_stock tas inner join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE where tas.TF_PRD_TAGID = #{item} limit 1
     </select>
@@ -22,7 +18,5 @@
     <select id="findTagId" resultType="String" parameterType="String">
         select TF_PRD_TAGID from tf_ac_stock where TF_PRD_BARCODE = #{item}
     </select>
-
-
 
 </mapper>
