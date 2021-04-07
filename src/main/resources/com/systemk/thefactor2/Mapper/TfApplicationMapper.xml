@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfApplicationMapper">
+
     <select id="appLastVs" resultType="TfApplicationVO">
         SELECT
             *
@@ -13,13 +14,10 @@
         LIMIT 1
     </select>
 
-
     <insert id="appSave" parameterType="java.util.Map">
         INSERT INTO tf_application
         (APP_GUB, APP_NM, VERSION, APP_DOWN_URL, REG_DATE, REG_ID)
         VALUES(#{appGub}, #{appNm}, #{version}, #{appDownUrl}, now(), #{userId});
     </insert>
-
-
 
 </mapper>

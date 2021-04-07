@@ -176,4 +176,5 @@
         SELECT * FROM TF_COMM_CODE
         WHERE COMM_CD = #{item}
     </select>
+
 </mapper>

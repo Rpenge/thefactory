@@ -81,7 +81,6 @@
         </choose>
         limit ${start}, ${size}
     </select>
-
     <!--브랜드 추가-->
     <insert id="brandSave" parameterType="java.util.Map">
         INSERT INTO TF_BRAND
@@ -90,7 +89,6 @@
             #{brandKindCd}, #{brandNm}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
               )
     </insert>
-
     <!--브랜드 수정-->
     <update id="brandUpdate" parameterType="java.util.Map">
         UPDATE TF_BRAND
@@ -103,7 +101,6 @@
         WHERE
             BRAND_KIND_CD = #{brandKindCd}
     </update>
-
     <!--브랜드 삭제-->
     <update id="brandDelete" parameterType="java.util.Map">
         UPDATE TF_BRAND

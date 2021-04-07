@@ -2,29 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfProductMapper">
-    <!--상품 마스터 전체 목록-->
-<!--    <select id="productList" resultType="TfBrandVO">-->
-<!--        SELECT-->
-<!--            PRD_REG_SEQ-->
-<!--             , BRAND_KIND_CD-->
-<!--             , EC_PRD_CD-->
-<!--             , TF_PRD_CD-->
-<!--             , EC_PRD_NM-->
-<!--             , TF_PRD_NM-->
-<!--             , PRD_MODEL_NM-->
-<!--             , BRAND_MAKE_NM-->
-<!--             , ORG_COUNTRY_NM-->
-<!--             , BRAND_NM-->
-<!--             , REG_DATE-->
-<!--             , REG_ID-->
-<!--             , MOD_DATE-->
-<!--             , MOD_ID-->
-<!--             , USE_YN-->
-<!--        FROM-->
-<!--            TF_PRODUCT-->
-<!--        WHERE 1=1-->
-<!--        ORDER BY REG_DATE DESC, MOD_DATE DESC-->
-<!--    </select>-->
+
     <select id="productList" resultType="TfProductVO" parameterType="java.util.HashMap">
         SELECT
         *
@@ -51,8 +29,6 @@
             </otherwise>
         </choose>
     </select>
-
-
     <!--상품 마스터 등록-->
     <insert id="productSave" parameterType="java.util.Map">
         INSERT INTO TF_PRODUCT
@@ -77,14 +53,7 @@
         WHERE
             PRD_REG_SEQ = ${prdRegSeq}
     </update>
-    <!--상품 마스터 삭제-->
-<!--    <update id="productDelete" parameterType="java.util.Map">-->
-<!--        UPDATE TF_PRODUCT-->
-<!--        SET-->
-<!--            USE_YN = 'N'-->
-<!--        WHERE-->
-<!--            PRD_REG_SEQ = #{prdRegSeq}-->
-<!--    </update>-->
+
     <delete id="productDelete" parameterType="Integer">
         delete from TF_PRODUCT where PRD_REG_SEQ = ${prdRegSeq}
     </delete>
@@ -121,6 +90,5 @@
         WHERE
             TF_PRD_CD = #{tfPrdCd}
     </update>
-
 
 </mapper>

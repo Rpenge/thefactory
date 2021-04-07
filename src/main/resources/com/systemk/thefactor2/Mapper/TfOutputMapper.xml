@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfOutputMapper">
 
-
     <select id="outList" resultType="TfOutputVO" parameterType="java.util.HashMap">
         SELECT
         *
@@ -30,9 +29,7 @@
                 limit ${start}, ${size}
             </otherwise>
         </choose>
-
     </select>
-
 
     <select id="outputSearch" resultType="TfOutputVO" parameterType="String">
         select * from tf_output where TF_PRD_TAGID = #{item}
@@ -61,7 +58,6 @@
     <delete id="outDelete" parameterType="java.util.HashMap">
         { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType})}
     </delete>
-
 
     <select id="outSubList" resultType="Map" parameterType="java.util.HashMap">
         select ST_OUT_DATE as ST_DATE ,OUT_STORE_CD as STORE_CD ,ST_OUT_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt

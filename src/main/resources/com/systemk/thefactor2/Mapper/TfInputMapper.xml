@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfInputMapper">
 
-
     <select id="inputList" resultType="TfInputVO" parameterType="java.util.HashMap">
         SELECT
             *
@@ -30,7 +29,6 @@
                 limit ${start}, ${size}
             </otherwise>
         </choose>
-
     </select>
 
     <insert id="inputNew" statementType="CALLABLE" parameterType="java.util.HashMap">
@@ -40,7 +38,6 @@
     <insert id="inputRe" statementType="CALLABLE" parameterType="java.util.HashMap">
         { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType})}
     </insert>
-
 
     <select id="inputDeleteList" resultType="TfInputVO" parameterType="java.util.List">
         SELECT
@@ -58,7 +55,6 @@
         { call input_delete(${ST_IN_SEQ}, #{ST_IN_DATE}, #{USER_ID}, #{PRD_BARCODE}, #{TF_PRD_TAGID}, #{IN_STORE_CD}, #{ST_IN_TYPE})}
     </delete>
 
-
     <select id="inSubList" resultType="Map" parameterType="java.util.HashMap">
         select ST_IN_DATE as ST_DATE ,IN_STORE_CD as STORE_CD, ST_IN_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt
         from tf_input
@@ -69,9 +65,5 @@
         group by ST_IN_DATE, IN_STORE_CD,  ST_IN_TYPE, TF_PRD_NM
         limit ${start}, ${size}
     </select>
-
-
-
-
 
 </mapper>

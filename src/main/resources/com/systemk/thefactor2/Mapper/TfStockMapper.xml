@@ -63,13 +63,11 @@
         select * from tf_stock ts where TF_PRD_BARCODE = #{item} limit 1
     </select>
 
-
     <select id="stockCheck" resultType="Integer" parameterType="java.util.Map">
         select count(*) from tf_stock_test
         WHERE STOCK_STORE_CD = #{STOCK_STORE_CD}
         AND TF_PRD_BARCODE= #{TF_PRD_BARCODE}
     </select>
-
 
     <insert id="stockSave" parameterType="java.util.Map">
         INSERT INTO tf_stock_test
