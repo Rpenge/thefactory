@@ -134,15 +134,11 @@ public class ApiCommonController {
         return apiService.findAcStkList(param);
     }
 
-    //재고실사 - 실사목록 받아서 업데이트
+    //재고실사 - 실사목록 받아서 생성&업데이트
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     public Map<String, Object> inventory(@RequestBody(required = false) Map data, HttpServletRequest request) throws Exception {
         data.put("regId", request.getHeader("id"));
-        apiService.createInven(data);
-
-
-
-        return null;
+        return apiService.addInven(data);
     }
 
     //찾기 -

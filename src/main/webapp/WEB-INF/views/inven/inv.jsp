@@ -28,14 +28,14 @@
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
-					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">삭제</button>
+					<button class="btn btn-secondary p-2 table-top-btn" ng-click="tableBtn('delete')">삭제</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table class="table custom-table-1 table-hover text-center custom-align-middle table-striped-odd" style="min-width:1100px;">
+					<table class="table custom-table-1 text-center custom-align-middle table-striped-odd" style="min-width:1100px;">
 						<thead>
 							<tr class="pointer">
-								<th><input type="checkbox"></th>
+								<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInvSeq')"></th>
 								<th>실사일자</th>
 								<th>매장</th>
 								<th>예상수량</th>
@@ -48,8 +48,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="(key, value) in list" ng-class="{'table-disabled' : value.stInvYn=='Y'}">
-								<td style="padding:25px;"><input type="checkbox"></td>
+							<tr ng-repeat="(key, value) in list" ng-class="{'table-disabled' : value.stInvYn=='Y'}" ng-init="value.isSelected = false;">
+								<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-class="{'check-disabled' : value.stInvYn=='Y'}" ng-change="checkBox(!{{value.isSelected}}, {{value.stInvSeq}})" ></td>
 								<td>{{value.stInvDate}}</td>
 								<td>{{value.stInvStore | code:store}}</td>
 								<td>{{value.stTarCnt}}</td>

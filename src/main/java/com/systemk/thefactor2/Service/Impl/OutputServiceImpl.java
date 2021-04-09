@@ -152,7 +152,7 @@ public class OutputServiceImpl implements OutputService {
 		//output데이터 추가, inouttotal수량 +1 재고는 -1, 재고테이블 -1, 실재고에서 삭제
 		Map map = new HashMap();
 		Map mapData = tfProductMapper.prdAndStk(param);
-//
+
 		Date date = new Date();
 		map.put("ymd", StringUtil.dateFormatYMD(date));		//오늘날짜
 		map.put("userId", 	param.get("userId"));		//현재유저
@@ -163,7 +163,7 @@ public class OutputServiceImpl implements OutputService {
 		map.put("barcode", 	param.get("barcode"));	//  가져온 바코드
 		map.put("size", 	mapData.get("PRD_SIZE"));		//재고정보에서
 		map.put("tagId", 	param.get("tfPrdTagid"));		//  가져온 태그id
-		if(param.get("stOutType").equals("060202")) {
+		if(param.get("stOutType").equals("060202") && param.get("inStoreCd") != null) {
 			map.put("inStoreCd", param.get("inStoreCd"));    //  입고예정매장
 			map.put("inStoreNm", commService.codeToNm((String) param.get("inStoreCd")));    //  입고예정매장명
 		}
@@ -171,7 +171,7 @@ public class OutputServiceImpl implements OutputService {
 		map.put("outStoreNm", commService.codeToNm((String)param.get("outStoreCd")));	//  출고매장명
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PC
 		map.put("outType", 	param.get("stOutType"));	//출고 코드
-//
+
 		tfOutputMapper.outputAdd((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
@@ -200,26 +200,4 @@ public class OutputServiceImpl implements OutputService {
 	}
 
 
-//	@Transactional(rollbackFor=Exception.class)
-//	@Override
-//	public Map<String, Object> inputDelete(Map param) throws Exception {
-//		String userId = (String)param.get("userId");
-//		List dList = (List)param.get("list");
-//		System.out.println(dList);
-//
-//		List<TfInputVO> voList = tfInputMapper.inputDeleteList(dList);
-//		for(TfInputVO vo : voList){
-//			Map map = new HashMap();
-//			map.put("ST_IN_SEQ",vo.getStInSeq());
-//			map.put("ST_IN_DATE",vo.getStInDate());
-//			map.put("USER_ID", (String)param.get("userId"));
-//			map.put("PRD_BARCODE", vo.getBtPrdBarcode());
-//			map.put("TF_PRD_TAGID", vo.getTfPrdTagid());
-//			map.put("IN_STORE_CD", vo.getInStoreCd());
-//			map.put("ST_IN_TYPE", vo.getStInType());
-//			tfInputMapper.inputDelete((HashMap) map);
-//		}
-//
-//		return ResultUtil.setCommonResult("S","성공하였습니다");
-//	}
 }

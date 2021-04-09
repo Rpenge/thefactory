@@ -53,5 +53,10 @@
         AND ST_PDA_YN = #{stPdaYn}
     </update>
 
+    <!--현황 및 실사데이터, 삭제-->
+    <delete id="invenDelete" parameterType="Integer">
+        DELETE FROM tf_inv_status where ST_INV_SEQ = #{item}
+    </delete>
+
 
 </mapper>

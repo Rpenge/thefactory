@@ -10,17 +10,24 @@
         TF_INVENTORY
         WHERE true
         <foreach collection="list" item="item">
-            ${item}
+        ${item}
         </foreach>
+        <if test="ex != null">
+        AND INV_YN = 'N'
+        </if>
         <choose>
             <when test = "sort != null">
-                order by ${sort} ${direct}
+        order by ${sort} ${direct}
             </when>
             <otherwise>
-                order by ST_INV_SEQ desc
+        order by ST_INV_SEQ desc
             </otherwise>
         </choose>
         limit ${start}, ${size}
+    </select>
+
+    <select id="findInventory" resultType="TfInventoryVO" parameterType="java.util.Map">
+        SELECT * FROM TF_INVENTORY WHERE ST_INVEN_SEQ = ${stInvenSeq}
     </select>
 
     <insert id="inventorySave" parameterType="java.util.Map">
@@ -45,12 +52,12 @@
         UPDATE TF_INVENTORY
         SET
             INV_YN = 'Y'
-          , MIS_WORK = #{misWork}
-          , INV_COMMENT = #{invComment}
+          , MIS_WORK = #{misWork, jdbcType=VARCHAR}
+          , INV_COMMENT = #{invComment, jdbcType=VARCHAR}
           , MOD_DATE = SYSDATE()
           , MOD_ID = #{modId}
-        WHERE
-            ST_INVEN_SEQ = ${stInvenSeq}
+        WHERE ST_INVEN_SEQ = ${stInvenSeq}
+        AND INV_YN = 'N'
     </update>
 
 

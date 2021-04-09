@@ -14,6 +14,8 @@ public interface TfInventoryMapper {
 
     List<TfInventoryVO> invenList(HashMap item);
 
+    TfInventoryVO findInventory(Map item);
+
     int inventorySave(Map item);
 
     int invUpdate(Map item);

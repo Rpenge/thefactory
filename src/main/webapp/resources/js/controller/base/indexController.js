@@ -7,7 +7,6 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
 	$rootScope.quickCmd = {};

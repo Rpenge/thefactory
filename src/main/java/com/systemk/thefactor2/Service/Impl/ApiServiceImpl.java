@@ -500,7 +500,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public Map<String, Object> createInven(Map param) throws Exception {
+	public Map<String, Object> addInven(Map param) throws Exception {
 		Date date = new Date();
 		param.put("stInvDate", StringUtil.dateFormatYMD(date));
 		List<String> tagList = (List) param.get("tagList");
@@ -575,11 +575,8 @@ public class ApiServiceImpl implements ApiService {
 //			tfInventoryMapper.inventorySave(invMap);
 //		}
 
-
-
-
 		//현황이 생성되있을시 태그id와 seq를 가지고 업데이트
-		return null;
+		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
 	@Override

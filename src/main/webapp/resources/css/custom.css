@@ -6,8 +6,8 @@ html, body {
 body {
 	background-color: #f8f9fa!important;
 	font-size: 0.95rem;
-	transform: scale(0.91, 0.91) translateX(-5.1%) translateY(-5%);
-	width:110%;
+	/*transform: scale(0.91, 0.91) translateX(-5.1%) translateY(-5%);*/
+	/*width:110%;*/
 }
 
 
@@ -967,8 +967,6 @@ a.nav-link{
 	left: 50%;
 	right: 200px;
 	transform: translate(-50%, -50%);
-
-
 }
 #brandSearch:read-only{
 	background-color: white;
@@ -996,10 +994,13 @@ a.nav-link{
 	height: 0;
 }
 
-
 .table-disabled{
 	background-color: lightgray!important;
 	opacity: 75%;
+}
+
+.check-disabled{
+	opacity: 30%;
 	pointer-events: none;
 }
 

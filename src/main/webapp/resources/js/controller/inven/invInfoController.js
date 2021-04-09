@@ -4,6 +4,7 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
 		pageInfo($rootScope, $location);
+		$scope.select = {};
 
 		if($location.$$search.seq){
 			$scope.search = {};
@@ -38,6 +39,9 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 		$scope.checkAll = function(status, prKey){
 			const tempList = [];
 			for(const key in $scope.list){
+				if($scope.list[key].invYn == 'Y'){
+					continue;
+				}
 				$scope.list[key].isSelected = status;
 				tempList.push($scope.list[key][prKey]);
 			}
@@ -69,19 +73,11 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 					formData[key] = data[key];
 				}
 				$scope.form = formData;
-				var brand = formData.brandKindCd;
-				brand = brand.substr(0,2)+'0000';
-				for(value of $rootScope.brandList){
-					if(value.brandKindCd == brand){
-						$scope.form.brandNm = value.brandNm;
-						break;
-					}
-				}
 			}
 		}
 
 		$scope.formSave = function(){
-			if($scope.es.modForm == true){ //장비 정보 수정
+			if($scope.es.modForm == true){
 				$http({
 					method : 'POST',
 					url : "/inven/invenUpdate",
@@ -91,7 +87,7 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 					if(data.resultCode == 'S') {
 						modalAlert($uibModal, "재고실사내역", "해당 상품의 실사내역이 확정 되었습니다.");
 					}
-					// $rootScope.reload();
+					$scope.reload();
 				}).error(function(data){
 					alert('정보 업데이트 실패');
 				});
@@ -115,7 +111,49 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 			httpGetList($http, $scope,'/inven/invenList', param );
 		}
 
+		//차이 발생 목록
+		$scope.stkDif = function(command){
+			if(command == 'dis') {
+				Discordance = true;
+				$scope.search['invYn'] = 'N';
+				$scope.search['page'] = 0;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope, '/inven/invenList', param);
+			}else{
+				Discordance = false;
+				$scope.search['invYn'] = null;
+				$scope.search['page'] = 0;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope,'/inven/invenList', param );
+			}
+		}
 
 
+		//테이블 버튼 사용
+		$scope.tableBtn = function(command){
+			if(command == 'confirm'){
+				if(checkList.length < 1){
+					modalAlert($uibModal, "일괄확정", "데이터를 선택해주세요.");
+					return;
+				}
+				modalCheck($uibModal, "일괄확정", "데이터를 확정처리 하시겠습니까?", function() {
+					$http({
+						method: 'POST',
+						url: "/inven/invenUpdateList",
+						data: {'list': checkList, 'stInvDate':$scope.list[0].stInvDate, 'invStoreCd':$scope.list[0].invStoreCd, 'misWork':$scope.select.misWork},
+						headers: {'Content-Type': 'application/json; charset=utf-8'}
+					}).success(function (data) {
+						if (data.resultCode == 'S') {
+							modalAlert($uibModal, "일괄확정", "데이터가 확정처리 되었습니다");
+						}
+						$rootScope.reload();
+					}).error(function (data) {
+						alert('정보 업데이트 실패');
+					});
+				});
+			}
+		}
 
-}]);
+
+	}]
+);

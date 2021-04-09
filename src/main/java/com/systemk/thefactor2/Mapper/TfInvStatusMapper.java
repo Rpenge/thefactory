@@ -19,5 +19,7 @@ public interface TfInvStatusMapper {
 
     int updateInvStatus(TfInvStatusVO item);
 
+    int invenDelete(int seq);
+
 
 }

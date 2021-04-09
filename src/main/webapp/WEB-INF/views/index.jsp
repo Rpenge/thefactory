@@ -69,6 +69,7 @@
 		}
 	</style>
 </head>
+
 <body class="ng-cloak " style="min-width:1280px;">
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color: white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 60px;position: fixed;">
 	<i class="xi-box" style="color: white;font-size: small"> THEFACTOR2 재고관리</i>

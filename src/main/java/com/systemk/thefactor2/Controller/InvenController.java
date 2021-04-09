@@ -44,6 +44,20 @@ public class InvenController {
         return invenService.invenUpdate(map);
     }
 
+    //실사상세내역(list 확정)
+    @RequestMapping(value="/invenUpdateList", method = RequestMethod.POST)
+    public Map<String, Object> invenUpdateList(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        map.put("modId", (String)session.getAttribute("userId"));
+        return invenService.invenUpdateList(map);
+    }
+
+    //실사삭제
+    @RequestMapping(value="/invenDelete", method = RequestMethod.POST)
+    public Map<String, Object> invenDelete(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request) throws Exception{
+        return invenService.invenDelete(map);
+    }
+
 
 
 }
