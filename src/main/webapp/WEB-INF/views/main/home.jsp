@@ -44,31 +44,37 @@
 			<p style="text-align: center;font-size:25px;font-weight: bold;">주요업무 <span style="font-size:13px;font-weight: normal;">바로가기</span></p>
 
 			<div class="d-flex justify-content-center" style="min-width: 350px;height: 180px;">
+				<a href="/#/inout/input">
+					<div class="main-work-btn" >
+						<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 60%;"></div>
+						<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
+						<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 90px;top: 50px;">입고</p>
+					</div>
+				</a>
 
-				<div class="main-work-btn" ng-click="modalOpen('assetReg')">
-					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 60%;"></div>
-<%--					<div style="width:100%;height: 100%;position: absolute;background: black;opacity: 50%;"></div>--%>
-					<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
-					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 90px;top: 50px;">입고</p>
-				</div>
-
+				<a href="/#/inout/output">
 				<div class="main-work-btn" ng-click="modalOpen('proReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 50%;"></div>
 					<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
 					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 90px;top: 50px;">출고</p>
 				</div>
+				</a>
 
+				<a href="/#/inout/sales">
 				<div class="main-work-btn" ng-click="modalOpen('userReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
 					<img src="/resources/img/2.jpg" style="width:100%;height:100%;" draggable="false">
 					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 70px;top: 50px;">판매/배송</p>
 				</div>
+				</a>
 
+				<a href="/#/stock/stk">
 				<div class="main-work-btn" ng-click="modalOpen('proReg')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
 					<img src="/resources/img/3.jpg" style="width:100%;height:100%;" draggable="false">
 					<p style="font-size: 25px; color: whitesmoke; position: absolute;left: 70px;top: 50px;">재고현황</p>
 				</div>
+				</a>
 
 			</div>
 		</div>
