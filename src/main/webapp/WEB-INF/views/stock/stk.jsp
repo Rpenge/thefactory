@@ -12,31 +12,7 @@
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents">
 
-
 				<!--테이블 상단 구성-->
-<%--				<div class="d-flex" style="margin:10px 0;">--%>
-<%--					<div class="d-flex mr-auto p-2" style="margin:0;padding:0!important;">--%>
-<%--						<select class="custom-select" ng-model="sizeValue" ng-change="pageSize(sizeValue)" style="width:150px;margin-right: 10px;">--%>
-<%--							<option value="">10개씩 보기</option>--%>
-<%--							<option value="20">20개씩 보기</option>--%>
-<%--							<option value="50">50개씩 보기</option>--%>
-<%--							<option value="total" style="color: red;">전체보기</option>--%>
-<%--						</select>--%>
-
-<%--						<h6 class="align-self-center">TOTAL ( 10 )</h6>--%>
-<%--					</div>--%>
-
-<%--					<div class="input-group btn p-2" style="width:250px;margin:0px;padding:0!important;height:40px;">--%>
-<%--						<input ng-model="file_path" style=";border: 1px solid lightgray;width: 175px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">--%>
-<%--						<div class="input-group-append">--%>
-<%--							<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;">업로드--%>
-<%--								<input class="btn-outline-secondary" type="file" id="ex_filename" onchange="angular.element(this).scope().fileUpload(this.value)" hidden>--%>
-<%--							</label>--%>
-<%--						</div>--%>
-<%--					</div>--%>
-<%--					<button class="btn btn-primary p-2 table-top-btn" ng-click="modalOpen('assetReg')">자산 등록</button>--%>
-<%--					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">삭제</button>--%>
-<%--				</div>--%>
 				<div class="d-flex" style="margin:10px 0;">
 					<div class="d-flex mr-auto p-2" style="margin:0;padding:0!important;">
 						<select class="custom-select" ng-model="search.size" ng-init="search.size = '10'" ng-change="pageSize()" style="width:150px;margin-right: 10px;">
@@ -70,40 +46,41 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box" style="overflow: auto;">
-					<table class="table-bordered table-striped-odd" id="listTable" style="min-width:1600px;text-align: center;" >
+					<table class="table-bordered table-striped-odd" id="listTable" style="min-width:1450px;text-align: center;font-size:13px;" >
 						<thead style="background: whitesmoke;">
 							<tr>
-								<th rowspan="2" style="width:80px;">No</th>
-								<th rowspan="2" style="width:350px;">품목명</th>
-								<th rowspan="2" style="width:90px;">매장</th>
-								<th rowspan="2" style="width:150px;">브랜드</th>
-								<th rowspan="2" style="width:90px;">성별</th>
-								<th rowspan="2" style="width:90px;">상품구분</th>
-								<th rowspan="2" style="width:80px;">사이즈</th>
+								<th rowspan="2" style="width:65px;">No</th>
+								<th rowspan="2" style="width:250px;">품목명</th>
+								<th rowspan="2" style="width:75px;">매장</th>
+								<th rowspan="2" style="width:120px;">브랜드</th>
+								<th rowspan="2" style="width:75px;">성별</th>
+								<th rowspan="2" style="width:80px;">상품구분</th>
+								<th rowspan="2" style="width:75px;">사이즈</th>
+								<th rowspan="2" style="width:110px;">바코드</th>
 								<th style="height: 40px;">EC재고</th>
 								<th colspan="6">RFID 재고관리 시스템</th>
 								<th rowspan="2">재고차이</th>
 							</tr>
 							<tr>
-								<th style="height:40px;width:80px;">현재고</th>
-								<th style="width:80px;">입고</th>
-								<th style="width:80px;">츨고</th>
-								<th style="width:80px;font-size: 13px;">판매(매장)</th>
-								<th style="width:80px;font-size: 13px;">판매(온라인)</th>
-								<th style="width:80px;">실사수량</th>
-								<th style="width:80px;">실재고</th>
+								<th style="height:40px;width:75px;">현재고</th>
+								<th style="width:75px;">입고</th>
+								<th style="width:75px;">츨고</th>
+								<th style="width:75px;font-size: 12px;">판매(매장)</th>
+								<th style="width:80px;font-size: 12px;">판매(온라인)</th>
+								<th style="width:75px;">실사수량</th>
+								<th style="width:75px;">실재고</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list">
 								<td style="height: 60px;">{{value.STOCK_REG_SEQ}}</td><!--No-->
-								<td style="text-overflow:ellipsis;padding:5px;font-size: 13px">{{value.TF_PRD_NM}}</td>	<!--품목명-->
+								<td style="text-overflow:ellipsis;padding:5px;font-size: 12px">{{value.TF_PRD_NM}}</td>	<!--품목명-->
 								<td>{{value.STOCK_STORE_NM}}</td>			<!--매장명-->
 								<td>{{value.brandNm}}</td>					<!--브랜드-->
 								<td>{{value.genderNm}}</td>					<!--성별-->
 								<td>{{value.clsNm}}</td>					<!--분류명-->
 								<td>{{value.PRD_SIZE}}</td>					<!--size-->
-
+								<td>{{value.TF_PRD_BARCODE}}</td>					<!--size-->
 								<td>{{value.REAL_STOCK_CNT}}</td>			<!--EC수량-->
 								<td>{{value.inCnt}}</td>					<!--입고수량-->
 								<td>{{value.outCnt}}</td>					<!--출고수량-->

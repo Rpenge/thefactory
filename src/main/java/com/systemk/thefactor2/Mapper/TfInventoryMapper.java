@@ -22,6 +22,8 @@ public interface TfInventoryMapper {
 
     int manualInvUpdate(Map item);
 
+    List<Map> findInventoryCnt(Map item);
+
 
 
 }

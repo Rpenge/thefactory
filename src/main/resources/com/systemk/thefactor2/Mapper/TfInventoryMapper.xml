@@ -40,7 +40,8 @@
         UPDATE TF_INVENTORY
         SET INV_YN = 'Y',
             MOD_DATE = #{modDate, jdbcType=TIMESTAMP},
-            MOD_ID = #{modId, jdbcType=VARCHAR}
+            MOD_ID = #{modId, jdbcType=VARCHAR},
+            DEVICE_GUB = #{deviceGub, jdbcType=VARCHAR}
         WHERE ST_INV_SEQ = ${stInvSeq}
         AND TF_PRD_TAGID = #{tfPrdTagid}
         AND INV_YN = 'N'
@@ -56,9 +57,14 @@
           , INV_COMMENT = #{invComment, jdbcType=VARCHAR}
           , MOD_DATE = SYSDATE()
           , MOD_ID = #{modId}
+          , DEVICE_GUB = #{deviceGub, jdbcType=VARCHAR}
         WHERE ST_INVEN_SEQ = ${stInvenSeq}
         AND INV_YN = 'N'
     </update>
+
+    <select id="findInventoryCnt" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT BT_PRD_BARCODE as barcode,COUNT(*) as inventoryCnt from TF_INVENTORY where ST_INV_DATE = #{stInvDate} and INV_STORE_CD = #{storeCd} GROUP BY BT_PRD_BARCODE;
+    </select>
 
 
 </mapper>

@@ -14,5 +14,8 @@
 			</button>
 		</div>
 		<div class="modal-body" style="height: 150px;">{{body}}</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" ng-click="cancel()">확인</button>
+		</div>
 	</div>
 </body>

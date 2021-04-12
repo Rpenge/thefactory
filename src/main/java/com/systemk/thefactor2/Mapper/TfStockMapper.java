@@ -27,4 +27,6 @@ public interface TfStockMapper {
 
     int stockUpdate(Map item);
 
+    int stockInvUpdate(Map item);
+
 }

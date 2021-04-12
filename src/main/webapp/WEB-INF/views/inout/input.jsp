@@ -15,35 +15,29 @@
 
 				<form ng-submit="formSave()">
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;height:50px;">
-						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 입고 조회</span>
-<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>--%>
-<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>--%>
+						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 입고조회</span>
 					</div>
 
 					<table class="table-bordered" style="width:100%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
 						<tr>
 							<th style="width:10%;height:40px"> 태그ID</th>
 							<td class="d-flex" style="padding: 0;"><input type="text" class="form-control" style="width:100%;" ng-model="form.tfPrdTagid" ng-required="true" disabled>
-<%--								<button class="btn btn-secondary" type="button" ng-click="inputAdd()" style="width:20%;padding:0px;"><i class="xi-search" style="font-size: 20px;"></i></button>--%>
 							</td>
 							<th style="width:10%"> 입고매장</th>
 							<td style="width:15%">
 								<select class="form-control" ng-model="form.inStoreCd" ng-required="true" disabled>
-<%--									<option value="">매장</option>--%>
 									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
 							<th style="width:10%"> 입고유형</th>
 							<td style="width:15%">
 								<select class="form-control" ng-model="form.stInType" ng-required="true" disabled>
-<%--									<option value="">입고유형</option>--%>
 									<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0601'" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
 							<th style="width:10%"> 출고매장</th>
 							<td style="width:15%">
 								<select class="form-control" ng-model="form.outStoreCd" disabled>
-<%--									<option value="">매장</option>--%>
 									<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
@@ -68,9 +62,7 @@
 							<th>바코드</th>
 							<td><input type="text" class="form-control" ng-model="inView.btPrdBarcode" disabled></td>
 						</tr>
-
 					</table>
-
 				</form>
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
@@ -87,25 +79,24 @@
 						</select>
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
-
 					<button class="btn btn-danger p-2 table-top-btn" ng-click="tableBtn('Withdrawal')">삭제</button>
 				</div>
+
 				<!-- 테이블 생성 -->
 				<div class="table-box">
 					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width: 1450px;">
 						<thead>
 						<tr class="pointer" >
-							<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
-							<th ng-click="sort('stInSeq')" id="stInSeq" style="width:50px;">순번</th>
+							<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
+							<th ng-click="sort('stInSeq')" id="stInSeq" style="width:60px;">순번</th>
 							<th ng-click="sort('stInDate')" id="stInDate">입고일자</th>
 							<th style="width:80px;">입고매장</th>
 							<th style="width:80px;">입고유형</th>
-							<th>브랜드</th>
-							<th>성별</th>
+							<th style="width:130px;">브랜드</th>
+							<th style="width:80px;">성별</th>
 							<th style="width:80px;">상품분류</th>
-							<th>사이즈</th>
-							<th>상품코드</th>
-							<th>자체상품코드</th>
+							<th style="width:80px;">사이즈</th>
+							<th style="width:210px;">자체상품코드</th>
 							<th>바코드</th>
 							<th>태그ID</th>
 							<th>등록일시</th>
@@ -114,7 +105,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
-								<td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stInSeq}})" ></td>
+								<td style="padding:13px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stInSeq}})" ></td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInSeq}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInDate}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.inStoreNm}}</td>
@@ -123,7 +114,6 @@
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td><!--성별-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.clsNm}}</td><!--상품분류-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td><!--사이즈-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.ecPrdCd}}</td><!--상품코드-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td><!--자체상품코드-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td><!--바코드-->
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td><!--태그ID-->

@@ -64,22 +64,29 @@
     </select>
 
     <select id="stockCheck" resultType="Integer" parameterType="java.util.Map">
-        select count(*) from tf_stock_test
+        select count(*) from tf_stock
         WHERE STOCK_STORE_CD = #{STOCK_STORE_CD}
         AND TF_PRD_BARCODE= #{TF_PRD_BARCODE}
     </select>
 
     <insert id="stockSave" parameterType="java.util.Map">
-        INSERT INTO tf_stock_test
+        INSERT INTO tf_stock
         (STOCK_STORE_CD, STOCK_STORE_NM, TF_PRD_CD, TF_PRD_NM, TF_PRD_BARCODE, PRD_SIZE, CUR_STOCK_CNT, REAL_STOCK_CNT, STD_STOCK_CNT, RFID_STOCK_CNT, INVENTORY_CNT, REG_DATE, REG_ID)
         VALUES(#{STOCK_STORE_CD}, #{STOCK_STORE_NM}, #{TF_PRD_CD}, #{TF_PRD_NM}, #{TF_PRD_BARCODE}, #{PRD_SIZE}, #{CUR_STOCK_CNT}, #{REAL_STOCK_CNT}, #{STD_STOCK_CNT}, 0, 0, now(), #{userId})
     </insert>
 
     <update id="stockUpdate" parameterType="java.util.Map">
-        UPDATE tf_stock_test
+        UPDATE tf_stock
         SET CUR_STOCK_CNT=${CUR_STOCK_CNT}, REAL_STOCK_CNT=${REAL_STOCK_CNT}, STD_STOCK_CNT=${STD_STOCK_CNT}, MOD_ID= #{userId} , MOD_DATE = now()
         WHERE STOCK_STORE_CD = #{STOCK_STORE_CD}
         AND TF_PRD_BARCODE= #{TF_PRD_BARCODE}
+    </update>
+
+    <update id="stockInvUpdate" parameterType="java.util.Map">
+        UPDATE tf_stock
+        SET INVENTORY_CNT=${inventoryCnt}, MOD_ID= #{modId, jdbcType=VARCHAR} , MOD_DATE = #{modDate, jdbcType=TIMESTAMP}
+        WHERE STOCK_STORE_CD = #{storeCd}
+          AND TF_PRD_BARCODE= #{barcode}
     </update>
 
 </mapper>

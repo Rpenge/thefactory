@@ -35,11 +35,9 @@
 
 	<%--<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>--%>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/userController.js?v=${version}"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/controller/assetMgController.js?v=${version}"></script>
-
 
 	<!--thefacotry controller-->
-	<script src="${pageContext.request.contextPath}/resources/js/controller/base/indexController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/deviceController.js?v=${version}"></script>
@@ -56,11 +54,9 @@
 	<link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sb-admin.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/xeicon.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css?v=${version}">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/metisMenu.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/angular-tree.css">
 
 
 	<style type="text/css">
@@ -71,12 +67,11 @@
 </head>
 
 <body class="ng-cloak " style="min-width:1280px;">
-<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color: white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 60px;position: fixed;">
-	<i class="xi-box" style="color: white;font-size: small"> THEFACTOR2 재고관리</i>
+<nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color:white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 30px;position: fixed;">
+	<i class="xi-box" style="color: white;font-size:small"> THEFACTOR2 재고관리</i>
 	<!-- Top Menu Items -->
 	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 		<li class="nav-item" >
-			<%--					<a class="nav-link" href='/#/system/user' ng-click="goUserInfo()" style="margin-right:20px;"><i class="xi-profile" aria-hidden="true"></i>사용자정보 </a>--%>
 			<a class="nav-link" style="margin-right:20px;"> {{userId}}님 반갑습니다</a>
 		</li>
 		<li class="nav-item">
@@ -144,7 +139,6 @@
 		</div>
 	</div>
 
-	<%--			<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="menuToggle()" style="background: white;"><i class="xi-list"></i></button></div>--%>
 	<div class="ml-auto p-2" id="menuToggle" ng-show="authenticated"><button class="btn" ng-click="dropDown.display = dropDown.display == 'block' ? '' : 'block'" style="background: white;"><i class="xi-list"></i></button></div>
 </nav>
 
@@ -152,21 +146,16 @@
 
 <!--메인TOP-->
 <div style="height:500px;" ng-if="authenticated && mainPage">
-	<div style="overflow: hidden;"><img src="/resources/img/다운로드 (1).png" style="width:100%;min-width:1150px;" draggable="false"></div>
+	<div style="overflow: hidden;"><img src="/resources/img/main.png" style="width:100%;min-width:1150px;" draggable="false"></div>
 </div>
 
-
-
 <div class="d-flex justify-content-left" ng-if="authenticated" >
-
-
 	<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
 
 		<!-- left body -->
 		<div style="width:20%;margin:3px;" ng-if="!mainPage">
 			<div class="left-body" >
 				<!--메뉴-->
-
 				<div class="d-flex justify-content-between left-body-menu">
 					<p style="margin: 8px 0 5px 0">매장</p>
 					<select class="form-control" ng-model="quickSearch.storeCd" style="width: 180px;">
@@ -181,15 +170,11 @@
 					<i style="margin: 8px;" class="xi-angle-up" ng-show="st1"></i>
 				</div>
 				<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st1">
-
 					<table id="lBrandTb" style="width:100%;">
-						<%--								<tr ng-repeat="value in brandList"><td onclick="selectTd($(this))" style="padding:5px;">{{value.brandNm}}</td></tr>--%>
 						<tr ng-repeat="(key, value) in brandList">
 							<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>
 						</tr>
 					</table>
-
-
 				</div>
 
 				<div  class="d-flex justify-content-between left-body-menu">
@@ -201,11 +186,11 @@
 				</div>
 
 				<div  class="d-flex justify-content-between left-body-menu" ng-click="st3 = st3==true ? false : true">
-
 					<p style="margin: 8px 50px 5px 0;">상품분류</p>
 					<i style="margin: 8px;" class="xi-angle-down" ng-show="!st5"></i>
 					<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
 				</div>
+
 				<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
 					<table style="width:100%;">
 						<tr ng-repeat="(key, value) in subBrandCls">
@@ -213,7 +198,6 @@
 						</tr>
 					</table>
 				</div>
-
 
 				<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:3px solid gray;background:whitesmoke;margin-top:100px;">
 					<p style="margin: 8px 50px 5px 0;">입출고현황</p>
@@ -245,7 +229,6 @@
 			<div class="container-fluid d-flex justify-content-center" ng-if="!mainPage" style="padding:0!important;" >
 				<div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">
 					<h4><a class="menuName" href="" ng-click="reload()">{{currentMenu.PGM_NM}}</a></h4>
-					<%--							<h6 style="color:gray;">재고현황조회</h6>--%>
 				</div>
 				<ol class="breadcrumb justify-content-end" style="bottom:0;margin:0;padding:10px 0 0 0;width:70%;background-color:transparent;border-bottom:1px solid lightgray;">
 					<li><a href="">{{currentMenu | menuGroup}}</a></li> &nbsp;>&nbsp;
@@ -255,10 +238,8 @@
 
 			<!--상단 검색 보드-->
 			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 3%;">
-
 				<div class="d-flex" style="border-bottom: 1px solid #f1f1f1;margin-bottom: 4px;">
 					<span style="font-size:20px;margin: 12px 13px 0 0;">Quick Search</span>
-
 					<select class="form-control" ng-model="quickCmd.cmd" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCmd.cmd)">
 						<option value="IO1">입고조회</option>
 						<option value="IO2">출고조회</option>
@@ -269,15 +250,7 @@
 						<option value="IV2">재고실사내역조회</option>
 						<option value="ST1">재고현황관리</option>
 					</select>
-
-					<%--							<span class="p-2" style="font-size:16px;margin: 8px 12px 0 22px;">매장</span>--%>
-					<%--							<select class="form-control" ng-model="quickSearch.storeCd" style="width: 120px;margin-top: 10px;margin-bottom:5px;height: 40px;">--%>
-					<%--								<option value="">전체</option>--%>
-					<%--								<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>--%>
-					<%--							</select>--%>
-
 				</div>
-				<%--						<div class=" d-flex" style="width: 100%;border:1px solid lightgray;border-radius: 10px;padding:10px;">--%>
 
 				<!-- 검색열1 -->
 				<div class="d-flex" style="width: 100%;" ng-if="quick1">
@@ -369,11 +342,44 @@
 						</button>
 					</div>
 				</div>
+
+
+				<!-- 검색 추가4 -->
+				<div class="d-flex" style="width: 100%;" ng-if="quick4">
+					<p style="margin:12px 10px;">일자검색</p>
+					<div class="row input-group" style="width:200px;margin:5px;">
+						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
+						<span class="input-group-append" >
+							<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
+					</div>
+					<p style="margin:12px 10px;">~</p>
+					<div class="row input-group" style="width:200px;margin:5px;">
+						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
+						<span class="input-group-append" >
+							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
+					</div>
+					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;height: 38px;">검색</button>
+					<div class="d-flex" style="width:280px;margin: 10px;">
+						<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 35px;border:0;border-bottom: 1px solid gray;">
+						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
+							<i class="xi-search" style="font-size: 20px;"></i>
+						</button>
+					</div>
+				</div>
+
 			</div>
 
 
 			<!--contents-->
 			<div ng-view ng-show="authenticated && !regPage" ng-if="authenticated && !regPage" style="width:100%;"></div>
+
+		</div>
+	</div>
+	<div class="loading-spiner-holder" data-loading >
+		<div class="loading-spiner">
+			<img src="${pageContext.request.contextPath}/resources/img/icon/loading.gif" class="loading"/>
 		</div>
 	</div>
 </div>

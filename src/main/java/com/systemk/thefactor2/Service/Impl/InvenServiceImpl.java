@@ -4,6 +4,7 @@ package com.systemk.thefactor2.Service.Impl;
 import com.systemk.thefactor2.Mapper.PageMapper;
 import com.systemk.thefactor2.Mapper.TfInvStatusMapper;
 import com.systemk.thefactor2.Mapper.TfInventoryMapper;
+import com.systemk.thefactor2.Mapper.TfStockMapper;
 import com.systemk.thefactor2.Service.*;
 import com.systemk.thefactor2.Util.MybatisUtil;
 import com.systemk.thefactor2.Util.ResultUtil;
@@ -28,6 +29,9 @@ public class InvenServiceImpl implements InvenService {
 
 	@Autowired
 	private TfInventoryMapper tfInventoryMapper;
+
+	@Autowired
+	private TfStockMapper tfStockMapper;
 
 	@Autowired
 	private OutputService outputService;
@@ -68,11 +72,21 @@ public class InvenServiceImpl implements InvenService {
 		mu.setTable("TF_INVENTORY");
 
 		for(Object key : param.keySet()) {
-			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page")){
+			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page") || key.equals("word")){
 				continue;
-			}else{
-				mu.addEqual(StringUtil.camelToSnake((String)key), (String)param.get(key));
 			}
+
+			mu.addEqual(StringUtil.camelToSnake((String)key), (String)param.get(key));
+		}
+
+		if (param.get("word") != null) {
+			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+		}
+
+
+		if(param.get("startDate")!= null && param.get("endDate")!= null){
+			mu.addBetween("ST_INV_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
 		}
 		mu.setTotalElements(pageMapper.pageRecord(mu.getTableSearch())); // 수량조회
 		if(param.get("page")!=null)
@@ -105,7 +119,6 @@ public class InvenServiceImpl implements InvenService {
 				outMap.put("deviceGub", "020103");
 				outputService.outputAdd(outMap);
 			}
-
 			if(vo.getStTarCnt() == StInvCnt){
 				vo.setStInvYn("Y");
 			}
@@ -135,6 +148,7 @@ public class InvenServiceImpl implements InvenService {
 			map.put("stInvenSeq", stInvenSeq);
 			map.put("misWork", param.get("misWork"));
 			map.put("modId", param.get("modId"));
+			map.put("deviceGub", "020103");
 			if(tfInventoryMapper.manualInvUpdate(map) == 1){
 				if(param.get("misWork") != null) {
 					TfInventoryVO invenVO = tfInventoryMapper.findInventory(map);
@@ -150,8 +164,15 @@ public class InvenServiceImpl implements InvenService {
 				addCnt+=1;
 			}
 		}
-		if(vo.getStTarCnt() == addCnt){
+		if(vo.getStTarCnt() == addCnt){	//완료시 작업(현재 실사한 정보로  group by 로 제품과 매장별로 카운트해서 재고현황 업데이트)
 			vo.setStInvYn("Y");
+			List<Map> cntList = tfInventoryMapper.findInventoryCnt(searchMap);
+			for(Map cntMap : cntList){
+				cntMap.put("modId", param.get("modId"));
+				cntMap.put("modDate", new Date());
+				cntMap.put("storeCd", param.get("invStoreCd"));
+				tfStockMapper.stockInvUpdate(cntMap);
+			}
 		}
 		vo.setStInvCnt(addCnt);
 		vo.setModId((String) param.get("modId"));

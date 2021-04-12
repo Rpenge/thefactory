@@ -40,8 +40,6 @@
 				</select>
 			</td>
 
-
-
 			<button class="btn btn-outline-secondary" ng-click="searchBtn('group')" style="width:70px;margin:10px 30px;">검색</button>
 
 			<div class="d-flex" style="width:300px;margin: 10px;">

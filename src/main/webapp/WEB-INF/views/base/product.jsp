@@ -114,21 +114,21 @@
                     <table id="productTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width:1450px;">
                         <thead>
                             <tr class="pointer">
-                                <th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'prdRegSeq')"></th>
-                                <th>No</th>
-                                <th>브랜드</th>
-                                <th>성별</th>
-                                <th>상품분류</th>
-                                <th>사이즈</th>
-                                <th>상품코드</th>
-                                <th>자체상품코드</th>
-                                <th>상품명</th>
+                                <th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'prdRegSeq')"></th>
+                                <th style="width:80px;">No</th>
+                                <th style="width:140px;">브랜드</th>
+                                <th style="width:90px;">성별</th>
+                                <th style="width:90px;">상품분류</th>
+                                <th style="width:140px;">사이즈</th>
+                                <th style="width:110px;">상품코드</th>
+                                <th style="width:250px;">자체상품코드</th>
+                                <th style="width:370px;">상품명</th>
                                 <th>등록자</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
-                                <td style="padding:25px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.prdRegSeq}})" ></td>
+                                <td style="padding:13px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.prdRegSeq}})" ></td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdRegSeq}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td>

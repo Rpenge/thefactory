@@ -23,11 +23,10 @@
 				<div class="text-center alert alert-danger" ng-show="error == '3001'" style="padding:10px 0;">
 					사용 중지된 사용자입니다.
 				</div>
-<%--				<div class="text-center alert alert-danger" ng-show="error == '3002'" style="padding:10px 0;">--%>
-<%--					관리자 승인 이후에 사용하실 수 있습니다.--%>
-<%--				</div>--%>
-				<div style="position:relative;left:220px;">
-					<input type="checkbox" ng-model="idSaveCheck" ng-click="idSave()"> 아이디 저장
+
+				<div style="position:relative;left:3px;top:5px;font-size:14px;">
+					<input type="checkbox" ng-model="autoLogin" style="transform: scale(1.2);"> 자동로그인
+					<input type="checkbox" ng-model="idSaveCheck" style="margin-left:120px;transform: scale(1.2);"> 아이디 저장
 				</div>
 			</div>
 		</div>

@@ -27,10 +27,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		code($rootScope);
 	});
 
-
 	//새로고침 : 세션확인 후 메뉴 다시 조회
 	if(sessionStorage.getItem('id')){
-
 		$rootScope.userId = sessionStorage.getItem('id');
 		$http.get('/member/reUserAuth').success(function(data) {
 			if (data.userId) {
@@ -46,7 +44,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				return;
 			}
 		});
-
 		$http.get('/home/homeSimple').success(function(data){
 			$scope.todayData = data.todayData;
 		});
@@ -111,7 +108,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		}
 	}
 
-
 	//브랜드 선택
 	$scope.brandSelect = function(data){
 		if(!data){
@@ -140,11 +136,11 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		}
 	}
 
-
 	//quick search 검색구분 변경
-	$rootScope.quick1List = ['IO1', 'IO2','IO3'];
-	$rootScope.quick2List = ['IO4','IV1','IV2'];
+	$rootScope.quick1List = ['IO1','IO2','IO3'];
+	$rootScope.quick2List = ['IO4','IV1'];
 	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1','BS3'];
+	$rootScope.quick4List = ['IV2'];
 	$rootScope.addQuick = function(command){
 		$rootScope.quickSearch.workGub = null;
 		if($rootScope.quick1List.includes(command)){
@@ -163,6 +159,12 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 			$rootScope.quick3 = true;
 		}else{
 			$rootScope.quick3 = false;
+		}
+
+		if($rootScope.quick4List.includes(command)){
+			$rootScope.quick4 = true;
+		}else{
+			$rootScope.quick4 = false;
 		}
 		workGub(command)
 	}

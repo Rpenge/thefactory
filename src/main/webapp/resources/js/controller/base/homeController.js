@@ -1,4 +1,3 @@
-
 app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$timeout', '$window','$uibModal',
 	function ($scope, $http, $location,$rootScope, $interval, $timeout, $window, $uibModal) {
 
@@ -9,18 +8,22 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 		$rootScope.quickSearch.startDate = new Date( new Date().setMonth( new Date().getMonth() - 1));
 		$rootScope.quickSearch.endDate = new Date();
 
-
-		$rootScope.quickCommand = 'IO1';	//quick검색 초기값
+		$rootScope.quickCmd['cmd'] = 'IO1';	//quick검색 초기값
 		//현재페이지 정보
 		pageInfo($rootScope, $location);
 		$rootScope.quick1 = true;
+		$rootScope.quick2 = false;
+		$rootScope.quick3 = true;
+		$rootScope.quick4 = false;
 		var monthList = [];
-
-		$http.get('/home/homeInfo').success(function(data){
+		$http.get('/home/homeInfo').success(function (data) {
 			$rootScope.todayData = data.todayData;
 			monthList = data.monthData;
-			chartDraw();
+			if(sessionStorage.getItem('id')) {
+				chartDraw();
+			}
 		});
+
 
 
 		//그래프

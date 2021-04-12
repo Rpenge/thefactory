@@ -17,6 +17,8 @@
              , REQ_JOIN_DATE
              , PDA_USE_YN
              , USER_STAT
+             , AUTO_PWD
+             , AUTO_PWD_YN
         FROM
             TF_USER
         WHERE

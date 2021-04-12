@@ -31,7 +31,6 @@ public class StockController {
 	@RequestMapping(value="/stockList", method = RequestMethod.GET)
 	public Map<String, Object> stockList(HttpServletRequest request) throws Exception{
 		Map param = RequestUtil.reqParamToMap(request);
-
 		if(param.get("ex")!=null){
 			return stockService.findExList(param);
 		}

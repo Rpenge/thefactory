@@ -8,31 +8,29 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 
 		if($location.$$search.seq){
 			$scope.search = {};
+			$scope.search['invYn'] = 'N';
 			$scope.search.stInvSeq = $location.$$search.seq;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inven/invenList', param);
-		}else{
-			httpGetList($http, $scope,'/inven/invenList');
+		}else if($rootScope.searchMove == 1){									//페이지 이동후 검색
+			$scope.search = {};
+			if($rootScope.quickSearch.storeCd){
+				$scope.search['invStoreCd'] = $rootScope.quickSearch.storeCd;
+			}
+			const startDate = formatDate3($rootScope.quickSearch.startDate);
+			const endDate = formatDate3($rootScope.quickSearch.endDate);
+			$scope.search['startDate'] = startDate;
+			$scope.search['endDate'] = endDate;
+
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/inven/invenList', param );
+		}else if($rootScope.searchMove == 2) {	//단어 검색
+			$scope.search = $rootScope.quickSearchWord;
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/inven/invenList', param );
+		}else{															//일반 페이지 이동
+			httpGetList($http, $scope,'/inven/invenList' );
 		}
-
-
-
-		// if($rootScope.searchMove == 1){									//페이지 이동후 검색
-		// 	$scope.search = {};
-		//
-		// 	// const endDate = $rootScope.quickSearch.endDate;
-		// 	// const newEndDate = formatDate3(new Date(endDate.setDate(endDate.getDate() +1)));
-		// 	const startDate = formatDate3($rootScope.quickSearch.startDate);
-		// 	const endDate = formatDate3($rootScope.quickSearch.endDate);
-		//
-		// 	$scope.search['startDate'] = startDate;
-		// 	$scope.search['endDate'] = endDate;
-		//
-		// 	const param = generateParam($scope.search);
-		// 	httpGetList($http, $scope,'/inven/invList', param );
-		// }else{															//일반 페이지 이동
-		// 	httpGetList($http, $scope,'/inven/invList' );
-		// }
 
 		//체크박스 전체 체크
 		var checkList = []; //체크박스 리스트
@@ -128,7 +126,6 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 			}
 		}
 
-
 		//테이블 버튼 사용
 		$scope.tableBtn = function(command){
 			if(command == 'confirm'){
@@ -146,14 +143,13 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 						if (data.resultCode == 'S') {
 							modalAlert($uibModal, "일괄확정", "데이터가 확정처리 되었습니다");
 						}
-						$rootScope.reload();
+						$scope.reload();
 					}).error(function (data) {
 						alert('정보 업데이트 실패');
 					});
 				});
 			}
 		}
-
 
 	}]
 );

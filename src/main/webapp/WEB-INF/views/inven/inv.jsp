@@ -28,7 +28,7 @@
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
-					<button class="btn btn-secondary p-2 table-top-btn" ng-click="tableBtn('delete')">삭제</button>
+					<button class="btn btn-danger p-2 table-top-btn" ng-click="tableBtn('delete')">삭제</button>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
@@ -38,10 +38,10 @@
 								<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInvSeq')"></th>
 								<th>실사일자</th>
 								<th>매장</th>
-								<th>예상수량</th>
+								<th>대상수량</th>
 								<th>실사수량</th>
-								<th>부족</th>
-								<th>PDA완료</th>
+								<th>미실사수량</th>
+<%--								<th>PDA완료</th>--%>
 								<th>완료여부</th>
 								<th>최종수정일</th>
 								<th>상세내역이동</th>
@@ -55,10 +55,10 @@
 								<td>{{value.stTarCnt}}</td>
 								<td>{{value.stInvCnt}}</td>
 								<td>{{value.stTarCnt - value.stInvCnt}}</td>
-								<td>
-									<i class="xi-check" ng-if="value.stPdaYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>
-									<i class="xi-close" ng-if="value.stPdaYn=='N'" style="color:red;font-weight: bolder;"></i>
-								</td>
+<%--								<td>--%>
+<%--									<i class="xi-check" ng-if="value.stPdaYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>--%>
+<%--									<i class="xi-close" ng-if="value.stPdaYn=='N'" style="color:red;font-weight: bolder;"></i>--%>
+<%--								</td>--%>
 								<td>
 									<i class="xi-check" ng-if="value.stInvYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>
 									<i class="xi-close" ng-if="value.stInvYn=='N'" style="color:red;font-weight: bolder;"></i>

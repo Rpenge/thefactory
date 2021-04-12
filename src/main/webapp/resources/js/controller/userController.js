@@ -2,19 +2,36 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
 
 
+
 	$scope.credentials ={};
-	if($cookieStore.get("idSave")){
+	if(getCookie('idSave')){
 		$scope.idSaveCheck = true;
-		$scope.credentials.userId = $cookieStore.get("uesrId");
+		// $scope.credentials.userId = $cookieStore.get("uesrId");
+		$scope.credentials.userId = getCookie('userId');
 	}
+
+
+	//로그인
+	$scope.login = function() {
+		authenticate($scope.credentials, function() {
+			if ($rootScope.authenticated) {
+				$rootScope.reload();
+				$scope.error = '';
+			} else {
+				$location.url("/");
+				$scope.error = $rootScope.authErrorMsg;
+			}
+		});
+	};
+
 
 	var authenticate = function(credentials, callback) {
 		if($scope.idSaveCheck) {
-			$cookieStore.put("idSave", true);
-			$cookieStore.put("uesrId",credentials.userId);
+			setCookie('idSave','true',7);
+			setCookie('userId',credentials.userId,7);
 		}else{
-			$cookieStore.remove("idSave");
-			$cookieStore.remove("uesrId");
+			deleteCookie('idSave');
+			deleteCookie('userId');
 		}
 
 		var headers = credentials ? {authorization : "Basic "
@@ -34,6 +51,16 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 					$rootScope.storeCd = null;
 				}
 				$rootScope.storeCd = data.storeCd;
+
+				if($scope.autoLogin == true){
+					setCookie('autoLogin',true,7);
+					setCookie('userId',credentials.userId,7);
+					setCookie('userPw',credentials.userPw,7);
+				}else{
+					deleteCookie('autoLogin');
+					deleteCookie('userId');
+					deleteCookie('userPw');
+				}
 			} else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;
@@ -56,23 +83,16 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	   $location.url("/");
     }
 
-	//로그인
-	$scope.login = function() {
-		authenticate($scope.credentials, function() {
-	        if ($rootScope.authenticated) {
-				$rootScope.reload();
-	        	$scope.error = '';
-	        } else {
-	        	$location.url("/");
-	        	$scope.error = $rootScope.authErrorMsg;
-	        }
-	    });
-	};
+	if(getCookie('autoLogin')){
+		$scope.autoLogin = true;
+		$scope.credentials.userId = getCookie('userId');
+		$scope.credentials.userPw = getCookie('userPw');
+		$scope.login();
+	}
 
 	$scope.clickUserReg = function(){
 		$location.url("/member/userReg");
 	};
-
 }]);
 
 //회원 리스트

@@ -19,5 +19,7 @@ public class TfUserVO {
     private Date   reqJoinDate;     // 가입신청 일시
     private String pdaUseYn;        // PDA사용여부
     private String userStat;        // 사용자 상태
-    private String regUserId;       // 등록자 
+    private String regUserId;       // 등록자
+    private String autoPwd;         // 패스워드
+    private String autoPwdYn;         // 패스워드
 }

@@ -625,10 +625,9 @@ input:checked + .slider:before {
 
 
 
-
-
 .table{
 	font-size : 13px;
+	table-layout: fixed;
 }
 .astNmTable{
 	min-width: 200px;
@@ -786,6 +785,7 @@ a.nav-link{
 	opacity: 0.9;
 	font-weight: 450;
 	padding: 0 5px 3px 5px ;
+	font-size: 22px;
 }
 
 .menuName:hover,
@@ -853,11 +853,6 @@ a.nav-link{
 	background-color : dimgrey;
 	/*box-shadow : 0 0 12px 0 lightgray inset;*/
 	color: white;
-}
-.table-striped-odd th,
-.table-striped-odd thead{
-	background-color : dimgrey;
-	border:0px;
 }
 
 .table-hover tbody tr:hover{

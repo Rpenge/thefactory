@@ -11,6 +11,7 @@ import com.systemk.thefactor2.Security.LoginUser;
 import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Mapper.TfUserAuthMapper;
+import com.systemk.thefactor2.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class UserController {
 	private TfUserAuthMapper tfUserAuthMapper;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	private CommService commService;
 
 	@Autowired
@@ -45,6 +49,10 @@ public class UserController {
 
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
+		System.out.println(request.getHeader("auto"));
+		if(request.getHeader("auto")!= null){
+			userService.autoLoginUpdate(user.getUserId(), request.getHeader("auto"));
+		}
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(30*60);
 		HashMap resultMap = new HashMap<>();

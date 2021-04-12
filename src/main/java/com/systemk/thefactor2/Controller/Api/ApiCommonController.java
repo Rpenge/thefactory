@@ -137,6 +137,7 @@ public class ApiCommonController {
     //재고실사 - 실사목록 받아서 생성&업데이트
     @RequestMapping(value = "/inventory", method = RequestMethod.POST)
     public Map<String, Object> inventory(@RequestBody(required = false) Map data, HttpServletRequest request) throws Exception {
+        data.put("deviceGub", request.getHeader("type"));
         data.put("regId", request.getHeader("id"));
         return apiService.addInven(data);
     }

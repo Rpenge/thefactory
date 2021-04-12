@@ -73,72 +73,17 @@
 			</div>
 		</div>
 
-
-
-<%--	<div class="d-flex justify-content-between" style="width:100%;margin:15px auto;height: 150px;position: relative;">--%>
-<%--		<div style="position:absolute;top:0px;width:100%;height:100%;background: white;opacity: 20%;">--%>
-<%--		</div>--%>
-<%--		<div style="width: 250px;background: black;color: white;opacity: 65%;padding: 15px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">금일 작업 현황</p>--%>
-<%--			<p style="">날짜 : 2021-02-23 (화요일)</p>--%>
-<%--		</div>--%>
-
-<%--		<div style="width: 150px;background: white;border-radius: 100px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">입고수량</p>--%>
-<%--			<p style="font-size: 40px;margin-left: 50px;color:#80bdff;">10</p>--%>
-<%--		</div>--%>
-
-<%--		<div style="width: 150px;background: white;border-radius: 100px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">출고수량</p>--%>
-<%--			<p style="font-size: 40px;margin-left: 50px;color:#80bdff;">15</p>--%>
-<%--		</div>--%>
-
-<%--		<div style="width: 150px;background: white;border-radius: 100px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">실사수량</p>--%>
-<%--			<p style="font-size: 40px;margin-left: 50px;color:#80bdff;">50</p>--%>
-<%--		</div>--%>
-
-<%--		<div style="width: 150px;background: white;border-radius: 100px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">반품수량</p>--%>
-<%--			<p style="font-size: 40px;margin-left: 50px;color:#80bdff;">3</p>--%>
-<%--		</div>--%>
-
-<%--		<div style="width: 150px;background: white;border-radius: 100px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">전체재고</p>--%>
-<%--			<p style="font-size: 40px;margin-left: 50px;">98</p>--%>
-<%--		</div>--%>
-
-<%--		<div></div>--%>
-
-<%--	</div>--%>
-
-<%--	<div class="d-flex"style="background: white;width:75%;margin:15px auto;height: 400px;">--%>
-<%--		<div style="background: whitesmoke;width: 50%;padding: 20px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">재고현황(매장별)</p>--%>
-<%--			<canvas id="myChart" style="max-width:600px;"></canvas>--%>
-<%--		</div>--%>
-
-<%--		<div style="background: white;width: 50%;padding: 50px;">--%>
-<%--			<p style="font-size: larger;font-weight: bold;">재고현황(상품별)</p>--%>
-<%--			<canvas id="myChart2" style="max-width:600px;"></canvas>--%>
-<%--		</div>--%>
-<%--	</div>--%>
-
 	<div class="d-flex"style="position:relative;top:40px;background: transparent;width:100%;margin:15px auto;height: 400px;border:1px solid lightgray;">
-
-
 		<div id="chart1" style="width: 100%;padding: 20px;background: white;">
 			<div style="width:100%;height: 350px;">
-<%--				<p style="font-size: larger;font-weight: bold;">월별 작업현황</p>--%>
 				<canvas id="myChart" style="max-height: 330px;overflow: hidden;"></canvas>
 			</div>
 		</div>
-
 	</div>
 
-	<div>
-		<button class="btn btn-outline-secondary" ng-if="role=='010101'" ng-click="uploaderOpen()">고정형 리더기</button>
-		<button class="btn btn-outline-secondary" ng-if="role=='010101'" ng-click="uploaderOpen('pda')">PDA APP</button>
+	<div style="margin-top:50px;" ng-if="role=='010101'">
+<%--		<button class="btn btn-outline-secondary" ng-click="uploaderOpen()">고정형 리더기</button>--%>
+		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('pda')">PDA APP</button>
 	</div>
 </div>
 </html>
@@ -153,5 +98,4 @@
 		$('#select-chart > :nth-child('+n+')').css("background","white");
 		$('#select-chart > :nth-child('+n+')').css("color","gray");
 	}
-
 </script>

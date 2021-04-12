@@ -176,7 +176,6 @@ public class ApiServiceImpl implements ApiService {
 		}else{
 			tagId = preTagId + String.format("%03d", Integer.parseInt(lastNum) + 1);
 		}
-//		TfStockVO vo = tfStockMapper.findStockInfo(barcode);
 		Map mapData = tfProductMapper.prdAndStk(param);
 		String brand = (String)mapData.get("BRAND_KIND_CD");
 		String prdNm = (String)mapData.get("TF_PRD_NM");
@@ -430,6 +429,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("seq", vo.getStOutSeq());
 			map.put("name", vo.getTfPrdNm());
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
+			map.put("tagId", vo.getTfPrdTagid());
 			list.add(map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
@@ -524,6 +524,7 @@ public class ApiServiceImpl implements ApiService {
 				invMap.put("tfPrdNm", map.get("TF_PRD_NM"));
 				invMap.put("btPrdBarcode", map.get("TF_PRD_BARCODE"));
 				invMap.put("prdSize", map.get("PRD_SIZE"));
+				invMap.put("deviceGub", param.get("deviceGub"));
 				if(tagList.contains(map.get("TF_PRD_TAGID"))){
 					stInvCnt += 1;
 					invMap.put("invYn", "Y");
@@ -542,6 +543,7 @@ public class ApiServiceImpl implements ApiService {
 				invMap.put("tfPrdTagid", tagId);
 				invMap.put("modDate", new Date());
 				invMap.put("modId", param.get("regId"));
+				invMap.put("deviceGub", param.get("deviceGub"));
 				if(tfInventoryMapper.invUpdate(invMap) == 1) {
 					stInvCnt += 1;
 				}
@@ -549,31 +551,23 @@ public class ApiServiceImpl implements ApiService {
 			vo.setModDate(new Date());
 			vo.setModId((String) param.get("regId"));
 		}
+
+		if(vo.getStTarCnt() == stInvCnt){	//완료시 작업(현재 실사한 정보로  group by 로 제품과 매장별로 카운트해서 재고현황 업데이트)
+			vo.setStInvYn("Y");
+
+			List<Map> cntList = tfInventoryMapper.findInventoryCnt(param);
+			for(Map cntMap : cntList){
+				cntMap.put("modId", param.get("regId"));
+				cntMap.put("modDate", new Date());
+				cntMap.put("storeCd", param.get("storeCd"));
+				tfStockMapper.stockInvUpdate(cntMap);
+			}
+		}
 		vo.setStInvCnt(stInvCnt);
 		tfInvStatusMapper.updateInvStatus(vo);
 
-//		int newStInvSeq = tfInvStatusMapper.createInvStatus(param); //재고실사 시작시 신규현황을 생성하고 키값 리턴
-//
-//		List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd")); // 선택 매장의 실재고 데이터
-//
-//		for(Map map : acList){
-//			Map invMap = new HashMap();
-//			invMap.put("stInvSeq", newStInvSeq);
-//			invMap.put("tfPrdTagid", map.get("TF_PRD_TAGID"));
-//			invMap.put("stInvDate", param.get("stInvDate"));
-//			invMap.put("invStoreCd", map.get("STORE_CD"));
-//			invMap.put("tfPrdCd", map.get("TF_PRD_CD"));
-//			invMap.put("tfPrdNm", map.get("TF_PRD_NM"));
-//			invMap.put("btPrdBarcode", map.get("TF_PRD_BARCODE"));
-//			invMap.put("prdSize", map.get("PRD_SIZE"));
-//			if(tagList.contains(map.get("TF_PRD_TAGID"))){
-//				invMap.put("invYn", "Y");
-//			}else{
-//				invMap.put("invYn", "N");
-//			}
-//			invMap.put("regId", param.get("regId"));
-//			tfInventoryMapper.inventorySave(invMap);
-//		}
+
+
 
 		//현황이 생성되있을시 태그id와 seq를 가지고 업데이트
 		return ResultUtil.setCommonResult("S","성공하였습니다");

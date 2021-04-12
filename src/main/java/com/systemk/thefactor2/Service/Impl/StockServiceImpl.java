@@ -54,6 +54,7 @@ public class StockServiceImpl implements StockService {
 		if (param.get("word")!=null) {
 			mu.addLike("TF_PRD_NM", (String)param.get("word"));
 			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
 		}
 
 		mu.setTotalElements(pageMapper.pageRecord(mu.getTableSearch())); // 수량조회

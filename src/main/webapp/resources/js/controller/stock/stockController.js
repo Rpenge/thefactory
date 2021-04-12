@@ -4,7 +4,6 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
 		pageInfo($rootScope, $location);
-
 		var Discordance = false;
 
 		// httpGetList($http, $scope,'/stock/stockList' );
@@ -26,7 +25,8 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param );
 		}else if($rootScope.searchMove == 2) { //단어 검색
-			const param = generateParam($rootScope.quickSearchWord);
+			$scope.search = $rootScope.quickSearchWord;
+			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param )
 		}else{
 			httpGetList($http, $scope,'/stock/stockList' );
