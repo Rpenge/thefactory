@@ -24,6 +24,17 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 			}
 		});
 
+		$scope.goMainMenu = function(cmd){
+			for(const value of $rootScope.topMenu){
+				if(value.PGM_CD == cmd){
+					$location.url(value.PGM_URL);
+					return;
+				}
+			}
+			modalAlert($uibModal, "메뉴이동", "접근권한이 없습니다");
+
+		}
+
 
 
 		//그래프
@@ -119,7 +130,17 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 		//어플 업로드 열기
 		$scope.uploaderOpen = function(command){
 			if(command=='pda'){
-				$ctrl = {};
+				$ctrl = {'cmd':'020102'};
+				$ctrl['commonCode'] = $scope.commonCode;
+				var modalInstance = $uibModal.open({
+					backdrop: 'static',
+					templateUrl: 'modal/upload',
+					controller: 'uploadController',
+					controllerAs: '$ctrl',
+					size: 'SM'
+				});
+			}else if(command=='fixed'){
+				$ctrl = {'cmd':'020101'};
 				$ctrl['commonCode'] = $scope.commonCode;
 				var modalInstance = $uibModal.open({
 					backdrop: 'static',
@@ -131,21 +152,6 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 			}
 		}
 
-		//modal창 열기
-		$scope.modalOpen = function(command, data){
-			//자산등록창
-			if(command=='assetReg'){
-				$ctrl = {};
-				$ctrl['device'] = $rootScope.device;
-				var modalInstance = $uibModal.open({
-					backdrop: 'static',
-					templateUrl: 'assetManagement/modal/assetRegist',
-					controller: 'assetMgController_reg',
-					controllerAs: '$ctrl',
-					size: 'SM'
-				});
-			}
-		}
 }]);
 
 

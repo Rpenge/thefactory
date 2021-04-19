@@ -23,9 +23,10 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
-	@RequestMapping(value="/appInfo", method = RequestMethod.GET)
-	public TfApplicationVO appInfo(@RequestBody(required = false) Map map) throws Exception{
-		return fileService.appInfo();
+	@RequestMapping(value="/appInfo", method = RequestMethod.POST)
+	public TfApplicationVO appInfo(@RequestBody(required = false) Map<String, Object> map) throws Exception{
+		System.out.println(map);
+		return fileService.appInfo(map);
 	}
 
 
@@ -35,13 +36,17 @@ public class FileController {
 									  HttpServletRequest request) {
 		String path = request.getServletContext().getRealPath("");
 		String addPath = "resources/APP/";
+		String realPath = "D:/theFactor2App/";
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String originalFileName = mf.getOriginalFilename();
-			File fi = new File(path + addPath + originalFileName);
+//			File fi = new File(path + addPath + originalFileName);
+			File fi = new File(realPath + originalFileName);
+
 			mf.transferTo(fi);
 			map.put("fileName", originalFileName);
 			map.put("path", addPath);
+//			map.put("path", "/D:/ams/");
 			map.put("resultCode", "S");
 		}catch(Exception e){
 			map.put("resultCode", "E");
@@ -56,9 +61,5 @@ public class FileController {
 		map.put("userId", userId);
 		return fileService.appSave(map);
 	}
-
-
-
-
 
 }

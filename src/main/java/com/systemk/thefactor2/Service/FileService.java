@@ -9,6 +9,6 @@ public interface FileService {
 
     public Map<String, Object> appSave(Map param) throws Exception;
 
-    public TfApplicationVO appInfo() throws Exception;
+    public TfApplicationVO appInfo(Map param) throws Exception;
 
 }

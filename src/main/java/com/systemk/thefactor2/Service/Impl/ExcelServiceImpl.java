@@ -105,17 +105,6 @@ public class ExcelServiceImpl implements ExcelService {
         Map cdMap = commService.nmToCdKV();
         for(int i=0; i<sheet.getLastRowNum() + 1; i++) {
             XSSFRow row = sheet.getRow(i);
-
-//            System.out.print(row.getCell(1).toString()+" /");  //상품분류(브랜드코드)
-//            System.out.print(row.getCell(2).toString()+"/ ");  //상품코드
-//            System.out.print(row.getCell(3).toString()+" /");  //자체상품코드
-//            System.out.print(row.getCell(5).toString()+" /");  //상품명
-//            System.out.print(row.getCell(6).toString()+"/ ");  //자체상품명
-//            System.out.print(row.getCell(7).toString()+" /");  //모델명
-//            System.out.print(row.getCell(8).toString()+" /");  //제조사
-//            System.out.print(row.getCell(9).toString()+" /");  //원산지
-//            System.out.print(row.getCell(10).toString()+" /");  //브랜드
-//            System.out.println(row.getCell(21).toString()+"/ ");  //단품항목 :사이즈
             if(i==0) {
                 if (
                         !row.getCell(0).toString().equals("상태") ||

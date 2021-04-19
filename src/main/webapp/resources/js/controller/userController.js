@@ -7,7 +7,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	if(getCookie('idSave')){
 		$scope.idSaveCheck = true;
 		// $scope.credentials.userId = $cookieStore.get("uesrId");
-		$scope.credentials.userId = getCookie('userId');
+		$scope.credentials.userId = getCookie('userIdC');
 	}
 
 
@@ -28,10 +28,10 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	var authenticate = function(credentials, callback) {
 		if($scope.idSaveCheck) {
 			setCookie('idSave','true',7);
-			setCookie('userId',credentials.userId,7);
+			setCookie('userIdC',credentials.userId,7);
 		}else{
 			deleteCookie('idSave');
-			deleteCookie('userId');
+			deleteCookie('userIdC');
 		}
 
 		var headers = credentials ? {authorization : "Basic "
@@ -56,6 +56,9 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 					setCookie('autoLogin',true,7);
 					setCookie('userId',credentials.userId,7);
 					setCookie('userPw',credentials.userPw,7);
+				}else if($scope.idSaveCheck){
+					deleteCookie('autoLogin');
+					deleteCookie('userPw');
 				}else{
 					deleteCookie('autoLogin');
 					deleteCookie('userId');

@@ -88,7 +88,7 @@ public class ApiServiceImpl implements ApiService {
 		item.put("userId", param.get("userId"));
 
 		TfDeviceVO device = tfDeviceMapper.serialSearch(param);
-		TfApplicationVO lastVer = tfApplicationMapper.appLastVs();
+		TfApplicationVO lastVer = tfApplicationMapper.appLastVs(param);
 
 		if(device == null){																				// 장비 등록 여부
 			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_DEVICE_MSG);

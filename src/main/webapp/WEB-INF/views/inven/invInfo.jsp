@@ -85,16 +85,16 @@
 							<option value="">실사확정</option>
 							<option ng-repeat="value in commCode" ng-if="value.codeLevel=='S'&&(value.commCd.indexOf('0602')==0 || value.commCd.indexOf('0603')==0)" value="{{value.commCd}}">{{value.commCdNm}}</option>
 						</select>
-						<button class="btn btn-outline-secondary" ng-click="tableBtn('confirm')" style="border-radius: 0 5px 5px 0;border:0;border-left: 1px solid gray;">일괄확정</button>
+						<button class="btn btn-outline-secondary" ng-click="tableBtn('confirm')" style="border-radius: 0 5px 5px 0;border:0;border-left: 1px solid gray;">확정</button>
 					</div>
 
 <%--					<button class="btn btn-secondary p-2 table-top-btn" ng-click="assetUpdate('DEL')">삭제</button>--%>
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<label class="btn btn-secondary" ng-class="{'active': search.stInvSeq==null}" ng-click="stkDif()" style="width:80px;">
-							<input type="radio" name="options"  autocomplete="off" > Total
+							<input type="radio" name="options"  autocomplete="off" > 전체
 						</label>
 						<label class="btn btn-secondary" ng-class="{'active': search.stInvSeq!=null}" ng-click="stkDif('dis')" style="width:110px;">
-							<input type="radio" name="options"  autocomplete="off"> Discordance
+							<input type="radio" name="options"  autocomplete="off"> 미확정
 						</label>
 					</div>
 				</div>

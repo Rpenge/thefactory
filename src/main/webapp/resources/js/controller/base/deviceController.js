@@ -99,7 +99,7 @@ app.controller('deviceController', ['$scope', '$http', '$location', '$rootScope'
 					headers: {'Content-Type':'application/json; charset=utf-8'}
 				}).success(function(data){
 					if(data.resultCode == 'S') {
-						modalAlert($uibModal, "장비정보수정", "상품정보가 변경 되었습니다.");
+						modalAlert($uibModal, "장비정보수정", "장비정보가 변경 되었습니다.");
 					}
 					$rootScope.reload();
 				}).error(function(data){

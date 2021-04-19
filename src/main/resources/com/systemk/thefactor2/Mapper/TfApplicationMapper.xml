@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfApplicationMapper">
 
-    <select id="appLastVs" resultType="TfApplicationVO">
+    <select id="appLastVs" resultType="TfApplicationVO" parameterType="java.util.Map">
         SELECT
             *
         FROM
             TF_APPLICATION
         WHERE
-            app_gub = '020102'
+            app_gub = #{deviceGub}
         ORDER BY VERSION DESC
         LIMIT 1
     </select>

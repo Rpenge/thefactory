@@ -222,10 +222,11 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 	function ($scope, $http, $location,$rootScope, $window, $uibModalInstance, $uibModal) {
 
 		$scope.input ={};
+		console.log($ctrl);
 		$http({
-			method : 'GET',
+			method : 'POST',
 			url : "/appInfo",
-			data : {},
+			data : {"deviceGub":$ctrl.cmd},
 		}).success(function(data){
 			$scope.view = data;
 		}).error(function(){

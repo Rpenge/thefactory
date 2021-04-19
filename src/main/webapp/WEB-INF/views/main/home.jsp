@@ -44,38 +44,29 @@
 			<p style="text-align: center;font-size:25px;font-weight: bold;">주요업무 <span style="font-size:13px;font-weight: normal;">바로가기</span></p>
 
 			<div class="d-flex justify-content-center" style="min-width: 350px;height: 180px;">
-				<a href="/#/inout/input">
-					<div class="main-work-btn" >
-						<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 60%;"></div>
-						<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
-						<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 90px;top: 50px;">입고</p>
-					</div>
-				</a>
-
-				<a href="/#/inout/output">
-				<div class="main-work-btn" ng-click="modalOpen('proReg')">
-					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 50%;"></div>
-					<img src="/resources/img/1.jpg" style="width:100%;height:100%;" draggable="false">
-					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 90px;top: 50px;">출고</p>
-				</div>
-				</a>
-
-				<a href="/#/inout/sales">
-				<div class="main-work-btn" ng-click="modalOpen('userReg')">
+				<div class="main-work-btn" ng-click="goMainMenu('IO1')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
-					<img src="/resources/img/2.jpg" style="width:100%;height:100%;" draggable="false">
-					<p style="font-size: 25px;color: whitesmoke;position:absolute;left: 70px;top: 50px;">판매/배송</p>
+					<img src="/resources/img/main_menu_1.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 30px;top: 20px;">입고</p>
 				</div>
-				</a>
 
-				<a href="/#/stock/stk">
-				<div class="main-work-btn" ng-click="modalOpen('proReg')">
+				<div class="main-work-btn" ng-click="goMainMenu('IO2')">
 					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
-					<img src="/resources/img/3.jpg" style="width:100%;height:100%;" draggable="false">
-					<p style="font-size: 25px; color: whitesmoke; position: absolute;left: 70px;top: 50px;">재고현황</p>
+					<img src="/resources/img/main_menu_2.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 30px;top: 20px;">출고</p>
 				</div>
-				</a>
 
+				<div class="main-work-btn" ng-click="goMainMenu('IO3')">
+					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
+					<img src="/resources/img/main_menu_3.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 22px;font-weight: bold;color: whitesmoke;position:absolute;left: 30px;top: 20px;">판매/배송</p>
+				</div>
+
+				<div class="main-work-btn" ng-click="goMainMenu('ST1')">
+					<div class="btn btn-dark" style="width:100%;height: 100%;position: absolute;opacity: 40%;"></div>
+					<img src="/resources/img/main_menu_4.jpg" style="width:100%;height:100%;" draggable="false">
+					<p style="font-size: 22px;font-weight: bold; color: whitesmoke; position: absolute;left: 30px;top: 20px;">재고현황</p>
+				</div>
 			</div>
 		</div>
 
@@ -88,7 +79,7 @@
 	</div>
 
 	<div style="margin-top:50px;" ng-if="role=='010101'">
-<%--		<button class="btn btn-outline-secondary" ng-click="uploaderOpen()">고정형 리더기</button>--%>
+		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('fixed')">고정형 리더기</button>
 		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('pda')">PDA APP</button>
 	</div>
 </div>

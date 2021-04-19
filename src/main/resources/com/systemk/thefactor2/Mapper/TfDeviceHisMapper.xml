@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfDeviceHisMapper">
+
+
+    <insert id="deviceHisSave" parameterType="java.util.Map">
+        INSERT INTO tf_device_his
+        (OPER_DATE, DEVICE_IP, SERIAL_NO, MODEL_NO, RCV_SEQ, DEVICE_GUB, RCV_RESULT, RCV_WORK_GUB)
+        VALUES( now(), #{deviceIp}, #{serialNo}, #{modelNo}, ${rcvSeq}, #{deviceGub}, #{rcvResult}, #{rcvWorkGub});
+    </insert>
+
+
+</mapper>

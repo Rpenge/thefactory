@@ -31,11 +31,9 @@
                                         <option value="">브랜드선택</option>
                                         <option ng-repeat="value in brandList"  value="{{value.brandKindCd}}">{{value.brandNm}}</option>
                                     </select>
-    <%--                                <input type="text" class="form-control"  >--%>
                                 </td>
                                 <th style="width:10%"><span style="color:red;" ng-if="es.newForm">*</span> 성별</th>
                                 <td style="width:15%">
-    <%--                                <input type="text" class="form-control" ng-model="inView.genderNm">--%>
                                     <select class="form-control" ng-model="inView.gender" ng-change="genderSelect(inView.gender)" ng-disabled="es.modForm" ng-required="es.newForm">
                                         <option value="">성별선택</option>
                                         <option ng-repeat="value in subBrand" ng-if="value.codeLevel=='M' " value="{{value.brandKindCd}}">{{value.brandNm}}</option>
@@ -43,7 +41,6 @@
                                 </td>
                                 <th style="width:10%"><span style="color:red;" ng-if="es.newForm">*</span> 상품분류</th>
                                 <td style="width:15%">
-    <%--                                <input type="text" class="form-control" ng-model="inView.clsNm">--%>
                                     <select class="form-control" ng-model="inView.cls" ng-disabled="es.modForm" ng-required="es.newForm">
                                         <option value="">분류선택</option>
                                         <option ng-repeat="value in subBrandCls" value="{{value.brandKindCd}}">{{value.brandNm}}</option>
@@ -94,12 +91,12 @@
                         <h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
                     </div>
 
-                    <form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" >
+                    <form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101'">
                         <div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
                             <input ng-model="file_path" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
                             <div class="input-group-append">
                                 <label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
-                                    <input class="btn-outline-secondary" type="file" name="excelFile" onchange="angular.element(this).scope().fileUpload(this.value)" hidden>
+                                    <input class="btn-outline-secondary" type="file" name="excelFile" accept=".xlsx" onchange="angular.element(this).scope().fileUpload(this.value)" hidden>
                                 </label>
                             </div>
                             <button class="btn btn-outline-secondary" ng-click="upload()" style="border: 1px solid lightgray;border-radius: 0 5px 5px 0;border-left:0px">업로드</button>
