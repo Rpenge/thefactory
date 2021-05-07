@@ -23,7 +23,6 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-
 	@Autowired
 	private TfUserMapper tfUserMapper;
 
@@ -362,36 +361,6 @@ public class ApiServiceImpl implements ApiService {
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
-
-//	@Override
-//	public Map<String, Object> inputAddResult(Map param) throws Exception {
-//
-//		Map map = new HashMap();
-//		Map outputData = outputService.outputSearch((String) param.get("tagId"));
-//		map.put("barcode", outputData.get("BT_PRD_BARCODE"));
-//		Map mapData = tfProductMapper.prdAndStk(param);
-//
-//		Date date = new Date();
-//		map.put("ymd", StringUtil.dateFormatYMD(date));		//오늘날짜
-//		map.put("userId", 	param.get("userId"));		//현재유저
-//		map.put("brandCd", 	mapData.get("BRAND_KIND_CD"));	//상품정보에서
-//		map.put("prdNm", 	mapData.get("TF_PRD_NM"));		//상품정보에서
-//		map.put("ecPrdCd", 	mapData.get("EC_PRD_CD"));	//상품정보에서
-//		map.put("prdCd", 	mapData.get("TF_PRD_CD"));		//상품정보에서
-//		map.put("barcode", 	mapData.get("TF_PRD_BARCODE"));	//  가져온 바코드
-//		map.put("size", 	mapData.get("PRD_SIZE"));		//재고정보에서
-//		map.put("tagId", 	param.get("tagId"));		//  가져온 태그id
-//		map.put("storeCd", 	param.get("inStoreCd"));	//  입고매장
-//		map.put("storeNm", 	commService.codeToNm((String)param.get("inStoreCd")));	//  입고매장명
-//		map.put("outStoreCd", 	outputData.get("outStoreCd"));	//  출고매장
-//		map.put("outStoreNm", 	outputData.get("outStoreNm"));	//  출고매장명
-//		map.put("deviceGub",param.get("deviceGub"));	//장비값 :
-//		map.put("inType", 	param.get("stInType"));	//입고 코드
-//
-//		tfInputMapper.inputRe((HashMap) map);
-//		return ResultUtil.setCommonResult("S","성공하였습니다");
-//	}
-
 	@Override
 	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
 
@@ -412,8 +381,6 @@ public class ApiServiceImpl implements ApiService {
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다", reusltList);
 	}
-
-
 
 	@Override
 	public Map<String, Object> outputList(Map param) throws Exception {
@@ -570,9 +537,6 @@ public class ApiServiceImpl implements ApiService {
 		}
 		vo.setStInvCnt(stInvCnt);
 		tfInvStatusMapper.updateInvStatus(vo);
-
-
-
 
 		//현황이 생성되있을시 태그id와 seq를 가지고 업데이트
 		return ResultUtil.setCommonResult("S","성공하였습니다");

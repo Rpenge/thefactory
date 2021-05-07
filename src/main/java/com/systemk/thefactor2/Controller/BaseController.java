@@ -5,18 +5,13 @@ import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Service.DeviceService;
 import com.systemk.thefactor2.Service.ProductService;
 import com.systemk.thefactor2.Util.RequestUtil;
-import com.systemk.thefactor2.VO.TfBrandVO;
 import com.systemk.thefactor2.VO.TfCommCodeVO;
-import com.systemk.thefactor2.VO.TfDeviceVO;
-import com.systemk.thefactor2.VO.TfProductVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

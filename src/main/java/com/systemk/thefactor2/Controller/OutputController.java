@@ -1,6 +1,5 @@
 package com.systemk.thefactor2.Controller;
 
-import com.systemk.thefactor2.Service.InputService;
 import com.systemk.thefactor2.Service.OutputService;
 import com.systemk.thefactor2.Util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;

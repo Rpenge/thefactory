@@ -1,7 +1,6 @@
 package com.systemk.thefactor2.Controller;
 
 import com.systemk.thefactor2.Service.InputService;
-import com.systemk.thefactor2.Service.UserService;
 import com.systemk.thefactor2.Util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -44,7 +42,7 @@ public class InputController {
 	public Map<String, Object> inputAddResult(@RequestBody(required = false) Map<String, Object> map, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
-		map.put("deviceGub", "020103");
+		map.put("deviceGub", "020103");	//장비 : PC
 		return inputService.inputAddResult(map);
 	}
 

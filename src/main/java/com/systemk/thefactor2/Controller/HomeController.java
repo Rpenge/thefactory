@@ -1,9 +1,7 @@
 package com.systemk.thefactor2.Controller;
 
-import com.systemk.thefactor2.Mapper.TfInoutTotalMapper;
 import com.systemk.thefactor2.Service.InoutTotService;
 import com.systemk.thefactor2.Util.RequestUtil;
-import com.systemk.thefactor2.VO.TfInoutTotalVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

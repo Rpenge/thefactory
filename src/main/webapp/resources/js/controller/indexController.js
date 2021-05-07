@@ -9,10 +9,10 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 
 	//기본화면으로 변경
-	$rootScope.imgPath = "/resources";
-	$rootScope.systemk = false;
-	// $rootScope.imgPath = "/resources/systemk";
-	// $rootScope.systemk = true;
+	// $rootScope.imgPath = "/resources";
+	// $rootScope.systemk = false;
+	$rootScope.imgPath = "/resources/systemk";
+	$rootScope.systemk = true;
 
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
