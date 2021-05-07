@@ -85,6 +85,19 @@ public class StockServiceImpl implements StockService {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
 
+		if(param.get("STORE_CD")!=null){
+			mu.addEqual("STOCK_STORE_CD", (String)param.get("STORE_CD"));
+		}
+		if(param.get("PRD_SIZE")!=null){
+			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
+		}
+
+		if (param.get("word")!=null) {
+			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
+		}
+
 		mu.setTotalElements(pageMapper.stkExPageRecord(mu.getTableSearch())); // 수량조회
 		if(param.get("page")!=null)
 			mu.setPage(Integer.parseInt((String)param.get("page")));
@@ -92,6 +105,46 @@ public class StockServiceImpl implements StockService {
 			mu.setSize(Integer.parseInt((String)param.get("size")));
 
 		List<Map> ListMap =  tfStockMapper.stockExList(mu.getTableSearch());
+		List<Map> resultList = new ArrayList<Map>();
+		for(Map map : ListMap){
+			HashMap searchMap = new HashMap();
+			searchMap.put("barcode", map.get("TF_PRD_BARCODE"));
+			searchMap.put("storeCd", map.get("STOCK_STORE_CD"));
+			map.putAll(tfStockMapper.workCnt(searchMap));
+			if(map.get("BRAND_KIND_CD") != null) {
+				Map brandInfo = brandService.detailSearch((String) map.get("BRAND_KIND_CD"));
+				map.putAll(brandInfo);
+			}
+			resultList.add(map);
+		}
+		mu.setContent(resultList);
+		return mu.getList();
+	}
+
+	@Override
+	public Map<String, Object> findRfidList(Map param) throws Exception {
+		MybatisUtil mu = new MybatisUtil();
+		mu.setTable("TF_STOCK");
+
+		if(param.get("STORE_CD")!=null){
+			mu.addEqual("STOCK_STORE_CD", (String)param.get("STORE_CD"));
+		}
+		if(param.get("PRD_SIZE")!=null){
+			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
+		}
+		if (param.get("word")!=null) {
+			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
+		}
+
+		mu.setTotalElements(pageMapper.stkRfidPageRecord(mu.getTableSearch())); // 수량조회
+		if(param.get("page")!=null)
+			mu.setPage(Integer.parseInt((String)param.get("page")));
+		if(param.get("size")!=null)
+			mu.setSize(Integer.parseInt((String)param.get("size")));
+
+		List<Map> ListMap =  tfStockMapper.stockRfidList(mu.getTableSearch());
 		List<Map> resultList = new ArrayList<Map>();
 		for(Map map : ListMap){
 			HashMap searchMap = new HashMap();

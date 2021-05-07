@@ -112,12 +112,13 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 								beginAtZero: true
 							}
 						}]
-					}, title: {
-						display: true,
-						text: '입출고 현황',
-						fontSize: 20,
-						padding: 20
 					}
+					// , title: {
+					// 	display: true,
+					// 	text: '입출고 현황',
+					// 	fontSize: 20,
+					// 	padding: 20
+					// }
 				}
 			});
 		}

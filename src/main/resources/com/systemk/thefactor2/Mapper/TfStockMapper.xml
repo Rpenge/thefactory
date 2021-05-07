@@ -25,10 +25,32 @@
                     tf_stock ts
                 where
                     (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
+                <foreach collection="list" item="item">
+                    ${item}
+                </foreach>
                 order by
                     STOCK_REG_SEQ desc limit ${start}, ${size}) as stk
                 left outer join tf_product tp on
                 stk.TF_PRD_CD = tp.TF_PRD_CD
+    </select>
+
+    <select id="stockRfidList" resultType="Map" parameterType="java.util.HashMap">
+        select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
+        from
+        (
+        select
+        *
+        from
+        tf_stock ts
+        where
+        ts.RFID_STOCK_CNT > 0
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        order by
+        STOCK_REG_SEQ desc limit ${start}, ${size}) as stk
+        left outer join tf_product tp on
+        stk.TF_PRD_CD = tp.TF_PRD_CD
     </select>
 
     <select id="stockListSearch" resultType="Map" parameterType="java.util.HashMap">

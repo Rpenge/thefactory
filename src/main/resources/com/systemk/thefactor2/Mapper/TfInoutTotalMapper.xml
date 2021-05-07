@@ -17,7 +17,7 @@
     </select>
 
     <select id="todayWorkAllVO" resultType="TfInoutTotalVO">
-        select IN_OUT_DATE , sum(IN_TOTCNT) as IN_TOTCNT, sum(OUT_TOTCNT) as OUT_TOTCNT, sum(SELL_TOTCNT) as SELL_TOTCNT, sum(STOCK_TOTCNT) as STOCK_TOTCNT
+        select IN_OUT_DATE , sum(IN_TOTCNT) as IN_TOTCNT, sum(OUT_TOTCNT) as OUT_TOTCNT, sum(SELL_TOTCNT) as SELL_TOTCNT, sum(STOCK_TOTCNT) as STOCK_TOTCNT, sum(SELL_STCNT) as SELL_STCNT, sum(SELL_ONLCNT) as SELL_ONLCNT
         FROM
             TF_INOUT_TOTAL
         WHERE
@@ -80,5 +80,10 @@
             </otherwise>
         </choose>
     </select>
+
+
+    <insert id="inoutCreate" statementType="CALLABLE">
+        {call inout_create()}
+    </insert>
 
 </mapper>

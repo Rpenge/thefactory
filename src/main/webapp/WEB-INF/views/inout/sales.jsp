@@ -15,10 +15,9 @@
 
 				<form ng-submit="formSave()">
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 판매/배송 추가 </span>
-
-						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>
-						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>
+						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 판매/배송 조회 </span>
+<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" ng-class="{'active-btn' : es.newForm}"  ng-click="formChange('reset')" onclick="tableTrDel('inputTable')" style="width:60px;">신규</button>--%>
+<%--						<button class="p-2 btn btn-outline-secondary top-rad-btn" type='submit' ng-disabled="es.modForm" style="width:60px;">저장</button>--%>
 					</div>
 
 					<!-- 태그ID 검색, 입고예정 매장 선택 , 출고유형선택 -->
@@ -69,7 +68,7 @@
 				</form>
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
-					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 판매 내역 조회</span>
+					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 판매/배송 목록</span>
 				</div>
 
 				<!--테이블 상단 구성-->

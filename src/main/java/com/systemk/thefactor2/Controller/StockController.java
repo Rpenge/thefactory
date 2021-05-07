@@ -31,8 +31,10 @@ public class StockController {
 	@RequestMapping(value="/stockList", method = RequestMethod.GET)
 	public Map<String, Object> stockList(HttpServletRequest request) throws Exception{
 		Map param = RequestUtil.reqParamToMap(request);
-		if(param.get("ex")!=null){
+		if(param.get("ex")!=null && param.get("ex").equals("dis")){	//수량차이 있는 데이터 조회
 			return stockService.findExList(param);
+		}else if(param.get("ex")!=null && param.get("ex").equals("rfid")){	//rfid 재고 수량을 가지고 있는 데이터 조회
+			return stockService.findRfidList(param);
 		}
 
 		if(param.get("BRAND_KIND_CD")!=null){
@@ -56,9 +58,6 @@ public class StockController {
 		Map param = RequestUtil.reqParamToMap(request);
 		return stockService.stkGubSearch(param);
 	}
-
-
-
 
 
 

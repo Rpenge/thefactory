@@ -32,8 +32,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/config/routeProvider.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/filter/appFilter.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/directive/appDirective.js?v=${version}"></script>
-
-	<%--<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>--%>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/userController.js?v=${version}"></script>
 
 	<!--thefacotry controller-->
@@ -68,7 +66,8 @@
 
 <body class="ng-cloak " style="min-width:1280px;">
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color:white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 30px;position: fixed;">
-	<i class="xi-box" style="color: white;font-size:small"> THEFACTOR2 재고관리</i>
+	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk == true"> SYSTEMK 재고관리</i>
+	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk != true"> THEFACTOR2 재고관리</i>
 	<!-- Top Menu Items -->
 	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 		<li class="nav-item" >
@@ -84,7 +83,7 @@
 <nav class="navbar navbar-fixed-top d-flex dropdown" ng-if="authenticated" style="width:100%;min-width:1280px;height:95px;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" >
 
 	<div class="p-2" >
-		<a href="" ng-click="goMain()"><img src="/resources/img/ci/top-logo.png" style="height: 60px;"></a>
+		<a href="" ng-click="goMain()"><img src="{{imgPath}}/img/ci/top-logo.png" style="height: 60px;"></a>
 	</div>
 
 	<!--top메뉴 -->
@@ -145,8 +144,8 @@
 <div style="height:120px;" ng-if="authenticated" ></div>
 
 <!--메인TOP-->
-<div style="height:500px;" ng-if="authenticated && mainPage">
-	<div style="overflow: hidden;"><img src="/resources/img/main.png" style="width:100%;min-width:1150px;" draggable="false"></div>
+<div style="height:480px;" ng-if="authenticated && mainPage">
+	<div style="overflow: hidden;background: white;width:100%;"><img src="{{imgPath}}/img/main.png" style="width:100%;min-width:1680px;display: block; margin: 0px auto;" draggable="false"></div>
 </div>
 
 <div class="d-flex justify-content-left" ng-if="authenticated" >
@@ -368,13 +367,10 @@
 						</button>
 					</div>
 				</div>
-
 			</div>
-
 
 			<!--contents-->
 			<div ng-view ng-show="authenticated && !regPage" ng-if="authenticated && !regPage" style="width:100%;"></div>
-
 		</div>
 	</div>
 	<div class="loading-spiner-holder" data-loading >
@@ -400,12 +396,18 @@
 <!--footer-->
 <div class=" d-flex justify-content-center" ng-if="authenticated" style="width:100%;padding: 15px;">
 	<div style="padding: 5px 70px 0 0;">
-		<img src="/resources/img/ci/top-logo.png" style="width:140px;height:35px;">
+		<img src="{{imgPath}}/img/ci/top-logo.png" style="width:140px;">
 	</div>
-	<div class="footer-text">
+	<div class="footer-text" ng-if="systemk != true">
 		<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span>
 		<span>대표 :이예림 사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span>
 		<span>대표번호 :02-6407-7879팩스번호 :메일 :thefactor2@naver.com</span>
+		<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span>
+	</div>
+	<div class="footer-text" ng-if="systemk == true">
+		<span>(주)시스템케이 (SYSTEMK Co., Ltd.)</span>
+		<span>주소 : 경기도 구리시 갈매순환로 204번길 65, 구리스마트벤처타워 407호 408호</span>
+		<span>전화 : 070-8830-5252팩스 : 031-571-5254</span>
 		<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span>
 	</div>
 </div>

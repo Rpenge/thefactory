@@ -20,4 +20,6 @@ public interface TfInoutTotalMapper {
 
     List<TfInoutTotalVO> inoutList(HashMap item);
 
+    int inoutCreate();
+
 }

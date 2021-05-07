@@ -23,6 +23,5 @@ public interface TfInputMapper {
 
     int inputDelete(HashMap item);
 
-
     List<Map> inSubList(HashMap item);
 }

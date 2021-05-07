@@ -73,7 +73,7 @@
 				<!--탭 메뉴 종류-->
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
-					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 입출고 내역 조회</span>
+					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 입출고내역 목록</span>
 				</div>
 
 				<!--테이블 상단 구성-->

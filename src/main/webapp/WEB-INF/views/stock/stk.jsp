@@ -39,6 +39,9 @@
 						<label class="btn btn-secondary active" ng-click="stkDif()" style="width:80px;">
 							<input type="radio" name="options"  autocomplete="off" checked> 전체
 						</label>
+<%--						<label class="btn btn-secondary" ng-click="stkDif('rfid')" style="width:110px;">--%>
+<%--							<input type="radio" name="options"  autocomplete="off"> 실재고--%>
+<%--						</label>--%>
 						<label class="btn btn-secondary" ng-click="stkDif('dis')" style="width:110px;">
 							<input type="radio" name="options"  autocomplete="off"> 재고차이
 						</label>

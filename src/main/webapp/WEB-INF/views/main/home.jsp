@@ -5,7 +5,7 @@
 <html ng-app="myApp">
 <div class="d-flex flex-column" ng-show="authenticated">
 
-	<div class="d-flex justify-content-center absolute-center" style="top:550px;width:800px;height: 100px;color:black;text-align: center;">
+	<div class="d-flex justify-content-center absolute-center" style="top:520px;width:800px;height: 100px;color:black;text-align: center;">
 
 		<div class="d-flex justify-content-around main-cnt-box">
 			<i class="xi-home-o" style="font-size: 70px;"></i>
@@ -37,11 +37,11 @@
 				<span style="font-size: 25px;font-weight: bold;">{{todayData.sellTotcnt | zeroCheck}}</span>
 			</div>
 		</div>
-		<div style="background: white;width:820px;height: 120px; opacity: 50%;position:absolute;z-index: 1;top:-10px;"></div>
+		<div style="background: white;width:820px;height: 120px; opacity: 75%;position:absolute;z-index: 1;top:-10px;box-shadow: 1px 1px 5px lightgray;border-radius: 3px;"></div>
 	</div>
 
-		<div style="background: transparent;width:100%;margin:0 auto;top:40px;position:relative;">
-			<p style="text-align: center;font-size:25px;font-weight: bold;">주요업무 <span style="font-size:13px;font-weight: normal;">바로가기</span></p>
+		<div class="body-box" style="background: white;width:100%;margin:0 auto;top:30px;position:relative;padding:20px 0 45px 0;">
+			<p style="text-align:center;font-size:25px;font-weight: bold;border-bottom: 1px solid lightgrey;margin:0 80px;padding-bottom: 6px;">주요업무 <span style="font-size:13px;font-weight: normal;">바로가기</span></p>
 
 			<div class="d-flex justify-content-center" style="min-width: 350px;height: 180px;">
 				<div class="main-work-btn" ng-click="goMainMenu('IO1')">
@@ -70,7 +70,8 @@
 			</div>
 		</div>
 
-	<div class="d-flex"style="position:relative;top:40px;background: transparent;width:100%;margin:15px auto;height: 400px;border:1px solid lightgray;">
+	<div class="body-box"style="position:relative;top:40px;background: white;width:100%;margin:15px auto;height: 400px;padding:10px 0 45px 0;">
+		<p style="text-align:center;font-size:25px;font-weight: bold;margin:8px 80px;padding-bottom: 6px;">입출고 현황</p>
 		<div id="chart1" style="width: 100%;padding: 20px;background: white;">
 			<div style="width:100%;height: 350px;">
 				<canvas id="myChart" style="max-height: 330px;overflow: hidden;"></canvas>
@@ -78,7 +79,7 @@
 		</div>
 	</div>
 
-	<div style="margin-top:50px;" ng-if="role=='010101'">
+	<div style="margin-top:100px;" ng-if="role=='010101'">
 		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('fixed')">고정형 리더기</button>
 		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('pda')">PDA APP</button>
 	</div>

@@ -15,6 +15,8 @@ public interface TfStockMapper {
 
     List<Map> stockExList(HashMap item);
 
+    List<Map> stockRfidList(HashMap item);
+
     List<Map> stockListSearch(HashMap item);
 
     TfStockVO findStockInfo(String barcode);

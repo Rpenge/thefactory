@@ -37,6 +37,20 @@
         from
             tf_stock ts
         where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+    </select>
+
+    <select id="stkRfidPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+            COUNT (*)
+        from
+        tf_stock ts
+        where ts.RFID_STOCK_CNT > 0
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
     </select>
 
     <select id="inPageRecord" resultType="INT" parameterType="java.util.HashMap">

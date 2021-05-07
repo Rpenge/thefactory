@@ -13,6 +13,8 @@ public interface PageMapper {
 
     Integer stkExPageRecord(HashMap item);
 
+    Integer stkRfidPageRecord(HashMap item);
+
     Integer inPageRecord(HashMap item);
 
     Integer outPageRecord(HashMap item);

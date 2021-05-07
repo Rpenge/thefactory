@@ -37,6 +37,9 @@ public class ApiServiceImpl implements ApiService {
 	private TfInputMapper tfInputMapper;
 
 	@Autowired
+	private TfInoutTotalMapper tfInoutTotalMapper;
+
+	@Autowired
 	private TfTagPublishMapper tfTagPublishMapper;
 
 	@Autowired
@@ -125,14 +128,16 @@ public class ApiServiceImpl implements ApiService {
 	public Map<String, Object> workCount(Map param) throws Exception {
 		Date date = new Date();
 		Map map = new HashMap();
-		if(param.get("storeCd")!=null){
-			TfInoutTotalVO vo = inoutTotService.todayWork(param);
-			map.put("inputCount", vo.getInTotcnt());
-			map.put("outputCount", vo.getOutTotcnt());
-			map.put("stockCount", vo.getStockTotcnt());
-		}else{
-			map = inoutTotService.todayWorkAll();
-		}
+//		if(param.get("storeCd")!=null){
+		TfInoutTotalVO vo = inoutTotService.todayWork(param);
+		map.put("inputCount", vo.getInTotcnt());
+		map.put("outputCount", vo.getOutTotcnt());
+		map.put("stockCount", vo.getStockTotcnt());
+		map.put("offlineSellCount", vo.getSellStcnt());
+		map.put("onlineSellCount", vo.getSellOnlcnt());
+//		}else{
+//			map = inoutTotService.todayWorkAll();
+//		}
 		map.put("currentDate", StringUtil.dateFormat(date));
 		return ResultUtil.setCommonResult("S","성공하였습니다", map);
 	}

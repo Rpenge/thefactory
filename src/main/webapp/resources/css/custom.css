@@ -869,9 +869,9 @@ a.nav-link{
 }
 
 .main-work-btn{
-	width:250px;
-	margin: 10px 30px;
-	height: 150px;
+	width:280px;
+	margin: 20px 30px;
+	height: 165px;
 	border:1px solid gray;
 	cursor:pointer;
 	overflow: hidden;
@@ -999,3 +999,9 @@ a.nav-link{
 	pointer-events: none;
 }
 
+.body-box{
+	margin-top: 15px;
+	border-top: 2px solid #d2d6de;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px lightgray;
+}

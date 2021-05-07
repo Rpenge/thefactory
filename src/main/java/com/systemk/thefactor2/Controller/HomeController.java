@@ -23,7 +23,7 @@ public class HomeController {
 	@Autowired
 	private InoutTotService inoutTotService;
 
-	//시스템관리 - 사용자 및 권한 관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
+	//HOME 화면 입출고 수량 조회
 	@RequestMapping(value="/homeInfo", method = RequestMethod.GET)
 	public Map<String, Object> homeInfo(HttpServletRequest request) throws Exception{
 		Map resultMap = new HashMap();
@@ -33,7 +33,7 @@ public class HomeController {
 		return resultMap;
 	}
 
-	//시스템관리 - 사용자 및 권한 관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
+	//HOME 화면 입출고 수량 당일 데이터 조회
 	@RequestMapping(value="/homeSimple", method = RequestMethod.GET)
 	public Map<String, Object> homeSimple(HttpServletRequest request) throws Exception{
 		Map resultMap = new HashMap();

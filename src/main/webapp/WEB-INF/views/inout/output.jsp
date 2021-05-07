@@ -15,7 +15,7 @@
 
 				<form ng-submit="formSave()">
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 출고작업 추가 </span>
+						<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 출고조회 </span>
 					</div>
 
 					<!-- 태그ID 검색, 입고예정 매장 선택 , 출고유형선택 -->

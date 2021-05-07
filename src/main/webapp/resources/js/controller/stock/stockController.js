@@ -4,7 +4,7 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
 		pageInfo($rootScope, $location);
-		var Discordance = false;
+		var discordance = false;
 
 		// httpGetList($http, $scope,'/stock/stockList' );
 
@@ -17,7 +17,6 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.gender.substr(0,4);
 			}
 			if($rootScope.quickSearch.cls){
-				console.log($rootScope.quickSearch.cls);
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.cls;
 			}
 			$scope.search['PRD_SIZE'] = $rootScope.quickSearch.prdSize;
@@ -36,13 +35,19 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		//차이 발생 목록
 		$scope.stkDif = function(command){
 			if(command == 'dis') {
-				Discordance = true;
-				$scope.search['ex'] = true;
+				discordance = true;
+				$scope.search['ex'] = command;
+				$scope.search['page'] = 0;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope, '/stock/stockList', param);
+			}else if(command == 'rfid'){
+				discordance = true;
+				$scope.search['ex'] = command;
 				$scope.search['page'] = 0;
 				const param = generateParam($scope.search);
 				httpGetList($http, $scope, '/stock/stockList', param);
 			}else{
-				Discordance = false;
+				discordance = false;
 				$scope.search['ex'] = null;
 				$scope.search['page'] = 0;
 				const param = generateParam($scope.search);
@@ -55,7 +60,7 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			if($scope.current == page || $scope.end < page || page == 0){
 				return;
 			}
-			if(Discordance){
+			if(discordance){
 				$scope.search['ex'] = true;
 			}else{
 				$scope.search['ex'] = null;

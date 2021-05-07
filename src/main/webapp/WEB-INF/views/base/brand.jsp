@@ -12,7 +12,7 @@
         <!--메뉴-->
         <div class="d-flex flex-column left-body">
             <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;">
-                <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 대분류</span>
+                <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 브랜드</span>
                 <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : esB.newForm}" ng-click="formChangeB('reset')" style="width:60px;position:relative;bottom: -15px;border:1px solid #d3d3d3;padding-top:0!important;">신규</button>
                 <button class="p-2 btn btn-outline-secondary" ng-click="formSave('BGub')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
             </div>
@@ -77,16 +77,16 @@
                 <!-- 중분류 -->
                 <div style="width: 48%;margin:10px;">
                     <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-                        <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 중분류</span>
+                        <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 성별</span>
                         <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : esM.newForm}" ng-click="formChangeM('reset')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
                         <button class="p-2 btn btn-outline-secondary" ng-click="formSave('MGub')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
                     </div>
 
                     <table class="table-bordered" style="width:99.5%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0">
                         <tr>
-                            <th style="width:20%;height:40px">대분류코드</th>
+                            <th style="width:20%;height:40px">브랜드코드</th>
                             <td style="width:30%;padding: 0;"><input type="text" class="form-control" ng-model="inView.BGubBrandCd" readonly></td>
-                            <th style="width:20%">대분류명</th>
+                            <th style="width:20%">브랜드명</th>
                             <td style="width:30%"><input type="text" class="form-control" ng-model="inView.BGubBrandNm" readonly></td>
                         </tr>
                         <tr>
@@ -135,16 +135,16 @@
                 <div style="width: 48%;margin:10px;">
                     <div class="d-flex">
                         <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
-                            <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 소분류</span>
+                            <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 상품분류</span>
                             <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : esS.newForm}" ng-click="formChangeS('reset')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
                             <button class="p-2 btn btn-outline-secondary" ng-click="formSave('SGub')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
                         </div>
                     </div>
                     <table class="table-bordered" style="width:99.5%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0;">
                         <tr>
-                            <th style="width:20%;height:40px">중분류코드</th>
+                            <th style="width:20%;height:40px">성별코드</th>
                             <td style="width:30%;padding: 0;"><input type="text" class="form-control" ng-model="inView.MGubBrandCd" readonly></td>
-                            <th style="width:20%">중분류명</th>
+                            <th style="width:20%">성별</th>
                             <td style="width:30%"><input type="text" class="form-control" ng-model="inView.MGubBrandNm" readonly></td>
                         </tr>
                         <tr>
