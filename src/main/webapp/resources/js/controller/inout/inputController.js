@@ -26,8 +26,6 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 			}
 			$scope.search['PRD_SIZE'] = $rootScope.quickSearch.prdSize;
 
-			// const endDate = $rootScope.quickSearch.endDate;
-			// const newEndDate = formatDate3(new Date(endDate.setDate(endDate.getDate() +1)));
 			const startDate = formatDate3($rootScope.quickSearch.startDate);
 			const endDate = formatDate3($rootScope.quickSearch.endDate);
 
@@ -68,49 +66,8 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 				}
 				$scope.form = formData;
 				$scope.inView = formData;
-				// $scope.inView.brand = formData.brand;
-				// $scope.brandSelect(formData.brand, $scope.genderSelect, formData.gender, formData.cls);
-				// $scope.inView.gender = formData.gender;
-				// $scope.inView.prdSize = codeToNm(formData.prdSize, $rootScope.prdSize);
 			}
 		}
-
-		// //브랜드 선택
-		// $scope.brandSelect = function(code, callback, gender, cls){
-		// 	$scope.inView = {};
-		// 	$scope.inView.brand = code;
-		// 	$scope.inView.gender = null;
-		// 	$scope.inView.cls = null;
-		// 	$scope.subBrand = [];
-		// 	$scope.subBrandCls = [];
-		// 	if(code){
-		// 		$http.get('/member/brandSub?brandCd='+ code.substr(0,2)).success(function(data) {
-		// 			$scope.subBrand = data.brandSubList;
-		// 			if(callback){
-		// 				callback(gender, cls);
-		// 			}
-		// 		});
-		// 	}
-		// }
-		//
-		// //성별 선택
-		// $scope.genderSelect = function(gender, cls){
-		// 	$scope.inView.cls = null;
-		// 	$scope.subBrandCls = [];
-		// 	if(!gender){
-		// 		return;
-		// 	}
-		//
-		// 	for(const value of $scope.subBrand){
-		// 		if(gender.substr(0,4) == value.brandKindCd.substr(0,4) && value.codeLevel == 'S'){
-		// 			$scope.subBrandCls.push(value);
-		// 		}
-		// 	}
-		// 	if(cls) {
-		// 		$scope.inView.cls = cls;
-		// 	}
-		// }
-
 
 		//태그ID로 출고 데이터 조회
 		$scope.tagSearch = false;
@@ -162,26 +119,7 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 					});
 				});
 			}
-			// else if($scope.es.modForm == true) {
-			//
-			// 	//수정 : 입고테이블 데이터 변경 , 실재고테이블 데이터 위치 변경, 재고테이블 재고 위치 변경
-			// 	modalCheck($uibModal, "입고수정", "입고 정보를 수정하시겠습니까?", function () {
-			// 		$http({
-			// 			method: 'POST',
-			// 			url: "/input/inputAddResult",
-			// 			data: $scope.form,
-			// 			headers: {'Content-Type': 'application/json; charset=utf-8'}
-			// 		}).success(function (data) {
-			// 			if (data.resultCode == 'S') {
-			// 				modalAlert($uibModal, "사용자 수정", "사용자 정보가 변경 되었습니다.");
-			// 			}
-			// 			$rootScope.reload();
-			// 		}).error(function (data) {
-			// 			alert('정보 업데이트 실패');
-			// 		});
-			//
-			// 	});
-			// }
+
 		}
 
 
@@ -258,18 +196,20 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 					modalAlert($uibModal, "입고삭제", "데이터를 선택해주세요.");
 					return;
 				}
-				$http({
-					method : 'POST',
-					url : "/input/inputDelete",
-					data  :  {'list' :checkList},
-					headers: {'Content-Type':'application/json; charset=utf-8'}
-				}).success(function(data){
-					if(data.resultCode == 'S') {
-						modalAlert($uibModal, "입고삭제", "데이터가 삭제되었습니다");
-					}
-					$rootScope.reload();
-				}).error(function(data){
-					alert('정보 업데이트 실패');
+				modalCheck($uibModal, "입고삭제", "입고정보를 삭제 하시겠습니까?", function() {
+					$http({
+						method: 'POST',
+						url: "/input/inputDelete",
+						data: {'list': checkList},
+						headers: {'Content-Type': 'application/json; charset=utf-8'}
+					}).success(function (data) {
+						if (data.resultCode == 'S') {
+							modalAlert($uibModal, "입고삭제", "데이터가 삭제되었습니다");
+						}
+						$rootScope.reload();
+					}).error(function (data) {
+						alert('정보 업데이트 실패');
+					});
 				});
 			}
 		}

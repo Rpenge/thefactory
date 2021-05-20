@@ -186,21 +186,23 @@ app.controller('salesController', ['$scope', '$http', '$location', '$rootScope',
 			console.log(command);
 			if(command == 'Withdrawal'){
 				if(checkList.length < 1){
-					modalAlert($uibModal, "출고삭제", "데이터를 선택해주세요.");
+					modalAlert($uibModal, "판매삭제", "데이터를 선택해주세요.");
 					return;
 				}
-				$http({
-					method : 'POST',
-					url : "/output/outputDelete",
-					data  :  {'list' :checkList},
-					headers: {'Content-Type':'application/json; charset=utf-8'}
-				}).success(function(data){
-					if(data.resultCode == 'S') {
-						modalAlert($uibModal, "출고삭제", "데이터가 삭제되었습니다");
-					}
-					$rootScope.reload();
-				}).error(function(data){
-					alert('정보 업데이트 실패');
+				modalCheck($uibModal, "판매/배송삭제", "판매/배송정보를 삭제 하시겠습니까?", function() {
+					$http({
+						method: 'POST',
+						url: "/output/outputDelete",
+						data: {'list': checkList},
+						headers: {'Content-Type': 'application/json; charset=utf-8'}
+					}).success(function (data) {
+						if (data.resultCode == 'S') {
+							modalAlert($uibModal, "출고삭제", "데이터가 삭제되었습니다");
+						}
+						$rootScope.reload();
+					}).error(function (data) {
+						alert('정보 업데이트 실패');
+					});
 				});
 			}
 		}

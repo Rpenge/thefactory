@@ -36,17 +36,16 @@ public class FileController {
 									  HttpServletRequest request) {
 		String path = request.getServletContext().getRealPath("");
 		String addPath = "resources/APP/";
-		String realPath = "D:/theFactor2App/";
+		String realPath = "D:/theFactor2RFID/APP/";
+		createFolder(realPath);
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			String originalFileName = mf.getOriginalFilename();
-//			File fi = new File(path + addPath + originalFileName);
 			File fi = new File(realPath + originalFileName);
 
 			mf.transferTo(fi);
 			map.put("fileName", originalFileName);
 			map.put("path", addPath);
-//			map.put("path", "/D:/ams/");
 			map.put("resultCode", "S");
 		}catch(Exception e){
 			map.put("resultCode", "E");
@@ -60,6 +59,22 @@ public class FileController {
 		String userId = (String)session.getAttribute("userId");
 		map.put("userId", userId);
 		return fileService.appSave(map);
+	}
+
+	public void createFolder(String path){
+		File folder = new File(path);
+		if (folder.exists()) {
+			return;
+		}
+		String[] sPath = path.split("/");
+		File folder1 = new File(sPath[0]+"/"+sPath[1]);
+		if(!folder1.exists()){
+			folder1.mkdir();
+		}
+		if(sPath.length>=3) {
+			File folder2 = new File(sPath[0] + "/" + sPath[1] + "/" + sPath[2]);
+			folder2.mkdir();
+		}
 	}
 
 }

@@ -94,7 +94,7 @@
 							<th style="width:80px;">입고유형</th>
 							<th style="width:130px;">브랜드</th>
 							<th style="width:80px;">성별</th>
-							<th style="width:80px;">상품분류</th>
+							<th style="width:85px;">상품분류</th>
 							<th style="width:80px;">사이즈</th>
 							<th style="width:210px;">자체상품코드</th>
 							<th>바코드</th>

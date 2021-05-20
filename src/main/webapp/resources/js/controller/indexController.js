@@ -51,9 +51,9 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				return;
 			}
 		});
-		$http.get('/home/homeSimple').success(function(data){
-			$scope.todayData = data.todayData;
-		});
+		// $http.get('/home/homeSimple').success(function(data){
+		// 	$scope.todayData = data.todayData;
+		// });
 	}
 
 

@@ -172,7 +172,14 @@ public class ApiServiceImpl implements ApiService {
 		String ymd = StringUtil.dateFormatYMD(date);
 
 		String barcode = (String)param.get("barcode");
-		String preTagId = "T" + ymd.substring(2,4)+ barcode.substring(barcode.length()-10, barcode.length());
+		String yearCd = ymd.substring(3,4);
+
+		//2021-05-12 태그자릿수 12자리로 줄어듬ㅠ. 20년대 이후 연도코드 A,B,C 순서로 입력
+		if(!ymd.substring(2,3).equals("2")){
+			yearCd = String.valueOf((char)(Integer.parseInt(ymd.substring(2,4))+35));
+		}
+
+		String preTagId = "T" + yearCd+ barcode.substring(barcode.length()-8, barcode.length()-3) + barcode.substring(barcode.length()-2, barcode.length());
 		String tagId ="";
 		String lastNum = tfTagPublishMapper.selectLastNum(preTagId);
 		if(lastNum == null || lastNum == ""){

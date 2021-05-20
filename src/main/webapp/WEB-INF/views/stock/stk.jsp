@@ -84,14 +84,14 @@
 								<td>{{value.clsNm}}</td>					<!--분류명-->
 								<td>{{value.PRD_SIZE}}</td>					<!--size-->
 								<td>{{value.TF_PRD_BARCODE}}</td>					<!--size-->
-								<td>{{value.REAL_STOCK_CNT}}</td>			<!--EC수량-->
+								<td style="background: lavenderblush;">{{value.REAL_STOCK_CNT}}</td>			<!--EC수량-->
 								<td>{{value.inCnt}}</td>					<!--입고수량-->
 								<td>{{value.outCnt}}</td>					<!--출고수량-->
 								<td>{{value.stCnt}}</td>					<!--매장판매수량-->
 								<td>{{value.onCnt}}</td>					<!--온라인판매수량-->
 								<td>{{value.INVENTORY_CNT}}</td>			<!--재고실사수량-->
-								<td>{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
-								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold">
+								<td style="background: lavenderblush">{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
+								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: #f1f1f1">
 									{{value.RFID_STOCK_CNT - value.REAL_STOCK_CNT}}
 								</td>	<!--EC와 실재고 비교-->
 							</tr>

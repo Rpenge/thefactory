@@ -63,7 +63,8 @@ var onlyLoggedIn = function ($q, $rootScope, $http, $location) {
 };
 
 //레이아웃 구성
-var pageCheck = function ($rootScope, $location) {
+var pageCheck = function ($rootScope, $location, $http) {
+
 
 	//메인
 	if($location.url() == '/main/home'){
@@ -79,6 +80,10 @@ var pageCheck = function ($rootScope, $location) {
 	}else{
 		$rootScope.regPage = false;
 	}
+
+	$http.get('/home/homeSimple').success(function(data){
+		$rootScope.todayData = data.todayData;
+	});
 
 	// //퀵 서치 추가
 	// var addQuick1 = ['/base/product','/inout/input','/inout/ioInfo'];

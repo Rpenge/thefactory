@@ -217,6 +217,10 @@ app.controller('productController', ['$scope', '$http', '$location', '$rootScope
 		}
 		//파일 업로드
 		$scope.upload = function(){
+			if(!$scope.file_path){
+				modalAlert($uibModal, "상품정보 Excel 업로드", "파일을 선택해주세요");
+				return;
+			}
 			modalCheck($uibModal, "상품정보 Excel 업로드", "상품정보를 업로드 하시겠습니까?", function(){
 				const form = $('#excelForm')[0];
 				const formData = new FormData(form);
@@ -230,7 +234,7 @@ app.controller('productController', ['$scope', '$http', '$location', '$rootScope
 					if(data.resultCode == 'S'){
 						modalAlert($uibModal, "상품정보 Excel 업로드", "상품정보가 업데이트 되었습니다");
 					}else{
-						modalAlert($uibModal, "상품정보 Excel 업로드", data.resultMessage);
+						modalAlert($uibModal, "상품정보 Excel 업로드", "업데이트 오류");
 					}
 					$rootScope.reload();
 				}).error(function(){

@@ -4,9 +4,9 @@
 <mapper namespace="com.systemk.thefactor2.Mapper.TfTagPublishMapper">
 
     <select id="selectLastNum" resultType="String" parameterType="String">
-        select substr(TF_PRD_TAGID, 14, 3)
+        select substr(TF_PRD_TAGID, 10, 3)
         from tf_tag_publish ttp
-        where substr(TF_PRD_TAGID,1,13) = #{item}
+        where substr(TF_PRD_TAGID,1,9) = #{item}
         order by TF_PRD_TAGID desc limit 1;
     </select>
 

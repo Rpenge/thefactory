@@ -149,14 +149,12 @@
                             <th style="height:40px">코드</th>
                             <td><input type="text" class="form-control" ng-model="SGub.commCd" readonly></td>
                             <th>코드명</th>
-                            <td><input type="text" class="form-control" ng-model="SGub.commCdNm"></td>
+                            <td><input type="text" class="form-control" ng-model="SGub.commCdNm" ng-readOnly="inView.MGubCd=='010200'&&role!='010101'"></td>
                         </tr>
                         <tr>
-<%--                            <th>정렬</th>--%>
-<%--                            <td><input type="text" class="form-control" ng-model="SGub.codeAlign"></td>--%>
                             <th>사용여부</th>
                             <td>
-                                <select class="form-control" ng-model="SGub.useYn">
+                                <select class="form-control" ng-model="SGub.useYn" ng-readOnly="inView.MGubCd!='010200'">
                                     <option value="Y">Y</option>
                                     <option value="N">N</option>
                                 </select>

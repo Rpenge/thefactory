@@ -19,6 +19,12 @@ public class StringUtil {
         return format.format(date);
     }
 
+    public static String dateFormat(String form, Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat(form);
+        return format.format(date);
+    }
+
     public static String dateFormatYMD(Date date)
     {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");

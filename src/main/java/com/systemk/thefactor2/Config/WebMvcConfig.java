@@ -23,7 +23,7 @@ public  class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/APP/**")
-                .addResourceLocations("file:///D:/theFactor2App/");
+                .addResourceLocations("file:///D:/theFactor2RFID/APP/");
     }
 
 

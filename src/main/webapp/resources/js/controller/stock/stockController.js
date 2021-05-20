@@ -87,6 +87,11 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		}
 		//파일 업로드
 		$scope.upload = function(){
+
+			if(!$scope.file_path){
+				modalAlert($uibModal, "재고정보 Excel 업로드", "파일을 선택해주세요");
+				return;
+			}
 			modalCheck($uibModal, "재고정보 Excel 업로드", "재고정보를 업로드 하시겠습니까?", function(){
 				const form = $('#excelForm')[0];
 				const formData = new FormData(form);
