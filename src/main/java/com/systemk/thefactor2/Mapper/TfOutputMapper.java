@@ -21,6 +21,8 @@ public interface TfOutputMapper {
 
     List<TfOutputVO> outDeleteList(List item);
 
+    boolean outDeleteCheck(Integer item);
+
     int outDelete(HashMap item);
 
     List<Map> outSubList(HashMap item);

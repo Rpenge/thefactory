@@ -79,7 +79,7 @@ public class ApiCommonController {
         }
     }
 
-    //입고등록 - 리스트 처리
+    //반품입고 - 리스트 처리
     @RequestMapping(value = "/inputAddList", method = RequestMethod.POST)
     public Map<String, Object> inputAddList(@RequestBody(required = false) List<Map> param, HttpServletRequest request) {
         Map map = new HashMap();

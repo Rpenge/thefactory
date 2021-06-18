@@ -141,8 +141,13 @@ public class InputServiceImpl implements InputService {
 	@Override
 	public Map<String, Object> inputDelete(Map param) throws Exception {
 		String userId = (String)param.get("userId");
-		List dList = (List)param.get("list");
+		List<Integer> dList = (List)param.get("list");
 
+		for(Integer seq : dList){
+			if(!tfInputMapper.inputDeleteCheck(seq)){
+				return ResultUtil.setCommonResult("E",seq + "현재 재고에 존재하지 않거나, 추가로 입고 작업이 일어난 데이터입니다");
+			}
+		}
 		List<TfInputVO> voList = tfInputMapper.inputDeleteList(dList);
 		for(TfInputVO vo : voList){
 			Map map = new HashMap();

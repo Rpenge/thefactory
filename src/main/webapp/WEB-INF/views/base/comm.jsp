@@ -134,8 +134,8 @@
                     <div class="d-flex">
                         <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
                             <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 소분류</span>
-                            <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : esS.newForm}" ng-click="formChangeS('reset')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
-                            <button class="p-2 btn btn-outline-secondary" ng-click="formSave('SGub')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
+                            <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : esS.newForm}" ng-click="formChangeS('reset')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;" ng-disabled="inView.MGubCd=='010200'">신규</button>
+                            <button class="p-2 btn btn-outline-secondary" ng-click="formSave('SGub')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;" ng-disabled="inView.MGubCd=='010200'">저장</button>
                         </div>
                     </div>
                     <table class="table-bordered" style="width:99.5%;height:120px;text-align: center;background: whitesmoke;margin:10px 0 10px 0;">
@@ -171,12 +171,12 @@
                                 <th style="width:20%">사용여부</th>
                             </thead>
                             <tbody class="pointer">
-                            <tr ng-repeat="(key, value) in SCode" style="height: 40px;" ng-class="clickInit(key)">
-                                <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{key+1}}</td>
-                                <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.commCd}}</td>
-                                <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
-                                <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.useYn}}</td>
-                            </tr>
+                                <tr ng-repeat="(key, value) in SCode" style="height: 40px;" ng-class="clickInit(key)">
+                                    <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{key+1}}</td>
+                                    <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.commCd}}</td>
+                                    <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.commCdNm}}</td>
+                                    <td ng-click="formChangeS('mod',value)" onclick="selectTr($(this))">{{value.useYn}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

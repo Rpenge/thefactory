@@ -3,7 +3,7 @@
 app.controller('productController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		// httpGetList($http, $scope,'/base/productList' );
 		$scope.form = {};
@@ -208,6 +208,10 @@ app.controller('productController', ['$scope', '$http', '$location', '$rootScope
 
 
 		//////////////////////엑셀 업로드
+
+		$scope.formDown = function(){
+			window.location.href = 'resources/xlsx/product_form.xlsx'
+		}
 
 		$scope.fileUpload = function(path){
 			const fileValue = path.split("\\");

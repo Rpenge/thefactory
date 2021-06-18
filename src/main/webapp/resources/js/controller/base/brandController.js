@@ -1,6 +1,7 @@
 app.controller('brandController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal','$timeout',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal,$timeout) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location); //현재페이지 정보
 		$scope.inView = {};
 
@@ -194,6 +195,42 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 					$scope.reload();
 				}).error(function (data) {
 					alert('정보 업데이트 실패');
+				});
+
+			});
+		}
+
+		$scope.fileUpload = function(path){
+			const fileValue = path.split("\\");
+			const fileName = fileValue[fileValue.length-1]; // 파일명
+			$scope.file_path = fileName;
+			$scope.$apply();
+		}
+		//파일 업로드
+		$scope.upload = function(){
+
+			if(!$scope.file_path){
+				modalAlert($uibModal, "브랜드정보 Excel 업로드", "파일을 선택해주세요");
+				return;
+			}
+			modalCheck($uibModal, "브랜드정보 Excel 업로드", "브랜드정보를 업로드 하시겠습니까?", function(){
+				const form = $('#excelForm')[0];
+				const formData = new FormData(form);
+				$http({
+					method : 'POST',
+					enctype: 'multipart/form-data',
+					url : "/brandUpload",
+					data : formData,
+					headers: {"Content-Type": undefined, },
+				}).success(function(data){
+					if(data.resultCode == 'S'){
+						modalAlert($uibModal, "브랜드정보 Excel 업로드", "재고정보가 업데이트 되었습니다");
+					}else{
+						modalAlert($uibModal, "브랜드정보 Excel 업로드", "업데이트 오류");
+					}
+					$rootScope.reload();
+				}).error(function(){
+					modalAlert($uibModal, "브랜드정보 Excel 업로드", "업데이트 오류!");
 				});
 
 			});

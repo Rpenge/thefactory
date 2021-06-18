@@ -3,6 +3,7 @@
 app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		$scope.select = {};
 

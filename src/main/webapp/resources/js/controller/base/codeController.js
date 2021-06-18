@@ -2,9 +2,9 @@
 app.controller('codeController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		$scope.inView = {};
-		console.log(document.referrer);
 
 		$http.get('/member/getTotCode').success(function(data) {
 			$rootScope.commCode = data.commCode;

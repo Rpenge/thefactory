@@ -51,6 +51,16 @@
         </foreach>
     </select>
 
+    <select id="inputDeleteCheck" resultType="boolean" parameterType="Integer">
+        select if(MAX(ST_IN_SEQ)=#{item}, true , false)
+        from tf_input
+        where TF_PRD_TAGID = (
+            select TF_PRD_TAGID from tf_ac_stock tas where TF_PRD_TAGID = (
+                select TF_PRD_TAGID from tf_input where ST_IN_SEQ = #{item}
+            )
+        )
+    </select>
+
     <delete id="inputDelete" parameterType="java.util.HashMap">
         { call input_delete(${ST_IN_SEQ}, #{ST_IN_DATE}, #{USER_ID}, #{PRD_BARCODE}, #{TF_PRD_TAGID}, #{IN_STORE_CD}, #{ST_IN_TYPE})}
     </delete>

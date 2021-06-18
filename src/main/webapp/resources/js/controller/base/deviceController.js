@@ -1,7 +1,7 @@
 app.controller('deviceController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		$scope.inView = {};
 		$scope.inView.setDate = new Date();

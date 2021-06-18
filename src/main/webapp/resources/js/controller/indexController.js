@@ -6,7 +6,8 @@ app.run(function($rootScope, $http, $route, $window){
 });
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
-
+	// console = {};
+	// console.log = function(){};
 
 	//기본화면으로 변경
 	// $rootScope.imgPath = "/resources";
@@ -46,6 +47,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				}else if($rootScope.quickSearch.storeCd == null){
 					$rootScope.quickSearch.storeCd = sessionStorage.getItem('storeCd');
 				}
+				menuCheck($rootScope, $location);
 			} else {
 				logout($http, $rootScope, $location);
 				return;

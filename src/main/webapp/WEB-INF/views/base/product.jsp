@@ -90,7 +90,7 @@
 
                         <h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
                     </div>
-
+<%--                    <button class="btn btn-primary mobile-none" ng-click="formDown()"><i class="xi-file-download-o"></i> 양식</button>--%>
                     <form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101'">
                         <div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
                             <input ng-model="file_path" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">

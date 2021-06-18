@@ -3,6 +3,7 @@
 app.controller('stockController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		var discordance = false;
 
@@ -78,6 +79,10 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		}
 
 		//////////////////////엑셀 업로드
+
+		$scope.formDown = function(){
+			window.location.href = 'resources/xlsx/stock_form.xlsx'
+		}
 
 		$scope.fileUpload = function(path){
 			const fileValue = path.split("\\");

@@ -1,8 +1,6 @@
 app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
 	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
 
-
-
 	$scope.credentials ={};
 	if(getCookie('idSave')){
 		$scope.idSaveCheck = true;
@@ -102,6 +100,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 app.controller('userController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location); //현재페이지 정보
 
 		httpGetList($http, $scope,'/system/userList' ); //사용자 리스트 조회

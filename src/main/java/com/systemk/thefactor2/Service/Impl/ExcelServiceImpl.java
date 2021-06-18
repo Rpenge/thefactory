@@ -1,6 +1,7 @@
 package com.systemk.thefactor2.Service.Impl;
 
 
+import com.systemk.thefactor2.Mapper.TfBrandMapper;
 import com.systemk.thefactor2.Mapper.TfProductMapper;
 import com.systemk.thefactor2.Mapper.TfStockMapper;
 import com.systemk.thefactor2.Service.CommService;
@@ -31,6 +32,9 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     private TfProductMapper tfProductMapper;
+
+    @Autowired
+    private TfBrandMapper tfBrandMapper;
 
     @Transactional(rollbackFor=Exception.class)
     @Override
@@ -142,6 +146,58 @@ public class ExcelServiceImpl implements ExcelService {
                 tfProductMapper.prdExcelUpdate(map);
             }else{
                 tfProductMapper.productSave(map);
+            }
+        }
+        return ResultUtil.setCommonResult("S","성공하였습니다");
+    }
+
+    @Transactional(rollbackFor=Exception.class)
+    @Override
+    public Map brandExcelUpload(MultipartFile mf, String userId) throws Exception {
+        OPCPackage opcPackage = OPCPackage.open(mf.getInputStream());
+        XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+
+        Map cdMap = commService.nmToCdKV();
+        String brandCd = "";
+        String genderCd = "";
+        for(int i=0; i<sheet.getLastRowNum() + 1; i++) {
+            XSSFRow row = sheet.getRow(i);
+            if(i==0) {
+                if (
+                    !row.getCell(0).toString().equals("대분류") ||
+                    !row.getCell(1).toString().equals("중분류") ||
+                    !row.getCell(2).toString().equals("소분류") ||
+                    !row.getCell(3).toString().equals("분류명")
+                ) {
+                    return ResultUtil.setCommonResult("E","EXCEL 형식 불일치");
+                }
+                continue;
+            }
+
+            Map map = new HashMap();
+
+            if(row.getCell(0) != null && row.getCell(0).toString() != ""){
+                map.put("brandKindCd", row.getCell(0).toString()+"0000");
+                map.put("codeLevel", "B");
+                brandCd = row.getCell(0).toString();
+            }else if(row.getCell(1) != null && row.getCell(1).toString() != ""){
+                map.put("brandKindCd", brandCd + row.getCell(1).toString()+"00");
+                map.put("codeLevel", "M");
+                genderCd = row.getCell(1).toString();
+            }else if(row.getCell(2) != null && row.getCell(2).toString() != "") {
+                map.put("brandKindCd", brandCd + genderCd + row.getCell(2).toString());
+                map.put("codeLevel", "S");
+            }
+            map.put("brandNm", row.getCell(3).toString());
+            map.put("useYn", "Y");
+            map.put("regId", userId);
+            map.put("modId", userId);
+
+            if(tfBrandMapper.findBrand((String) map.get("brandKindCd")) != null){
+                tfBrandMapper.brandUpdate(map);
+            }else{
+                tfBrandMapper.brandSave(map);
             }
         }
         return ResultUtil.setCommonResult("S","성공하였습니다");

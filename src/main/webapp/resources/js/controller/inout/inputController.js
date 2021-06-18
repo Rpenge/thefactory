@@ -3,7 +3,7 @@
 app.controller('inputController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		$scope.form ={};
 
@@ -205,6 +205,8 @@ app.controller('inputController', ['$scope', '$http', '$location', '$rootScope',
 					}).success(function (data) {
 						if (data.resultCode == 'S') {
 							modalAlert($uibModal, "입고삭제", "데이터가 삭제되었습니다");
+						}else{
+							modalAlert($uibModal, "입고삭제", "업데이트 실패");
 						}
 						$rootScope.reload();
 					}).error(function (data) {

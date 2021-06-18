@@ -68,6 +68,28 @@ public class ExcelController {
 		return map;
 	}
 
+	@RequestMapping("/brandUpload")
+	public Map<String, String> brandUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
+		String userId = (String) request.getSession().getAttribute("userId");
+		Map<String, String> map = new HashMap<String, String>();
+		String realPath = "D:/theFactor2RFID/EXCEL/";
+		createFolder(realPath);
+		try {
+			map = excelService.brandExcelUpload(mf, userId);
+
+			String originalFileName = mf.getOriginalFilename();
+			String[] ofn = originalFileName.split("\\.");
+			String name = ofn[0];
+			String extension = ofn[1];
+			File fi = new File(realPath + name+"_B"+ StringUtil.dateFormat("yyyyMMddHHmmss", new Date()) +"."+extension);
+			mf.transferTo(fi);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("resultCode", "E");
+		}
+		return map;
+	}
+
 
 
 	public void createFolder(String path){

@@ -1,6 +1,7 @@
 app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal','$timeout',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal,$timeout) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location); //현재페이지 정보
 
 		if($rootScope.searchMove == 1){									//페이지 이동후 검색

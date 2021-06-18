@@ -6,8 +6,22 @@ function userLoginCheck($http, $rootScope,$window, $location){
 		$window.location.url("/");
 		sessionStorage.clear();
 		// logout($http, $rootScope, $location);
-	}
+}
 	$rootScope.currentMenu = {};
+}
+
+function menuCheck($rootScope, $location){
+	var menuCehck = false ;
+	var url = $location.url().split('?');
+	for(const i in $rootScope.topMenu){
+		if($rootScope.topMenu[i].PGM_URL == url[0]){
+			menuCehck = true;
+			break;
+		}
+	}
+	if(!menuCehck){
+		$location.url("/");
+	}
 }
 
 //현재페이지 정보 저장

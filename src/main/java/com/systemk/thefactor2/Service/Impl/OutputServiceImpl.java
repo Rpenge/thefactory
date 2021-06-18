@@ -179,12 +179,15 @@ public class OutputServiceImpl implements OutputService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> outputDelete(Map param) throws Exception {
-		List dList = (List)param.get("list");
+		List<Integer> dList = (List)param.get("list");
 		List<TfOutputVO> voList = tfOutputMapper.outDeleteList(dList);
 
-		System.out.println(voList);
+		for(Integer seq : dList){
+			if(!tfOutputMapper.outDeleteCheck(seq)){
+				return ResultUtil.setCommonResult("E",seq + "출고 상태가 아니거나 최근 데이터가 아닙니다");
+			}
+		}
 		for(TfOutputVO vo : voList){
-
 			Map map = new HashMap();
 			map.put("stOutSeq",vo.getStOutSeq());
 			map.put("stOutDate",vo.getStOutDate());
@@ -193,7 +196,6 @@ public class OutputServiceImpl implements OutputService {
 			map.put("tagId", vo.getTfPrdTagid());
 			map.put("storeCd", vo.getOutStoreCd());
 			map.put("stOutType", vo.getStOutType());
-			System.out.println(map);
 			tfOutputMapper.outDelete((HashMap) map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다");

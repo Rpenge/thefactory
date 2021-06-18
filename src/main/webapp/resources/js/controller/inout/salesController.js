@@ -1,6 +1,7 @@
 app.controller('salesController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		$scope.form ={};
 
@@ -197,7 +198,9 @@ app.controller('salesController', ['$scope', '$http', '$location', '$rootScope',
 						headers: {'Content-Type': 'application/json; charset=utf-8'}
 					}).success(function (data) {
 						if (data.resultCode == 'S') {
-							modalAlert($uibModal, "출고삭제", "데이터가 삭제되었습니다");
+							modalAlert($uibModal, "판매삭제", "데이터가 삭제되었습니다");
+						}else{
+							modalAlert($uibModal, "판매삭제", "업데이트 실패");
 						}
 						$rootScope.reload();
 					}).error(function (data) {

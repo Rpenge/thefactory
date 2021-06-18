@@ -21,6 +21,8 @@ public interface TfInputMapper {
 
     List<TfInputVO> inputDeleteList(List item);
 
+    boolean inputDeleteCheck(Integer item);
+
     int inputDelete(HashMap item);
 
     List<Map> inSubList(HashMap item);

@@ -192,7 +192,19 @@
             <div style="width: 98%;margin:10px;padding:0 0 20px 10px;height: 510px;">
                 <div class="d-flex" style="border-bottom: 1px solid lightgray;width:100%;">
                     <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 브랜드 분류 목록</span>
+                    <form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101'">
+                        <div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
+                            <input ng-model="file_path" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
+                            <div class="input-group-append">
+                                <label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
+                                    <input class="btn-outline-secondary" type="file" name="excelFile" accept=".xlsx" onchange="angular.element(this).scope().fileUpload(this.value)" hidden>
+                                </label>
+                            </div>
+                            <button class="btn btn-outline-secondary" ng-click="upload()" style="border: 1px solid lightgray;border-radius: 0 5px 5px 0;border-left:0px">업로드</button>
+                        </div>
+                    </form>
                 </div>
+
                 <div class="scroll-custom" style="max-height: 430px;overflow: auto;border:1px solid whitesmoke;margin-top: 15px;">
                     <table class="table-bordered table-striped-odd" style="width:100%;text-align: center;font-size: 14px;">
                         <thead>

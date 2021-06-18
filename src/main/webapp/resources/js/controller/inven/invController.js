@@ -3,6 +3,7 @@
 app.controller('invController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
+		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		httpGetList($http, $scope,'/inven/invList' );
 

@@ -55,6 +55,15 @@
         </foreach>
     </select>
 
+    <select id="outDeleteCheck" resultType="boolean" parameterType="Integer">
+        select if(max(ST_OUT_SEQ) = #{item}, true, false)
+        from tf_output where TF_PRD_TAGID = (
+            select TF_PRD_TAGID from tf_output to2 where ST_OUT_SEQ = #{item} and TF_PRD_TAGID not in (
+                select TF_PRD_TAGID from tf_ac_stock tas where TF_PRD_TAGID = to2.TF_PRD_TAGID
+            )
+        )
+    </select>
+
     <delete id="outDelete" parameterType="java.util.HashMap">
         { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType})}
     </delete>
@@ -69,5 +78,7 @@
         group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, TF_PRD_NM
         limit ${start}, ${size}
     </select>
+
+
 
 </mapper>
