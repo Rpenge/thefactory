@@ -82,6 +82,8 @@ public class InvenServiceImpl implements InvenService {
 		if (param.get("word") != null) {
 			mu.addLike("TF_PRD_NM", (String)param.get("word"));
 			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+			mu.addORLike("TF_PRD_TAGID", (String)param.get("word"));
+			mu.addORLike("BT_PRD_BARCODE", (String)param.get("word"));
 		}
 
 
@@ -108,7 +110,7 @@ public class InvenServiceImpl implements InvenService {
 			searchMap.put("stInvDate", param.get("stInvDate"));
 			searchMap.put("storeCd", param.get("invStoreCd"));
 			TfInvStatusVO vo = tfInvStatusMapper.findInvStatus(searchMap);
-			int StInvCnt = vo.getStInvCnt()+1;
+			int StInvCnt = vo.getStInvCnt() + 1;
 			if(param.get("misWork") != null) {
 				Map outMap = new HashMap();
 				outMap.put("userId", param.get("modId"));
@@ -116,6 +118,7 @@ public class InvenServiceImpl implements InvenService {
 				outMap.put("tfPrdTagid", param.get("tfPrdTagid"));
 				outMap.put("outStoreCd", param.get("invStoreCd"));
 				outMap.put("stOutType", param.get("misWork"));
+				outMap.put("comment", param.get("invComment"));
 				outMap.put("deviceGub", "020103");
 				outputService.outputAdd(outMap);
 			}

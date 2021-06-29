@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.security.auth.callback.CallbackHandler;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -71,6 +72,9 @@ public class ApiServiceImpl implements ApiService {
 
 	@Autowired
 	private OutputService outputService;
+
+	@Autowired
+	private TempRfidTagMapper tempRfidTagMapper;
 
 
 	@Override
@@ -157,6 +161,8 @@ public class ApiServiceImpl implements ApiService {
 			map.put("seq", vo.getStInSeq());
 			map.put("name", vo.getTfPrdNm());
 			map.put("tagId", vo.getTfPrdTagid());
+			map.put("barcode", vo.getBtPrdBarcode());
+			map.put("prdSize", vo.getPrdSize());
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			list.add(map);
 		}
@@ -187,6 +193,15 @@ public class ApiServiceImpl implements ApiService {
 		}else{
 			tagId = preTagId + String.format("%03d", Integer.parseInt(lastNum) + 1);
 		}
+
+		if(tempRfidTagMapper.tempTagCheck(tagId) != null){
+			tagId = preTagId + String.format("%03d", Integer.parseInt(tempRfidTagMapper.selectLastNum(preTagId)) + 1);
+			tempRfidTagMapper.tempTagSave(tagId);
+		}else{
+			tempRfidTagMapper.tempTagSave(tagId);
+		}
+
+
 		Map mapData = tfProductMapper.prdAndStk(param);
 		String brand = (String)mapData.get("BRAND_KIND_CD");
 		String prdNm = (String)mapData.get("TF_PRD_NM");
@@ -230,7 +245,12 @@ public class ApiServiceImpl implements ApiService {
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PDA코드 : 헤더값
 		map.put("inType", 	param.get("state"));	//신규입고 코드 : 신규/입고
 
-		tfInputMapper.inputNew((HashMap) map);
+		try {
+			int result = tfInputMapper.inputNew((HashMap) map);
+		} catch (Exception e){
+			return ResultUtil.setCommonResult("E","input new error");
+		}
+
 		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 
@@ -336,14 +356,21 @@ public class ApiServiceImpl implements ApiService {
 
 		for(Map param : paramList){
 			Map outputData = outputService.outputSearch((String) param.get("tagId"));
-			if(outputData == null){
+			if(outputData == null){	//출고 데이터 인지 확인
 				throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
 			}
+
 			param.put("barcode", outputData.get("btPrdBarcode"));
 			Map mapData = tfProductMapper.prdAndStk(param);
 			if(mapData == null){
 				throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
 			}
+
+			TfAcStockVO stock = tfAcStockMapper.findStockByTagId((String) param.get("tagId"));
+			if(stock != null){	//재고에 이미 존재하는지 확인
+				throw new Exception(ConstansConfig.EXIST_AC_STOCK_MSG);
+			}
+
 			Map map = new HashMap();
 			Date date = new Date();
 			map.put("ymd", StringUtil.dateFormatYMD(date));
@@ -370,7 +397,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
-
+//바코드, size
 		List<Map<String, String>> reusltList = new ArrayList<Map<String, String>>();
 		for(Map<String, String> map : param){
 			Map resultMap = new HashMap<String, String>();
@@ -378,9 +405,10 @@ public class ApiServiceImpl implements ApiService {
 			Map stMap = tfAcStockMapper.stockCheck(map.get("tagId"));
 			if(stMap != null){
 				resultMap.put("prdNm", stMap.get("tfPrdNm"));
-				resultMap.put("regDate",StringUtil.dateFormat((Date) stMap.get("regDate")));
+				resultMap.put("regDate", StringUtil.dateFormat((Date) stMap.get("regDate")));
+				resultMap.put("barcode", stMap.get("tfPrdBarcode"));
+				resultMap.put("prdSize", stMap.get("prdSize"));
 				resultMap.put("mappingYn","Y");
-
 			}else{
 				resultMap.put("mappingYn","N");
 			}
@@ -408,6 +436,8 @@ public class ApiServiceImpl implements ApiService {
 			map.put("seq", vo.getStOutSeq());
 			map.put("name", vo.getTfPrdNm());
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
+			map.put("barcode", vo.getBtPrdBarcode());
+			map.put("prdSize", vo.getPrdSize());
 			map.put("tagId", vo.getTfPrdTagid());
 			list.add(map);
 		}
@@ -443,6 +473,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("outStoreNm", commService.codeToNm(vo.getStoreCd()));
 			map.put("deviceGub",device);
 			map.put("outType", 	param.get("state"));
+			map.put("outComment", param.get("comment"));
 
  			tfOutputMapper.outputAdd((HashMap) map);
 		}

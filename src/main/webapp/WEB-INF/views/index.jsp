@@ -32,11 +32,12 @@
 	<script src="${pageContext.request.contextPath}/resources/js/config/routeProvider.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/filter/appFilter.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/directive/appDirective.js?v=${version}"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/controller/userController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/main/userController.js?v=${version}"></script>
 
 	<!--thefacotry controller-->
 	<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/controller/base/homeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/main/homeController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/main/testController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/codeController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/deviceController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/base/brandController.js?v=${version}"></script>
@@ -64,7 +65,7 @@
 	</style>
 </head>
 
-<body class="ng-cloak " style="min-width:1280px;">
+<body class="ng-cloak" style="min-width:1280px;">
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color:white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 30px;position: fixed;">
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk == true"> SYSTEMK 재고관리</i>
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk != true"> THEFACTOR2 재고관리</i>
@@ -83,7 +84,7 @@
 <nav class="navbar navbar-fixed-top d-flex dropdown" ng-if="authenticated" style="width:100%;min-width:1280px;height:95px;background-color:white; border-bottom:5px solid #DCDCDC;z-index:3;position: fixed;top:30px;" >
 
 	<div class="p-2" >
-		<a href="" ng-click="goMain()"><img src="{{imgPath}}/img/ci/top-logo.png" style="height: 60px;"></a>
+		<a href="" ng-click="goMain()"><img ng-src="{{imgPath}}/img/ci/top-logo.png" style="height: 60px;"></a>
 	</div>
 
 	<!--top메뉴 -->
@@ -135,6 +136,11 @@
 				<span>재고현황</span>
 				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'STOCK'"> &#176; {{value.PGM_NM}}</a>
 			</div>
+
+			<div class="dropdown-board" ng-if="hiddenFunction==true">
+				<span>TEST</span>
+				<a href="/#/ex/stk" > &#176; 재고</a>
+			</div>
 		</div>
 	</div>
 
@@ -145,7 +151,7 @@
 
 <!--메인TOP-->
 <div style="height:480px;" ng-if="authenticated && mainPage">
-	<div style="overflow: hidden;background: white;width:100%;"><img src="{{imgPath}}/img/main.png" style="width:100%;min-width:1680px;display: block; margin: 0px auto;" draggable="false"></div>
+	<div style="overflow: hidden;background: white;width:100%;"><img  ng-src="{{imgPath}}/img/main.png" style="width:100%;min-width:1680px;display: block; margin: 0px auto;" draggable="false"></div>
 </div>
 
 <div class="d-flex justify-content-left" ng-if="authenticated" >
@@ -239,6 +245,12 @@
 			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 3%;">
 				<div class="d-flex" style="border-bottom: 1px solid #f1f1f1;margin-bottom: 4px;">
 					<span style="font-size:20px;margin: 12px 13px 0 0;">Quick Search</span>
+
+					<select class="form-control" ng-model="quickSearch.storeCd" style="width:140px;margin:10px 12px 5px 20px;height: 40px;">
+						<option value="">매장</option>
+						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+					</select>
+
 					<select class="form-control" ng-model="quickCmd.cmd" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCmd.cmd)">
 						<option value="IO1">입고조회</option>
 						<option value="IO2">출고조회</option>
@@ -287,15 +299,15 @@
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
 						<span class="input-group-append" >
-									<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
-								</span>
+							<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
 					</div>
 					<p style="margin:12px 10px;">~</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
 						<span class="input-group-append" >
-									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
-								</span>
+							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
 					</div>
 					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;">검색</button>
 				</div>
@@ -396,7 +408,7 @@
 <!--footer-->
 <div class=" d-flex justify-content-center" ng-if="authenticated" style="width:100%;padding: 15px;">
 	<div style="padding: 5px 70px 0 0;">
-		<img src="{{imgPath}}/img/ci/top-logo.png" style="width:140px;">
+		<img ng-src="{{imgPath}}/img/ci/top-logo.png" style="width:140px;">
 	</div>
 	<div class="footer-text" ng-if="systemk != true">
 		<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span>

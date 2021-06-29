@@ -855,6 +855,16 @@ a.nav-link{
 	color: white;
 }
 
+.table-striped-line-odd > tbody > tr:nth-child(2n){
+	/*background-color: #fbfbfb;*/
+	border-bottom: 2px solid lightgray;
+}
+.table-striped-line-odd > thead > tr{
+	background-color : dimgrey;
+	/*box-shadow : 0 0 12px 0 lightgray inset;*/
+	color: white;
+}
+
 .table-hover tbody tr:hover{
 	background-color : #eeeeee!important;
 }

@@ -1,9 +1,11 @@
 package com.systemk.thefactor2.Controller;
 
+import com.systemk.thefactor2.Security.LoginUser;
 import com.systemk.thefactor2.Service.UserService;
 import com.systemk.thefactor2.Util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +26,8 @@ public class SystemController {
 
 	//시스템관리 - 사용자 및 권한 관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
 	@RequestMapping(value="/userList", method = RequestMethod.GET)
-	public Map<String, Object> userList(HttpServletRequest request) throws Exception{
+	public Map<String, Object> userList(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception{
+		System.out.println(user.getRole());
 		Map param = RequestUtil.reqParamToMap(request);
 		return userService.findList(param);
 	}

@@ -43,7 +43,7 @@ public class ApiCommonController {
     }
 
 
-    //메인화면 - 작업 수량
+    //메인화면(조회) - 작업 수량
     @RequestMapping(value = "/workCount", method = RequestMethod.GET)
     public Map<String, Object> workCount(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
@@ -51,7 +51,7 @@ public class ApiCommonController {
     }
 
 
-    //입고 - 입고 리스트
+    //입고(조회) - 입고 리스트
     @RequestMapping(value = "/inputList", method = RequestMethod.GET)
     public Map<String, Object> inputList(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
@@ -59,14 +59,14 @@ public class ApiCommonController {
     }
 
 
-    //입고 작업 - 바코드 리딩 후 매칭되는 상품 데이터 return
+    //입고 작업(조회/저장) - 바코드 리딩 후 매칭되는 상품 데이터 return
     @RequestMapping(value = "/inputAdd", method = RequestMethod.GET)
     public Map<String, Object> inputAdd(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
         return apiService.searchPrd(param);
     }
 
-    //입고 작업 - 바코드 리딩 후 매칭되는 상품 데이터 return (입고 확정)
+    //입고 작업(저장) - 입고 확정
     @RequestMapping(value = "/inputAddResult", method = RequestMethod.GET)
     public Map<String, Object> inputAddResult(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
@@ -105,7 +105,7 @@ public class ApiCommonController {
         return apiService.moveOutDataSearch(data);
     }
 
-    //판매/출고 - 판매 리스트
+    //판매/출고(조회) - 판매 리스트
     @RequestMapping(value = "/outputList", method = RequestMethod.GET)
     public Map<String, Object> outputList(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
@@ -113,7 +113,7 @@ public class ApiCommonController {
     }
 
 
-    //출고 - 태그로 출고시킬 데이터 조회
+    //출고(조회) - 태그로 출고시킬 데이터 조회
     @RequestMapping(value = "/outDataSearch", method = RequestMethod.POST)
     public Map<String, Object> outDataSearch(@RequestBody(required = false) List<Map<String, String>> data, HttpServletRequest request) throws Exception {
         return apiService.outDataSearch(data);

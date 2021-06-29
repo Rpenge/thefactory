@@ -1,9 +1,10 @@
-app.controller('stockController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
+app.controller('stock01Controller', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-		menuCheck($rootScope, $location);
-		pageInfo($rootScope, $location);
-		var expansion = false;
+		// menuCheck($rootScope, $location);
+		// pageInfo($rootScope, $location);
+		var expansion = true;
+		$scope.search = {};
 
 		// httpGetList($http, $scope,'/stock/stockList' );
 
@@ -27,7 +28,9 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param )
 		}else{
-			httpGetList($http, $scope,'/stock/stockList' );
+			$scope.search['ex'] = 'rfid';
+			const param = generateParam($scope.search);
+			httpGetList($http, $scope,'/stock/stockList', param );
 		}
 		$rootScope.searchMove = false;
 

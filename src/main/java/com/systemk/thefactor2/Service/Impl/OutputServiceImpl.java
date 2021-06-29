@@ -50,6 +50,8 @@ public class OutputServiceImpl implements OutputService {
 			if (key.equals("word")) {
 				mu.addLike("TF_PRD_NM", (String)param.get(key));
 				mu.addORLike("TF_PRD_CD", (String)param.get(key));
+				mu.addORLike("BT_PRD_BARCODE", (String)param.get(key));
+				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
 				break;
 			}
 			if (key.equals("PRD_SIZE")) {
@@ -98,6 +100,8 @@ public class OutputServiceImpl implements OutputService {
 			if (key.equals("word")) {
 				mu.addLike("TF_PRD_NM", (String)param.get(key));
 				mu.addORLike("TF_PRD_CD", (String)param.get(key));
+				mu.addORLike("BT_PRD_BARCODE", (String)param.get(key));
+				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
 				break;
 			}
 			if (key.equals("PRD_SIZE")) {
@@ -171,6 +175,7 @@ public class OutputServiceImpl implements OutputService {
 		map.put("outStoreNm", commService.codeToNm((String)param.get("outStoreCd")));	//  출고매장명
 		map.put("deviceGub",param.get("deviceGub"));	//장비값 : PC
 		map.put("outType", 	param.get("stOutType"));	//출고 코드
+		map.put("outComment", param.get("comment"));
 
 		tfOutputMapper.outputAdd((HashMap) map);
 		return ResultUtil.setCommonResult("S","성공하였습니다");

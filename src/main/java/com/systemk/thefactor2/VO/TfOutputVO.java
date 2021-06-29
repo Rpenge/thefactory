@@ -26,4 +26,5 @@ public class TfOutputVO {
     private Date   modDate;         // 수정일시
     private String modId;           // 수정자
     private String tfPrdNm;           // 상품명
+    private String stOutComment;           // 비고
 }

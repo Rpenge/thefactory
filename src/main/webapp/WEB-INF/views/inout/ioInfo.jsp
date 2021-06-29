@@ -19,7 +19,7 @@
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.in}" ng-click="tabChange('in')">입고</button>
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.out}" ng-click="tabChange('out')">출고</button>
 					<button class="btn btn-outline-secondary add-tabs-btn" ng-class="{'active-btn-2' : tab.sell}" ng-click="tabChange('sell')">판매/배송</button>
-					<div class="div-fade-in" ng-show="divFadeIn" style="width: 100%;height:100%;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;overflow: hidden;">
+					<div ng-show="divFadeIn" style="width: 100%;height:100%;margin-top:7px;padding:30px 10px 10px 10px;border:1px solid lightgray;overflow: hidden;">
 
 						<span style="font-size:20px;font-weight: bold;">{{inView.ST_DATE | dateFormCustom:'.'}} {{inView.STORE_CD | code:store}}  {{inView.ST_TYPE | code:workM}}내역</span>
 
@@ -32,7 +32,8 @@
 								<th style="width:10%">일자</th>
 								<th style="width:10%">매장</th>
 								<th style="width:10%">구분</th>
-								<th style="width:35%">상품명</th>
+								<th style="width:40%">상품명</th>
+								<th style="width:15%">바코드</th>
 								<th style="width:15%">수량</th>
 							</tr>
 							</thead>
@@ -42,6 +43,7 @@
 								<td>{{value.STORE_CD | code:store}}</td>
 								<td>{{value.ST_TYPE | code:workS}}</td>
 								<td>{{value.TF_PRD_NM}}</td>
+								<td>{{value.BARCODE}}</td>
 								<td>{{value.cnt}}</td>
 							</tr>
 							</tbody>
@@ -91,47 +93,47 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
-					<table id="listTable" class="table-bordered table-td-hover text-center custom-align-middle table-striped-odd" style="min-width:1100px;width:100%;" my-repeat-directive>
+					<table id="listTable" class="table-bordered table-td-hover text-center custom-align-middle table-striped-line-odd" style="min-width:1100px;width:100%;" my-repeat-directive>
 						<thead>
-						<tr style="height: 35px;">
-							<th rowspan="2" style="width:13%;">일자</th>
-							<th rowspan="2" style="width:13%;">매장</th>
-							<th colspan="5">입고</th>
-							<th colspan="3">출고</th>
-							<th colspan="3">판매/배송</th>
-							<th rowspan="2" style="width:8%;">총재고</th>
-						</tr>
-						<tr style="height: 40px;">
-							<th style="width:6%;">신규</th>
-							<th style="width:6%;">점간</th>
-							<th style="width:6%;">입고</th>
-							<th style="width:6%;">반품</th>
-							<th style="width:6%;">Total</th>
-							<th style="width:6%;">출고</th>
-							<th style="width:6%;">점간</th>
-							<th style="width:6%;">Total</th>
-							<th style="width:6%;">매장</th>
-							<th style="width:6%;">온라인</th>
-							<th style="width:6%;">Total</th>
-						</tr>
+							<tr style="height: 35px;">
+								<th rowspan="2" style="width:13%;">일자</th>
+								<th rowspan="2" style="width:13%;">매장</th>
+								<th colspan="5">입고</th>
+								<th colspan="3">출고</th>
+								<th colspan="3">판매/배송</th>
+								<th rowspan="2" style="width:8%;">총재고</th>
+							</tr>
+							<tr style="height: 40px;">
+								<th style="width:6%;">신규</th>
+								<th style="width:6%;">점간</th>
+								<th style="width:6%;">입고</th>
+								<th style="width:6%;">반품</th>
+								<th style="width:6%;">Total</th>
+								<th style="width:6%;">출고</th>
+								<th style="width:6%;">점간</th>
+								<th style="width:6%;">Total</th>
+								<th style="width:6%;">매장</th>
+								<th style="width:6%;">온라인</th>
+								<th style="width:6%;">Total</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in list"  class="pointer">
-							<td>{{value.inOutDate}}</td>
-							<td ng-click="addTabsOn(value)" style="height: 45px;">{{value.storeCd | code : store}}</td>
-							<td ng-click="addTabsOn(value)">{{value.inNewcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.inMovcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.inIncnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.inRetcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.inTotcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.outOutcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.outMovcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.outTotcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.sellStcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.sellOnlcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.sellTotcnt}}</td>
-							<td ng-click="addTabsOn(value)">{{value.stockTotcnt}}</td>
-						</tr>
+							<tr ng-repeat="(key, value) in list"  class="pointer">
+								<td>{{value.inOutDate}}</td>
+								<td ng-click="addTabsOn(value)" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
+								<td ng-click="addTabsOn(value, 'in')">{{value.inNewcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')">{{value.inMovcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')">{{value.inIncnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')">{{value.inRetcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="border-right: 2px solid lightgray;">{{value.inTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'out')">{{value.outOutcnt}}</td>
+								<td ng-click="addTabsOn(value, 'out')">{{value.outMovcnt}}</td>
+								<td ng-click="addTabsOn(value, 'out')" style="border-right: 2px solid lightgray;">{{value.outTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sell')">{{value.sellStcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sell')">{{value.sellOnlcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sell')">{{value.sellTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="background: floralwhite;border-left: 2px solid lightgray;">{{value.stockTotcnt}}</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

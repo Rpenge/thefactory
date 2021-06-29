@@ -6,7 +6,7 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 		$scope.inView = {};
 
 		$http.get('/member/getTotBrand').success(function(data) {
-			$rootScope.brandList = data.brandList;
+			$scope.brandList = data.brandList;
 		});
 
 		//대분류
@@ -243,7 +243,7 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 		}
 
 		$(document).ready(function() {
-			$scope.formChangeB('mod', $rootScope.brandList[0]);
+			$scope.formChangeB('mod', $scope.brandList[0]);
 		});
 
 

@@ -35,8 +35,12 @@
         { call input_new(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}
     </insert>
 
-    <insert id="inputRe" statementType="CALLABLE" parameterType="java.util.HashMap">
-        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType})}
+<!--    <select id="inputNew" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="java.util.Map">-->
+<!--        { call input_test(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm}, #{tagStat}, #{deviceGub}, #{inType})}-->
+<!--    </select>-->
+
+    <insert id="inputRe" statementType="CALLABLE" parameterType="ParamVO">
+        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType}, @result_m)}
     </insert>
 
     <select id="inputDeleteList" resultType="TfInputVO" parameterType="java.util.List">
@@ -66,7 +70,7 @@
     </delete>
 
     <select id="inSubList" resultType="Map" parameterType="java.util.HashMap">
-        select ST_IN_DATE as ST_DATE ,IN_STORE_CD as STORE_CD, ST_IN_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt
+        select ST_IN_DATE as ST_DATE ,IN_STORE_CD as STORE_CD, ST_IN_TYPE as ST_TYPE, TF_PRD_NM, BT_PRD_BARCODE as BARCODE,  count(*) as cnt
         from tf_input
         where 1=1
         <foreach collection="list" item="item">

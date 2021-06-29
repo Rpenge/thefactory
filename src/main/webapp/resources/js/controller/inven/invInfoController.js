@@ -11,6 +11,9 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 			$scope.search = {};
 			$scope.search['invYn'] = 'N';
 			$scope.search.stInvSeq = $location.$$search.seq;
+			// if($rootScope.quickSearchWord.word != undefined){
+			// 	$scope.search['word'] = $rootScope.quickSearchWord.word;
+			// }
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inven/invenList', param);
 		}else if($rootScope.searchMove == 1){									//페이지 이동후 검색
@@ -22,7 +25,6 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 			const endDate = formatDate3($rootScope.quickSearch.endDate);
 			$scope.search['startDate'] = startDate;
 			$scope.search['endDate'] = endDate;
-
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inven/invenList', param );
 		}else if($rootScope.searchMove == 2) {	//단어 검색

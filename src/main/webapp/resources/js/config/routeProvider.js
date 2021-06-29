@@ -24,6 +24,9 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'stockController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+
+
+		.when('/ex/stk', {templateUrl:'/ex/stk', controller:'stock01Controller', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 		.otherwise({redirectTo: '/member/login', templateUrl: '/member/login', controller: 'loginController' });
 
 

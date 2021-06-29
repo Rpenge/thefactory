@@ -102,6 +102,7 @@
 							<th>태그ID</th>
 							<th style="width:110px;">등록일시</th>
 							<th style="width:80px;">등록자</th>
+							<th style="width:80px;">비고</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -120,6 +121,7 @@
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutComment}}</td>
 						</tr>
 						</tbody>
 					</table>

@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 </head>
-	<div >
+	<div style="width:720px;">
 		<div>
-			<h5  style="font-weight: bold">APPLICATION</h5>
+			<h5 style="font-weight: bold">APPLICATION</h5>
 		</div>
-		<div style="width: 90%;margin:10px auto;">
+		<div style="width: 95%;margin:10px auto;">
 			<table class="table-div-10 table-bordered text-center col-12" style="text-align: center;">
 				<thead >
 					<tr style="visibility:collapse;">

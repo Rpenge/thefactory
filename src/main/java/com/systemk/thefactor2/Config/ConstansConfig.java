@@ -222,7 +222,9 @@ public class ConstansConfig {
 
 	public final static String NOT_FIND_DATA_MSG = "해당 정보를 찾을 수 없습니다.";
 
-	public final static String NOT_FIND_STOCK_MSG = "해당 재고정보를 찾을 수 없습니다.";
+	public final static String NOT_FIND_STOCK_MSG = "해당 재고정보가 등록되지 않았습니다.";
+
+	public final static String EXIST_AC_STOCK_MSG = "이미 등록 된 재고입니다.";
 
 	public final static String NOT_FIND_OUTPUT_MSG = "해당 출고정보를 찾을 수 없습니다.";
 
@@ -336,7 +338,7 @@ public class ConstansConfig {
 
 	public final static String DUPLICATION_ERP_REFERENCENO_MSG = "ERP ReferenceNo에 중복된 내역이 있습니다.";
 
-	public final static String NOT_FIND_RELEASE_RFID_TAG_MSG = "출고 예정된 RFID 태그가 없습니다.";
+	public final static String NOT_FIND_RELEASE_RFID_TAG_MSG = "출고 된 RFID 태그가 없습니다.";
 
 	public final static String STORAGE_RETURN_BOX_MSG = "물류 입고 반송 박스입니다.";
 

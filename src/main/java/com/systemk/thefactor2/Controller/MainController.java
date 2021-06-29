@@ -103,16 +103,9 @@ public class MainController {
     }
 
 
-    /////
-
-    @RequestMapping("/sample/proReg")
-    public String proReg(Model model) {
-        return "sample/proReg";
-    }
-
-    @RequestMapping("/sample/userReg")
-    public String userReg(Model model) {
-        return "sample/userReg";
+    @RequestMapping("/member/login")
+    public String login(Model model) {
+        return "member/login";
     }
 
     @RequestMapping("/system/user")
@@ -120,20 +113,36 @@ public class MainController {
         return "system/user";
     }
 
-    //////
-    @RequestMapping("/assetManagement/assetList")
-    public String assetMgList(Model model) {
-        return "sample/assetList";
+    @RequestMapping("/ex/stk")
+    public String ex1(Model model) {
+        return "ex/stk";
     }
 
-    @RequestMapping("/member/login")
-    public String login(Model model) {
-        return "member/login";
-    }
+//    /////
+//
+//    @RequestMapping("/sample/proReg")
+//    public String proReg(Model model) {
+//        return "sample/proReg";
+//    }
+//
+//    @RequestMapping("/sample/userReg")
+//    public String userReg(Model model) {
+//        return "sample/userReg";
+//    }
+//
 
-    @RequestMapping("/assetManagement/modal/assetRegist")
-    public String assetReg(Model model) {
-        return "assetManagement/modal/assetRegist";
-    }
+//
+//    //////
+//    @RequestMapping("/assetManagement/assetList")
+//    public String assetMgList(Model model) {
+//        return "sample/assetList";
+//    }
+//
+
+//
+//    @RequestMapping("/assetManagement/modal/assetRegist")
+//    public String assetReg(Model model) {
+//        return "assetManagement/modal/assetRegist";
+//    }
 
 }

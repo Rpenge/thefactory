@@ -20,10 +20,8 @@
                 order by ST_OUT_SEQ desc
             </otherwise>
         </choose>
-
         <choose>
             <when test = "total != null">
-
             </when>
             <otherwise>
                 limit ${start}, ${size}
@@ -40,7 +38,7 @@
     </select>
 
     <insert id="outputAdd" statementType="CALLABLE" parameterType="java.util.HashMap">
-        { call output(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{inStoreCd}, #{inStoreNm}, #{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{outType})}
+        { call output(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{inStoreCd}, #{inStoreNm}, #{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{outType}, #{outComment})}
     </insert>
 
     <select id="outDeleteList" resultType="TfOutputVO" parameterType="java.util.List">
@@ -69,7 +67,7 @@
     </delete>
 
     <select id="outSubList" resultType="Map" parameterType="java.util.HashMap">
-        select ST_OUT_DATE as ST_DATE ,OUT_STORE_CD as STORE_CD ,ST_OUT_TYPE as ST_TYPE, TF_PRD_NM, count(*) as cnt
+        select ST_OUT_DATE as ST_DATE ,OUT_STORE_CD as STORE_CD ,ST_OUT_TYPE as ST_TYPE, TF_PRD_NM, BT_PRD_BARCODE as BARCODE,  count(*) as cnt
         from tf_output
         where 1=1
         <foreach collection="list" item="item">

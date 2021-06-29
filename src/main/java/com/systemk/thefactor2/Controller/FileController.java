@@ -25,7 +25,6 @@ public class FileController {
 
 	@RequestMapping(value="/appInfo", method = RequestMethod.POST)
 	public TfApplicationVO appInfo(@RequestBody(required = false) Map<String, Object> map) throws Exception{
-		System.out.println(map);
 		return fileService.appInfo(map);
 	}
 

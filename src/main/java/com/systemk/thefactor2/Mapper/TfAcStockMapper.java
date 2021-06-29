@@ -15,7 +15,7 @@ public interface TfAcStockMapper {
 
     Map stockCheck(String tagId);
 
-    List<String> findTagId(String barcode);
+    List<String> findTagId(String tagId);
 
     List<Map> findAcStock(String storeCd);
 

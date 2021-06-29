@@ -33,7 +33,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public TfApplicationVO appInfo(Map param) throws Exception {
-        System.out.println(param);
         return tfApplicationMapper.appLastVs(param);
     }
 }

@@ -3,17 +3,20 @@ app.run(function($rootScope, $http, $route, $window){
 		$route.reload();
 		$window.sessionStorage.removeItem("current");
 	};
+
+	//프로젝트 이미지 변경
+	$rootScope.systemk = false;
+	if($rootScope.systemk){
+		$rootScope.imgPath = "/resources/systemk";
+	}else{
+		$rootScope.imgPath = "/resources";
+	}
+
+	//재고현황관리 - 실재고 보기
+	$rootScope.hiddenFunction = false;
 });
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
-	// console = {};
-	// console.log = function(){};
-
-	//기본화면으로 변경
-	// $rootScope.imgPath = "/resources";
-	// $rootScope.systemk = false;
-	$rootScope.imgPath = "/resources/systemk";
-	$rootScope.systemk = true;
 
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
@@ -32,6 +35,17 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$http.get('/member/getCode').success(function(data) {
 		$rootScope.commCode = data.commCode;
 		$rootScope.brandList = data.brandList;
+		$rootScope.brandList.sort(function(a, b) {
+			var nameA = a.brandNm.toUpperCase(); // ignore upper and lowercase
+			var nameB = b.brandNm.toUpperCase(); // ignore upper and lowercase
+			if (nameA < nameB) {
+				return -1;
+			}
+			if (nameA > nameB) {
+				return 1;
+			}
+			return 0;
+		});
 		code($rootScope);
 	});
 
@@ -231,7 +245,6 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 	function ($scope, $http, $location,$rootScope, $window, $uibModalInstance, $uibModal) {
 
 		$scope.input ={};
-		console.log($ctrl);
 		$http({
 			method : 'POST',
 			url : "/appInfo",
@@ -260,10 +273,10 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 					modalAlert($uibModal, "어플리케이션 등록", "숫자를 입력해주세요");
 					return;
 				}
-				if($scope.view.version >= version){
-					modalAlert($uibModal, "어플리케이션 등록", "기존 version 보다 큰 값을 넣어주세요");
-					return;
-				}
+				// if($scope.view.version >= version){
+				// 	modalAlert($uibModal, "어플리케이션 등록", "기존 version 보다 큰 값을 넣어주세요");
+				// 	return;
+				// }
 			}else{
 				modalAlert($uibModal, "어플리케이션 등록", "version 또는 App구분을 선택하여 주세요");
 				return;
@@ -321,10 +334,12 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 app.controller('appController', ['$scope', '$http', '$location','$rootScope', '$window',
 	function ($scope, $http, $location,$rootScope, $window) {
 
+		document.documentElement.style.overflowX = 'hidden';
+
 		$http({
-			method : 'GET',
+			method : 'POST',
 			url : "/appInfo",
-			data : {},
+			data : {'deviceGub':'020102'},
 		}).success(function(data){
 			$scope.view = data;
 			$scope.view.appGub = codeToNm($scope.view.appGub, $rootScope.commCode);

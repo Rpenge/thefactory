@@ -23,56 +23,46 @@
 
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
-					<button class="btn btn-primary mobile-none" ng-click="formDown()" ng-if="hiddenFunction==true"><i class="xi-file-download-o"></i> 양식</button>
-					<form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101' || role=='010102'">
-						<div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
-							<input ng-model="file_path" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
-							<div class="input-group-append">
-								<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
-									<input class="btn-outline-secondary" type="file" name="excelFile" onchange="angular.element(this).scope().fileUpload(this.value)" accept=".xlsx" hidden>
-								</label>
-							</div>
-							<button class="btn btn-outline-secondary" ng-click="upload()" style="border: 1px solid lightgray;border-radius: 0 5px 5px 0;border-left:0px">업로드</button>
-						</div>
-					</form>
+<%--					<button class="btn btn-primary mobile-none" ng-click="formDown()" ng-if="hiddenFunction==true"><i class="xi-file-download-o"></i> 양식</button>--%>
+<%--					<form method="post" id="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101' || role=='010102'">--%>
+<%--						<div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">--%>
+<%--							<input ng-model="file_path" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">--%>
+<%--							<div class="input-group-append">--%>
+<%--								<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기--%>
+<%--									<input class="btn-outline-secondary" type="file" name="excelFile" onchange="angular.element(this).scope().fileUpload(this.value)" accept=".xlsx" hidden>--%>
+<%--								</label>--%>
+<%--							</div>--%>
+<%--							<button class="btn btn-outline-secondary" ng-click="upload()" style="border: 1px solid lightgray;border-radius: 0 5px 5px 0;border-left:0px">업로드</button>--%>
+<%--						</div>--%>
+<%--					</form>--%>
 
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-						<label class="btn btn-secondary active" ng-click="stkDif()" style="width:80px;">
-							<input type="radio" name="options"  autocomplete="off" checked> 전체
-						</label>
-						<label class="btn btn-secondary" ng-click="stkDif('rfid')" ng-if='hiddenFunction == true' style="width:110px;">
-							<input type="radio" name="options"  autocomplete="off"> 실재고
-						</label>
-						<label class="btn btn-secondary" ng-click="stkDif('dis')" style="width:110px;">
-							<input type="radio" name="options"  autocomplete="off"> 재고차이
-						</label>
-					</div>
+<%--					<div class="btn-group btn-group-toggle" data-toggle="buttons">--%>
+<%--						<label class="btn btn-secondary active" ng-click="stkDif()" style="width:80px;">--%>
+<%--							<input type="radio" name="options"  autocomplete="off" checked> 전체--%>
+<%--						</label>--%>
+<%--						<label class="btn btn-secondary" ng-click="stkDif('rfid')" ng-if='hiddenFunction == true' style="width:110px;">--%>
+<%--							<input type="radio" name="options"  autocomplete="off"> 실재고--%>
+<%--						</label>--%>
+<%--						<label class="btn btn-secondary" ng-click="stkDif('dis')" style="width:110px;">--%>
+<%--							<input type="radio" name="options"  autocomplete="off"> 재고차이--%>
+<%--						</label>--%>
+<%--					</div>--%>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box" style="overflow: auto;">
 					<table class="table-bordered table-striped-odd" id="listTable" style="min-width:1450px;text-align: center;font-size:13px;" >
 						<thead style="background: whitesmoke;">
 							<tr>
-								<th rowspan="2" style="width:65px;">No</th>
-								<th rowspan="2" style="width:250px;">품목명</th>
+								<th rowspan="2" style="width:65px;height:42px;">No</th>
+								<th rowspan="2" style="width:400px;">품목명</th>
 								<th rowspan="2" style="width:75px;">매장</th>
-								<th rowspan="2" style="width:120px;">브랜드</th>
+								<th rowspan="2" style="width:150px;">브랜드</th>
 								<th rowspan="2" style="width:75px;">성별</th>
 								<th rowspan="2" style="width:80px;">상품구분</th>
 								<th rowspan="2" style="width:75px;">사이즈</th>
 								<th rowspan="2" style="width:110px;">바코드</th>
-								<th style="height: 40px;">EC재고</th>
-								<th colspan="6">RFID 재고관리 시스템</th>
-								<th rowspan="2">재고차이</th>
-							</tr>
-							<tr>
-								<th style="height:40px;width:75px;">현재고</th>
-								<th style="width:75px;">입고</th>
-								<th style="width:75px;">츨고</th>
-								<th style="width:75px;font-size: 12px;">판매(매장)</th>
-								<th style="width:80px;font-size: 12px;">판매(온라인)</th>
-								<th style="width:75px;">실사수량</th>
-								<th style="width:75px;">실재고</th>
+								<th rowspan="2">EC재고</th>
+								<th rowspan="2">실재고</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -84,17 +74,9 @@
 								<td>{{value.genderNm}}</td>					<!--성별-->
 								<td>{{value.clsNm}}</td>					<!--분류명-->
 								<td>{{value.PRD_SIZE}}</td>					<!--size-->
-								<td>{{value.TF_PRD_BARCODE}}</td>					<!--size-->
-								<td style="background: lavenderblush;">{{value.REAL_STOCK_CNT}}</td>			<!--EC수량-->
-								<td>{{value.inCnt}}</td>					<!--입고수량-->
-								<td>{{value.outCnt}}</td>					<!--출고수량-->
-								<td>{{value.stCnt}}</td>					<!--매장판매수량-->
-								<td>{{value.onCnt}}</td>					<!--온라인판매수량-->
-								<td>{{value.INVENTORY_CNT}}</td>			<!--재고실사수량-->
-								<td style="background: lavenderblush">{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
-								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: #f1f1f1">
-									{{value.RFID_STOCK_CNT - value.REAL_STOCK_CNT}}
-								</td>	<!--EC와 실재고 비교-->
+								<td>{{value.TF_PRD_BARCODE}}</td>			<!--size-->
+								<td>{{value.REAL_STOCK_CNT}}</td>		<!--EC수량-->
+								<td style="background: lavenderblush">{{value.RFID_STOCK_CNT}}</td>		<!--rfid시스템수량-->
 							</tr>
 						</tbody>
 					</table>

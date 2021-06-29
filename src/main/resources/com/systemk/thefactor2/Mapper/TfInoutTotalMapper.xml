@@ -58,7 +58,7 @@
         *
         FROM
         TF_INOUT_TOTAL
-        WHERE 1=1
+        WHERE true
         <foreach collection="list" item="item">
             ${item}
         </foreach>
@@ -67,7 +67,7 @@
                 order by ${sort} ${direct}
             </when>
             <otherwise>
-                order by IN_OUT_DATE desc
+                order by IN_OUT_DATE desc, STORE_CD ASC
             </otherwise>
         </choose>
 

@@ -62,6 +62,8 @@ public class InputServiceImpl implements InputService {
 			if (key.equals("word")) {
 				mu.addLike("TF_PRD_NM", (String)param.get(key));
 				mu.addORLike("TF_PRD_CD", (String)param.get(key));
+				mu.addORLike("BT_PRD_BARCODE", (String)param.get(key));
+				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
 				break;
 			}
 			if (key.equals("PRD_SIZE")) {

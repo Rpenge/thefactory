@@ -103,7 +103,7 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location); //현재페이지 정보
 
-		httpGetList($http, $scope,'/system/userList' ); //사용자 리스트 조회
+		httpGetList($http, $scope,'/system/userList'); //사용자 리스트 조회
 
 		var checkList = []; //체크박스 리스트
 		$scope.form = {'regUserId' : sessionStorage.getItem('id'),'pdaUseYn' : 'Y', 'userStat':'Y'}; //초기 form 상태

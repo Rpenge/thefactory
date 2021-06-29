@@ -5,7 +5,7 @@
 	<div class="login-background" style="background-image:url('{{imgPath}}/img/loginImg.png');background-size:100vw;height:100vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">
 		<div class="container-fluid" >
 			<div class="form-signin" style="opacity: 95%;margin-top: 150px;width:380px;">
-				<img src="{{imgPath}}/img/ci/s_logo.png" style="width:100%;margin-bottom: 30px;">
+				<img ng-src="{{imgPath}}/img/ci/s_logo.png" style="width:100%;margin-bottom: 30px;">
 				<form role="form" ng-submit="login()" style="margin-bottom: 5px;">
 					<label for="j_username" class="sr-only">아이디</label>
 					<input type="text" class="form-control" ng-model="credentials.userId" placeholder="아이디" name="j_username" id="j_username" required autofocus>

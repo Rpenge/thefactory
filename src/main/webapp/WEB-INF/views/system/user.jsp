@@ -28,7 +28,7 @@
 			<p style="margin:20px 10px;">회원등급</p>
 			<select class="form-control" ng-model="searchGroup.grade" style="width:200px;margin: 10px;height: 40px;">
 				<option value="">회원등급</option>
-				<option ng-repeat="value in grade" value="{{value.commCd}}">{{value.commCdNm}}</option>
+				<option ng-repeat="value in grade" ng-if="(value.commCd!='010101')||(role=='010101')" value="{{value.commCd}}">{{value.commCdNm}}</option>
 			</select>
 
 			<p style="margin:20px 10px;">회원상태</p>
@@ -98,7 +98,7 @@
 							<td>
 								<select class="form-control" ng-model="form.grade" ng-readonly="es.pwForm" ng-required='true'>
 									<option value="">권한</option>
-									<option ng-repeat="value in grade" value="{{value.commCd}}">{{value.commCdNm}}</option>
+									<option ng-repeat="value in grade" ng-if="(value.commCd!='010101')||(role=='010101')" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
 							<th>PDA사용</th>

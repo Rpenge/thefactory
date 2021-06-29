@@ -47,7 +47,6 @@ public class UserController {
 
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
-		System.out.println(request.getHeader("auto"));
 		if(request.getHeader("auto")!= null){
 			userService.autoLoginUpdate(user.getUserId(), request.getHeader("auto"));
 		}
