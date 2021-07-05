@@ -1,12 +1,12 @@
-app.controller('stock01Controller', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
+app.controller('stkTagController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
-		// menuCheck($rootScope, $location);
-		// pageInfo($rootScope, $location);
-		var expansion = true;
+		menuCheck($rootScope, $location);
+		pageInfo($rootScope, $location);
+		// var expansion = true;
 		$scope.search = {};
 
-		// httpGetList($http, $scope,'/stock/stockList' );
+		httpGetList($http, $scope,'/stock/stkTagList' );
 
 		if($rootScope.searchMove == 1){	//페이지 이동후 검색
 			$scope.search = {};
@@ -28,7 +28,7 @@ app.controller('stock01Controller', ['$scope', '$http', '$location', '$rootScope
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param )
 		}else{
-			$scope.search['ex'] = 'rfid';
+			// $scope.search['ex'] = 'rfid';
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param );
 		}
@@ -69,57 +69,14 @@ app.controller('stock01Controller', ['$scope', '$http', '$location', '$rootScope
 			// }
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/stock/stockList', param );
+			httpGetList($http, $scope,'/stock/stkTagList', param );
 		};
 
 		//페이지 사이즈 변경
 		$scope.pageSize = function(){
 			$scope.search.page = 0;
 			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/stock/stockList', param );
+			httpGetList($http, $scope,'/stock/stkTagList', param );
 		}
-
-		//////////////////////엑셀 업로드
-
-		$scope.formDown = function(){
-			window.location.href = 'resources/xlsx/stock_form.xlsx'
-		}
-
-		$scope.fileUpload = function(path){
-			const fileValue = path.split("\\");
-			const fileName = fileValue[fileValue.length-1]; // 파일명
-			$scope.file_path = fileName;
-			$scope.$apply();
-		}
-		//파일 업로드
-		$scope.upload = function(){
-
-			if(!$scope.file_path){
-				modalAlert($uibModal, "재고정보 Excel 업로드", "파일을 선택해주세요");
-				return;
-			}
-			modalCheck($uibModal, "재고정보 Excel 업로드", "재고정보를 업로드 하시겠습니까?", function(){
-				const form = $('#excelForm')[0];
-				const formData = new FormData(form);
-				$http({
-					method : 'POST',
-					enctype: 'multipart/form-data',
-					url : "/stockUpload",
-					data : formData,
-					headers: {"Content-Type": undefined, },
-				}).success(function(data){
-					if(data.resultCode == 'S'){
-						modalAlert($uibModal, "재고정보 Excel 업로드", "재고정보가 업데이트 되었습니다");
-					}else{
-						modalAlert($uibModal, "재고정보 Excel 업로드", "업데이트 오류");
-					}
-					$rootScope.reload();
-				}).error(function(){
-					modalAlert($uibModal, "재고정보 Excel 업로드", "업데이트 오류!");
-				});
-
-			});
-		}
-
 
 }]);

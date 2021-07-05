@@ -8,6 +8,44 @@
 <div ng-show="authenticated">
 
 	<section class="d-flex justify-content-center">
+		<div class="container-fluid body-custom" style="width:100%;">
+			<div style="padding:20px 5px;">
+
+				<div class="d-flex">
+					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 입출고내역 다운로드</span>
+					<div class="row input-group" style="width:180px;margin: 0 5px;">
+						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.startDate" is-open="st_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="true"/>
+						<span class="input-group-append" >
+							<button type="button" class="btn btn-secondary" ng-click="st_sdt = st_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
+					</div>
+					<p style="margin:7px 6px;">~</p>
+					<div class="row input-group" style="width:180px;margin:0 5px;">
+						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.endDate" is-open="st_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="true"/>
+						<span class="input-group-append" >
+							<button type="button" class="btn btn-secondary" ng-click="st_edt = st_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
+						</span>
+					</div>
+
+					<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin: 0 15px;">
+						<option value="">매장</option>
+						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+					</select>
+
+					<select class="custom-select" ng-model="excelForm.stType" ng-init="excelForm.stType=''" style="width:150px;margin-right:15px;">
+						<option value="">입출고전체</option>
+						<option value="0601">입고</option>
+						<option value="0602">출고</option>
+						<option value="0603">판매/배송</option>
+					</select>
+
+					<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="d-flex justify-content-center">
 
 		<!--contents-->
 		<div class="container-fluid body-custom" style="width:100%;">
@@ -90,6 +128,35 @@
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
 
+<%--					<div class="d-flex" ng-if="hiddenFunction == true">--%>
+<%--						<div class="row input-group" style="width:180px;margin: 0 5px;">--%>
+<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.startDate" is-open="st_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="true"/>--%>
+<%--							<span class="input-group-append" >--%>
+<%--								<button type="button" class="btn btn-secondary" ng-click="st_sdt = st_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
+<%--							</span>--%>
+<%--						</div>--%>
+<%--						<p style="margin:7px 6px;">~</p>--%>
+<%--						<div class="row input-group" style="width:180px;margin:0 5px;">--%>
+<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.endDate" is-open="st_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="true"/>--%>
+<%--							<span class="input-group-append" >--%>
+<%--								<button type="button" class="btn btn-secondary" ng-click="st_edt = st_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
+<%--							</span>--%>
+<%--						</div>--%>
+<%--						--%>
+<%--						<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin-right: 10px;">--%>
+<%--							<option value="">매장</option>--%>
+<%--							<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>--%>
+<%--						</select>--%>
+
+<%--						<select class="custom-select" ng-model="excelForm.stType" ng-init="excelForm.stType=''" style="width:150px;margin-right: 10px;">--%>
+<%--							<option value="">입출고전체</option>--%>
+<%--							<option value="0601">입고</option>--%>
+<%--							<option value="0602">출고</option>--%>
+<%--							<option value="0603">판매/배송</option>--%>
+<%--						</select>--%>
+
+<%--						<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>--%>
+<%--					</div>--%>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">

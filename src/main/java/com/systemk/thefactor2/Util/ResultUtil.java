@@ -25,8 +25,6 @@ public class ResultUtil {
 
 	    obj.put("resultCode", resultCode);
 	    obj.put("resultMessage", resultMessage);
-//	    detailObj.put("content", tempObj);
-
 	    obj.put("resultData", tempObj);
 
 	    return obj;
@@ -40,8 +38,6 @@ public class ResultUtil {
 
 	    obj.put("resultCode", resultCode);
 	    obj.put("resultMessage", resultMessage);
-//	    detailObj.put("content", tempList);
-
 	    obj.put("resultData", tempList);
 
 	    return obj;

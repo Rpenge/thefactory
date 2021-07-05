@@ -31,4 +31,6 @@ public interface CommService {
     public String codeToNm(String code);
 
     public Map nmToCdKV();
+
+    Map codeToNmKV();
 }

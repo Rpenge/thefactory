@@ -21,11 +21,12 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 		}
 		$rootScope.searchMove = false;
 
-
-
+		$scope.excelForm = {};
+		$scope.excelFormDate = {};
+		$scope.excelFormDate.startDate = new Date( new Date().setMonth( new Date().getMonth() - 1));
+		$scope.excelFormDate.endDate = new Date();
 
 		tableAbs(); //테이블 병합
-
 
 		$scope.tab = {'in': false, 'out': false, 'sell': false};
 		$scope.form = {};
@@ -111,6 +112,29 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 			$scope.form.page = page - 1;
 			const param = generateParam($scope.form);
 			httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+		}
+
+		$scope.excelDown = function(){
+			$scope.excelForm['startDate'] = formatDate3($scope.excelFormDate.startDate);
+			$scope.excelForm['endDate'] = formatDate3($scope.excelFormDate.endDate);
+			var fileName = '입출고내역_'+formatDate3(new Date())+'.xlsx';
+			console.log($scope.excelForm);
+			$http({
+				method : 'POST',
+				url : "/excelDown",
+				data  : $scope.excelForm,
+				responseType : 'blob',
+			}).success(function(data){
+				var blob = data;
+				var downloadLink = window.document.createElement('a');
+				downloadLink.href = window.URL.createObjectURL(new Blob([blob]));
+				downloadLink.download = fileName;
+				document.body.appendChild(downloadLink);
+				downloadLink.click();
+				document.body.removeChild(downloadLink);
+			}).error(function(data){
+				alert('실패');
+			});
 		}
 
 

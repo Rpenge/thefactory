@@ -40,7 +40,7 @@
 <!--    </select>-->
 
     <insert id="inputRe" statementType="CALLABLE" parameterType="ParamVO">
-        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType}, @result_m)}
+        { call input_re(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{storeCd}, #{storeNm},#{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{inType})}
     </insert>
 
     <select id="inputDeleteList" resultType="TfInputVO" parameterType="java.util.List">

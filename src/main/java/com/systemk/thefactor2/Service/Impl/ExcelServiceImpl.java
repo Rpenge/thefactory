@@ -1,23 +1,27 @@
 package com.systemk.thefactor2.Service.Impl;
 
 
-import com.systemk.thefactor2.Mapper.TfBrandMapper;
-import com.systemk.thefactor2.Mapper.TfProductMapper;
-import com.systemk.thefactor2.Mapper.TfStockMapper;
+import com.systemk.thefactor2.Config.ConstansConfig;
+import com.systemk.thefactor2.Mapper.*;
+import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Service.ExcelService;
 import com.systemk.thefactor2.Util.ResultUtil;
+import com.systemk.thefactor2.Util.StringUtil;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 
 @Service
@@ -26,6 +30,9 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     private CommService commService;
+
+    @Autowired
+    private BrandService brandService;
 
     @Autowired
     private TfStockMapper tfStockMapper;
@@ -111,17 +118,17 @@ public class ExcelServiceImpl implements ExcelService {
             XSSFRow row = sheet.getRow(i);
             if(i==0) {
                 if (
-                        !row.getCell(0).toString().equals("상태") ||
-                        !row.getCell(1).toString().equals("상품분류") ||
-                        !row.getCell(2).toString().equals("상품코드") ||
-                        !row.getCell(3).toString().equals("자체상품코드") ||
-                        !row.getCell(5).toString().equals("상품명") ||
-                        !row.getCell(6).toString().equals("자체상품명") ||
-                        !row.getCell(7).toString().equals("모델명") ||
-                        !row.getCell(8).toString().equals("제조사") ||
-                        !row.getCell(9).toString().equals("원산지") ||
-                        !row.getCell(10).toString().equals("브랜드") ||
-                        !row.getCell(21).toString().equals("단품항목")
+                    !row.getCell(0).toString().equals("상태") ||
+                    !row.getCell(1).toString().equals("상품분류") ||
+                    !row.getCell(2).toString().equals("상품코드") ||
+                    !row.getCell(3).toString().equals("자체상품코드") ||
+                    !row.getCell(5).toString().equals("상품명") ||
+                    !row.getCell(6).toString().equals("자체상품명") ||
+                    !row.getCell(7).toString().equals("모델명") ||
+                    !row.getCell(8).toString().equals("제조사") ||
+                    !row.getCell(9).toString().equals("원산지") ||
+                    !row.getCell(10).toString().equals("브랜드") ||
+                    !row.getCell(21).toString().equals("단품항목")
                 ) {
                     return ResultUtil.setCommonResult("E","EXCEL 형식 불일치");
                 }
@@ -202,4 +209,94 @@ public class ExcelServiceImpl implements ExcelService {
         }
         return ResultUtil.setCommonResult("S","성공하였습니다");
     }
+
+
+    @Autowired
+    private TfInoutTotalMapper tfInoutTotalMapper;
+
+    @Transactional(rollbackFor=Exception.class)
+    @Override
+    public void inoutExcelDown(Map map, HttpServletResponse response) throws Exception{
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+
+        style.setAlignment(HorizontalAlignment.CENTER);
+        font.setBold(true);
+        style.setFont(font);
+
+        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        XSSFRow row = null;
+        XSSFCell cell = null;
+
+        if((map.get("stType")).equals("0601")) {
+            list = tfInoutTotalMapper.inExcel(map);
+        }else if(map.get("stType").equals("0602") || map.get("stType").equals("0603")){
+            list = tfInoutTotalMapper.outExcel(map);
+        }else{
+            list = tfInoutTotalMapper.totExcel(map);
+        }
+        Map commMap = commService.codeToNmKV();
+        Map brandMap = brandService.brandMap();
+
+        Map nameMap = ConstansConfig.getNameMap();
+        sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 10));
+
+        XSSFRow topRow = sheet.createRow(0);
+        for(int i=0; i< list.size();i++) {
+
+            row = sheet.createRow(i + 1);
+
+            int j = 0;
+            for(String key : list.get(i).keySet()) {
+                if(i == 0) {
+                    cell = topRow.createCell(j);
+                    cell.setCellStyle(style);
+                    cell.setCellValue((String) nameMap.get(key));
+
+
+                }else if(i==1){
+                    sheet.autoSizeColumn(j);
+                    sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 700 );
+                    if(sheet.getColumnWidth(j) < 2000){
+                        sheet.setColumnWidth(j, 2000 );
+                    }
+                }
+
+
+                cell = row.createCell(j);
+
+                if(j==2) {
+                    cell.setCellValue((String) commMap.get(list.get(i).get(key)));
+                }else if(j==4) {
+                    cell.setCellValue((String) brandMap.get(list.get(i).get(key).toString().substring(0,2)+"0000"));
+                }else if(list.get(i).get(key) instanceof String) {
+                    cell.setCellValue((String) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Date){
+                    cell.setCellValue(StringUtil.dateFormat((Date) list.get(i).get(key)));
+                }
+                j++;
+            }
+        }
+
+        //파일 전송
+        try {
+            response.reset();
+            response.setContentType( "application/vnd.ms-excel" );
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.getOutputStream().close();
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

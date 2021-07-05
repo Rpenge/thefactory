@@ -102,6 +102,11 @@ public class MainController {
         return "stock/stk";
     }
 
+    @RequestMapping("/stock/stkTag")
+    public String stkTag(Model model) {
+        return "stock/stkTag";
+    }
+
 
     @RequestMapping("/member/login")
     public String login(Model model) {
@@ -112,6 +117,7 @@ public class MainController {
     public String user(Model model) {
         return "system/user";
     }
+
 
     @RequestMapping("/ex/stk")
     public String ex1(Model model) {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.TfLogMapper">
+
+    <insert id="createErrLog" parameterType="TfErrorLogVO">
+        INSERT INTO tf_error_log
+        (err_url, err_msg, query_string, device, user_id, reg_date)
+        VALUES(#{errUrl}, #{errMsg}, #{queryString}, #{device}, #{userId}, sysdate())
+    </insert>
+
+    <insert id="createReqLog" parameterType="TfRequestLogVO">
+        INSERT INTO tf_request_log
+        (REQ_URL, REQ_METHOD, QUERY_STRING, DEVICE, REQ_BODY, RES_BODY, RES_STATUS, USER_ID, REG_DATE)
+        VALUES(#{reqUrl}, #{reqMethod}, #{queryString}, #{device}, #{reqBody}, #{resBody}, #{resStatus}, #{userId}, sysdate());
+    </insert>
+
+</mapper>

@@ -147,6 +147,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		$http.get('/member/brandSub?brandCd='+ data.brandKindCd.substr(0,2)).success(function(data) {
 			$scope.subBrand = data.brandSubList;
 		});
+
+
 	}
 
 	//성별 선택
@@ -269,6 +271,7 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 			if(appGub && version){
 				inputData.appGub = appGub;
 				inputData.version = version;
+				inputData.comment = $scope.input.comment;
 				if(isNaN(version)){
 					modalAlert($uibModal, "어플리케이션 등록", "숫자를 입력해주세요");
 					return;
@@ -304,8 +307,6 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 		}
 
 		function uploadReg(data){
-			console.log(data);
-
 			$http({
 				method : 'POST',
 				url : "/uploadReg",

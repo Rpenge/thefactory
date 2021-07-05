@@ -40,7 +40,7 @@
 						<label class="btn btn-secondary active" ng-click="stkDif()" style="width:80px;">
 							<input type="radio" name="options"  autocomplete="off" checked> 전체
 						</label>
-						<label class="btn btn-secondary" ng-click="stkDif('rfid')" ng-if='hiddenFunction == true' style="width:110px;">
+						<label class="btn btn-secondary" ng-click="stkDif('rfid')" style="width:110px;">
 							<input type="radio" name="options"  autocomplete="off"> 실재고
 						</label>
 						<label class="btn btn-secondary" ng-click="stkDif('dis')" style="width:110px;">
@@ -78,14 +78,14 @@
 						<tbody>
 							<tr ng-repeat="value in list">
 								<td style="height: 60px;">{{value.STOCK_REG_SEQ}}</td><!--No-->
-								<td style="text-overflow:ellipsis;padding:5px;font-size: 12px">{{value.TF_PRD_NM}}</td>	<!--품목명-->
+								<td style="text-overflow:ellipsis;padding:5px;font-size: 12px;text-align: left;">{{value.TF_PRD_NM}}</td>	<!--품목명-->
 								<td>{{value.STOCK_STORE_NM}}</td>			<!--매장명-->
 								<td>{{value.brandNm}}</td>					<!--브랜드-->
 								<td>{{value.genderNm}}</td>					<!--성별-->
 								<td>{{value.clsNm}}</td>					<!--분류명-->
 								<td>{{value.PRD_SIZE}}</td>					<!--size-->
-								<td>{{value.TF_PRD_BARCODE}}</td>					<!--size-->
-								<td style="background: lavenderblush;">{{value.REAL_STOCK_CNT}}</td>			<!--EC수량-->
+								<td>{{value.TF_PRD_BARCODE}}</td>			<!--size-->
+								<td style="background: lavenderblush;">{{value.REAL_STOCK_CNT}}</td>	<!--EC수량-->
 								<td>{{value.inCnt}}</td>					<!--입고수량-->
 								<td>{{value.outCnt}}</td>					<!--출고수량-->
 								<td>{{value.stCnt}}</td>					<!--매장판매수량-->

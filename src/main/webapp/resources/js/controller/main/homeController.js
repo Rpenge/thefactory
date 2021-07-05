@@ -153,6 +153,62 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 			}
 		}
 
+
+		$scope.fileUpload = function(path, idx){
+			const fileValue = path.split("\\");
+			const fileName = fileValue[fileValue.length-1]; // 파일명
+			if(idx == 0){
+				$scope.file_path_prd = fileName;
+			}else if(idx == 1){
+				$scope.file_path_stk = fileName;
+			}else if(idx == 2){
+				$scope.file_path_brd = fileName;
+			}
+			$scope.$apply();
+		}
+		//파일 업로드
+		$scope.upload = function(idx){
+			if(idx == 0){
+				if(!$scope.file_path_prd){
+					modalAlert($uibModal, "상품정보 Excel 업로드", "파일을 선택해주세요");
+					return;
+				}
+			}else if(idx == 1){
+				if(!$scope.file_path_stk){
+					modalAlert($uibModal, "재고정보 Excel 업로드", "파일을 선택해주세요");
+					return;
+				}
+			}else if(idx == 2){
+				if(!$scope.file_path_brd){
+					modalAlert($uibModal, "브랜드정보 Excel 업로드", "파일을 선택해주세요");
+					return;
+				}
+			}
+
+
+			modalCheck($uibModal, "상품정보 Excel 업로드", "상품정보를 업로드 하시겠습니까?", function(){
+				const form = $('.excelForm')[idx];
+				const formData = new FormData(form);
+				$http({
+					method : 'POST',
+					enctype: 'multipart/form-data',
+					url : "/productUpload",
+					data : formData,
+					headers: {"Content-Type": undefined, },
+				}).success(function(data){
+					if(data.resultCode == 'S'){
+						modalAlert($uibModal, "상품정보 Excel 업로드", "상품정보가 업데이트 되었습니다");
+					}else{
+						modalAlert($uibModal, "상품정보 Excel 업로드", "업데이트 오류");
+					}
+					$rootScope.reload();
+				}).error(function(){
+					modalAlert($uibModal, "상품정보 Excel 업로드", "업데이트 오류!");
+				});
+
+			});
+		}
+
 }]);
 
 

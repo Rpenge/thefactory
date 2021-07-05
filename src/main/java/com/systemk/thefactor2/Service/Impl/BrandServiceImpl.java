@@ -7,6 +7,7 @@ import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Util.MybatisUtil;
 import com.systemk.thefactor2.Util.StringUtil;
 import com.systemk.thefactor2.VO.TfBrandVO;
+import com.systemk.thefactor2.VO.TfCommCodeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -112,4 +113,15 @@ public class BrandServiceImpl implements BrandService {
 		}
 		return map;
 	}
+
+	@Override
+	public Map brandMap() throws Exception {
+		Map map = new HashMap();
+		List<TfBrandVO> list = tfBrandMapper.brandList();
+		for(TfBrandVO vo : list){
+			map.put(vo.getBrandKindCd() ,vo.getBrandNm());
+		}
+		return map;
+	}
+
 }

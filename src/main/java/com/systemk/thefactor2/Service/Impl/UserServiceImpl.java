@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService {
 		mu.setTable("tf_user");
 
 		for(Object key : param.keySet()) {    //분류 처리
+			if(key.equals("role")){
+				mu.notEqual("GRADE", (String)param.get(key));
+				continue;
+			}
+
 			if (key.equals("word")) {
 				mu.addLike("USER_ID", (String)param.get(key));
 				mu.addORLike("USER_NM", (String)param.get(key));

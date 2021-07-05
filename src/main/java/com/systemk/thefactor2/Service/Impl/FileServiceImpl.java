@@ -25,6 +25,7 @@ public class FileServiceImpl implements FileService {
         param.put("appGub",param.get("appGub"));
         param.put("appNm",file);
         param.put("version", param.get("version"));
+        param.put("comment", param.get("comment"));
         param.put("appDownUrl", path + file);
 
         tfApplicationMapper.appSave(param);

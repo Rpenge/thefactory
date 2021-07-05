@@ -1,0 +1,51 @@
+package com.systemk.thefactor2.Config;
+
+import com.systemk.thefactor2.Mapper.TfLogMapper;
+import com.systemk.thefactor2.Util.ResultUtil;
+import com.systemk.thefactor2.VO.TfErrorLogVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Map;
+
+//exception 로그 저장
+@ControllerAdvice(basePackages = "com.systemk.thefactor2.Controller.Api")
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class ExceptionHandler {
+
+	@Autowired
+	private TfLogMapper tfLogMapper;
+
+	@org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> handleException(HttpServletRequest request, Exception ex) throws Exception{
+
+		TfErrorLogVO errorLog = new TfErrorLogVO();
+
+		errorLog.setErrUrl(request.getRequestURL().toString());
+		errorLog.setDevice(request.getHeader("type") != null ? request.getHeader("type") : "PDA" );
+		errorLog.setQueryString(request.getQueryString());
+		errorLog.setUserId(request.getHeader("id"));
+
+		StringWriter errors = new StringWriter();
+		ex.printStackTrace(new PrintWriter(errors));
+		if(errors.toString().length()>= 4800){
+			String errMsg = errors.toString().substring(0, 4800);
+			errorLog.setErrMsg(errMsg);
+		}else{
+			errorLog.setErrMsg(errors.toString());
+		}
+		tfLogMapper.createErrLog(errorLog);
+
+        return new ResponseEntity<>(ResultUtil.setCommonResult("E", "에러가 발생했습니다."), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+}

@@ -22,6 +22,7 @@ app.config(function ($routeProvider, $httpProvider, $locationProvider, $provide)
 		.when('/inven/invInfo', {templateUrl:'/inven/invInfo', controller:'invInfoController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/stock/stk', {templateUrl:'/stock/stk', controller:'stockController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
+		.when('/stock/stkTag', {templateUrl:'/stock/stkTag', controller:'stkTagController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 
 		.when('/assetManagement/assetList', {templateUrl:'/assetManagement/assetList', controller:'assetMgListController', resolve:{ auth: onlyLoggedIn, layout: pageCheck }})
 

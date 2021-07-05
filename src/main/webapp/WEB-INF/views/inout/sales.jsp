@@ -100,11 +100,12 @@
 							<th style="width:90px;">성별</th>
 							<th style="width:90px;">상품분류</th>
 							<th style="width:80px;">사이즈</th>
-							<th style="width:220px;">자체상품코드</th>
-							<th style="width:120px;">바코드</th>
-							<th style="width:140px;">태그ID</th>
+							<th style="width:200px;">자체상품코드</th>
+							<th style="width:110px;">바코드</th>
+							<th style="width:110px;">태그ID</th>
 							<th style="width:100px;">등록일시</th>
 							<th>등록자</th>
+							<th style="width:80px;">비고</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -123,6 +124,7 @@
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
 							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutComment}}</td>
 						</tr>
 						</tbody>
 					</table>

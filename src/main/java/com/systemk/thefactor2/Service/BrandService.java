@@ -25,4 +25,6 @@ public interface BrandService {
     public Map<String, Object> brandUpdate(Map param) throws Exception;
 
     public Map<String, Object> brandDelete(Map param) throws Exception;
+
+    Map brandMap() throws Exception;
 }

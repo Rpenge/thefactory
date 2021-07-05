@@ -129,19 +129,22 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> workCount(Map param) throws Exception {
-		Date date = new Date();
 		Map map = new HashMap();
 //		if(param.get("storeCd")!=null){
-		TfInoutTotalVO vo = inoutTotService.todayWork(param);
+//		TfInoutTotalVO vo = inoutTotService.todayWork(param);
+
+		TfInoutTotalVO vo = tfInoutTotalMapper.todayWork(param);
+		if(vo == null){
+			tfInoutTotalMapper.inoutCreate();
+//			return tfInoutTotalMapper.todayWorkAllVO();
+		}
 		map.put("inputCount", vo.getInTotcnt());
 		map.put("outputCount", vo.getOutTotcnt());
 		map.put("stockCount", vo.getStockTotcnt());
 		map.put("offlineSellCount", vo.getSellStcnt());
 		map.put("onlineSellCount", vo.getSellOnlcnt());
-//		}else{
-//			map = inoutTotService.todayWorkAll();
-//		}
-		map.put("currentDate", StringUtil.dateFormat(date));
+
+		map.put("currentDate", StringUtil.dateFormat(new Date()));
 		return ResultUtil.setCommonResult("S","성공하였습니다", map);
 	}
 
@@ -397,7 +400,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
-//바코드, size
+
 		List<Map<String, String>> reusltList = new ArrayList<Map<String, String>>();
 		for(Map<String, String> map : param){
 			Map resultMap = new HashMap<String, String>();
@@ -439,6 +442,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("barcode", vo.getBtPrdBarcode());
 			map.put("prdSize", vo.getPrdSize());
 			map.put("tagId", vo.getTfPrdTagid());
+			map.put("comment", vo.getStOutComment());
 			list.add(map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);

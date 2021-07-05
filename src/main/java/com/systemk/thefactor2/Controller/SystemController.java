@@ -27,8 +27,11 @@ public class SystemController {
 	//시스템관리 - 사용자 및 권한 관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
 	@RequestMapping(value="/userList", method = RequestMethod.GET)
 	public Map<String, Object> userList(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception{
-		System.out.println(user.getRole());
+
 		Map param = RequestUtil.reqParamToMap(request);
+		if(!user.getRole().equals("010101")){
+			param.put("role","010101");
+		}
 		return userService.findList(param);
 	}
 

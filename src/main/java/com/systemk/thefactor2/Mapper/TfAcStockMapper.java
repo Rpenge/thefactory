@@ -1,9 +1,9 @@
 package com.systemk.thefactor2.Mapper;
 
 import com.systemk.thefactor2.VO.TfAcStockVO;
-import com.systemk.thefactor2.VO.TfStockVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +18,8 @@ public interface TfAcStockMapper {
     List<String> findTagId(String tagId);
 
     List<Map> findAcStock(String storeCd);
+
+    List<Map> acStockList(Map item);
 
 
 }

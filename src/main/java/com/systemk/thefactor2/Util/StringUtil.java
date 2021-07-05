@@ -1,5 +1,8 @@
 package com.systemk.thefactor2.Util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,6 +32,19 @@ public class StringUtil {
     {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         return format.format(date);
+    }
+
+    public static String convertJsonString(Object obj){
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = "";
+        try {
+            jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return jsonStr;
     }
 
 

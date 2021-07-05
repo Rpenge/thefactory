@@ -58,6 +58,11 @@ public class MybatisUtil {
         search.add(str);
     }
 
+    public void notEqual(String column, String findStr){
+        String str = "AND " + column + " != '"+ findStr+"'";
+        search.add(str);
+    }
+
     public void addLike(String column, String findStr){
         String str = "AND " +column + " like '%"+ findStr+"%'";
         search.add(str);

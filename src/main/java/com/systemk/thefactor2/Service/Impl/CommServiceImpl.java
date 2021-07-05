@@ -125,4 +125,14 @@ public class CommServiceImpl implements CommService {
 		}
 		return map;
 	}
+
+	@Override
+	public Map codeToNmKV() {
+		Map map = new HashMap();
+		List<TfCommCodeVO> list = tfCommCodeMapper.commList();
+		for(TfCommCodeVO vo : list){
+			map.put(vo.getCommCd() ,vo.getCommCdNm());
+		}
+		return map;
+	}
 }

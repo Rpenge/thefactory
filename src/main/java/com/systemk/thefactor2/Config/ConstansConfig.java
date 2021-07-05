@@ -1,4 +1,11 @@
 package com.systemk.thefactor2.Config;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 // 공통 상수코드
 public class ConstansConfig {
 
@@ -375,5 +382,28 @@ public class ConstansConfig {
 	public final static String PDA_STATE_DATA_NONE_MSG = "작업 코드가 없습니다";
 
 	public final static String STORE_PDA_AFTER_RETURN_CONFIRM_DATE = "반품 마감일자가 지나서 작업할 수 없습니다";
+
+
+
+	private final static String nameStr ="{" +
+			" \"storeCd\" 	: \"매장코드\"	," +
+			" \"storeNm\"	: \"매장명\"		," +
+			" \"gub\" 		: \"구분\"		," +
+			" \"prdNm\" 	: \"상품명\"		," +
+			" \"brand\" 	: \"브랜드\"		," +
+			" \"stType\"	: \"등록구분\"	," +
+			" \"size\" 		: \"사이즈\"		," +
+			" \"barcode\" 	: \"바코드\"		," +
+			" \"tagId\" 	: \"태그ID\"		," +
+			" \"stDate\" 	: \"등록일\"		," +
+			" \"comment\" 	: \"비고\"		," +
+			" \"regDate\" 	: \"등록일시\"	 " +
+			"}";
+
+
+
+	public static Map getNameMap() throws IOException {
+		return new ObjectMapper().readValue(nameStr, HashMap.class);
+	}
 
 }

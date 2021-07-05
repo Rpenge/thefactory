@@ -43,6 +43,13 @@ public class StockController {
 		}
 	}
 
+	//태그재고조회 리스트
+	@RequestMapping(value="/stkTagList", method = RequestMethod.GET)
+	public Map<String, Object> stkTagList(HttpServletRequest request) throws Exception{
+		Map param = RequestUtil.reqParamToMap(request);
+		return acStockService.findAcStock(param);
+	}
+
 	//입출고관리 - 재고조회
 	@RequestMapping(value="/stkSearch", method = RequestMethod.GET)
 	public Map<String, Object> stkSearch(HttpServletRequest request) throws Exception{

@@ -16,8 +16,8 @@
 
     <insert id="appSave" parameterType="java.util.Map">
         INSERT INTO tf_application
-        (APP_GUB, APP_NM, VERSION, APP_DOWN_URL, REG_DATE, REG_ID)
-        VALUES(#{appGub}, #{appNm}, #{version}, #{appDownUrl}, now(), #{userId});
+        (APP_GUB, APP_NM, VERSION, APP_DOWN_URL, REG_DATE, REG_ID, COMMENT)
+        VALUES(#{appGub}, #{appNm}, #{version}, #{appDownUrl}, now(), #{userId}, #{comment});
     </insert>
 
 </mapper>

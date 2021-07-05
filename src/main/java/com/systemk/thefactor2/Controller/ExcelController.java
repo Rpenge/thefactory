@@ -10,9 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 import sun.util.calendar.CalendarUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -88,6 +90,13 @@ public class ExcelController {
 			map.put("resultCode", "E");
 		}
 		return map;
+	}
+
+
+	//엑셀 파일 다운로드
+	@RequestMapping("/excelDown")
+	public void excelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
+		excelService.inoutExcelDown(map, response);
 	}
 
 

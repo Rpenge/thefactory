@@ -35,6 +35,10 @@
 						<td colspan="2"><input type="text" class="form-control" ng-model="view.version" disabled></td>
 					</tr>
 					<tr>
+						<th colspan="2">설명</th>
+						<td colspan="8"><input type="text" class="form-control" ng-model="view.comment" disabled></td>
+					</tr>
+					<tr>
 						<td colspan="10" style="height: 60px;">
 						<button class="btn btn-outline-secondary" ng-click="appDown(view.appDownUrl)" style="width:100%;height: 60px;">다운</button></td>
 					</tr>

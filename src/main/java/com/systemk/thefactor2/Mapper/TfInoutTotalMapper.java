@@ -4,6 +4,7 @@ import com.systemk.thefactor2.VO.TfInoutTotalVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +22,11 @@ public interface TfInoutTotalMapper {
     List<TfInoutTotalVO> inoutList(HashMap item);
 
     int inoutCreate();
+
+    List<LinkedHashMap<String, Object>> inExcel(Map item);
+
+    List<LinkedHashMap<String, Object>> outExcel(Map item);
+
+    List<LinkedHashMap<String, Object>> totExcel(Map item);
 
 }

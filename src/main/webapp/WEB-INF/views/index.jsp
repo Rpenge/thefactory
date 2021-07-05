@@ -8,7 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>THEFACTOR2</title>
-
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -33,7 +32,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/filter/appFilter.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/directive/appDirective.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/main/userController.js?v=${version}"></script>
-
 	<!--thefacotry controller-->
 	<script src="${pageContext.request.contextPath}/resources/js/controller/indexController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/main/homeController.js?v=${version}"></script>
@@ -49,6 +47,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inven/invController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inven/invInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stkTagController.js?v=${version}"></script>
 	<!--icon-->
 	<link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
 
@@ -134,7 +133,7 @@
 
 			<div class="dropdown-board">
 				<span>재고현황</span>
-				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD == 'STOCK'"> &#176; {{value.PGM_NM}}</a>
+				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD=='STOCK'&&((value.PGM_CD !='ST2')||(hiddenFunction==true))"> &#176; {{value.PGM_NM}}</a>
 			</div>
 
 			<div class="dropdown-board" ng-if="hiddenFunction==true">
@@ -174,10 +173,11 @@
 					<i style="margin: 8px;" class="xi-angle-down" ng-show="!st1"></i>
 					<i style="margin: 8px;" class="xi-angle-up" ng-show="st1"></i>
 				</div>
-				<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st1">
+				<div style="box-shadow: 1px 1px 5px 1px lightgray;padding:15px;" ng-show="st1" ng-click="st1 = st1==true ? false : true">
 					<table id="lBrandTb" style="width:100%;">
 						<tr ng-repeat="(key, value) in brandList">
 							<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>
+<%--							<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>--%>
 						</tr>
 					</table>
 				</div>
@@ -192,11 +192,11 @@
 
 				<div  class="d-flex justify-content-between left-body-menu" ng-click="st3 = st3==true ? false : true">
 					<p style="margin: 8px 50px 5px 0;">상품분류</p>
-					<i style="margin: 8px;" class="xi-angle-down" ng-show="!st5"></i>
-					<i style="margin: 8px;" class="xi-angle-up" ng-show="st5"></i>
+					<i style="margin: 8px;" class="xi-angle-down" ng-show="!st3"></i>
+					<i style="margin: 8px;" class="xi-angle-up" ng-show="st3"></i>
 				</div>
 
-				<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3">
+				<div class="form-group" style="box-shadow: 1px 1px 5px 1px lightgray;;padding:15px;" ng-show="st3" ng-click="st3 = st3==true ? false : true">
 					<table style="width:100%;">
 						<tr ng-repeat="(key, value) in subBrandCls">
 							<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="quickSearch.cls=value.brandKindCd">{{value.brandNm}} </td>
@@ -263,7 +263,7 @@
 					</select>
 				</div>
 
-				<!-- 검색열1 -->
+				<!-- 검색 1 -->
 				<div class="d-flex" style="width: 100%;" ng-if="quick1">
 
 					<p style="margin:12px 10px;">구분</p>
@@ -288,12 +288,12 @@
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
 						<span class="input-group-append" >
-									<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>
-								</span>
+							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true"> <i class="xi-calendar"></i></button>
+						</span>
 					</div>
 				</div>
 
-				<!-- 검색 추가2 -->
+				<!-- 검색 2 -->
 				<div class="d-flex" style="width: 100%;" ng-if="quick2">
 					<p style="margin:12px 10px;">일자검색</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
@@ -346,16 +346,16 @@
 					<input class="form-control" ng-model="quickSearch.prdSize" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
 
 					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:10px 30px;">검색</button>
-					<div class="d-flex" style="width:280px;margin: 10px;">
+					<div class="d-flex" style="width:320px;margin: 10px;">
 						<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
-							<i class="xi-search" style="font-size: 20px;"></i>
+							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>
 					</div>
 				</div>
 
 
-				<!-- 검색 추가4 -->
+				<!-- 검색 4 -->
 				<div class="d-flex" style="width: 100%;" ng-if="quick4">
 					<p style="margin:12px 10px;">일자검색</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
@@ -372,10 +372,10 @@
 						</span>
 					</div>
 					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;height: 38px;">검색</button>
-					<div class="d-flex" style="width:280px;margin: 10px;">
+					<div class="d-flex" style="width:320px;margin: 10px;">
 						<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 35px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
-							<i class="xi-search" style="font-size: 20px;"></i>
+							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>
 					</div>
 				</div>
