@@ -118,5 +118,26 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			});
 		}
 
+		$scope.excelDown = function(){
+			var fileName = '전체재고내역_'+formatDate3(new Date())+'.xlsx';
+			console.log($scope.excelForm);
+			$http({
+				method : 'POST',
+				url : "/stkBaseExcelDown",
+				data  : $scope.excelForm,
+				responseType : 'blob',
+			}).success(function(data){
+				var blob = data;
+				var downloadLink = window.document.createElement('a');
+				downloadLink.href = window.URL.createObjectURL(new Blob([blob]));
+				downloadLink.download = fileName;
+				document.body.appendChild(downloadLink);
+				downloadLink.click();
+				document.body.removeChild(downloadLink);
+			}).error(function(data){
+				alert('실패');
+			});
+		}
+
 
 }]);

@@ -157,8 +157,7 @@ public class OutputServiceImpl implements OutputService {
 		Map map = new HashMap();
 		Map mapData = tfProductMapper.prdAndStk(param);
 
-		Date date = new Date();
-		map.put("ymd", StringUtil.dateFormatYMD(date));		//오늘날짜
+		map.put("ymd", StringUtil.dateFormatYMD(new Date()));		//오늘날짜
 		map.put("userId", 	param.get("userId"));		//현재유저
 		map.put("brandCd", 	mapData.get("BRAND_KIND_CD"));	//상품정보에서
 		map.put("prdNm", 	mapData.get("TF_PRD_NM"));		//상품정보에서
@@ -201,6 +200,7 @@ public class OutputServiceImpl implements OutputService {
 			map.put("tagId", vo.getTfPrdTagid());
 			map.put("storeCd", vo.getOutStoreCd());
 			map.put("stOutType", vo.getStOutType());
+			map.put("brandCd", vo.getBrandKindCd());
 			tfOutputMapper.outDelete((HashMap) map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다");

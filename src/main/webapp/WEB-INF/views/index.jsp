@@ -133,7 +133,8 @@
 
 			<div class="dropdown-board">
 				<span>재고현황</span>
-				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD=='STOCK'&&((value.PGM_CD !='ST2')||(hiddenFunction==true))"> &#176; {{value.PGM_NM}}</a>
+				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD=='STOCK'"> &#176; {{value.PGM_NM}}</a>
+<%--				<a href="" ng-repeat="value in topMenu" ng-click="goMenu(value)" ng-if="value.GROUP_CD=='STOCK'&&((value.PGM_CD !='ST2')||(hiddenFunction==true))"> &#176; {{value.PGM_NM}}</a>--%>
 			</div>
 
 			<div class="dropdown-board" ng-if="hiddenFunction==true">
@@ -205,7 +206,7 @@
 				</div>
 
 				<div  class="d-flex justify-content-between" style="height:55px;padding:10px;border-bottom:3px solid gray;background:whitesmoke;margin-top:100px;">
-					<p style="margin: 8px 50px 5px 0;">입출고현황</p>
+					<p style="margin: 8px 50px 5px 0; font-weight: bold;font-size:12px;">{{today | date: 'yyyy/MM/dd'}} 입출고현황</p>
 				</div>
 
 				<div class="form-group">
@@ -242,16 +243,11 @@
 			</div>
 
 			<!--상단 검색 보드-->
-			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 3%;">
-				<div class="d-flex" style="border-bottom: 1px solid #f1f1f1;margin-bottom: 4px;">
-					<span style="font-size:20px;margin: 12px 13px 0 0;">Quick Search</span>
+			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 0 5px 0;">
+				<div class="d-flex" style="border-bottom: 1px solid lightgray;margin-bottom: 4px;background:#FAFAFA;padding-bottom: 3px;padding-left:2%;">
+					<span style="font-size:19px;margin: 12px 13px 0 0;">Quick Search</span>
 
-					<select class="form-control" ng-model="quickSearch.storeCd" style="width:140px;margin:10px 12px 5px 20px;height: 40px;">
-						<option value="">매장</option>
-						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
-					</select>
-
-					<select class="form-control" ng-model="quickCmd.cmd" style="width:180px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCmd.cmd)">
+					<select class="form-control" ng-model="quickCmd.cmd" style="width:200px;margin-top: 10px;margin-bottom:5px;height: 40px;" ng-change="addQuick(quickCmd.cmd)">
 						<option value="IO1">입고조회</option>
 						<option value="IO2">출고조회</option>
 						<option value="IO3">판매/배송조회</option>
@@ -260,11 +256,17 @@
 						<option value="IV1">재고실사관리</option>
 						<option value="IV2">재고실사내역조회</option>
 						<option value="ST1">재고현황관리</option>
+						<option value="ST2">재고상품(태그)관리</option>
+					</select>
+
+					<select class="form-control" ng-model="quickSearch.storeCd" style="width:140px;margin:10px 12px 5px 20px;height: 40px;">
+						<option value="">매장</option>
+						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 					</select>
 				</div>
 
 				<!-- 검색 1 -->
-				<div class="d-flex" style="width: 100%;" ng-if="quick1">
+				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick1">
 
 					<p style="margin:12px 10px;">구분</p>
 					<select class="form-control" ng-model="quickSearch.workGub" style="width:150px;margin:5px;" ng-disabled="gubDisabled">
@@ -294,7 +296,7 @@
 				</div>
 
 				<!-- 검색 2 -->
-				<div class="d-flex" style="width: 100%;" ng-if="quick2">
+				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick2">
 					<p style="margin:12px 10px;">일자검색</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
@@ -309,12 +311,12 @@
 							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
 						</span>
 					</div>
-					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;">검색</button>
+					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px;">검색</button>
 				</div>
 
 
 				<!-- 검색 3 -->
-				<div class="d-flex" style="width: 100%;" ng-if="quick3">
+				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick3">
 					<input class="form-control" id="brandSearch" style="width:220px;margin: 10px;height: 40px;"  placeholder="브랜드" ng-model="view.brand" ng-click="qs1 = qs1==true ? false : true"  readonly>
 					<label class="d-flex justify-content-between" for="brandSearch" style="position:relative;left:-35px;top:15px;width:0px;" >
 						<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!qs1"></i>
@@ -345,9 +347,9 @@
 
 					<input class="form-control" ng-model="quickSearch.prdSize" placeholder="사이즈" style="width:150px;margin: 10px;height: 40px;"></input>
 
-					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:10px 30px;">검색</button>
-					<div class="d-flex" style="width:320px;margin: 10px;">
-						<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
+					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:10px 15px 10px 5px;">검색</button>
+					<div class="d-flex" style="width:335px;margin: 10px;">
+						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
 							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>
@@ -356,7 +358,7 @@
 
 
 				<!-- 검색 4 -->
-				<div class="d-flex" style="width: 100%;" ng-if="quick4">
+				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick4">
 					<p style="margin:12px 10px;">일자검색</p>
 					<div class="row input-group" style="width:200px;margin:5px;">
 						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
@@ -371,9 +373,9 @@
 							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
 						</span>
 					</div>
-					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 30px;height: 38px;">검색</button>
-					<div class="d-flex" style="width:320px;margin: 10px;">
-						<input type="text" class="form-control" ng-model="quickSearchWord.word" style="height: 35px;border:0;border-bottom: 1px solid gray;">
+					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 15px 10px 5px;height: 38px;">검색</button>
+					<div class="d-flex" style="width:335px;margin: 10px;">
+						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" style="height: 35px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
 							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>

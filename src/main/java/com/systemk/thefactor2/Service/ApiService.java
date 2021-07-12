@@ -1,6 +1,8 @@
 package com.systemk.thefactor2.Service;
 
 
+import com.systemk.thefactor2.VO.TfRequestLogVO;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +42,5 @@ public interface ApiService {
     public Map<String, Object> findStock(Map param) throws Exception;
 
     public Map<String, Object> commonCd(Map param) throws Exception;
-
-
 
 }

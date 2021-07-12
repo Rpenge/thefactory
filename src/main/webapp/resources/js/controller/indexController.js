@@ -5,7 +5,7 @@ app.run(function($rootScope, $http, $route, $window){
 	};
 
 	//프로젝트 이미지 변경
-	$rootScope.systemk = false;
+	$rootScope.systemk = true;
 	if($rootScope.systemk){
 		$rootScope.imgPath = "/resources/systemk";
 	}else{
@@ -30,6 +30,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	$rootScope.quickSearch.endDate = new Date();
 	$scope.startDateOptions = {'showWeeks':false, 'maxDate':$rootScope.quickSearch.endDate}; // 달력 옵션
 	$scope.endDateOptions = {'showWeeks':false,'maxDate':new Date()}; // 달력 옵션
+
+	$scope.today = new Date();
 
 	//공통코드 , 브랜드코드 조회
 	$http.get('/member/getCode').success(function(data) {
@@ -164,7 +166,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	//quick search 검색구분 변경
 	$rootScope.quick1List = ['IO1','IO2','IO3'];
 	$rootScope.quick2List = ['IO4','IV1'];
-	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1','BS3'];
+	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1','BS3','ST2'];
 	$rootScope.quick4List = ['IV2'];
 	$rootScope.addQuick = function(command){
 		$rootScope.quickSearch.workGub = null;

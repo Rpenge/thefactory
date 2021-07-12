@@ -8,6 +8,8 @@ import com.systemk.thefactor2.Service.CommService;
 import com.systemk.thefactor2.Service.ExcelService;
 import com.systemk.thefactor2.Util.ResultUtil;
 import com.systemk.thefactor2.Util.StringUtil;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -99,8 +101,6 @@ public class ExcelServiceImpl implements ExcelService {
             }else{
                 tfStockMapper.stockSave(map);
             }
-
-
 
         }
         return ResultUtil.setCommonResult("S","성공하였습니다");
@@ -254,8 +254,6 @@ public class ExcelServiceImpl implements ExcelService {
                     cell = topRow.createCell(j);
                     cell.setCellStyle(style);
                     cell.setCellValue((String) nameMap.get(key));
-
-
                 }else if(i==1){
                     sheet.autoSizeColumn(j);
                     sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 700 );
@@ -263,7 +261,6 @@ public class ExcelServiceImpl implements ExcelService {
                         sheet.setColumnWidth(j, 2000 );
                     }
                 }
-
 
                 cell = row.createCell(j);
 
@@ -298,5 +295,147 @@ public class ExcelServiceImpl implements ExcelService {
         }
     }
 
+    @Autowired
+    private TfAcStockMapper tfAcStockMapper;
+
+    @Transactional(rollbackFor=Exception.class)
+    @Override
+    public void stockExcelDown(Map map, HttpServletResponse response) throws Exception{
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+
+        style.setAlignment(HorizontalAlignment.CENTER);
+        font.setBold(true);
+        style.setFont(font);
+
+        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        XSSFRow row = null;
+        XSSFCell cell = null;
+
+        list = tfAcStockMapper.acStockExcel(map);
+        Map commMap = commService.codeToNmKV();
+        Map nameMap = ConstansConfig.getNameMap();
+        sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 10));
+
+        XSSFRow topRow = sheet.createRow(0);
+        for(int i=0; i< list.size();i++) {
+
+            row = sheet.createRow(i + 1);
+
+            int j = 0;
+            for(String key : list.get(i).keySet()) {
+                if(i == 0) {
+                    cell = topRow.createCell(j);
+                    cell.setCellStyle(style);
+                    cell.setCellValue((String) nameMap.get(key));
+                }else if(i==1){
+                    sheet.autoSizeColumn(j);
+                    sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 700 );
+                    if(sheet.getColumnWidth(j) < 2000){
+                        sheet.setColumnWidth(j, 2000 );
+                    }
+                }
+
+                cell = row.createCell(j);
+
+                if(j==2) {
+                    cell.setCellValue((String) commMap.get(list.get(i).get(key)));
+                }else if(list.get(i).get(key) instanceof String) {
+                    cell.setCellValue((String) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Date){
+                    cell.setCellValue(StringUtil.dateFormat((Date) list.get(i).get(key)));
+                }
+                j++;
+            }
+        }
+        //파일 전송
+        try {
+            response.reset();
+            response.setContentType( "application/vnd.ms-excel" );
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.getOutputStream().close();
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Transactional(rollbackFor=Exception.class)
+    @Override
+    public void stkBaseExcelDown(Map map, HttpServletResponse response) throws Exception{
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(HSSFColor.PALE_BLUE.index);
+        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        XSSFRow row = null;
+        XSSFCell cell = null;
+
+        list = tfStockMapper.stockExcel(map);
+
+        Map commMap = commService.codeToNmKV();
+
+        sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 14));
+
+        XSSFRow topRow = sheet.createRow(0);
+        for(int i=0; i< list.size();i++) {
+            row = sheet.createRow(i + 1);
+            int j = 0;
+            for(String key : list.get(i).keySet()) {
+                if(i == 0) {
+                    cell = topRow.createCell(j);
+                    cell.setCellStyle(style);
+                    cell.setCellValue(key);
+                }else if(i==1){
+                    sheet.autoSizeColumn(j);
+                    sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 800 );
+                    if(sheet.getColumnWidth(j) < 2500){
+                        sheet.setColumnWidth(j, 2500 );
+                    }
+                }
+
+                cell = row.createCell(j);
+                if(list.get(i).get(key) instanceof String) {
+                    cell.setCellValue((String) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Integer) {
+                    cell.setCellValue((Integer) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Date){
+                    cell.setCellValue(StringUtil.dateFormat((Date) list.get(i).get(key)));
+                }
+                j++;
+            }
+        }
+
+        //파일 전송
+        try {
+            response.reset();
+            response.setContentType( "application/vnd.ms-excel" );
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.getOutputStream().close();
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

@@ -49,9 +49,11 @@ public class BrandServiceImpl implements BrandService {
 	@Override
 	public Map detailSearch(String brandCd){
 		Map map = tfBrandMapper.detailSearch(brandCd);
-		map.put("brand", brandCd.substring(0,2)+"0000");
-		map.put("gender", brandCd.substring(0,4)+"00");
-		map.put("cls",brandCd);
+		try {
+			map.put("brand", brandCd.substring(0, 2) + "0000");
+			map.put("gender", brandCd.substring(0, 4) + "00");
+			map.put("cls", brandCd);
+		}catch (Exception e){};
 		return map;
 	}
 

@@ -19,7 +19,7 @@ import com.zaxxer.hikari.HikariDataSource;
 //@EnableJpaRepositories(
 //	basePackages = "com.systemk.ams.Repository.Main"
 //)
-public class myDataSourceConfig {
+public class MyDataSourceConfig {
 
 	@Autowired
     private Environment env;

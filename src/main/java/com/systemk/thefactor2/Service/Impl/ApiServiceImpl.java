@@ -76,6 +76,9 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	private TempRfidTagMapper tempRfidTagMapper;
 
+	@Autowired
+	private TfLogMapper tfLogMapper;
+
 
 	@Override
 	public void apiReg(HttpServletRequest request) {
@@ -152,6 +155,7 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> inputList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
+		Map brandMap = brandService.brandMap();
 		List list = new ArrayList();
 		mu.addBetween("ST_IN_DATE", (String)param.get("startDate"), (String)param.get("endDate"));
 		if(param.get("state") != null){
@@ -167,6 +171,8 @@ public class ApiServiceImpl implements ApiService {
 			map.put("barcode", vo.getBtPrdBarcode());
 			map.put("prdSize", vo.getPrdSize());
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
+			map.put("brandCd", vo.getBrandKindCd());
+			map.put("brand", brandMap.get(vo.getBrandKindCd().substring(0,2)+"0000"));
 			list.add(map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
@@ -266,13 +272,11 @@ public class ApiServiceImpl implements ApiService {
 
 		if(outputData == null){
 			throw new Exception(ConstansConfig.NOT_FIND_OUTPUT_MSG);
-//			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
 		}
 
 		param.put("barcode", outputData.get("btPrdBarcode"));
 		Map mapData = tfProductMapper.prdAndStk(param);
 		if(mapData == null){
-//			return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_STOCK_MSG);
 			throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
 		}
 
@@ -301,6 +305,7 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> saleDataSearch(List<Map<String, String>> param) throws Exception {
 		List<Map> resultList = new ArrayList<Map>();
+		Map brandMap = brandService.brandMap();
 		for(Map paramMap : param){
 			Map map = new HashMap();
 			map.put("tagId", paramMap.get("tagId"));
@@ -315,6 +320,10 @@ public class ApiServiceImpl implements ApiService {
 			}
 			resultMap.put("prdNm", vo.getTfPrdNm());
 			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("barcode", vo.getBtPrdBarcode());
+			resultMap.put("prdSize", vo.getPrdSize());
+			resultMap.put("brandCd", vo.getBrandKindCd());
+			resultMap.put("brand", brandMap.get(vo.getBrandKindCd().substring(0,2)+"0000"));
 			resultMap.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			resultMap.put("mappingYn", "Y");
 			resultList.add(resultMap);
@@ -327,6 +336,7 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> moveOutDataSearch(List<Map<String, String>> param) throws Exception {
 		List<Map> resultList = new ArrayList<Map>();
+		Map brandMap = brandService.brandMap();
 		for(Map paramMap : param){
 			Map map = new HashMap();
 			map.put("tagId", paramMap.get("tagId"));
@@ -340,7 +350,11 @@ public class ApiServiceImpl implements ApiService {
 				continue;
 			}
 			resultMap.put("prdNm", vo.getTfPrdNm());
+			resultMap.put("barcode", vo.getBtPrdBarcode());
+			resultMap.put("prdSize", vo.getPrdSize());
 			resultMap.put("tagId", vo.getTfPrdTagid());
+			resultMap.put("brandCd", vo.getBrandKindCd());
+			resultMap.put("brand", brandMap.get(vo.getBrandKindCd().substring(0,2)+"0000"));
 			resultMap.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			resultMap.put("mappingYn", "Y");
 			resultList.add(resultMap);
@@ -349,7 +363,7 @@ public class ApiServiceImpl implements ApiService {
 		return ResultUtil.setCommonResult("S","성공하였습니다", resultList);
 	}
 
-	//반품, 점간이동입고
+	//반품/점간이동입고
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception {
@@ -402,6 +416,7 @@ public class ApiServiceImpl implements ApiService {
 	public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
 
 		List<Map<String, String>> reusltList = new ArrayList<Map<String, String>>();
+		Map brandMap = brandService.brandMap();
 		for(Map<String, String> map : param){
 			Map resultMap = new HashMap<String, String>();
 			resultMap.put("tagId",map.get("tagId"));
@@ -411,6 +426,8 @@ public class ApiServiceImpl implements ApiService {
 				resultMap.put("regDate", StringUtil.dateFormat((Date) stMap.get("regDate")));
 				resultMap.put("barcode", stMap.get("tfPrdBarcode"));
 				resultMap.put("prdSize", stMap.get("prdSize"));
+				resultMap.put("brandCd", stMap.get("brand"));
+				resultMap.put("brand", brandMap.get(((String)stMap.get("brand")).substring(0,2)+"0000"));
 				resultMap.put("mappingYn","Y");
 			}else{
 				resultMap.put("mappingYn","N");
@@ -424,6 +441,7 @@ public class ApiServiceImpl implements ApiService {
 	public Map<String, Object> outputList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		List list = new ArrayList();
+		Map brandMap = brandService.brandMap();
 		mu.addBetween("ST_OUT_DATE", (String)param.get("startDate"), (String)param.get("endDate"));
 		mu.setTotal();
 
@@ -441,11 +459,13 @@ public class ApiServiceImpl implements ApiService {
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			map.put("barcode", vo.getBtPrdBarcode());
 			map.put("prdSize", vo.getPrdSize());
+			map.put("brandCd", vo.getBrandKindCd());
+			map.put("brand", brandMap.get(vo.getBrandKindCd().substring(0,2)+"0000"));
 			map.put("tagId", vo.getTfPrdTagid());
 			map.put("comment", vo.getStOutComment());
 			list.add(map);
 		}
-		return ResultUtil.setCommonResult("S","성공하였습니다",list);
+		return ResultUtil.setCommonResult("S","성공하였습니다", list);
 	}
 
 	@Override
@@ -487,10 +507,11 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> findAcStkList(Map param) throws Exception {
 		List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd"));
+		Map brandMap = brandService.brandMap();
 
 		Map resultMap = new HashMap();
 		for(Map map : acList){
-			if(resultMap.containsKey(map.get("TF_PRD_BARCODE"))){
+			if(resultMap.containsKey(map.get("TF_PRD_BARCODE"))){	//for문 돌면서 동일 바코드일 경우 태그와 count만 추가
 				Map mapData = (Map) resultMap.get(map.get("TF_PRD_BARCODE"));
 				List tagList = (List) mapData.get("tagList");
 				tagList.add(map.get("TF_PRD_TAGID"));
@@ -499,11 +520,13 @@ public class ApiServiceImpl implements ApiService {
 			}else {
 				Map tempMap = new HashMap();
 				List tagList = new ArrayList<>();
+				tagList.add(map.get("TF_PRD_TAGID"));
 				tempMap.put("name", map.get("TF_PRD_NM"));
 				tempMap.put("size", map.get("PRD_SIZE"));
 				tempMap.put("barcode", map.get("TF_PRD_BARCODE"));
-				tagList.add(map.get("TF_PRD_TAGID"));
 				tempMap.put("stockCount", tagList.size());
+				tempMap.put("brandCd", map.get("BRAND_KIND_CD"));
+				tempMap.put("brand", brandMap.get(((String)map.get("BRAND_KIND_CD")).substring(0,2)+"0000"));
 				tempMap.put("tagList", tagList);
 				resultMap.put(map.get("TF_PRD_BARCODE"), tempMap);
 			}
@@ -586,18 +609,41 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> findStock(Map param) throws Exception {
-		String barcode = (String)param.get("barcode");
-		List<Map> prdList = tfProductMapper.prdAndStkDetail(barcode.substring(0,10));
+		List<Map> listMap = new ArrayList<>();
+		Map brandMap = brandService.brandMap();
+		if(param.get("barcode") != null) {
+			String barcode = (String) param.get("barcode");
+			if(barcode.length() < 10){
+				return ResultUtil.setCommonResult("E","바코드 형식이 잘못되었습니다");
+			}
 
-		for(Map prdMap : prdList){
-			List tagList = tfAcStockMapper.findTagId((String)prdMap.get("barcode"));
-			prdMap.put("stockCount", tagList.size());
-			if(tagList.size()!= 0) {
-				prdMap.put("tagList", tagList);
+			listMap = tfProductMapper.prdAndStkDetail(barcode.substring(0, 10));
+			for (Map prdMap : listMap) {
+				List tagList = tfAcStockMapper.findTagId((String) prdMap.get("barcode"));
+				prdMap.put("brandCd", prdMap.get("brand"));
+				prdMap.put("brand", brandMap.get(((String)prdMap.get("brand")).substring(0,2)+"0000"));
+				prdMap.put("stockCount", tagList.size());
+				if (tagList.size() != 0) {
+					prdMap.put("tagList", tagList);
+				}
+			}
+		}else if(param.get("tagId") != null){
+			Map acMap = tfAcStockMapper.stockCheck((String)param.get("tagId"));
+			if(acMap != null) {
+				Map resultMap = new HashMap();
+				List list = new ArrayList();
+				list.add(param.get("tagId"));
+				resultMap.put("size", acMap.get("prdSize"));
+				resultMap.put("name", acMap.get("tfPrdNm"));
+				resultMap.put("barcode", acMap.get("tfPrdBarcode"));
+				resultMap.put("brandCd", acMap.get("brand"));
+				resultMap.put("brand", brandMap.get(((String)acMap.get("brand")).substring(0,2)+"0000"));
+				resultMap.put("tagList", list);
+				resultMap.put("stockCount", 1);
+				listMap.add(resultMap);
 			}
 		}
-		List<Map> listMap = new ArrayList<Map>();
-		return ResultUtil.setCommonResult("S","성공하였습니다", prdList);
+		return ResultUtil.setCommonResult("S","성공하였습니다", listMap);
 	}
 
 	@Override
@@ -615,6 +661,4 @@ public class ApiServiceImpl implements ApiService {
 
 		return ResultUtil.setCommonResult("S","성공하였습니다", listMap);
 	}
-
-
 }

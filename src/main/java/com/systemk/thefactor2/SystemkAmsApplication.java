@@ -1,8 +1,12 @@
 package com.systemk.thefactor2;
 
 
+import com.systemk.thefactor2.Config.LogFilter;
+import com.systemk.thefactor2.Mapper.TfLogMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -23,5 +27,14 @@ public class SystemkAmsApplication {
         return resolver;
     }
 
+    @Autowired
+    private TfLogMapper tfLogMapper;
+
+    @Bean
+    public FilterRegistrationBean myFilterBean() {
+        final FilterRegistrationBean filterBean = new FilterRegistrationBean(new LogFilter(tfLogMapper));
+        filterBean.addUrlPatterns("/api/*");
+        return filterBean;
+    }
 
 }

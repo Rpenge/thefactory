@@ -2,6 +2,8 @@ package com.systemk.thefactor2.Config;
 
 
 import com.systemk.thefactor2.Mapper.TfLogMapper;
+import com.systemk.thefactor2.Service.ApiService;
+import com.systemk.thefactor2.Service.Impl.ApiServiceImpl;
 import com.systemk.thefactor2.Util.StringUtil;
 import com.systemk.thefactor2.VO.TfRequestLogVO;
 import org.slf4j.Logger;
@@ -19,20 +21,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@WebFilter(urlPatterns = "/api/*")
+//@WebFilter(urlPatterns = "/api/*")
 public class LogFilter extends OncePerRequestFilter {
 
     private final Logger log = LoggerFactory.getLogger(LogFilter.class);
 
-    @Autowired
     private TfLogMapper tfLogMapper;
 
     @Value("false")
     boolean requestLogEnabled;
 
+    public LogFilter() { }
+
+    public LogFilter(TfLogMapper tfLogMapper) {
+        this.tfLogMapper = tfLogMapper;
+    }
+
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         TfRequestLogVO reqVO = new TfRequestLogVO();
+
         final HttpServletRequest req = new RequestWrapper(request);
         final HttpServletResponse res = new ResponseWrapper(response);
 
@@ -45,6 +55,7 @@ public class LogFilter extends OncePerRequestFilter {
         try {
             Object requestBody = ((RequestWrapper) req).convertToObject();
             reqVO.setReqBody(StringUtil.convertJsonString(requestBody));
+
             filterChain.doFilter(req, res);
 
             Object responseBody = ((ResponseWrapper) res).convertToObject();
@@ -53,7 +64,6 @@ public class LogFilter extends OncePerRequestFilter {
             ((ResponseWrapper) res).copyBodyToResponse();
         } catch (IOException ex) {
         }
-
         tfLogMapper.createReqLog(reqVO);
     }
 
@@ -61,4 +71,7 @@ public class LogFilter extends OncePerRequestFilter {
     public void destroy() {
         super.destroy();
     }
+
+
+
 }

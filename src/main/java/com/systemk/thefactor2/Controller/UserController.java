@@ -51,7 +51,7 @@ public class UserController {
 			userService.autoLoginUpdate(user.getUserId(), request.getHeader("auto"));
 		}
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(30*60);
+		session.setMaxInactiveInterval(60*60*24*7);
 		HashMap resultMap = new HashMap<>();
 
 		if(user != null) {
@@ -72,7 +72,7 @@ public class UserController {
 	@RequestMapping("/reUserAuth")
 	public Map user(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(60*60*24); //60분x60초x24시간
+		session.setMaxInactiveInterval(60*60*24*7); //60분x60초x24시간
 		HashMap resultMap = new HashMap<>();
 
 		resultMap.put("userId", session.getAttribute("userId"));
@@ -132,7 +132,5 @@ public class UserController {
         obj.put("result", success ? "success" : "false");
         return new ResponseEntity<String>(obj.toString(), HttpStatus.OK);
     }
-
-
 
 }

@@ -18,39 +18,39 @@
     <select id="stockExList" resultType="Map" parameterType="java.util.HashMap">
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
         from
-            (
-                select
-                    *
-                from
-                    tf_stock ts
-                where
-                    (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
-                <foreach collection="list" item="item">
-                    ${item}
-                </foreach>
-                order by
-                    STOCK_REG_SEQ desc limit ${start}, ${size}) as stk
-                left outer join tf_product tp on
-                stk.TF_PRD_CD = tp.TF_PRD_CD
+        (
+            select *
+            from tf_stock ts
+            where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
+            <foreach collection="list" item="item" open="AND (true"  close=")">
+                ${item}
+            </foreach>
+            order by STOCK_REG_SEQ desc
+        ) as stk
+        left outer join tf_product tp
+        on stk.TF_PRD_CD = tp.TF_PRD_CD
+        <if test="BRAND_KIND_CD != null">
+        where BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+        limit ${start}, ${size}
     </select>
 
     <select id="stockRfidList" resultType="Map" parameterType="java.util.HashMap">
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
         from
         (
-        select
-        *
-        from
-        tf_stock ts
-        where
-        ts.RFID_STOCK_CNT > 0
-        <foreach collection="list" item="item">
-            ${item}
-        </foreach>
-        order by
-        STOCK_REG_SEQ desc limit ${start}, ${size}) as stk
-        left outer join tf_product tp on
-        stk.TF_PRD_CD = tp.TF_PRD_CD
+            select *
+            from tf_stock ts
+            where ts.RFID_STOCK_CNT > 0
+            <foreach collection="list" item="item" open="AND (true"  close=")">${item}</foreach>
+            order by STOCK_REG_SEQ desc
+        ) as stk
+        left outer join tf_product tp
+        on stk.TF_PRD_CD = tp.TF_PRD_CD
+        <if test="BRAND_KIND_CD != null">
+        where BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+        limit ${start}, ${size}
     </select>
 
     <select id="stockListSearch" resultType="Map" parameterType="java.util.HashMap">
@@ -75,10 +75,10 @@
 
     <select id="workCnt" resultType="Map" parameterType="java.util.HashMap">
         select
-            (select count(*) from tf_input where BT_PRD_BARCODE = 'barcode' and IN_STORE_CD = 'storeCd') as inCnt,
-            (select count(*) from tf_output where BT_PRD_BARCODE = 'barcode' and OUT_STORE_CD = 'storeCd' and substring(ST_OUT_TYPE,1,4) = '0602'  ) as outCnt,
-            (select count(*) from tf_output where BT_PRD_BARCODE = 'barcode' and OUT_STORE_CD = 'storeCd' and ST_OUT_TYPE = '060301'  ) as stCnt,
-            (select count(*) from tf_output where BT_PRD_BARCODE = 'barcode' and OUT_STORE_CD = 'storeCd' and ST_OUT_TYPE = '060302'  ) as onCnt
+            (select count(*) from tf_input where BT_PRD_BARCODE = #{barcode} and IN_STORE_CD = #{storeCd}) as inCnt,
+            (select count(*) from tf_output where BT_PRD_BARCODE = #{barcode} and OUT_STORE_CD = #{storeCd} and substring(ST_OUT_TYPE,1,4) = '0602'  ) as outCnt,
+            (select count(*) from tf_output where BT_PRD_BARCODE = #{barcode} and OUT_STORE_CD = #{storeCd} and ST_OUT_TYPE = '060301'  ) as stCnt,
+            (select count(*) from tf_output where BT_PRD_BARCODE = #{barcode} and OUT_STORE_CD = #{storeCd} and ST_OUT_TYPE = '060302'  ) as onCnt
     </select>
 
     <select id="findStockInfo" resultType="TfStockVO" parameterType="String">
@@ -110,5 +110,28 @@
         WHERE STOCK_STORE_CD = #{storeCd}
           AND TF_PRD_BARCODE= #{barcode}
     </update>
+
+
+    <select id="stockExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+        select
+            '' as '구입처',
+            TF_PRD_CD as '자체상품코드',
+            TF_PRD_NM as '상품명',
+            PRD_SIZE as '단품',
+            '' as '단품코드',
+            TF_PRD_BARCODE as '바코드',
+            '' as '로케이션',
+            CUR_STOCK_CNT as '현재재고',
+            REAL_STOCK_CNT as '실제재고',
+            STD_STOCK_CNT as '적정재고',
+            '' as '판매여부',
+            '' as '쇼핑몰',
+            '' as '재고조사',
+            STOCK_STORE_NM as '배송처(창고)',
+            RFID_STOCK_CNT as 'RFID재고'
+        from tf_stock ts
+        where STOCK_STORE_CD like '%${storeCd}%'
+        order by STOCK_REG_SEQ ;
+    </select>
 
 </mapper>

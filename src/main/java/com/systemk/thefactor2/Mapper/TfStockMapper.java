@@ -4,6 +4,7 @@ import com.systemk.thefactor2.VO.TfStockVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,5 +31,7 @@ public interface TfStockMapper {
     int stockUpdate(Map item);
 
     int stockInvUpdate(Map item);
+
+    List<LinkedHashMap<String, Object>> stockExcel(Map item);
 
 }

@@ -33,7 +33,6 @@ public class ExcelController {
 		createFolder(realPath);
 		try {
 			map = excelService.stockExcelUpload(mf, userId);	//엑셀 파일 데이터 저장
-
 			String originalFileName = mf.getOriginalFilename();
 			String[] ofn = originalFileName.split("\\.");
 			String name = ofn[0];
@@ -56,7 +55,6 @@ public class ExcelController {
 		createFolder(realPath);
 		try {
 			map = excelService.productExcelUpload(mf, userId);
-
 			String originalFileName = mf.getOriginalFilename();
 			String[] ofn = originalFileName.split("\\.");
 			String name = ofn[0];
@@ -78,7 +76,6 @@ public class ExcelController {
 		createFolder(realPath);
 		try {
 			map = excelService.brandExcelUpload(mf, userId);
-
 			String originalFileName = mf.getOriginalFilename();
 			String[] ofn = originalFileName.split("\\.");
 			String name = ofn[0];
@@ -92,13 +89,23 @@ public class ExcelController {
 		return map;
 	}
 
-
-	//엑셀 파일 다운로드
+	//입출고 엑셀 파일 다운로드
 	@RequestMapping("/excelDown")
 	public void excelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
 		excelService.inoutExcelDown(map, response);
 	}
 
+	//재고 엑셀 파일 다운로드
+	@RequestMapping("/stockExcelDown")
+	public void stockExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
+		excelService.stockExcelDown(map, response);
+	}
+
+	//업로드 폼으로 재고 엑셀 다운로드
+	@RequestMapping("/stkBaseExcelDown")
+	public void stkBaseExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
+		excelService.stkBaseExcelDown(map, response);
+	}
 
 
 	public void createFolder(String path){

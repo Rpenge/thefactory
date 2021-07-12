@@ -20,4 +20,8 @@ public interface ExcelService {
     Map brandExcelUpload(MultipartFile mf, String userId) throws Exception;
 
     void inoutExcelDown(Map map, HttpServletResponse response) throws Exception;
+
+    void stockExcelDown(Map map, HttpServletResponse response) throws Exception;
+
+    void stkBaseExcelDown(Map map, HttpServletResponse response) throws Exception;
 }

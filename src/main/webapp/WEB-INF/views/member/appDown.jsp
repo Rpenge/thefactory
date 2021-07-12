@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 </head>
-	<div style="width:720px;">
+	<div style="width:480px;">
 		<div>
 			<h5 style="font-weight: bold">APPLICATION</h5>
 		</div>

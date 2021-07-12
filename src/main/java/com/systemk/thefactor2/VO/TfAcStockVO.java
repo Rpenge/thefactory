@@ -14,6 +14,8 @@ public class TfAcStockVO {
     private String stInType;        // 작업구분
     private Date   regDate;         // 등록일시
     private String regId;           // 등록자
+    private String brandKindCd;     // 브랜드
+    private String acPrdSize;         // 사이즈
     private Date   modDate;         // 수정일시
     private String modId;           // 수정자
 

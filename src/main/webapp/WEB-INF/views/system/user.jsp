@@ -75,22 +75,21 @@
 								</select>
 							</td>
 							<th style="width:10%;"><span style="color:red;" ng-if="es.newForm">*</span> ID</th>
-							<td style="width:15%;padding: 0;"><input type="text" class="form-control" ng-model="form.userId" ng-readonly="es.pwForm || es.modForm" placeholder="ID" ng-required="true"></td>
+							<td style="width:15%;padding: 0;"><input type="text" class="form-control" maxlength="12" ng-model="form.userId" ng-readonly="es.pwForm || es.modForm" placeholder="ID" ng-required="true"></td>
 							<th style="width:10%"><span style="color:red;" ng-if="es.newForm || es.pwForm">*</span> Password</th>
 							<td style="width:15%"><input type="password" class="form-control"  ng-model="form.userPwd" ng-readonly="es.modForm" placeholder="*****" ng-required="es.newForm || es.pwForm"></td>
 							<th style="width:10%"><span style="color:red;" ng-if="es.newForm || es.pwForm">*</span> Password 확인</th>
 							<td style="width:15%"><input type="password" class="form-control"  ng-model="pwCheck" ng-readonly="es.modForm" placeholder="*****" ng-required="es.newForm || es.pwForm"></td>
-
 						</tr>
 						<tr>
 							<th style="width:10%"><span style="color:red;" ng-if="es.newForm || es.modForm">*</span> 이름</th>
-							<td style="width:15%"><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userNm" ng-required='true'></td>
+							<td style="width:15%"><input type="text" class="form-control" maxlength="10" ng-readonly="es.pwForm" ng-model="form.userNm" ng-required='true'></td>
 							<th>직급</th>
-							<td><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userRankCd"></td>
+							<td><input type="text" class="form-control" maxlength="20" ng-readonly="es.pwForm" ng-model="form.userRankCd"></td>
 							<th>전화번호</th>
-							<td><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userPhone"></td>
+							<td><input type="text" class="form-control" maxlength="20" ng-readonly="es.pwForm" ng-model="form.userPhone"></td>
 							<th>E-MAIL</th>
-							<td><input type="text" class="form-control" ng-readonly="es.pwForm" ng-model="form.userEmail"></td>
+							<td><input type="text" class="form-control" maxlength="50" ng-readonly="es.pwForm" ng-model="form.userEmail"></td>
 						</tr>
 						<tr>
 
@@ -117,8 +116,6 @@
 						</tr>
 					</table>
 				</form>
-
-
 
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
 					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 사용자 리스트</span>

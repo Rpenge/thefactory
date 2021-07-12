@@ -14,6 +14,5 @@ public interface StockService {
 
     public Map<String, Object> findListSearch(Map param) throws Exception;
 
-    public Map<String, Object> stkGubSearch(Map param) throws Exception;
 
 }

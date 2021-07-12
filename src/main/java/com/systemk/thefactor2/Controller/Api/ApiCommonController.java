@@ -36,7 +36,7 @@ public class ApiCommonController {
         Map resultMap = apiService.pdaLogin(data);
         if(resultMap.get("resultCode").equals("S")){
             HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(60*10);
+            session.setMaxInactiveInterval(60*60);
             session.setAttribute("PdaUserId", data.get("userId")); //세션 ID 저장
         }
         return resultMap;
@@ -57,7 +57,6 @@ public class ApiCommonController {
         Map param = RequestUtil.reqParamToMap(request);
         return apiService.inputList(param);
     }
-
 
     //입고 작업(조회/저장) - 바코드 리딩 후 매칭되는 상품 데이터 return
     @RequestMapping(value = "/inputAdd", method = RequestMethod.GET)
@@ -142,7 +141,7 @@ public class ApiCommonController {
         return apiService.addInven(data);
     }
 
-    //찾기 -
+    //찾기 - barcode / tagId로 조회
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public Map<String, Object> find(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);

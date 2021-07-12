@@ -63,7 +63,7 @@
     </select>
 
     <delete id="outDelete" parameterType="java.util.HashMap">
-        { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType})}
+        { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType}, #{brandCd})}
     </delete>
 
     <select id="outSubList" resultType="Map" parameterType="java.util.HashMap">

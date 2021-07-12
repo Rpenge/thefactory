@@ -29,18 +29,13 @@ public class StockServiceImpl implements StockService {
 	@Autowired
 	private BrandService brandService;
 
-
 	@Autowired
 	private TfStockMapper tfStockMapper;
 
 	@Autowired
-	private TfProductMapper tfProductMapper;
-
-	@Autowired
 	private PageMapper pageMapper;
 
-
-
+	//재고현황관리 - 리스트 조회
 	@Override
 	public Map<String, Object> findList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
@@ -80,10 +75,15 @@ public class StockServiceImpl implements StockService {
 		return mu.getList();
 	}
 
+	//재고현황관리 - 재고차이 리스트 조회
 	@Override
 	public Map<String, Object> findExList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
+
+		if(param.get("BRAND_KIND_CD")!=null){
+			mu.addStr("BRAND_KIND_CD", (String)param.get("BRAND_KIND_CD"));
+		}
 
 		if(param.get("STORE_CD")!=null){
 			mu.addEqual("STOCK_STORE_CD", (String)param.get("STORE_CD"));
@@ -121,21 +121,26 @@ public class StockServiceImpl implements StockService {
 		return mu.getList();
 	}
 
+	//재고현황관리 - 보유재고관리 리스트 조회
 	@Override
 	public Map<String, Object> findRfidList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
 
+		if(param.get("BRAND_KIND_CD")!=null){
+			mu.addStr("BRAND_KIND_CD", (String)param.get("BRAND_KIND_CD"));
+		}
 		if(param.get("STORE_CD")!=null){
 			mu.addEqual("STOCK_STORE_CD", (String)param.get("STORE_CD"));
 		}
 		if(param.get("PRD_SIZE")!=null){
 			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
 		}
+
 		if (param.get("word")!=null) {
-			mu.addLike("TF_PRD_NM", (String)param.get("word"));
-			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
-			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
+			mu.addLike("ts.TF_PRD_NM", (String)param.get("word"));
+			mu.addORLike("ts.TF_PRD_CD", (String)param.get("word"));
+			mu.addORLike("ts.TF_PRD_BARCODE", (String)param.get("word"));
 		}
 
 		mu.setTotalElements(pageMapper.stkRfidPageRecord(mu.getTableSearch())); // 수량조회
@@ -195,10 +200,5 @@ public class StockServiceImpl implements StockService {
 		}
 		mu.setContent(listMap);
 		return mu.getList();
-	}
-
-	@Override
-	public Map<String, Object> stkGubSearch(Map param) throws Exception {
-		return null;
 	}
 }

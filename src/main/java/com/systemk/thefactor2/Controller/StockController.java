@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @RestController
 @RequestMapping("/stock")
 public class StockController {
-
-
 
 	@Autowired
 	private AcStockService acStockService;
@@ -29,18 +28,18 @@ public class StockController {
 	//재고현황 - 재고현황관리 :  리스트조회
 	@RequestMapping(value="/stockList", method = RequestMethod.GET)
 	public Map<String, Object> stockList(HttpServletRequest request) throws Exception{
+		Map<String, Object> map = new HashMap<>();
 		Map param = RequestUtil.reqParamToMap(request);
-		if(param.get("ex")!=null && param.get("ex").equals("dis")){	//수량차이 있는 데이터 조회
-			return stockService.findExList(param);
-		}else if(param.get("ex")!=null && param.get("ex").equals("rfid")){	//rfid 재고 수량을 가지고 있는 데이터 조회
-			return stockService.findRfidList(param);
+		if(param.get("ex")!=null && param.get("ex").equals("dis")){				//수량차이 발생한 데이터 조회
+			map = stockService.findExList(param);
+		}else if(param.get("ex")!=null && param.get("ex").equals("rfid")){		//RFID 재고 보유한 데이터 조회
+			map = stockService.findRfidList(param);
+		}else if(param.get("BRAND_KIND_CD")!=null){		//일반조회(속도 향상을 위해 브랜드 검색 나눔)
+			map = stockService.findListSearch(param);
+		}else{											//일반조회
+			map = stockService.findList(param);
 		}
-
-		if(param.get("BRAND_KIND_CD")!=null){
-			return stockService.findListSearch(param);
-		}else{
-			return stockService.findList(param);
-		}
+		return map;
 	}
 
 	//태그재고조회 리스트
@@ -56,15 +55,5 @@ public class StockController {
 		Map param = RequestUtil.reqParamToMap(request);
 		return acStockService.findStock(param);
 	}
-
-
-	//입출고관리 - 재고조회 : 일자/매장/구분/상품별 수량
-	@RequestMapping(value="/stkGubSearch", method = RequestMethod.GET)
-	public Map<String, Object> stkGubSearch(HttpServletRequest request) throws Exception{
-		Map param = RequestUtil.reqParamToMap(request);
-		return stockService.stkGubSearch(param);
-	}
-
-
 
 }

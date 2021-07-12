@@ -66,23 +66,20 @@ public class AcStockServiceImpl implements AcStockService {
 			}
 
 			if (key.equals("word")) {
-				mu.addLike("TF_PRD_NM", (String)param.get(key));
-				mu.addORLike("TF_PRD_CD", (String)param.get(key));
-				mu.addORLike("BT_PRD_BARCODE", (String)param.get(key));
+//				mu.addLike("TF_PRD_NM", (String)param.get(key));
+//				mu.addORLike("TF_PRD_CD", (String)param.get(key));
+				mu.addLike("TF_PRD_BARCODE", (String)param.get(key));
 				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
 				break;
 			}
 			if (key.equals("PRD_SIZE")) {
-				mu.addLike((String)key, (String)param.get(key));
+				mu.addEqual("AC_PRD_SIZE", (String)param.get(key));
 			}else if(key.equals("BRAND_KIND_CD")){
 				mu.addStartLike((String)key, (String)param.get(key));
 			}else{
 				mu.addEqual((String)key, (String)param.get(key));
 			}
 		}
-//		if(param.get("sort")!= null) {
-//			mu.setSort(StringUtil.camelToSnake((String)param.get("sort")), (String) param.get("direct"));
-//		}
 
 		if(param.get("startDate")!= null && param.get("endDate")!= null){
 			mu.addBetween("ST_IN_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
@@ -95,15 +92,7 @@ public class AcStockServiceImpl implements AcStockService {
 			mu.setSize(Integer.parseInt((String)param.get("size")));
 
 		List<Map> acList =  tfAcStockMapper.acStockList(mu.getTableSearch());
-//		List<Map> listMap = new ArrayList<Map>();
-		//mu.setContent(tfInputMapper.inputList(mu.getTableSearch())); //리스트 조회
-//		for(Map vo : voList){
-//			ObjectMapper objectMapper = new ObjectMapper();
-//			Map map = objectMapper.convertValue(vo, Map.class);
-////			Map brandInfo = brandService.detailSearch(vo.getBrandKindCd());
-////			map.putAll(brandInfo);
-//			listMap.add(map);
-//		}
+
 		mu.setContent(acList);
 		return mu.getList();
 	}

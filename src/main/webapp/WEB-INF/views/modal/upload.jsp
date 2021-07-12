@@ -73,7 +73,7 @@
 
 				<div class="d-flex" style="margin-top: 8px;">
 					<span style="margin:7px 8px 3px 3px;"> 설명 : </span>
-					<input type="text" class="form-control" ng-model="input.comment" style="width:363px;">
+					<input type="text" class="form-control" maxlength="200" ng-model="input.comment" style="width:363px;">
 				</div>
 
 

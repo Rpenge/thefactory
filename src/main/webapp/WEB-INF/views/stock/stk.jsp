@@ -6,6 +6,25 @@
 
 
 <div ng-show="authenticated">
+
+	<section class="d-flex justify-content-center">
+		<div class="container-fluid body-custom" style="width:100%;">
+			<div style="padding:20px 5px;">
+
+				<div class="d-flex">
+					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 전체재고 내역 다운로드</span>
+
+					<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin: 0 15px;">
+						<option value="">매장</option>
+						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+					</select>
+
+					<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="d-flex justify-content-center">
 
 		<!--contents-->
@@ -19,6 +38,8 @@
 							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>
 							<option value="50">50개씩 보기</option>
+							<option value="100">100개씩 보기</option>
+							<option value="500">500개씩 보기</option>
 						</select>
 
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
@@ -41,7 +62,7 @@
 							<input type="radio" name="options"  autocomplete="off" checked> 전체
 						</label>
 						<label class="btn btn-secondary" ng-click="stkDif('rfid')" style="width:110px;">
-							<input type="radio" name="options"  autocomplete="off"> 실재고
+							<input type="radio" name="options"  autocomplete="off"> 보유재고
 						</label>
 						<label class="btn btn-secondary" ng-click="stkDif('dis')" style="width:110px;">
 							<input type="radio" name="options"  autocomplete="off"> 재고차이
@@ -67,32 +88,32 @@
 							</tr>
 							<tr>
 								<th style="height:40px;width:75px;">현재고</th>
-								<th style="width:75px;">입고</th>
-								<th style="width:75px;">츨고</th>
+								<th style="width:72px;">입고</th>
+								<th style="width:72px;">츨고</th>
 								<th style="width:75px;font-size: 12px;">판매(매장)</th>
-								<th style="width:80px;font-size: 12px;">판매(온라인)</th>
-								<th style="width:75px;">실사수량</th>
-								<th style="width:75px;">실재고</th>
+								<th style="width:78px;font-size: 12px;">판매(온라인)</th>
+								<th style="width:72px;">실사수량</th>
+								<th style="width:72px;">실재고</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list">
 								<td style="height: 60px;">{{value.STOCK_REG_SEQ}}</td><!--No-->
 								<td style="text-overflow:ellipsis;padding:5px;font-size: 12px;text-align: left;">{{value.TF_PRD_NM}}</td>	<!--품목명-->
-								<td>{{value.STOCK_STORE_NM}}</td>			<!--매장명-->
+								<td>{{value.STOCK_STORE_CD | code:store}}</td>			<!--매장명-->
 								<td>{{value.brandNm}}</td>					<!--브랜드-->
 								<td>{{value.genderNm}}</td>					<!--성별-->
 								<td>{{value.clsNm}}</td>					<!--분류명-->
 								<td>{{value.PRD_SIZE}}</td>					<!--size-->
 								<td>{{value.TF_PRD_BARCODE}}</td>			<!--size-->
-								<td style="background: lavenderblush;">{{value.REAL_STOCK_CNT}}</td>	<!--EC수량-->
+								<td style="background: #f1f1f1;">{{value.REAL_STOCK_CNT}}</td>	<!--EC수량-->
 								<td>{{value.inCnt}}</td>					<!--입고수량-->
 								<td>{{value.outCnt}}</td>					<!--출고수량-->
 								<td>{{value.stCnt}}</td>					<!--매장판매수량-->
 								<td>{{value.onCnt}}</td>					<!--온라인판매수량-->
 								<td>{{value.INVENTORY_CNT}}</td>			<!--재고실사수량-->
-								<td style="background: lavenderblush">{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
-								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: #f1f1f1">
+								<td style="background: #f1f1f1">{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
+								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: floralwhite">
 									{{value.RFID_STOCK_CNT - value.REAL_STOCK_CNT}}
 								</td>	<!--EC와 실재고 비교-->
 							</tr>

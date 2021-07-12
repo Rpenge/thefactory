@@ -78,6 +78,8 @@
 							<option value="10">10개씩 보기</option>
 							<option value="20">20개씩 보기</option>
 							<option value="50">50개씩 보기</option>
+							<option value="100">100개씩 보기</option>
+							<option value="500">500개씩 보기</option>
 						</select>
 
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
