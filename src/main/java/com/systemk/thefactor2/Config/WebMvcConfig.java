@@ -19,7 +19,6 @@ public  class WebMvcConfig extends WebMvcConfigurerAdapter {
 //                .excludePathPatterns("/css/**", "/fonts/**", "/plugin/**", "/scripts/**");
 //    }
 
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/APP/**")

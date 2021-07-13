@@ -28,7 +28,6 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         } catch (IOException ex) {
         	ex.printStackTrace();
         }
-
     }
 
     @Override
@@ -57,9 +56,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     }
 
     public Object convertToObject() throws IOException {
-
     	if(httpRequestBodyByteArray.length == 0) return null;
-
         return objectMapper.readValue(httpRequestBodyByteArray, Object.class);
     }
 }

@@ -3,6 +3,7 @@ package com.systemk.thefactor2.Config.MultiDataBase;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -40,7 +41,7 @@ public class MyDataSourceConfig {
 //        em.setJpaPropertyMap(properties);
 //        return em;
 //    }
-
+    @Qualifier("my")
     @Bean
     public DataSource myDataSource() {
         HikariDataSource dataSource = new HikariDataSource();

@@ -10,7 +10,6 @@ public class TfUserAuthVO {
     private String pgmCd;           // 프로그램 코드
     private String grade;           // 등급
     private String storeCd;         // 매장코드
-    private String pgmNm;           // 프로그램 명
     private String authSchYn;       // 조회
     private String authSaveYn;      // 저장
     private String authUpdateYn;    // 수정

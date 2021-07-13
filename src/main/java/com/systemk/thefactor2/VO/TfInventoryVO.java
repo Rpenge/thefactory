@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class TfInventoryVO {
-
+    // 재고실사 정보 Value Object Class
     private long   stInvenSeq;      // 재고실사 일련번호
     private long   stInvSeq;        // 실사현황 일련번호(foreign)
     private String tfPrdTagid;      // 자체상품 태그아이디

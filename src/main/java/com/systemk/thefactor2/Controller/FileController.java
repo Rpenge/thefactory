@@ -28,7 +28,6 @@ public class FileController {
 		return fileService.appInfo(map);
 	}
 
-
 	//어플리케이션 업로드
 	@RequestMapping(value="/upload", method = RequestMethod.POST)
 	public Map<String, String> upload(@RequestPart(value = "uploadApp", required = false) MultipartFile mf,
@@ -75,5 +74,4 @@ public class FileController {
 			folder2.mkdir();
 		}
 	}
-
 }

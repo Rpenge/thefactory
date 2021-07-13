@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ApiCommonController {
 
-
     @Autowired
     private ApiService apiService;
-
 
     // id,비밀번호, 버전,
     @RequestMapping(value = "/login", method = RequestMethod.POST)
