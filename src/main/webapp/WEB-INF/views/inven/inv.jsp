@@ -34,14 +34,13 @@
 				<div class="table-box">
 					<table class="table custom-table-1 text-center custom-align-middle table-striped-odd" style="min-width:1100px;">
 						<thead>
-							<tr class="pointer">
+							<tr>
 								<th><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInvSeq')"></th>
 								<th>실사일자</th>
 								<th>매장</th>
 								<th>대상수량</th>
 								<th>실사수량</th>
 								<th>미실사수량</th>
-<%--								<th>PDA완료</th>--%>
 								<th>완료여부</th>
 								<th>최종수정일</th>
 								<th>상세내역이동</th>
@@ -55,10 +54,6 @@
 								<td>{{value.stTarCnt}}</td>
 								<td>{{value.stInvCnt}}</td>
 								<td>{{value.stTarCnt - value.stInvCnt}}</td>
-<%--								<td>--%>
-<%--									<i class="xi-check" ng-if="value.stPdaYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>--%>
-<%--									<i class="xi-close" ng-if="value.stPdaYn=='N'" style="color:red;font-weight: bolder;"></i>--%>
-<%--								</td>--%>
 								<td>
 									<i class="xi-check" ng-if="value.stInvYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>
 									<i class="xi-close" ng-if="value.stInvYn=='N'" style="color:red;font-weight: bolder;"></i>

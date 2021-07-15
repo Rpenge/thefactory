@@ -25,11 +25,10 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.14</version>
-			<scope>provided</scope>
+		<dependency> 
+			<groupId>org.projectlombok</groupId> 
+			<artifactId>lombok</artifactId> 
+			<optional>true</optional> 
 		</dependency>
 		<dependency>
             <groupId>com.zaxxer</groupId>

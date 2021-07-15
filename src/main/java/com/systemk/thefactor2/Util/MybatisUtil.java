@@ -68,6 +68,22 @@ public class MybatisUtil {
         search.add(str);
     }
 
+    public void addWord(List<String> columnList, String findStr){
+        String str = "AND ( " ;
+        for(int i=0 ; i < columnList.size(); i++){
+            if(i==0){
+                str += columnList.get(i) + " like '%"+ findStr +"%' ";
+                continue;
+            }else if(i == (columnList.size() - 1)){
+                str += "OR " + columnList.get(i) + " like '%"+ findStr +"%' )";
+                break;
+            }else{
+                str += "OR " + columnList.get(i) + " like '%"+ findStr +"%' ";
+            }
+        }
+        search.add(str);
+    }
+
     public void addStartLike(String column, String findStr){
         String str = "AND " +column + " like '"+ findStr+"%'";
         search.add(str);

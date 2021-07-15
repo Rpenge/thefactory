@@ -19,20 +19,6 @@
         select TF_PRD_TAGID from tf_ac_stock where TF_PRD_BARCODE = #{item}
     </select>
 
-<!--    <select id="acStockList" resultType="java.util.Map" parameterType="java.util.Map">-->
-<!--        select *-->
-<!--        from tf_ac_stock tas-->
-<!--            left outer join tf_stock ts-->
-<!--                on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE-->
-<!--                and tas.STORE_CD = ts.STOCK_STORE_CD-->
-<!--        where true-->
-<!--        <foreach collection="list" item="item">-->
-<!--            ${item}-->
-<!--        </foreach>-->
-<!--        order by tas.AC_STOCK_SEQ desc-->
-<!--        limit ${start}, ${size}-->
-<!--    </select>-->
-
     <select id="acStockList" resultType="java.util.Map" parameterType="java.util.Map">
         select * from
         (
@@ -45,8 +31,8 @@
             order by AC_STOCK_SEQ desc
             limit ${start}, ${size}
         ) as tas
-        left outer join tf_stock ts on
-        tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
+        left outer join tf_stock ts
+        on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
         and tas.STORE_CD = ts.STOCK_STORE_CD
         order by tas.AC_STOCK_SEQ desc
     </select>

@@ -12,11 +12,8 @@
         <!--contents-->
         <div class="container-fluid body-custom" style="width:100%;">
             <div class="body-contents ">
-
                 <div>
-
                     <form ng-submit="formSave()">
-
                         <div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
                             <span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-caret-down-circle-o"></i> 상품 추가/수정 <span style="color:red;font-size:15px;"> * 표시는 필수 입력 항목입니다.</span></span>
                             <button class="p-2 btn btn-outline-secondary" ng-class="{'active-btn' : es.newForm}" ng-click="formChange('reset')" onclick="tableTrDel('productTable')" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>
@@ -71,7 +68,6 @@
                             </tr>
                         </table>
                     </form>
-
                 </div>
 
 
@@ -112,30 +108,30 @@
                 <div class="table-box">
                     <table id="productTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width:1450px;">
                         <thead>
-                            <tr class="pointer">
+                            <tr>
                                 <th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'prdRegSeq')"></th>
                                 <th style="width:80px;">No</th>
-                                <th style="width:140px;">브랜드</th>
+                                <th style="width:130px;">브랜드</th>
                                 <th style="width:90px;">성별</th>
                                 <th style="width:90px;">상품분류</th>
-                                <th style="width:140px;">사이즈</th>
+                                <th style="width:120px;">사이즈</th>
                                 <th style="width:110px;">상품코드</th>
-                                <th style="width:250px;">자체상품코드</th>
-                                <th style="width:370px;">상품명</th>
+                                <th style="width:240px;">자체상품코드</th>
+                                <th style="width:410px;">상품명</th>
                                 <th>등록자</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
-                                <td style="padding:13px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.prdRegSeq}})" ></td>
+                                <td style="padding:13px;height:60px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.prdRegSeq}})" ></td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdRegSeq}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.clsNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.ecSizeNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.ecPrdCd}}</td>
-                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
-                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
+                                <td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
+                                <td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
                             </tr>
                         </tbody>

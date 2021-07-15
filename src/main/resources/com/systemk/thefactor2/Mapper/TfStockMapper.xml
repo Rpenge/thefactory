@@ -22,7 +22,7 @@
             select *
             from tf_stock ts
             where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
-            <foreach collection="list" item="item" open="AND (true"  close=")">
+            <foreach collection="list" item="item">
                 ${item}
             </foreach>
             order by STOCK_REG_SEQ desc
@@ -42,7 +42,7 @@
             select *
             from tf_stock ts
             where ts.RFID_STOCK_CNT > 0
-            <foreach collection="list" item="item" open="AND (true"  close=")">${item}</foreach>
+            <foreach collection="list" item="item">${item}</foreach>
             order by STOCK_REG_SEQ desc
         ) as stk
         left outer join tf_product tp

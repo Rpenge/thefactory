@@ -26,7 +26,6 @@
 	</section>
 
 	<section class="d-flex justify-content-center">
-
 		<!--contents-->
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div class="body-contents">
@@ -98,24 +97,24 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list">
-								<td style="height: 60px;">{{value.STOCK_REG_SEQ}}</td><!--No-->
-								<td style="text-overflow:ellipsis;padding:5px;font-size: 12px;text-align: left;">{{value.TF_PRD_NM}}</td>	<!--품목명-->
-								<td>{{value.STOCK_STORE_CD | code:store}}</td>			<!--매장명-->
-								<td>{{value.brandNm}}</td>					<!--브랜드-->
-								<td>{{value.genderNm}}</td>					<!--성별-->
-								<td>{{value.clsNm}}</td>					<!--분류명-->
-								<td>{{value.PRD_SIZE}}</td>					<!--size-->
-								<td>{{value.TF_PRD_BARCODE}}</td>			<!--size-->
-								<td style="background: #f1f1f1;">{{value.REAL_STOCK_CNT}}</td>	<!--EC수량-->
-								<td>{{value.inCnt}}</td>					<!--입고수량-->
-								<td>{{value.outCnt}}</td>					<!--출고수량-->
-								<td>{{value.stCnt}}</td>					<!--매장판매수량-->
-								<td>{{value.onCnt}}</td>					<!--온라인판매수량-->
-								<td>{{value.INVENTORY_CNT}}</td>			<!--재고실사수량-->
-								<td style="background: #f1f1f1">{{value.RFID_STOCK_CNT}}</td>			<!--rfid시스템수량-->
+								<td style="height: 60px;">{{value.STOCK_REG_SEQ}}</td>								<!--No-->
+								<td class='table-text-left' style="padding:5px;">{{value.TF_PRD_NM}}</td>	<!--품목명-->
+								<td>{{value.STOCK_STORE_CD | code:store}}</td>								<!--매장명-->
+								<td>{{value.brandNm}}</td>													<!--브랜드-->
+								<td>{{value.genderNm}}</td>													<!--성별-->
+								<td>{{value.clsNm}}</td>													<!--분류명-->
+								<td>{{value.PRD_SIZE}}</td>													<!--size-->
+								<td>{{value.TF_PRD_BARCODE}}</td>											<!--barcode-->
+								<td style="background: #f1f1f1;">{{value.REAL_STOCK_CNT}}</td>				<!--EC수량-->
+								<td>{{value.inCnt}}</td>													<!--입고수량-->
+								<td>{{value.outCnt}}</td>													<!--출고수량-->
+								<td>{{value.stCnt}}</td>													<!--매장판매수량-->
+								<td>{{value.onCnt}}</td>													<!--온라인판매수량-->
+								<td>{{value.INVENTORY_CNT}}</td>											<!--재고실사수량-->
+								<td style="background: #f1f1f1">{{value.RFID_STOCK_CNT}}</td>				<!--rfid시스템수량-->
 								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: floralwhite">
 									{{value.RFID_STOCK_CNT - value.REAL_STOCK_CNT}}
-								</td>	<!--EC와 실재고 비교-->
+								</td>																		<!--EC와 실재고 비교-->
 							</tr>
 						</tbody>
 					</table>

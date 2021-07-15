@@ -6,10 +6,8 @@ app.controller('stkTagController', ['$scope', '$http', '$location', '$rootScope'
 		$scope.search = {};
 		$scope.form = {};
 
-		console.log($rootScope.searchMove);
-		// httpGetList($http, $scope,'/stock/stkTagList' );
-
-		if($rootScope.searchMove == 1){	//페이지 이동후 검색
+		// searchMove = 1: 페이지 이동후 검색, 2: 단어 검색, 그 외: 일반 페이지 이동 조회
+		if($rootScope.searchMove == 1){
 			$scope.search = {};
 			if($rootScope.quickSearch.brand){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.brand.substr(0,2);
@@ -24,12 +22,12 @@ app.controller('stkTagController', ['$scope', '$http', '$location', '$rootScope'
 			$scope.search['STORE_CD'] = $rootScope.quickSearch.storeCd;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stkTagList', param );
-		}else if($rootScope.searchMove == 2) { //단어 검색
-			$scope.search = $rootScope.quickSearchWord;
+		}else if($rootScope.searchMove == 2) {
+			$scope.search['word'] = $rootScope.quickSearchWord.word;
+			$scope.search['STORE_CD'] = $rootScope.quickSearch.storeCd;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stkTagList', param )
 		}else{
-			// $scope.search['ex'] = 'rfid';
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stkTagList', param );
 		}
@@ -103,12 +101,10 @@ app.controller('stkTagController', ['$scope', '$http', '$location', '$rootScope'
 					alert('정보 업데이트 실패');
 				});
 			});
-
 		}
 
 		$scope.excelDown = function(){
 			var fileName = '보유재고내역_'+formatDate3(new Date())+'.xlsx';
-			console.log($scope.excelForm);
 			$http({
 				method : 'POST',
 				url : "/stockExcelDown",

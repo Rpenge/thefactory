@@ -38,7 +38,7 @@
             tf_stock ts left outer join tf_product tp
         on ts.TF_PRD_CD = tp.TF_PRD_CD
         where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
-        <foreach collection="list" item="item" open="AND (true"  close=")">
+        <foreach collection="list" item="item">
             ${item}
         </foreach>
         <if test="BRAND_KIND_CD != null">
@@ -53,7 +53,7 @@
         tf_stock ts left outer join tf_product tp
         on ts.TF_PRD_CD = tp.TF_PRD_CD
         where ts.RFID_STOCK_CNT > 0
-        <foreach collection="list" item="item" open="AND (true"  close=")">
+        <foreach collection="list" item="item">
             ${item}
         </foreach>
         <if test="BRAND_KIND_CD != null">

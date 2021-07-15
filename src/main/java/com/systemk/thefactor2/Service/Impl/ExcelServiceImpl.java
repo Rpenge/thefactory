@@ -11,7 +11,6 @@ import com.systemk.thefactor2.Util.StringUtil;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -37,6 +36,9 @@ public class ExcelServiceImpl implements ExcelService {
     private BrandService brandService;
 
     @Autowired
+    private TfAcStockMapper tfAcStockMapper;
+
+    @Autowired
     private TfStockMapper tfStockMapper;
 
     @Autowired
@@ -44,6 +46,10 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     private TfBrandMapper tfBrandMapper;
+
+    @Autowired
+    private TfInoutTotalMapper tfInoutTotalMapper;
+
 
     @Transactional(rollbackFor=Exception.class)
     @Override
@@ -72,16 +78,6 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 continue;
             }
-
-
-            System.out.print(row.getCell(1).toString());  //자체상품코드
-            System.out.print(row.getCell(2).toString());  //상품명
-            System.out.print(row.getCell(3).toString());  //단품 : 사이즈
-            System.out.print(row.getCell(5).toString()+" ");  //바코드
-            System.out.print(row.getCell(7).toString()+" ");  //현재재고
-            System.out.print(row.getCell(8).toString()+" ");  //실재재고
-            System.out.print(row.getCell(9).toString()+" ");  //적정재고
-            System.out.println(row.getCell(13).toString()+" ");  //지점
 
             Map map = new HashMap();
 
@@ -165,7 +161,6 @@ public class ExcelServiceImpl implements ExcelService {
         XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
         XSSFSheet sheet = workbook.getSheetAt(0);
 
-        Map cdMap = commService.nmToCdKV();
         String brandCd = "";
         String genderCd = "";
         for(int i=0; i<sheet.getLastRowNum() + 1; i++) {
@@ -210,9 +205,6 @@ public class ExcelServiceImpl implements ExcelService {
         return ResultUtil.setCommonResult("S","성공하였습니다");
     }
 
-
-    @Autowired
-    private TfInoutTotalMapper tfInoutTotalMapper;
 
     @Transactional(rollbackFor=Exception.class)
     @Override
@@ -295,8 +287,7 @@ public class ExcelServiceImpl implements ExcelService {
         }
     }
 
-    @Autowired
-    private TfAcStockMapper tfAcStockMapper;
+
 
     @Transactional(rollbackFor=Exception.class)
     @Override
@@ -437,5 +428,4 @@ public class ExcelServiceImpl implements ExcelService {
             }
         }
     }
-
 }

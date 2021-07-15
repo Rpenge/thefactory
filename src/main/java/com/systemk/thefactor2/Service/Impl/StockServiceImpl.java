@@ -40,17 +40,23 @@ public class StockServiceImpl implements StockService {
 	public Map<String, Object> findList(Map param) throws Exception {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
+		if (param.get("word")!=null) {
+//			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
+			List<String> columnList = new ArrayList<>();
+			columnList.add("TF_PRD_NM");
+			columnList.add("TF_PRD_CD");
+			columnList.add("TF_PRD_BARCODE");
+			mu.addWord(columnList, (String)param.get("word"));
+		}
 		if(param.get("STORE_CD")!=null){
 			mu.addEqual("STOCK_STORE_CD", (String)param.get("STORE_CD"));
 		}
 		if(param.get("PRD_SIZE")!=null){
 			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
 		}
-		if (param.get("word")!=null) {
-			mu.addLike("TF_PRD_NM", (String)param.get("word"));
-			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
-			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
-		}
+
 
 		mu.setTotalElements(pageMapper.pageRecord(mu.getTableSearch())); // 수량조회
 		if(param.get("page")!=null)
@@ -81,6 +87,17 @@ public class StockServiceImpl implements StockService {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
 
+		if (param.get("word")!=null) {
+//			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
+			List<String> columnList = new ArrayList<>();
+			columnList.add("ts.TF_PRD_NM");
+			columnList.add("ts.TF_PRD_CD");
+			columnList.add("ts.TF_PRD_BARCODE");
+			mu.addWord(columnList, (String)param.get("word"));
+		}
+
 		if(param.get("BRAND_KIND_CD")!=null){
 			mu.addStr("BRAND_KIND_CD", (String)param.get("BRAND_KIND_CD"));
 		}
@@ -90,12 +107,6 @@ public class StockServiceImpl implements StockService {
 		}
 		if(param.get("PRD_SIZE")!=null){
 			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
-		}
-
-		if (param.get("word")!=null) {
-			mu.addLike("TF_PRD_NM", (String)param.get("word"));
-			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
-			mu.addORLike("TF_PRD_BARCODE", (String)param.get("word"));
 		}
 
 		mu.setTotalElements(pageMapper.stkExPageRecord(mu.getTableSearch())); // 수량조회
@@ -127,6 +138,17 @@ public class StockServiceImpl implements StockService {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_STOCK");
 
+		if (param.get("word")!=null) {
+//			mu.addLike("ts.TF_PRD_NM", (String)param.get("word"));
+//			mu.addORLike("ts.TF_PRD_CD", (String)param.get("word"));
+//			mu.addORLike("ts.TF_PRD_BARCODE", (String)param.get("word"));
+			List<String> columnList = new ArrayList<>();
+			columnList.add("ts.TF_PRD_NM");
+			columnList.add("ts.TF_PRD_CD");
+			columnList.add("ts.TF_PRD_BARCODE");
+			mu.addWord(columnList, (String)param.get("word"));
+		}
+
 		if(param.get("BRAND_KIND_CD")!=null){
 			mu.addStr("BRAND_KIND_CD", (String)param.get("BRAND_KIND_CD"));
 		}
@@ -135,12 +157,6 @@ public class StockServiceImpl implements StockService {
 		}
 		if(param.get("PRD_SIZE")!=null){
 			mu.addEqual("PRD_SIZE", (String)param.get("PRD_SIZE"));
-		}
-
-		if (param.get("word")!=null) {
-			mu.addLike("ts.TF_PRD_NM", (String)param.get("word"));
-			mu.addORLike("ts.TF_PRD_CD", (String)param.get("word"));
-			mu.addORLike("ts.TF_PRD_BARCODE", (String)param.get("word"));
 		}
 
 		mu.setTotalElements(pageMapper.stkRfidPageRecord(mu.getTableSearch())); // 수량조회

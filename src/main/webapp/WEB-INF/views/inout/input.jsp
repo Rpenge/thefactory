@@ -88,22 +88,22 @@
 				<div class="table-box">
 					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width: 1450px;">
 						<thead>
-						<tr class="pointer" >
-							<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
-							<th ng-click="sort('stInSeq')" id="stInSeq" style="width:60px;">순번</th>
-							<th ng-click="sort('stInDate')" id="stInDate">입고일자</th>
-							<th style="width:80px;">입고매장</th>
-							<th style="width:80px;">입고유형</th>
-							<th style="width:130px;">브랜드</th>
-							<th style="width:80px;">성별</th>
-							<th style="width:85px;">상품분류</th>
-							<th style="width:80px;">사이즈</th>
-							<th style="width:210px;">자체상품코드</th>
-							<th>바코드</th>
-							<th>태그ID</th>
-							<th>등록일시</th>
-							<th>등록자</th>
-						</tr>
+							<tr>
+								<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInSeq')"></th>
+								<th ng-click="sort('stInSeq')" id="stInSeq" style="width:60px;">순번</th>
+								<th ng-click="sort('stInDate')" id="stInDate">입고일자</th>
+								<th style="width:80px;">입고매장</th>
+								<th style="width:80px;">입고유형</th>
+								<th style="width:130px;">브랜드</th>
+								<th style="width:80px;">성별</th>
+								<th style="width:85px;">상품분류</th>
+								<th style="width:80px;">사이즈</th>
+								<th style="width:210px;">자체상품코드</th>
+								<th>바코드</th>
+								<th>태그ID</th>
+								<th>등록일시</th>
+								<th>등록자</th>
+							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">

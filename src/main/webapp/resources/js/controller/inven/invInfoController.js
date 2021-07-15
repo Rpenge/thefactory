@@ -11,6 +11,7 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 			$scope.search = {};
 			$scope.search['invYn'] = 'N';
 			$scope.search.stInvSeq = $location.$$search.seq;
+			$rootScope.quick4 = false;
 			// if($rootScope.quickSearchWord.word != undefined){
 			// 	$scope.search['word'] = $rootScope.quickSearchWord.word;
 			// }

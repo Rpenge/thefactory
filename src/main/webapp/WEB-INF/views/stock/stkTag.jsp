@@ -123,17 +123,17 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="value in list" style="cursor:pointer">
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.AC_STOCK_SEQ}}</td>		<!--NO-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.STORE_CD | code:store}}</td>		<!--매장명-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_TAGID }}</td>				<!--태그ID-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="text-overflow:ellipsis;padding:5px;font-size: 12px;text-align: left;">{{value.TF_PRD_NM}}</td>		<!--품목명-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 60px;" >{{value.ST_IN_TYPE | code:commCode}}</td><!--입고유형-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_CD}}</td>					<!--자체상품코드-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.PRD_SIZE}}</td>						<!--size-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_BARCODE}}</td>				<!--바코드-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.REAL_STOCK_CNT}}</td>				<!--EC수량-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.RFID_STOCK_CNT}}</td>	<!--rfid수량-->
-								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.REG_DATE | date:'yyyy-MM-dd HH:mm'}}</td><!--입고일-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))" style="height: 60px;">{{value.AC_STOCK_SEQ}}</td>								<!--NO-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.STORE_CD | code:store}}</td>						<!--매장명-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_TAGID }}</td>								<!--태그ID-->
+								<td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_NM}}</td>			<!--품목명-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.ST_IN_TYPE | code:commCode}}</td>				<!--입고유형-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_CD}}</td>									<!--자체상품코드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.PRD_SIZE}}</td>									<!--size-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.TF_PRD_BARCODE}}</td>							<!--바코드-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.REAL_STOCK_CNT}}</td>							<!--EC수량-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.RFID_STOCK_CNT}}</td>							<!--rfid수량-->
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.REG_DATE | date:'yyyy-MM-dd HH:mm'}}</td>		<!--입고일-->
 							</tr>
 						</tbody>
 					</table>

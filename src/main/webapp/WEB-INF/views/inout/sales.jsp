@@ -92,42 +92,42 @@
 
 					<table id="inputTable" class="table custom-table-1 table-hover text-center table table-striped-odd custom-align-middle" style="width:100%;min-width:1450px;">
 						<thead>
-						<tr class="pointer">
-							<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stOutSeq')"></th>
-							<th style="width:75px;">순번</th>
-							<th style="width:90px;">판매일자</th>
-							<th style="width:90px;">판매매장</th>
-							<th style="width:90px;">판매유형</th>
-							<th style="width:130px;">브랜드</th>
-							<th style="width:90px;">성별</th>
-							<th style="width:90px;">상품분류</th>
-							<th style="width:80px;">사이즈</th>
-							<th style="width:200px;">자체상품코드</th>
-							<th style="width:110px;">바코드</th>
-							<th style="width:110px;">태그ID</th>
-							<th style="width:100px;">등록일시</th>
-							<th>등록자</th>
-							<th style="width:80px;">비고</th>
-						</tr>
+							<tr>
+								<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stOutSeq')"></th>
+								<th style="width:75px;">순번</th>
+								<th style="width:90px;">판매일자</th>
+								<th style="width:90px;">판매매장</th>
+								<th style="width:90px;">판매유형</th>
+								<th style="width:130px;">브랜드</th>
+								<th style="width:90px;">성별</th>
+								<th style="width:90px;">상품분류</th>
+								<th style="width:80px;">사이즈</th>
+								<th style="width:200px;">자체상품코드</th>
+								<th style="width:110px;">바코드</th>
+								<th style="width:110px;">태그ID</th>
+								<th style="width:100px;">등록일시</th>
+								<th>등록자</th>
+								<th style="width:80px;">비고</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
-							<td style="padding-top:13px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stOutSeq}})" ></td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutSeq}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutDate}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.outStoreNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutType | code: workS}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.clsNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutComment}}</td>
-						</tr>
+							<tr ng-repeat="value in list" class="pointer" ng-init="value.isSelected = false;">
+								<td style="padding-top:13px;"><input type="checkbox" ng-model="value.isSelected" ng-change="checkBox(!{{value.isSelected}}, {{value.stOutSeq}})" ></td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutSeq}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutDate}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.outStoreNm}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutType | code: workS}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.brandNm}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.genderNm}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.clsNm}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stOutComment}}</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

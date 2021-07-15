@@ -4,11 +4,10 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 		menuCheck($rootScope, $location);
 		pageInfo($rootScope, $location);
 		var expansion = false;
+		$scope.search = {};
 
-		// httpGetList($http, $scope,'/stock/stockList' );
-
-		if($rootScope.searchMove == 1){	//페이지 이동후 검색
-			$scope.search = {};
+		// searchMove = 1: 페이지 이동후 검색, 2: 단어 검색, 그 외: 일반 페이지 이동 조회
+		if($rootScope.searchMove == 1){
 			if($rootScope.quickSearch.brand){
 				$scope.search['BRAND_KIND_CD'] = $rootScope.quickSearch.brand.substr(0,2);
 			}
@@ -22,8 +21,10 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			$scope.search['STORE_CD'] = $rootScope.quickSearch.storeCd;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param );
-		}else if($rootScope.searchMove == 2) { //단어 검색
-			$scope.search = $rootScope.quickSearchWord;
+		}else if($rootScope.searchMove == 2) {
+			// $scope.search = $rootScope.quickSearchWord;
+			$scope.search['word'] = $rootScope.quickSearchWord.word;
+			$scope.search['STORE_CD'] = $rootScope.quickSearch.storeCd;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param )
 		}else{

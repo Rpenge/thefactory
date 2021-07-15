@@ -80,7 +80,7 @@
 								<td style="height: 45px;">{{value.ST_DATE}}</td>
 								<td>{{value.STORE_CD | code:store}}</td>
 								<td>{{value.ST_TYPE | code:workS}}</td>
-								<td>{{value.TF_PRD_NM}}</td>
+								<td class='table-text-left' style="padding: 5px;font-size: 13px;">{{value.TF_PRD_NM}}</td>
 								<td>{{value.BARCODE}}</td>
 								<td>{{value.cnt}}</td>
 							</tr>
@@ -126,39 +126,8 @@
 							<option value="100">100개씩 보기</option>
 							<option value="500">500개씩 보기</option>
 						</select>
-
 						<h6 class="align-self-center">TOTAL ( {{paging.total}} )</h6>
 					</div>
-
-<%--					<div class="d-flex" ng-if="hiddenFunction == true">--%>
-<%--						<div class="row input-group" style="width:180px;margin: 0 5px;">--%>
-<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.startDate" is-open="st_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="true"/>--%>
-<%--							<span class="input-group-append" >--%>
-<%--								<button type="button" class="btn btn-secondary" ng-click="st_sdt = st_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
-<%--							</span>--%>
-<%--						</div>--%>
-<%--						<p style="margin:7px 6px;">~</p>--%>
-<%--						<div class="row input-group" style="width:180px;margin:0 5px;">--%>
-<%--							<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="excelFormDate.endDate" is-open="st_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="true"/>--%>
-<%--							<span class="input-group-append" >--%>
-<%--								<button type="button" class="btn btn-secondary" ng-click="st_edt = st_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
-<%--							</span>--%>
-<%--						</div>--%>
-<%--						--%>
-<%--						<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin-right: 10px;">--%>
-<%--							<option value="">매장</option>--%>
-<%--							<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>--%>
-<%--						</select>--%>
-
-<%--						<select class="custom-select" ng-model="excelForm.stType" ng-init="excelForm.stType=''" style="width:150px;margin-right: 10px;">--%>
-<%--							<option value="">입출고전체</option>--%>
-<%--							<option value="0601">입고</option>--%>
-<%--							<option value="0602">출고</option>--%>
-<%--							<option value="0603">판매/배송</option>--%>
-<%--						</select>--%>
-
-<%--						<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>--%>
-<%--					</div>--%>
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box">
@@ -189,7 +158,7 @@
 						<tbody>
 							<tr ng-repeat="(key, value) in list"  class="pointer">
 								<td>{{value.inOutDate}}</td>
-								<td ng-click="addTabsOn(value)" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
 								<td ng-click="addTabsOn(value, 'in')">{{value.inNewcnt}}</td>
 								<td ng-click="addTabsOn(value, 'in')">{{value.inMovcnt}}</td>
 								<td ng-click="addTabsOn(value, 'in')">{{value.inIncnt}}</td>

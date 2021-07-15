@@ -489,7 +489,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("prdCd", 	mapData.get("TF_PRD_CD"));
 			map.put("size", 	mapData.get("PRD_SIZE"));
 			map.put("tagId", 	param.get("tagId"));
-			if(param.get("state").equals("060202")) {
+			if(param.get("state").equals("060202") && param.get("storeCd") != null) {
 				map.put("inStoreCd", param.get("storeCd"));
 				map.put("inStoreNm", commService.codeToNm((String)param.get("storeCd")));
 			}

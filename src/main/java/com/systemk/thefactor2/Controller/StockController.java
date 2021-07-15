@@ -28,13 +28,14 @@ public class StockController {
 	//재고현황 - 재고현황관리 :  리스트조회
 	@RequestMapping(value="/stockList", method = RequestMethod.GET)
 	public Map<String, Object> stockList(HttpServletRequest request) throws Exception{
+
 		Map<String, Object> map = new HashMap<>();
 		Map param = RequestUtil.reqParamToMap(request);
 		if(param.get("ex")!=null && param.get("ex").equals("dis")){				//수량차이 발생한 데이터 조회
 			map = stockService.findExList(param);
 		}else if(param.get("ex")!=null && param.get("ex").equals("rfid")){		//RFID 재고 보유한 데이터 조회
 			map = stockService.findRfidList(param);
-		}else if(param.get("BRAND_KIND_CD")!=null){		//일반조회(속도 향상을 위해 브랜드 검색 나눔)
+		}else if(param.get("BRAND_KIND_CD")!=null){		//일반조회(검색속도 향상을 위해 브랜드검색 분리)
 			map = stockService.findListSearch(param);
 		}else{											//일반조회
 			map = stockService.findList(param);

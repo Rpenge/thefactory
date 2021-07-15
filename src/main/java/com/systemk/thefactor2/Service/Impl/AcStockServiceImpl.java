@@ -61,15 +61,16 @@ public class AcStockServiceImpl implements AcStockService {
 		mu.setTable("TF_AC_STOCK");
 
 		for(Object key : param.keySet()) {    //분류 처리
-			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page")){
+			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page")|| key.equals("STORE_CD")){
 				continue;
 			}
-
 			if (key.equals("word")) {
-//				mu.addLike("TF_PRD_NM", (String)param.get(key));
-//				mu.addORLike("TF_PRD_CD", (String)param.get(key));
-				mu.addLike("TF_PRD_BARCODE", (String)param.get(key));
-				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
+//				mu.addLike("TF_PRD_BARCODE", (String)param.get(key));
+//				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
+				List<String> columnList = new ArrayList<>();
+				columnList.add("TF_PRD_BARCODE");
+				columnList.add("TF_PRD_TAGID");
+				mu.addWord(columnList, (String)param.get(key));
 				break;
 			}
 			if (key.equals("PRD_SIZE")) {
@@ -81,6 +82,9 @@ public class AcStockServiceImpl implements AcStockService {
 			}
 		}
 
+		if(param.get("STORE_CD")!= null){
+			mu.addEqual("STORE_CD",(String)param.get("STORE_CD"));
+		}
 		if(param.get("startDate")!= null && param.get("endDate")!= null){
 			mu.addBetween("ST_IN_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
 		}

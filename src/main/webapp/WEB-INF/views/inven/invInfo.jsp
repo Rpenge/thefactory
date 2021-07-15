@@ -52,14 +52,14 @@
 						<tr>
 							<th>자체상품명</th>
 							<td colspan="3"><input type="text" class="form-control" ng-model="form.tfPrdNm" disabled></td>
-							<th style="height:40px">처리작업</th>
+							<th style="background: lightslategray;color: white;border-radius:3px;">처리작업</th>
 							<td>
 								<select class="form-control" ng-model="form.misWork" ng-disabled="form.invYn=='Y'">
 									<option value="">실사확정</option>
 									<option ng-repeat="value in commCode" ng-if="value.codeLevel=='S'&&(value.commCd.indexOf('0602')==0 || value.commCd.indexOf('0603')==0)" value="{{value.commCd}}">{{value.commCdNm}}</option>
 								</select>
 							</td>
-							<th>처리내용</th>
+							<th style="background: lightslategray;color: white;border-radius:3px;">처리내용</th>
 							<td><input type="text" class="form-control" ng-model="form.invComment" ng-disabled="form.invYn=='Y'"></td>
 						</tr>
 					</table>
@@ -104,39 +104,39 @@
 				<div class="table-box">
 					<table id="deviceList" class="table custom-table-1 table-hover text-center custom-align-middle table table-striped-odd" style="min-width:1100px;">
 						<thead>
-						<tr class="pointer">
-							<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInvenSeq')"></th>
-							<th style="width:100px;">실사일자</th>
-							<th style="width:90px;">매장</th>
-							<th  style="width:110px;">바코드</th>
-							<th style="width:90px;">사이즈</th>
-							<th style="width:270px;">자체상품명</th>
-							<th style="width:110px;">자체상품코드</th>
-							<th style="width:130px;">태그ID</th>
-							<th style="width:110px;">등록일시</th>
-							<th style="width:100px;">처리작업</th>
-							<th style="width:100px;">처리내용</th>
-							<th style="width:90px;">확정여부</th>
-						</tr>
+							<tr>
+								<th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'stInvenSeq')"></th>
+								<th style="width:100px;">실사일자</th>
+								<th style="width:100px;">매장</th>
+								<th style="width:120px;">바코드</th>
+								<th style="width:90px;">사이즈</th>
+								<th style="width:300px;">자체상품명</th>
+								<th style="width:160px;">자체상품코드</th>
+								<th style="width:130px;">태그ID</th>
+								<th style="width:140px;">등록일시</th>
+								<th style="width:100px;">처리작업</th>
+								<th style="width:100px;">처리내용</th>
+								<th>확정여부</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="(key, value) in list" class="pointer" ng-init="value.isSelected = false;">
-							<td style="padding:13px;"><input type="checkbox" ng-model="value.isSelected" ng-class="{'check-disabled' : value.invYn=='Y'}" ng-change="checkBox(!{{value.isSelected}}, {{value.stInvenSeq}})" ></td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInvDate}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.invStoreCd | code:store}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.misWork | code: commCode}}</td>
-							<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.invComment}}</td>
-							<td>
-								<i class="xi-check" ng-if="value.invYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>
-								<i class="xi-close" ng-if="value.invYn=='N'" style="color:red;font-weight: bolder;"></i>
-							</td>
-						</tr>
+							<tr ng-repeat="(key, value) in list" class="pointer" ng-init="value.isSelected = false;">
+								<td style="padding:13px;"><input type="checkbox" ng-model="value.isSelected" ng-class="{'check-disabled' : value.invYn=='Y'}" ng-change="checkBox(!{{value.isSelected}}, {{value.stInvenSeq}})" ></td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.stInvDate}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.invStoreCd | code:store}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td>
+								<td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
+								<td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.misWork | code: commCode}}</td>
+								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.invComment}}</td>
+								<td>
+									<i class="xi-check" ng-if="value.invYn=='Y'" style="color:limegreen;font-weight: bolder;"></i>
+									<i class="xi-close" ng-if="value.invYn=='N'" style="color:red;font-weight: bolder;"></i>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

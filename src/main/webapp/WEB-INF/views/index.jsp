@@ -243,7 +243,7 @@
 			</div>
 
 			<!--상단 검색 보드-->
-			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;min-height: 150px;padding:5px 0 5px 0;">
+			<div class="d-flex container-fluid body-custom flex-column" style="width:100%;padding:5px 0 5px 0;">
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;margin-bottom: 4px;background:#FAFAFA;padding-bottom: 3px;padding-left:2%;">
 					<span style="font-size:19px;margin: 12px 13px 0 0;">Quick Search</span>
 
