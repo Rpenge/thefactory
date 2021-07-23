@@ -47,9 +47,7 @@ public class UserController {
 
 	@RequestMapping("/userAuth")
 	public Map user(@AuthenticationPrincipal LoginUser user, HttpServletRequest request) throws Exception {
-		if(request.getHeader("auto")!= null){
-			userService.autoLoginUpdate(user.getUserId(), request.getHeader("auto"));
-		}
+
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(60*60*24*7);
 		HashMap resultMap = new HashMap<>();

@@ -129,25 +129,4 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 
-
-	@Override
-	public Map<String, Object> autoLoginUpdate(String userId, String status) throws Exception {
-		HashMap item = new HashMap();
-		item.put("userId", userId);
-		TfUserVO user = tfUserMapper.login(item);
-//		Map map = new HashMap();
-		Random random = new Random();
-//		param.put("userPwd", passwordEncoder.encode((String) param.get("userPwd")));
-		int autoPwd = random.nextInt();
-
-		user.setAutoPwdYn(status);
-		user.setAutoPwd(passwordEncoder.encode(Integer.toString(autoPwd)));
-
-
-		return null;
-
-	}
-
-
-
 }

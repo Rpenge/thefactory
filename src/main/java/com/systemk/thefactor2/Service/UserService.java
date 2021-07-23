@@ -18,6 +18,4 @@ public interface UserService {
 
     public Map<String, Object> userWd(List param) throws Exception;
 
-    public Map<String, Object> autoLoginUpdate(String param, String status) throws Exception;
-
 }

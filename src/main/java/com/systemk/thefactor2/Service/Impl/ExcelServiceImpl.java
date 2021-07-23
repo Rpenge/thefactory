@@ -1,6 +1,5 @@
 package com.systemk.thefactor2.Service.Impl;
 
-
 import com.systemk.thefactor2.Config.ConstansConfig;
 import com.systemk.thefactor2.Mapper.*;
 import com.systemk.thefactor2.Service.BrandService;
@@ -109,7 +108,6 @@ public class ExcelServiceImpl implements ExcelService {
         XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
         XSSFSheet sheet = workbook.getSheetAt(0);
 
-        Map cdMap = commService.nmToCdKV();
         for(int i=0; i<sheet.getLastRowNum() + 1; i++) {
             XSSFRow row = sheet.getRow(i);
             if(i==0) {
@@ -218,7 +216,7 @@ public class ExcelServiceImpl implements ExcelService {
         font.setBold(true);
         style.setFont(font);
 
-        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        List<LinkedHashMap<String, Object>> list = new ArrayList<LinkedHashMap<String, Object>>();
         XSSFRow row = null;
         XSSFCell cell = null;
 
@@ -301,7 +299,7 @@ public class ExcelServiceImpl implements ExcelService {
         font.setBold(true);
         style.setFont(font);
 
-        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        List<LinkedHashMap<String, Object>> list = new ArrayList<LinkedHashMap<String, Object>>();
         XSSFRow row = null;
         XSSFCell cell = null;
 
@@ -366,19 +364,16 @@ public class ExcelServiceImpl implements ExcelService {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
         CellStyle style = workbook.createCellStyle();
-        XSSFFont font = workbook.createFont();
 
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setFillForegroundColor(HSSFColor.PALE_BLUE.index);
         style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
-        List<LinkedHashMap<String, Object>> list = new ArrayList<>();
+        List<LinkedHashMap<String, Object>> list = new ArrayList<LinkedHashMap<String, Object>>();
         XSSFRow row = null;
         XSSFCell cell = null;
 
         list = tfStockMapper.stockExcel(map);
-
-        Map commMap = commService.codeToNmKV();
 
         sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 14));
 
@@ -390,7 +385,7 @@ public class ExcelServiceImpl implements ExcelService {
                 if(i == 0) {
                     cell = topRow.createCell(j);
                     cell.setCellStyle(style);
-                    cell.setCellValue(key);
+                    cell.setCellValue((String)key);
                 }else if(i==1){
                     sheet.autoSizeColumn(j);
                     sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 800 );
