@@ -27,14 +27,12 @@ public class MybatisUtil {
     public MybatisUtil() {
         this.tableSearch = new HashMap();
         this.search = new ArrayList();
-//        this.sort = new ArrayList();
 
         this.page = 0;
         this.size = 10;
         this.start = 0;
 
         this.tableSearch.put("list", search);
-//        this.tableSearch.put("sort", sort);
         this.tableSearch.put("start", start);
         this.tableSearch.put("size", size);
 
@@ -113,7 +111,6 @@ public class MybatisUtil {
         this.page = search.get("page") == null ? 0 : Integer.parseInt(search.get("page"));  //
         this.size = search.get("size") == null ? 10 : Integer.parseInt(search.get("size"));
         this.start = size * page;
-//        setLimit.start , size);
     }
 
     public void setSize(int size){

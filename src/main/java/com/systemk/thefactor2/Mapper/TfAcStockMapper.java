@@ -18,7 +18,7 @@ public interface TfAcStockMapper {
 
     List<String> findTagId(String tagId);
 
-    List<Map> findAcStock(String storeCd);
+    List<Map> findAcStock(Map item);
 
     List<Map> acStockList(Map item);
 

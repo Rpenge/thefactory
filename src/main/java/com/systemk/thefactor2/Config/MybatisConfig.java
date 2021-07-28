@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 public class MybatisConfig {
 
     @Bean
-    public SqlSessionFactory sqlSessionFactoryBean(@Qualifier("my") DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactoryBean(@Qualifier("maria") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         /* 맵퍼 xml 파일 경로 설정 */

@@ -37,19 +37,19 @@ public class CustomUserDetailService implements UserDetailsService {
 			throw new BadCredentialsException("3001");
 		}
 
-		List<GrantedAuthority> authorities = buildUserAuthority(user);
+//		List<GrantedAuthority> authorities = buildUserAuthority(user);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
 		return buildUserForAuthentication(user, authorities);
 	}
 
-	private User buildUserForAuthentication(TfUserVO user,
-		List<GrantedAuthority> authorities) {
+	private User buildUserForAuthentication(TfUserVO user, List<GrantedAuthority> authorities) {
 		return new LoginUser(user.getUserId(), user.getUserPwd(), true, true, true, true, authorities, user);
 	}
 
 
-	private List<GrantedAuthority> buildUserAuthority(TfUserVO user) {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
-		return authorities;
-	}
+//	private List<GrantedAuthority> buildUserAuthority(TfUserVO user) {
+//		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
+//		return authorities;
+//	}
 
 }

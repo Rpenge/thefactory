@@ -14,10 +14,30 @@
 				<div class="d-flex">
 					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 보유재고 내역 다운로드</span>
 
-					<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin: 0 15px;">
+					<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin: 0 10px;">
 						<option value="">매장</option>
 						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
 					</select>
+
+					<input class="form-control" id="brandSearch" style="width:220px;margin: 0 10px;height: 40px;"  placeholder="브랜드" ng-model="eView.brand" ng-click="xs = xs==true ? false : true"  readonly>
+					<label class="d-flex justify-content-between" style="position:relative;left:-40px;top:5px;width:0px;" >
+						<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-down" ng-show="!xs"></i>
+						<i style="margin: 10px;font-size: 11px;font-weight: bolder;" class="xi-angle-up" ng-show="xs"></i>
+					</label>
+					<div style="width:100%;min-height:150px;background:ghostwhite;position:absolute;margin-top:65px;left:0px;z-index: 3;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="xs">
+						<div onclick="tableTdDel('eBrandTb')" ng-click="xs=false;excelBrand()" style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;">X</div>
+						<table id="eBrandTb" ng-click="xs=false" style="width:98%;vertical-align: top;">
+							<tr ng-repeat="(key, value) in brandList" ng-if="key % 7 == 0">
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key])">{{brandList[key].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+1])" ng-if="brandList[key+1]">{{brandList[key+1].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+2])" ng-if="brandList[key+2]">{{brandList[key+2].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+3])" ng-if="brandList[key+3]">{{brandList[key+3].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+4])" ng-if="brandList[key+4]">{{brandList[key+4].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+5])" ng-if="brandList[key+5]">{{brandList[key+5].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="excelBrand(brandList[key+6])" ng-if="brandList[key+6]">{{brandList[key+6].brandNm}} </td>
+							</tr>
+						</table>
+					</div>
 
 					<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>
 				</div>
@@ -73,10 +93,12 @@
 							<th>등록자</th>
 							<td><input type="text" class="form-control" ng-model="inView.REG_ID" disabled></td>
 							<th style="background: lightslategray;color: white;border-radius:3px;">출고/판매유형</th>
-							<td><select class="form-control" ng-model="form.stOutType" ng-required="true">
-								<option value="">출고/판매유형</option>
-								<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0602' || value.commCd.substr(0,4)=='0603'" value="{{value.commCd}}">{{value.commCdNm}}</option>
-							</select></td>
+							<td>
+								<select class="form-control" ng-model="form.stOutType" ng-required="true">
+									<option value="">출고/판매유형</option>
+									<option ng-repeat="value in workS" ng-if="value.commCd.substr(0,4)=='0602' || value.commCd.substr(0,4)=='0603'" value="{{value.commCd}}">{{value.commCdNm}}</option>
+								</select>
+							</td>
 							<th style="background: lightslategray;color: white;border-radius:3px;">출고사유</th>
 							<td><input type="text" class="form-control" ng-model="form.comment" ></td>
 						</tr>

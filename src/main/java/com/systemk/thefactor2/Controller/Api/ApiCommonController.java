@@ -24,7 +24,7 @@ public class ApiCommonController {
     @Autowired
     private ApiService apiService;
 
-    // id,비밀번호, 버전,
+    // id, 비밀번호, 버전 확인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map<String, Object> MemberLogin(@RequestHeader("type") String deviceGub,
                                                HttpServletRequest request,
@@ -151,6 +151,13 @@ public class ApiCommonController {
     public Map<String, Object> code(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
         return apiService.commonCd(param);
+    }
+
+    //공통코드 - 공통코드 전송
+    @RequestMapping(value = "/code/brand", method = RequestMethod.GET)
+    public Map<String, Object> brand(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        return apiService.brandCd(param);
     }
 
 

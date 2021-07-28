@@ -958,15 +958,19 @@ a.nav-link{
 }
 
 .select-table-pointer{
+	font-size: 14px;
 	width:6%;
-	padding: 5px;
+	padding: 5px 15px;
 	cursor: pointer;
-	border-radius: 2px;
-	-ms-user-select: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	user-select:none;
+	border-radius: 4px;
 }
+
+.select-table-pointer:hover{
+	color: white;
+	background-color: lightsteelblue;
+	opacity: 70%;
+}
+
 .absolute-center {
 	position: absolute;
 	top: 50%;

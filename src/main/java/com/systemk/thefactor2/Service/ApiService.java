@@ -43,4 +43,6 @@ public interface ApiService {
 
     public Map<String, Object> commonCd(Map param) throws Exception;
 
+    public Map<String, Object> brandCd(Map param) throws Exception;
+
 }

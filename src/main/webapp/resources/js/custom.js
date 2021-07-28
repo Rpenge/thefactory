@@ -524,15 +524,15 @@ function tableTrDel(tableId){
 }
 
 function tableTdDel(tableId){
-	$("#"+tableId).children().children().children().css('background', 'white');
-	$("#"+tableId).children().children().children().css('color', 'black');
+	$("#"+tableId).children().children().children().css('background', '');
+	$("#"+tableId).children().children().children().css('color', '');
 }
 
 function selectTd(td){
 	var table = td.parent().parent();
-	table.children().children().css('background', 'white');
-	table.children().children().css('color', 'black');
-	td.css('background', 'gray');
+	table.children().children().css('background', '');
+	table.children().children().css('color', '');
+	td.css('background', 'lightsteelblue');
 	td.css('color', 'white');
 }
 

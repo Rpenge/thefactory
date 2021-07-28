@@ -123,4 +123,15 @@ app.controller('stkTagController', ['$scope', '$http', '$location', '$rootScope'
 			});
 		}
 
+		$scope.eView = {};
+		$scope.excelBrand = function(data){
+			if(!data){
+				$scope.excelForm.brandCd = null;
+				$scope.eView.brand = null;
+				return;
+			}
+			$scope.excelForm.brandCd = data.brandKindCd.substr(0,2);
+			$scope.eView.brand = data.brandNm;
+		}
+
 }]);

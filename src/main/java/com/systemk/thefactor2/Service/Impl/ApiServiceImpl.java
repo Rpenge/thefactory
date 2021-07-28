@@ -506,7 +506,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public Map<String, Object> findAcStkList(Map param) throws Exception {
-		List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd"));
+		List<Map> acList = tfAcStockMapper.findAcStock(param);
 		Map brandMap = brandService.brandMap();
 
 		Map resultMap = new HashMap();
@@ -547,7 +547,7 @@ public class ApiServiceImpl implements ApiService {
 		int stInvCnt = 0;
 
 		if(vo == null){
-			List<Map> acList = tfAcStockMapper.findAcStock((String)param.get("storeCd")); // 선택 매장의 실재고 데이터
+			List<Map> acList = tfAcStockMapper.findAcStock(param); // 선택 매장의 실재고 데이터
 			param.put("stTarCnt", acList.size());
 			vo = tfInvStatusMapper.createInvStatus(param); //재고실사 시작시 신규현황을 생성하고 키값 리턴
 
@@ -654,11 +654,28 @@ public class ApiServiceImpl implements ApiService {
 		List<Map> listMap = new ArrayList<Map>();
 		for(TfCommCodeVO vo : voList){
 			Map map = new HashMap();
-			map.put("commCd", vo.getCommCdNm());
-			map.put("commCdNm", vo.getCommCd());
+			map.put("commCd", vo.getCommCd());
+			map.put("commCdNm", vo.getCommCdNm());
 			listMap.add(map);
 		}
 
 		return ResultUtil.setCommonResult("S","성공하였습니다", listMap);
+	}
+
+	@Override
+	public Map<String, Object> brandCd(Map param) throws Exception {
+
+		List<Map> brandList = new ArrayList<Map>();
+		Map brandMap = brandService.brandMap();
+
+		for ( Object key : brandMap.keySet()) {
+			Map map = new HashMap();
+			map.put("commCd", key);
+			map.put("commCdNm", brandMap.get(key));
+			brandList.add(map);
+		}
+
+
+		return ResultUtil.setCommonResult("S","성공하였습니다", brandList);
 	}
 }

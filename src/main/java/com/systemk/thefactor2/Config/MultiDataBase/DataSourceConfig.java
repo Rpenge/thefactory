@@ -17,10 +17,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource({"classpath:application.properties"})
-//@EnableJpaRepositories(
-//	basePackages = "com.systemk.ams.Repository.Main"
-//)
-public class MyDataSourceConfig {
+public class DataSourceConfig {
 
 	@Autowired
     private Environment env;
@@ -41,14 +38,15 @@ public class MyDataSourceConfig {
 //        em.setJpaPropertyMap(properties);
 //        return em;
 //    }
-    @Qualifier("my")
+
+    @Qualifier("maria")
     @Bean
-    public DataSource myDataSource() {
+    public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(env.getProperty("my.datasources.driverClassName"));
-        dataSource.setJdbcUrl(env.getProperty("my.datasources.url"));
-        dataSource.setUsername(env.getProperty("my.datasources.username"));
-        dataSource.setPassword(env.getProperty("my.datasources.password"));
+        dataSource.setDriverClassName(env.getProperty("datasources.driverClassName"));
+        dataSource.setJdbcUrl(env.getProperty("datasources.url"));
+        dataSource.setUsername(env.getProperty("datasources.username"));
+        dataSource.setPassword(env.getProperty("datasources.password"));
         dataSource.setMinimumIdle(20);
         dataSource.setMaximumPoolSize(100);
         dataSource.setIdleTimeout(25000);

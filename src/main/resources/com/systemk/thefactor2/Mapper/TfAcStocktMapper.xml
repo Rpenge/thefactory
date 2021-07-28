@@ -3,8 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfAcStockMapper">
 
-    <select id="findAcStock" resultType="java.util.Map" parameterType="String">
-        select * from tf_ac_stock tas left outer join tf_stock ts on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE and tas.STORE_CD = ts.STOCK_STORE_CD where tas.STORE_CD = #{item}
+    <select id="findAcStock" resultType="java.util.Map" parameterType="java.util.Map">
+        select *
+        from tf_ac_stock tas
+            left outer join tf_stock ts
+            on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
+            and tas.STORE_CD = ts.STOCK_STORE_CD
+        where tas.STORE_CD = #{storeCd}
+        and tas.BRAND_KIND_CD like concat(substr(#{brandCd}, 1, 2),'%')
     </select>
 
     <select id="findStockByTagId" resultType="TfAcStockVO" parameterType="java.util.Map">
@@ -56,6 +62,7 @@
     on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
         and tas.STORE_CD = ts.STOCK_STORE_CD
     where tas.STORE_CD like '%${storeCd}%'
+    and tas.BRAND_KIND_CD like '${brandCd}%'
     order by tas.AC_STOCK_SEQ desc
     </select>
 

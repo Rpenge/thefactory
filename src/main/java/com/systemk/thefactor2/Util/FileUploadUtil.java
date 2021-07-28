@@ -59,5 +59,22 @@ public class FileUploadUtil {
 		}
 	}
 
+	//폴더 없을 때 생성
+	public static void createFolder(String path){
+		File folder = new File(path);
+		if (folder.exists()) {
+			return;
+		}
+		String[] sPath = path.split("/");
+		File folder1 = new File(sPath[0]+"/"+sPath[1]);
+		if(!folder1.exists()){
+			folder1.mkdir();
+		}
+		if(sPath.length>=3) {
+			File folder2 = new File(sPath[0] + "/" + sPath[1] + "/" + sPath[2]);
+			folder2.mkdir();
+		}
+	}
+
 
 }

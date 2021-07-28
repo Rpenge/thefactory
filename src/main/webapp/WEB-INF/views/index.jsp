@@ -325,13 +325,14 @@
 					<div style="width:100%;min-height:150px;background: white;position:absolute;margin-top:65px;left:0px;z-index: 3;padding: 20px;border-radius:5px;box-shadow: 1px 1px 5px 1px lightgray;" ng-show="qs1">
 						<div onclick="tableTdDel('qBrandTb');tableTdDel('lBrandTb')" ng-click="qs1=false;brandSelect()" style="position:absolute;right:10px;top:5px;width:25px;color:gray;border:1px solid lightgray;border-radius:4px;text-align: center;cursor: pointer;">X</div>
 						<table id="qBrandTb" style="width:98%;vertical-align: top;" ng-click="qs1= false">
-							<tr ng-repeat="(key, value) in brandList" ng-if="key % 6 == 0">
+							<tr ng-repeat="(key, value) in brandList" ng-if="key % 7 == 0">
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key])">{{brandList[key].brandNm}} </td>
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+1])" ng-if="brandList[key+1]">{{brandList[key+1].brandNm}} </td>
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+2])" ng-if="brandList[key+2]">{{brandList[key+2].brandNm}} </td>
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+3])" ng-if="brandList[key+3]">{{brandList[key+3].brandNm}} </td>
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+4])" ng-if="brandList[key+4]">{{brandList[key+4].brandNm}} </td>
 								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+5])" ng-if="brandList[key+5]">{{brandList[key+5].brandNm}} </td>
+								<td class="select-table-pointer" onclick="selectTd($(this))" ng-click="brandSelect(brandList[key+6])" ng-if="brandList[key+6]">{{brandList[key+6].brandNm}} </td>
 							</tr>
 						</table>
 					</div>
@@ -349,7 +350,7 @@
 
 					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:10px 15px 10px 5px;">검색</button>
 					<div class="d-flex" style="width:335px;margin: 10px;">
-						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" style="height: 40px;border:0;border-bottom: 1px solid gray;">
+						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" ng-keypress="goSearch(quickCmd.cmd, 'word', $event)" style="height: 40px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
 							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>
@@ -375,7 +376,7 @@
 					</div>
 					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 15px 10px 5px;height: 38px;">검색</button>
 					<div class="d-flex" style="width:335px;margin: 10px;">
-						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" style="height: 35px;border:0;border-bottom: 1px solid gray;">
+						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" ng-keypress="goSearch(quickCmd.cmd, 'word', $event)" style="height: 35px;border:0;border-bottom: 1px solid gray;">
 						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
 							<i class="xi-search" style="font-size: 20px;background: white;"></i>
 						</button>

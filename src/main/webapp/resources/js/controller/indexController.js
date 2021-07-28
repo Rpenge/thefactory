@@ -12,7 +12,7 @@ app.run(function($rootScope, $http, $route, $window){
 		$rootScope.imgPath = "/resources";
 	}
 
-	//재고현황관리 - 실재고 보기
+
 	$rootScope.hiddenFunction = false;
 });
 
@@ -114,7 +114,17 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	}
 
 	//quick search
-	$rootScope.goSearch = function(command, word){
+	$rootScope.goSearch = function(command, word, $event){
+		
+		//enter 이벤트
+		if($event){
+			const pressedKey = window.event ? $event.keyCode : $event.which;
+			if(pressedKey  != '13'){
+				return;
+			}
+		}
+		
+
 		for(const value of $scope.topMenu){
 			if(value.PGM_CD == command){
 				if(!word){
@@ -149,8 +159,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		$http.get('/member/brandSub?brandCd='+ data.brandKindCd.substr(0,2)).success(function(data) {
 			$scope.subBrand = data.brandSubList;
 		});
-
-
 	}
 
 	//성별 선택
@@ -226,6 +234,9 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		}
 		return false;
 	}
+
+
+
 
 
 }]);

@@ -2,6 +2,7 @@ package com.systemk.thefactor2.Controller;
 
 
 import com.systemk.thefactor2.Service.ExcelService;
+import com.systemk.thefactor2.Util.FileUploadUtil;
 import com.systemk.thefactor2.Util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ExcelController {
 		String userId = (String) request.getSession().getAttribute("userId");
 		Map<String, String> map = new HashMap<String, String>();
 		String realPath = "D:/theFactor2RFID/EXCEL/";
-		createFolder(realPath);
+		FileUploadUtil.createFolder(realPath);
 		try {
 			map = excelService.stockExcelUpload(mf, userId);	//엑셀 파일 데이터 저장
 			String originalFileName = mf.getOriginalFilename();
@@ -50,7 +51,7 @@ public class ExcelController {
 		String userId = (String) request.getSession().getAttribute("userId");
 		Map<String, String> map = new HashMap<String, String>();
 		String realPath = "D:/theFactor2RFID/EXCEL/";
-		createFolder(realPath);
+		FileUploadUtil.createFolder(realPath);
 		try {
 			map = excelService.productExcelUpload(mf, userId);
 			String originalFileName = mf.getOriginalFilename();
@@ -66,12 +67,13 @@ public class ExcelController {
 		return map;
 	}
 
+	// brand excel 파일 업로드
 	@RequestMapping("/brandUpload")
 	public Map<String, String> brandUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
 		String userId = (String) request.getSession().getAttribute("userId");
 		Map<String, String> map = new HashMap<String, String>();
 		String realPath = "D:/theFactor2RFID/EXCEL/";
-		createFolder(realPath);
+		FileUploadUtil.createFolder(realPath);
 		try {
 			map = excelService.brandExcelUpload(mf, userId);
 			String originalFileName = mf.getOriginalFilename();
@@ -93,35 +95,16 @@ public class ExcelController {
 		excelService.inoutExcelDown(map, response);
 	}
 
-	//재고 엑셀 파일 다운로드
+	//보유 재고 엑셀 파일 다운로드
 	@RequestMapping("/stockExcelDown")
 	public void stockExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
 		excelService.stockExcelDown(map, response);
 	}
 
-	//업로드 폼으로 재고 엑셀 다운로드
+	//전체 재고 엑셀 다운로드
 	@RequestMapping("/stkBaseExcelDown")
 	public void stkBaseExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
 		excelService.stkBaseExcelDown(map, response);
 	}
-
-
-	public void createFolder(String path){
-		File folder = new File(path);
-		if (folder.exists()) {
-			return;
-		}
-		String[] sPath = path.split("/");
-		File folder1 = new File(sPath[0]+"/"+sPath[1]);
-		if(!folder1.exists()){
-			folder1.mkdir();
-		}
-		if(sPath.length>=3) {
-			File folder2 = new File(sPath[0] + "/" + sPath[1] + "/" + sPath[2]);
-			folder2.mkdir();
-		}
-	}
-
-
 
 }
