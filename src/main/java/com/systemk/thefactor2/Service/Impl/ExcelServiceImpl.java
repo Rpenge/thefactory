@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
@@ -96,7 +97,6 @@ public class ExcelServiceImpl implements ExcelService {
             }else{
                 tfStockMapper.stockSave(map);
             }
-
         }
         return ResultUtil.setCommonResult("S","성공하였습니다");
     }
@@ -174,7 +174,6 @@ public class ExcelServiceImpl implements ExcelService {
                 }
                 continue;
             }
-
             Map map = new HashMap();
 
             if(row.getCell(0) != null && row.getCell(0).toString() != ""){
@@ -235,9 +234,7 @@ public class ExcelServiceImpl implements ExcelService {
 
         XSSFRow topRow = sheet.createRow(0);
         for(int i=0; i< list.size();i++) {
-
             row = sheet.createRow(i + 1);
-
             int j = 0;
             for(String key : list.get(i).keySet()) {
                 if(i == 0) {
@@ -286,7 +283,6 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
 
-
     @Transactional(rollbackFor=Exception.class)
     @Override
     public void stockExcelDown(Map map, HttpServletResponse response) throws Exception{
@@ -310,9 +306,7 @@ public class ExcelServiceImpl implements ExcelService {
 
         XSSFRow topRow = sheet.createRow(0);
         for(int i=0; i< list.size();i++) {
-
             row = sheet.createRow(i + 1);
-
             int j = 0;
             for(String key : list.get(i).keySet()) {
                 if(i == 0) {
@@ -328,7 +322,6 @@ public class ExcelServiceImpl implements ExcelService {
                 }
 
                 cell = row.createCell(j);
-
                 if(j==2) {
                     cell.setCellValue((String) commMap.get(list.get(i).get(key)));
                 }else if(list.get(i).get(key) instanceof String) {
@@ -367,7 +360,8 @@ public class ExcelServiceImpl implements ExcelService {
 
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setFillForegroundColor(HSSFColor.PALE_BLUE.index);
-        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+//        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         List<LinkedHashMap<String, Object>> list = new ArrayList<LinkedHashMap<String, Object>>();
         XSSFRow row = null;

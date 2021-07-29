@@ -60,11 +60,6 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			if($scope.current == page || $scope.end < page || page == 0){
 				return;
 			}
-			// if(expansion){
-			// 	$scope.search['ex'] = true;
-			// }else{
-			// 	$scope.search['ex'] = null;
-			// }
 			$scope.search.page = page - 1;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/stock/stockList', param );
@@ -77,8 +72,8 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 			httpGetList($http, $scope,'/stock/stockList', param );
 		}
 
-		//////////////////////엑셀 업로드
 
+		//엑셀 업로드
 		$scope.formDown = function(){
 			window.location.href = 'resources/xlsx/stock_form.xlsx'
 		}
@@ -115,7 +110,6 @@ app.controller('stockController', ['$scope', '$http', '$location', '$rootScope',
 				}).error(function(){
 					modalAlert($uibModal, "재고정보 Excel 업로드", "업데이트 오류!");
 				});
-
 			});
 		}
 

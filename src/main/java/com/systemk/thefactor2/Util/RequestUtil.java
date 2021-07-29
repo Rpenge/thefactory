@@ -9,10 +9,10 @@ public class RequestUtil {
 
 
     public static Map reqParamToMap(HttpServletRequest request){
-        Enumeration en = request.getParameterNames();
-        Map resultMap = new HashMap();
-        while(en.hasMoreElements()){
-            String param = (String)en.nextElement();
+        Enumeration<String> em = request.getParameterNames();
+        Map<String,String> resultMap = new HashMap<String,String>();
+        while(em.hasMoreElements()){
+            String param = em.nextElement();
             String value = request.getParameter(param);
             resultMap.put(param, value);
         }

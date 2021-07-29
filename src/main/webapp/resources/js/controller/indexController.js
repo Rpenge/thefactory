@@ -69,18 +69,12 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				return;
 			}
 		});
-		// $http.get('/home/homeSimple').success(function(data){
-		// 	$scope.todayData = data.todayData;
-		// });
 	}
-
 
 	$scope.logout = function() {
 		logout($http, $rootScope, $location);
 	};
 
-
-	//$scope.client;
 
 	$scope.disconnection = function(){
 		if ($scope.client != null) {
@@ -115,7 +109,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	//quick search
 	$rootScope.goSearch = function(command, word, $event){
-		
+
 		//enter 이벤트
 		if($event){
 			const pressedKey = window.event ? $event.keyCode : $event.which;
@@ -123,7 +117,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 				return;
 			}
 		}
-		
+
 
 		for(const value of $scope.topMenu){
 			if(value.PGM_CD == command){

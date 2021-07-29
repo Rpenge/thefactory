@@ -15,4 +15,10 @@
         VALUES(#{reqUrl}, #{reqMethod}, #{queryString}, #{device}, #{reqBody}, #{resBody}, #{resStatus}, #{userId}, sysdate());
     </insert>
 
+    <insert id="createResetLog" parameterType="Map">
+        INSERT INTO tf_tag_reset_log
+        (TAG_ID, COMMENT, REG_DATE, REG_ID)
+        VALUES(#{tagId}, #{comment}, now(), #{regId});
+    </insert>
+
 </mapper>

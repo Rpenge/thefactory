@@ -160,6 +160,13 @@ public class ApiCommonController {
         return apiService.brandCd(param);
     }
 
+    //공통코드 - 공통코드 전송
+    @RequestMapping(value = "/tagReset", method = RequestMethod.GET)
+    public Map<String, Object> tagReset(HttpServletRequest request) throws Exception {
+        Map param = RequestUtil.reqParamToMap(request);
+        param.put("regId", request.getHeader("id"));
+        return apiService.createResetLog(param);
+    }
 
 
 }

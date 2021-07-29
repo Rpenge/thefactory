@@ -45,4 +45,5 @@ public interface ApiService {
 
     public Map<String, Object> brandCd(Map param) throws Exception;
 
+    Map<String, Object> createResetLog(Map param) throws Exception;
 }

@@ -16,8 +16,8 @@ public interface BrandService {
 
     public String codeToNm(String brandCd);
 
-    public Map detailSearch(String brandCd);
-    // 브랜드 목록
+    public Map<String, String> detailSearch(String brandCd);
+
     public Map<String, Object> brandAllList(Map param) throws Exception;
 
     public Map<String, Object> brandSave(Map param) throws Exception;

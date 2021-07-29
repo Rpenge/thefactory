@@ -40,7 +40,6 @@ public class StringUtil {
         try {
             jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

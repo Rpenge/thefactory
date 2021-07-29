@@ -13,29 +13,25 @@ import java.util.Map;
 @Setter
 public class MybatisUtil {
 
-    private HashMap tableSearch;
-    private List search;
-//    private List sort;
-
-    private List content; // 조회 리스트
-    private int page;  //number
-    private int totalElements;  //totalElements
-    private int totalPages; //totalPages
-    private int start; // 조회 시작 번호
-    private int size;
+    private HashMap<String,Object> tableSearch;    //테이블 조회 맵
+    private List<String> search;            //검색 리스트
+    private List content;           //조회 리스트
+    private int page;               //number
+    private int totalElements;      //totalElements
+    private int totalPages;         //totalPages
+    private int start;              //조회 시작 번호
+    private int size;               //페이지 사이즈
 
     public MybatisUtil() {
-        this.tableSearch = new HashMap();
-        this.search = new ArrayList();
-
+        this.tableSearch = new HashMap<String,Object>();
+        this.search = new ArrayList<String>();
+        this.content = new ArrayList();
         this.page = 0;
         this.size = 10;
         this.start = 0;
-
         this.tableSearch.put("list", search);
         this.tableSearch.put("start", start);
         this.tableSearch.put("size", size);
-
     }
 
     public void setTable(String tableName){
@@ -98,7 +94,7 @@ public class MybatisUtil {
     }
 
     public HashMap getTableSearch(){
-        return tableSearch;
+        return this.tableSearch;
     }
 
     public void setSort(String sort, String direct){
@@ -106,9 +102,8 @@ public class MybatisUtil {
         this.tableSearch.put("direct", direct);
     }
 
-
     public void pager(Map<String, String> search){ //map에서 해당 데이터 찾아서 적용
-        this.page = search.get("page") == null ? 0 : Integer.parseInt(search.get("page"));  //
+        this.page = search.get("page") == null ?  0 : Integer.parseInt(search.get("page"));
         this.size = search.get("size") == null ? 10 : Integer.parseInt(search.get("size"));
         this.start = size * page;
     }

@@ -60,7 +60,6 @@ public class InvenServiceImpl implements InvenService {
 		if(param.get("size")!=null)
 			mu.setSize(Integer.parseInt((String)param.get("size")));
 
-		List<Map> listMap = new ArrayList<Map>();
 		mu.setContent(tfInvStatusMapper.invStatusList(mu.getTableSearch())); //리스트 조회
 		return mu.getList();
 	}
@@ -75,7 +74,6 @@ public class InvenServiceImpl implements InvenService {
 			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page") || key.equals("word")){
 				continue;
 			}
-
 			mu.addEqual(StringUtil.camelToSnake((String)key), (String)param.get(key));
 		}
 
@@ -96,23 +94,21 @@ public class InvenServiceImpl implements InvenService {
 		if(param.get("size")!=null)
 			mu.setSize(Integer.parseInt((String)param.get("size")));
 
-		List<Map> listMap = new ArrayList<Map>();
 		mu.setContent(tfInventoryMapper.invenList(mu.getTableSearch())); //리스트 조회
-
 		return mu.getList();
 	}
 
 	@Override
 	public Map<String, Object> invenUpdate(Map param) throws Exception {
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(tfInventoryMapper.manualInvUpdate(param) == 1) {
-			Map searchMap = new HashMap();
+			Map<String, Object> searchMap = new HashMap<String, Object>();
 			searchMap.put("stInvDate", param.get("stInvDate"));
 			searchMap.put("storeCd", param.get("invStoreCd"));
 			TfInvStatusVO vo = tfInvStatusMapper.findInvStatus(searchMap);
 			int StInvCnt = vo.getStInvCnt() + 1;
 			if(param.get("misWork") != null) {
-				Map outMap = new HashMap();
+				Map<String, Object> outMap = new HashMap<String, Object>();
 				outMap.put("userId", param.get("modId"));
 				outMap.put("barcode", param.get("btPrdBarcode"));
 				outMap.put("tfPrdTagid", param.get("tfPrdTagid"));
@@ -138,16 +134,15 @@ public class InvenServiceImpl implements InvenService {
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> invenUpdateList(Map param) throws Exception {
-		Map searchMap = new HashMap();
-		searchMap.put("stInvDate", param.get("stInvDate"));
-		searchMap.put("storeCd", param.get("invStoreCd"));
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("stInvDate", 	param.get("stInvDate"));
+		searchMap.put("storeCd", 	param.get("invStoreCd"));
 		TfInvStatusVO vo = tfInvStatusMapper.findInvStatus(searchMap);
 
 		List<Integer> list = (List) param.get("list");
-		System.out.println(list);
 		int addCnt = vo.getStInvCnt();
 		for(int stInvenSeq : list){
-			Map map = new HashMap();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("stInvenSeq", stInvenSeq);
 			map.put("misWork", param.get("misWork"));
 			map.put("modId", param.get("modId"));
@@ -155,7 +150,7 @@ public class InvenServiceImpl implements InvenService {
 			if(tfInventoryMapper.manualInvUpdate(map) == 1){
 				if(param.get("misWork") != null) {
 					TfInventoryVO invenVO = tfInventoryMapper.findInventory(map);
-					Map outMap = new HashMap();
+					Map<String, Object> outMap = new HashMap<String, Object>();
 					outMap.put("userId", param.get("modId"));
 					outMap.put("barcode", invenVO.getBtPrdBarcode());
 					outMap.put("tfPrdTagid", invenVO.getTfPrdTagid());
@@ -188,7 +183,7 @@ public class InvenServiceImpl implements InvenService {
 	@Override
 	public Map<String, Object> invenDelete(Map param) throws Exception {
 		List<Integer> list = (List) param.get("list");
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		for(int seq : list){
 			if (tfInvStatusMapper.invenDelete(seq) == 1) {
 				map.put("resultCode", "S");
@@ -198,6 +193,5 @@ public class InvenServiceImpl implements InvenService {
 		}
 		return map;
 	}
-
 
 }

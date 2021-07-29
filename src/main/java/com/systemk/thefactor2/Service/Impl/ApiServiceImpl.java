@@ -674,8 +674,14 @@ public class ApiServiceImpl implements ApiService {
 			map.put("commCdNm", brandMap.get(key));
 			brandList.add(map);
 		}
-
-
 		return ResultUtil.setCommonResult("S","성공하였습니다", brandList);
+	}
+
+
+
+	@Override
+	public Map<String, Object> createResetLog(Map param) throws Exception {
+		tfLogMapper.createResetLog(param);
+		return ResultUtil.setCommonResult("S","성공하였습니다");
 	}
 }

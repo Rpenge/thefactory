@@ -8,7 +8,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		$scope.credentials.userId = getCookie('userIdC');
 	}
 
-
 	//로그인
 	$scope.login = function() {
 		authenticate($scope.credentials, function() {
@@ -31,7 +30,6 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 			deleteCookie('idSave');
 			deleteCookie('userIdC');
 		}
-
 		var headers = credentials ? {authorization : "Basic "
 			+ btoa(credentials.userId + ":" + credentials.userPw)
 		} : {};
@@ -66,11 +64,11 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;
 		    }
-				callback && callback();
-		    }).error(function(data) {
-		    	$rootScope.authErrorMsg = data.trim();
-		    	$rootScope.authenticated = false;
-		    	callback && callback();
+			callback();
+		}).error(function(data) {
+			$rootScope.authErrorMsg = data.trim();
+			$rootScope.authenticated = false;
+			callback();
 		});
 	}
 
@@ -252,7 +250,6 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 		}
 
 
-
 		//체크박스 전체 체크
 		$scope.checkAll = function(status, prKey){
 			const tempList = [];
@@ -275,6 +272,5 @@ app.controller('userController', ['$scope', '$http', '$location', '$rootScope', 
 				checkList.splice(index, index+1);
 			}
 		}
-
 
 }]);

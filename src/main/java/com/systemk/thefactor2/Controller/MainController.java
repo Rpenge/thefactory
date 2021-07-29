@@ -124,31 +124,4 @@ public class MainController {
         return "ex/stk";
     }
 
-//    /////
-//
-//    @RequestMapping("/sample/proReg")
-//    public String proReg(Model model) {
-//        return "sample/proReg";
-//    }
-//
-//    @RequestMapping("/sample/userReg")
-//    public String userReg(Model model) {
-//        return "sample/userReg";
-//    }
-//
-
-//
-//    //////
-//    @RequestMapping("/assetManagement/assetList")
-//    public String assetMgList(Model model) {
-//        return "sample/assetList";
-//    }
-//
-
-//
-//    @RequestMapping("/assetManagement/modal/assetRegist")
-//    public String assetReg(Model model) {
-//        return "assetManagement/modal/assetRegist";
-//    }
-
 }

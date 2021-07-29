@@ -1,16 +1,13 @@
 package com.systemk.thefactor2.Service.Impl;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.systemk.thefactor2.Mapper.PageMapper;
 import com.systemk.thefactor2.Mapper.TfAcStockMapper;
 import com.systemk.thefactor2.Mapper.TfProductMapper;
 import com.systemk.thefactor2.Service.AcStockService;
 import com.systemk.thefactor2.Service.BrandService;
 import com.systemk.thefactor2.Util.MybatisUtil;
-import com.systemk.thefactor2.Util.StringUtil;
 import com.systemk.thefactor2.VO.TfAcStockVO;
-import com.systemk.thefactor2.VO.TfInputVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +35,12 @@ public class AcStockServiceImpl implements AcStockService {
 
 	@Override
 	public Map<String, Object> findStock(Map param) throws Exception {
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		TfAcStockVO vo = tfAcStockMapper.findStockByTagId((String)param.get("tagId"));
 		if(vo != null){
 			map.put("barcode", vo.getTfPrdBarcode());
 			Map mapData = tfProductMapper.prdAndStk(map);
-			Map brandInfo = brandService.detailSearch((String)mapData.get("BRAND_KIND_CD"));
+			Map<String, String> brandInfo = brandService.detailSearch((String)mapData.get("BRAND_KIND_CD"));
 			map.put("btPrdBarcode",mapData.get("TF_PRD_BARCODE"));
 			map.put("tfPrdTagid", param.get("tagId"));
 			map.put("outStoreCd", vo.getStoreCd());
@@ -65,8 +62,6 @@ public class AcStockServiceImpl implements AcStockService {
 				continue;
 			}
 			if (key.equals("word")) {
-//				mu.addLike("TF_PRD_BARCODE", (String)param.get(key));
-//				mu.addORLike("TF_PRD_TAGID", (String)param.get(key));
 				List<String> columnList = new ArrayList<>();
 				columnList.add("TF_PRD_BARCODE");
 				columnList.add("TF_PRD_TAGID");

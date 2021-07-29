@@ -186,7 +186,6 @@ function setSearch(search){
 		sortName : search.sortName,
 		sortOrder : search.sortOrder
 	}
-
 	return obj;
 }
 
@@ -213,9 +212,6 @@ function httpGetList(http, scope, url, param ){
 			scope.paging.prev = parseInt((scope.paging.current -1) / 10) * 10;
 			scope.paging.next = scope.paging.prev + 11 ;
 			scope.paging.last = parseInt( ((scope.paging.total - 1) /scope.search.size)+1);
-			// if((scope.paging.total / scope.search.size) < scope.paging.last){
-			// 	scope.paging.last = scope.paging.last -1;
-			// }
 		}
 	);
 }
@@ -233,7 +229,6 @@ function httpGetSubList(http, scope, url, param ){
 			scope.subPaging.begin = parseInt((scope.subPaging.current-1)/10) * 10 + 1  // 1 or -4  : 1  1~10, 11~20
 			scope.subPaging.end = Math.min(scope.subPaging.begin + 9, angular.fromJson(data).totalPages);
 
-			//10개씩
 			scope.subPaging.prev = parseInt((scope.paging.current -1) / 10) * 10;
 			scope.subPaging.next = scope.subPaging.prevSub + 11 ;
 			scope.subPaging.last = parseInt((scope.subPaging.total/10)+1);
@@ -326,7 +321,6 @@ function formatDate3(date) {
 	var result = tostr[3]+month+tostr[2];
 	return result;
 }
-
 //yyyy-MM-dd HH:mm:ss
 function formatDate4(date) {
 	var tostr = date.toString()
@@ -336,19 +330,6 @@ function formatDate4(date) {
 	if (month.length < 2) month = '0' + month;
 	var result = tostr[3]+'-'+month+'-'+tostr[2] +' '+tostr[4];
 	return result;
-}
-
-function listGb(path, search ){
-	var listGb;
-	if(path=='/asset/register'){
-		search.readStatus = 1;
-	}else if(path=='/asset/wealthInquiry'){
-		search.readStatus = 2;
-	}else if(path=='/asset/move'){
-		search.readStatus = 3;
-	}else if(path=='/asset/disuse'){
-		search.readStatus = 4;
-	}
 }
 
 
@@ -375,31 +356,6 @@ function commonCode() {
 	});
 };
 
-function menu(role, scope){
-	if(role == 'MT')
-		scope.master = true;
-}
-
-function codeSearch(code ,addNm, $scope){
-	var name = '';
-	for( key in $scope.commonCode){
-		var parentCode = $scope.commonCode[key].parentCode;
-		if(parentCode == code){
-			var addCode = $scope.commonCode[key];
-
-			if(!addNm){
-				name = addCode.codeName;
-			}else{
-				name = addNm +'-' + addCode.codeName;
-			}
-			addCode['addNm'] = name;
-
-			$scope.locList.push(addCode);
-			codeSearch(key, name, $scope);
-		}
-	}
-}
-
 //테이블을 list<map>형식으로 변환
 function tableData(id){
 	id = "#"+ id;
@@ -415,9 +371,6 @@ function tableData(id){
 	     });
 	});
 	return myRows;
-//	var myObj = {};
-//	myObj.myrows = myRows;
-//	console.log(JSON.stringify(myObj));
 }
 
 function sc_chk(str, start, end){
@@ -473,7 +426,6 @@ $.fn.rowspan = function(colIdx, isStats) {
 				if ($(this).html() == $(that).html() && (!isStats || isStats && $(this).prev().html() == $(that).prev().html())) {
 					rowspan = $(that).attr("rowspan") || 1;
 					rowspan = Number(rowspan)+1;
-
 					$(that).attr("rowspan",rowspan);
 					$(this).hide();
 				} else {
@@ -487,7 +439,6 @@ $.fn.rowspan = function(colIdx, isStats) {
 
 
 function logout(http, rootScope, location) {
-	// rootScope.autoLogin = false;
 	deleteCookie('autoLogin');
 	http({
 		method: 'POST',
@@ -518,16 +469,19 @@ function selectTr(td){
 	tr.addClass('font-weight-bold');
 }
 
+//테이블 tr에 class 삭제
 function tableTrDel(tableId){
 	$("#"+tableId).children().children().removeClass('bg-secondary');
 	$("#"+tableId).children().children().removeClass('font-weight-bold');
 }
 
+//테이블 td에 색상 삭제
 function tableTdDel(tableId){
 	$("#"+tableId).children().children().children().css('background', '');
 	$("#"+tableId).children().children().children().css('color', '');
 }
 
+//테이블 td에 색상 추가
 function selectTd(td){
 	var table = td.parent().parent();
 	table.children().children().css('background', '');
@@ -535,9 +489,6 @@ function selectTd(td){
 	td.css('background', 'lightsteelblue');
 	td.css('color', 'white');
 }
-
-
-
 
 //코드정리
 function code(rootScope) {
@@ -565,11 +516,9 @@ function code(rootScope) {
 			rootScope.workS.push(value);
 		} else if (bcd == '05' && scd != '00') { // 장비구분
 			rootScope.prdSize.push(value);
-		}
-		else if (bcd == '02' && mcd == '03' && scd != '00') { // 장비상태
+		} else if (bcd == '02' && mcd == '03' && scd != '00') { // 장비상태
 			rootScope.deviceStat.push(value);
-		}
-		else if (bcd == '02' && mcd == '04' && scd != '00') { // 장비상태
+		} else if (bcd == '02' && mcd == '04' && scd != '00') { // 장비상태
 			rootScope.commType.push(value);
 		}
 	}
