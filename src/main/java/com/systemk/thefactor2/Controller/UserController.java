@@ -60,8 +60,8 @@ public class UserController {
 			resultMap.put("role", user.getRole());
 			resultMap.put("storeCd", user.getStoreCd());
 
-			List<HashMap> AuthList = tfUserAuthMapper.authSearch(resultMap);
-			resultMap.put("auth", AuthList);
+			List<HashMap> authList = tfUserAuthMapper.authSearch(resultMap);
+			resultMap.put("auth", authList);
 		}
 	    return resultMap;
 	}

@@ -7,10 +7,9 @@
 
 <div ng-show="authenticated">
 
-	<section class="d-flex justify-content-center">
+	<section class="d-flex justify-content-center" ng-if="currentMenu.AUTH_EXCEL_YN=='Y'">
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div style="padding:20px 5px;">
-
 				<div class="d-flex">
 					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 전체재고 내역 다운로드</span>
 
@@ -111,7 +110,7 @@
 								<td>{{value.stCnt}}</td>													<!--매장판매수량-->
 								<td>{{value.onCnt}}</td>													<!--온라인판매수량-->
 								<td>{{value.INVENTORY_CNT}}</td>											<!--재고실사수량-->
-								<td style="background: #f1f1f1">{{value.RFID_STOCK_CNT}}</td>				<!--rfid시스템수량-->
+								<td style="background: #f1f1f1">{{value.RFID_STOCK_CNT}}</td>								<!--rfid시스템수량-->
 								<td ng-class="{'text-success':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)>0, 'text-danger':(value.RFID_STOCK_CNT-value.REAL_STOCK_CNT)<0}" style="font-weight: bold;background: floralwhite">
 									{{value.RFID_STOCK_CNT - value.REAL_STOCK_CNT}}
 								</td>																		<!--EC와 실재고 비교-->

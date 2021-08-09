@@ -10,7 +10,9 @@
             on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
             and tas.STORE_CD = ts.STOCK_STORE_CD
         where tas.STORE_CD = #{storeCd}
+        <if test="brandCd != null">
         and tas.BRAND_KIND_CD like concat(substr(#{brandCd}, 1, 2),'%')
+        </if>
     </select>
 
     <select id="findStockByTagId" resultType="TfAcStockVO" parameterType="java.util.Map">

@@ -7,10 +7,9 @@
 
 <div ng-show="authenticated">
 
-	<section class="d-flex justify-content-center">
+	<section class="d-flex justify-content-center" ng-if="currentMenu.AUTH_EXCEL_YN=='Y'">
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div style="padding:20px 5px;">
-
 				<div class="d-flex">
 					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 입출고내역 다운로드</span>
 					<div class="row input-group" style="width:180px;margin: 0 5px;">
@@ -66,24 +65,24 @@
 						</div>
 						<table class="table-bordered table-hover text-center custom-align-middle table-striped-odd" style="width:100%;margin-top:20px;" ng-if="subList.length > 0">
 							<thead>
-							<tr style="height: 35px;">
-								<th style="width:10%">일자</th>
-								<th style="width:10%">매장</th>
-								<th style="width:10%">구분</th>
-								<th style="width:40%">상품명</th>
-								<th style="width:15%">바코드</th>
-								<th style="width:15%">수량</th>
-							</tr>
+								<tr style="height: 35px;">
+									<th style="width:10%">일자</th>
+									<th style="width:10%">매장</th>
+									<th style="width:10%">구분</th>
+									<th style="width:40%">상품명</th>
+									<th style="width:15%">바코드</th>
+									<th style="width:15%">수량</th>
+								</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="(key, value) in subList">
-								<td style="height: 45px;">{{value.ST_DATE}}</td>
-								<td>{{value.STORE_CD | code:store}}</td>
-								<td>{{value.ST_TYPE | code:workS}}</td>
-								<td class='table-text-left' style="padding: 5px;font-size: 13px;">{{value.TF_PRD_NM}}</td>
-								<td>{{value.BARCODE}}</td>
-								<td>{{value.cnt}}</td>
-							</tr>
+								<tr ng-repeat="(key, value) in subList">
+									<td style="height: 45px;">{{value.ST_DATE}}</td>
+									<td>{{value.STORE_CD | code:store}}</td>
+									<td>{{value.ST_TYPE | code:workS}}</td>
+									<td class='table-text-left' style="padding: 5px;font-size: 13px;">{{value.TF_PRD_NM}}</td>
+									<td>{{value.BARCODE}}</td>
+									<td>{{value.cnt}}</td>
+								</tr>
 							</tbody>
 						</table>
 
@@ -110,8 +109,8 @@
 
 					</div>
 				</div>
-				<!--탭 메뉴 종류-->
 
+				<!--탭 메뉴 종류-->
 				<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;margin-top:20px;margin-bottom: 10px;">
 					<span class="mr-auto p-2" style="font-size: 22px;color:gray;"><i class="xi-list"></i> 입출고내역 목록</span>
 				</div>

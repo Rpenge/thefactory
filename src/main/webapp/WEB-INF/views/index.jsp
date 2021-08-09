@@ -2,6 +2,7 @@
 		 pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="myApp" ng-controller="indexController">
 <head>
@@ -68,6 +69,8 @@
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color:white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 30px;position: fixed;">
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk == true"> SYSTEMK 재고관리</i>
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk != true"> THEFACTOR2 재고관리</i>
+
+
 	<!-- Top Menu Items -->
 	<ul class="navbar-nav flex-row ml-md-auto d-md-flex " ng-if="authenticated">
 		<li class="nav-item" >
@@ -93,7 +96,7 @@
 			<div class="tri" ng-if="currentMenu.GROUP_CD == 'SYSTEM'"></div>
 		</div>
 		<div class="navbar-header">
-			<a href="" ng-click="goMenu('sample/commList')">기초정보관리</a>
+			<a href="" >기초정보관리</a>
 			<div class="tri" ng-if="currentMenu.GROUP_CD == 'BASE'"></div>
 		</div>
 		<div class="navbar-header">
@@ -105,7 +108,7 @@
 			<div class="tri" ng-if="currentMenu.GROUP_CD == 'INVEN'"></div>
 		</div>
 		<div class="navbar-header">
-			<a href="" ng-click="goAssetManagementList()">재고현황</a>
+			<a href="" >재고현황</a>
 			<div class="tri" ng-if="currentMenu.GROUP_CD == 'STOCK'"></div>
 		</div>
 
@@ -153,6 +156,7 @@
 <div style="height:480px;" ng-if="authenticated && mainPage">
 	<div style="overflow: hidden;background: white;width:100%;"><img  ng-src="{{imgPath}}/img/main.png" style="width:100%;min-width:1680px;display: block; margin: 0px auto;" draggable="false"></div>
 </div>
+
 
 <div class="d-flex justify-content-left" ng-if="authenticated" >
 	<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
@@ -230,7 +234,6 @@
 
 		<!--right body-->
 		<div style="width:80%;padding: 10px;">
-
 			<!--현재 메뉴명 : 메인페이지에서 숨김-->
 			<div class="container-fluid d-flex justify-content-center" ng-if="!mainPage" style="padding:0!important;" >
 				<div class="d-flex align-items-end" style="width:30%;border-bottom:1px solid lightgray;">

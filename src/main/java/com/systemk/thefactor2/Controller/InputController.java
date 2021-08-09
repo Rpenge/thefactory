@@ -18,10 +18,8 @@ import java.util.Map;
 @RequestMapping("/input")
 public class InputController {
 
-
 	@Autowired
 	private InputService inputService;
-
 
 	//입출고관리 - 입고관리 : 리스트 조회(사이즈, 분류, 검색, 페이지 처리)
 	@RequestMapping(value="/inputList", method = RequestMethod.GET)
@@ -53,7 +51,6 @@ public class InputController {
 		map.put("userId", session.getAttribute("userId"));
 		return inputService.inputDelete(map);
 	}
-
 
 
 }

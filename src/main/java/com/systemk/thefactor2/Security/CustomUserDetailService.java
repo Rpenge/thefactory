@@ -9,6 +9,7 @@ import com.systemk.thefactor2.Mapper.TfUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,6 +40,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
 //		List<GrantedAuthority> authorities = buildUserAuthority(user);
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
+		authorities.add(new SimpleGrantedAuthority("SDJ"));
 		return buildUserForAuthentication(user, authorities);
 	}
 

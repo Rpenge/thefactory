@@ -68,11 +68,11 @@
 					<p style="font-size: 22px;font-weight: bold; color: whitesmoke; position: absolute;left: 30px;top: 20px;">재고현황</p>
 				</div>
 
-				<div class="main-work-btn" style="border:0px solid whitesmoke;width: 450px;cursor:auto;" ng-if="hiddenFunction == true">
+				<div class="main-work-btn" style="border:0px solid gray;min-width:350px;cursor:auto;" ng-if="hiddenFunction == true">
 					<p style="margin:0 0 10px 0;font-size:17px;font-weight: bolder"> 엑셀 업로드</p>
 					<div style="padding-left: 15px;">
 						<form method="post" class="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101' || role=='010102'">
-							<div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
+							<div class="input-group btn p-2" style="width:330px;margin:5px 0px;padding:0!important;height:40px;">
 								<input ng-model="file_path_prd" placeholder="  상품정보" style="border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
 								<div class="input-group-append">
 									<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
@@ -84,7 +84,7 @@
 						</form>
 
 						<form method="post" class="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101' || role=='010102'">
-							<div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
+							<div class="input-group btn p-2" style="width:330px;margin:5px 0px;padding:0!important;height:40px;">
 								<input ng-model="file_path_stk" placeholder="  재고정보"  style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
 								<div class="input-group-append">
 									<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
@@ -96,7 +96,7 @@
 						</form>
 
 						<form method="post" class="excelForm" action="upload" enctype="multipart/form-data" onsubmit="return false" ng-if="role=='010101' || role=='010102'">
-							<div class="input-group btn p-2" style="width:330px;margin:0px;padding:0!important;height:40px;">
+							<div class="input-group btn p-2" style="width:330px;margin:5px 0px;padding:0!important;height:40px;">
 								<input ng-model="file_path_brd" placeholder="  브랜드정보" style=";border: 1px solid lightgray;width: 180px;background: white;border-radius: 5px 0 0 5px;" disabled=disabled">
 								<div class="input-group-append">
 									<label class="btn btn-outline-secondary" style="margin:0;border:1px solid lightgray;border-left:0px">찾기
@@ -106,9 +106,7 @@
 								<button class="btn btn-outline-secondary" ng-click="upload(2)" style="border: 1px solid lightgray;border-radius: 0 5px 5px 0;border-left:0px">업로드</button>
 							</div>
 						</form>
-
 					</div>
-
 
 				</div>
 			</div>

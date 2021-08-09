@@ -18,7 +18,6 @@ import java.util.Map;
 @RequestMapping("/output")
 public class OutputController {
 
-
 	@Autowired
 	private OutputService outputService;
 
@@ -45,7 +44,6 @@ public class OutputController {
 		map.put("deviceGub", "020103");
 		return outputService.outputAdd(map);
 	}
-
 
 	//입출고관리 - 출고관리 : 출고 삭제
 	@RequestMapping(value = "/outputDelete", method = RequestMethod.POST)

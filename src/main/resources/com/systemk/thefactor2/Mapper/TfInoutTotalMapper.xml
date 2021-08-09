@@ -102,8 +102,8 @@
             '' as comment
         from tf_input ti
         where ST_IN_DATE between #{startDate} and #{endDate}
-        <if test="storeCd != null">and IN_STORE_CD = #{storeCd}</if>
-        <if test="stType != null">and ST_IN_TYPE like '${stType}%'</if>
+        <if test="storeCd != null and storeCd != ''">and IN_STORE_CD = #{storeCd}</if>
+        <if test="stType != null and stType != ''">and ST_IN_TYPE like '${stType}%'</if>
         order by REG_DATE desc
     </select>
 

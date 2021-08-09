@@ -23,7 +23,7 @@ public class ExcelController {
 	@Autowired
 	private ExcelService excelService;
 
-	//엑셀파일 재고 저장
+	//엑셀파일 재고 저장 : 바코드,매장코드 기준 insert/update
 	@RequestMapping("/stockUpload")
 	public Map<String, String> stockUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
 		String userId = (String) request.getSession().getAttribute("userId");
@@ -45,7 +45,7 @@ public class ExcelController {
 		return map;
 	}
 
-	//엑셀파일 상품정보 저장
+	//엑셀파일 상품정보 저장 : 자체상품코드 기준 insert/update
 	@RequestMapping("/productUpload")
 	public Map<String, String> productUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
 		String userId = (String) request.getSession().getAttribute("userId");
@@ -67,7 +67,7 @@ public class ExcelController {
 		return map;
 	}
 
-	// brand excel 파일 업로드
+	// brand excel 파일 업로드 : 코드값 기준 insert/update
 	@RequestMapping("/brandUpload")
 	public Map<String, String> brandUpload(@RequestParam(value = "excelFile", required = false) MultipartFile mf, HttpServletRequest request) {
 		String userId = (String) request.getSession().getAttribute("userId");

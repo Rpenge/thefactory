@@ -7,7 +7,7 @@
 
 <div ng-show="authenticated">
 
-	<section class="d-flex justify-content-center">
+	<section class="d-flex justify-content-center" ng-if="currentMenu.AUTH_EXCEL_YN=='Y'">
 		<div class="container-fluid body-custom" style="width:100%;">
 			<div style="padding:20px 5px;">
 

@@ -5,8 +5,7 @@ function userLoginCheck($http, $rootScope,$window, $location){
 		$rootScope.authenticated = false;
 		$window.location.url("/");
 		sessionStorage.clear();
-		// logout($http, $rootScope, $location);
-}
+	}
 	$rootScope.currentMenu = {};
 }
 

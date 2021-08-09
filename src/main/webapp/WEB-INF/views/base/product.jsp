@@ -110,15 +110,16 @@
                         <thead>
                             <tr>
                                 <th style="width:30px;"><input type="checkbox" ng-init="checkAll.isSelected=false" ng-model="checkAll.isSelected" ng-change="checkAll(!{{checkAll.isSelected}}, 'prdRegSeq')"></th>
-                                <th style="width:80px;">No</th>
+                                <th style="width:70px;">No</th>
                                 <th style="width:130px;">브랜드</th>
-                                <th style="width:90px;">성별</th>
-                                <th style="width:90px;">상품분류</th>
-                                <th style="width:120px;">사이즈</th>
+                                <th style="width:85px;">성별</th>
+                                <th style="width:85px;">상품분류</th>
+                                <th style="width:110px;">사이즈</th>
                                 <th style="width:110px;">상품코드</th>
-                                <th style="width:240px;">자체상품코드</th>
-                                <th style="width:410px;">상품명</th>
+                                <th style="width:220px;">자체상품코드</th>
+                                <th style="width:330px;">상품명</th>
                                 <th>등록자</th>
+                                <th>등록일시</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,6 +134,7 @@
                                 <td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
                                 <td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
                                 <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regId}}</td>
+                                <td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
                             </tr>
                         </tbody>
                     </table>

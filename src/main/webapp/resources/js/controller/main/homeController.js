@@ -1,7 +1,6 @@
 app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '$interval', '$timeout', '$window','$uibModal',
 	function ($scope, $http, $location,$rootScope, $interval, $timeout, $window, $uibModal) {
 
-
 		$rootScope.quickSearch = {}; //검색조건
 		$rootScope.quickSearchWord = {}; // 검색어
 		$scope.view = {};
@@ -32,9 +31,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 				}
 			}
 			modalAlert($uibModal, "메뉴이동", "접근권한이 없습니다");
-
 		}
-
 
 
 		//그래프
@@ -113,19 +110,12 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 							}
 						}]
 					}
-					// , title: {
-					// 	display: true,
-					// 	text: '입출고 현황',
-					// 	fontSize: 20,
-					// 	padding: 20
-					// }
 				}
 			});
 		}
 		function customStr(str){
 			return (str.substr(4,2)*1) + '월';
 		}
-
 
 
 		//어플 업로드 열기
@@ -154,6 +144,7 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 		}
 
 
+		//test 기능
 		$scope.fileUpload = function(path, idx){
 			const fileValue = path.split("\\");
 			const fileName = fileValue[fileValue.length-1]; // 파일명
@@ -186,13 +177,25 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 			}
 
 
-			modalCheck($uibModal, "상품정보 Excel 업로드", "상품정보를 업로드 하시겠습니까?", function(){
+			modalCheck($uibModal, "Excel 업로드", "Excel 데이터를 업로드 하시겠습니까?", function(){
 				const form = $('.excelForm')[idx];
 				const formData = new FormData(form);
+				var excelUrl = '';
+				switch (idx){
+					case 0:
+						excelUrl = '/productUpload';
+						break;
+					case 1:
+						excelUrl = '/stockUpload';
+						break;
+					case 2:
+						excelUrl = '/brandUpload';
+						break;
+				}
 				$http({
 					method : 'POST',
 					enctype: 'multipart/form-data',
-					url : "/productUpload",
+					url : excelUrl,
 					data : formData,
 					headers: {"Content-Type": undefined, },
 				}).success(function(data){
@@ -205,10 +208,8 @@ app.controller('homeController', ['$scope', '$http', '$location','$rootScope', '
 				}).error(function(){
 					modalAlert($uibModal, "상품정보 Excel 업로드", "업데이트 오류!");
 				});
-
 			});
 		}
-
 }]);
 
 

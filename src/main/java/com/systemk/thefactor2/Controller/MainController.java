@@ -14,7 +14,6 @@ public class MainController {
 
 	@RequestMapping("/")
     public String index(Model model) {
-		model.addAttribute("version", env.getProperty("version"));
         return "index";
     }
 

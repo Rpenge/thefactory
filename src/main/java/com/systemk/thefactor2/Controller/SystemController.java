@@ -41,7 +41,6 @@ public class SystemController {
 		return userService.userSave(map);
 	}
 
-
 	//시스템관리 - 사용자 및 권한 관리 : 비밀번호 변경
 	@RequestMapping(value="/userPwUpdate", method = RequestMethod.POST)
 	public Map userPwUpdate(@RequestBody(required = false) Map<String, String> map) throws Exception{
@@ -60,6 +59,5 @@ public class SystemController {
 		List<Integer> list = (List)map.get("prList");
 		return userService.userWd(list);
 	}
-
 
 }

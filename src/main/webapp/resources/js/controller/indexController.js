@@ -4,20 +4,20 @@ app.run(function($rootScope, $http, $route, $window){
 		$window.sessionStorage.removeItem("current");
 	};
 
-	//프로젝트 이미지 변경
-	$rootScope.systemk = true;
+	//프로젝트 이미지 변경   true:시스템케이  false:더팩토리
+	$rootScope.systemk = false;
 	if($rootScope.systemk){
 		$rootScope.imgPath = "/resources/systemk";
 	}else{
 		$rootScope.imgPath = "/resources";
 	}
 
-
 	$rootScope.hiddenFunction = false;
 });
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
+	console.log($scope.helloWorld);
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
 	$rootScope.quickCmd = {};
@@ -88,8 +88,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		}, function() {
 		if($rootScope.authenticated != undefined){
 			if($rootScope.authenticated){
-				if($location.url() != "/main/home"){
-				}
+				// if($location.url() != "/main/home"){}
 			} else {
 				$scope.disconnection();
 			}
@@ -228,10 +227,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 		}
 		return false;
 	}
-
-
-
-
 
 }]);
 
