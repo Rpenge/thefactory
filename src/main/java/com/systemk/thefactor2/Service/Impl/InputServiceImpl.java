@@ -90,7 +90,6 @@ public class InputServiceImpl implements InputService {
 
 		List<TfInputVO> voList =  tfInputMapper.inputList(mu.getTableSearch());
 		List<Map> listMap = new ArrayList<Map>();
-		//mu.setContent(tfInputMapper.inputList(mu.getTableSearch())); //리스트 조회
 		for(TfInputVO vo : voList){
 			ObjectMapper objectMapper = new ObjectMapper();
 			Map map = objectMapper.convertValue(vo, Map.class);

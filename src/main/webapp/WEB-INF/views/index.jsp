@@ -64,8 +64,7 @@
 		}
 	</style>
 </head>
-
-<body class="ng-cloak" style="min-width:1280px;">
+<body class="ng-cloak" >
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top d-flex justify-content-between" style="color:white;width:100%;height:35px;z-index:3;background-color:#484848;padding:0 30px;position: fixed;">
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk == true"> SYSTEMK 재고관리</i>
 	<i class="xi-box" style="color: white;font-size:small" ng-if="systemk != true"> THEFACTOR2 재고관리</i>
@@ -158,7 +157,7 @@
 </div>
 
 
-<div class="d-flex justify-content-left" ng-if="authenticated" >
+<div class="d-flex justify-content-left" ng-if="authenticated" style="min-width:1280px;">
 	<div class="d-flex justify-content-center" style="background-color:whitesmoke;width:100%;padding: 10px;" ng-if="!regPage">
 
 		<!-- left body -->
@@ -362,29 +361,29 @@
 
 
 				<!-- 검색 4 -->
-				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick4">
-					<p style="margin:12px 10px;">일자검색</p>
-					<div class="row input-group" style="width:200px;margin:5px;">
-						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>
-						<span class="input-group-append" >
-							<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
-						</span>
-					</div>
-					<p style="margin:12px 10px;">~</p>
-					<div class="row input-group" style="width:200px;margin:5px;">
-						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>
-						<span class="input-group-append" >
-							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>
-						</span>
-					</div>
-					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 15px 10px 5px;height: 38px;">검색</button>
-					<div class="d-flex" style="width:335px;margin: 10px;">
-						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" ng-keypress="goSearch(quickCmd.cmd, 'word', $event)" style="height: 35px;border:0;border-bottom: 1px solid gray;">
-						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">
-							<i class="xi-search" style="font-size: 20px;background: white;"></i>
-						</button>
-					</div>
-				</div>
+<%--				<div class="d-flex" style="width: 100%;padding-left:2%" ng-if="quick4">--%>
+<%--					<p style="margin:12px 10px;">일자검색</p>--%>
+<%--					<div class="row input-group" style="width:200px;margin:5px;">--%>
+<%--						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.startDate" is-open="st2_sdt" datepicker-options="startDateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
+<%--						<span class="input-group-append" >--%>
+<%--							<button type="button" class="btn btn-secondary" ng-click="st2_sdt = st2_sdt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
+<%--						</span>--%>
+<%--					</div>--%>
+<%--					<p style="margin:12px 10px;">~</p>--%>
+<%--					<div class="row input-group" style="width:200px;margin:5px;">--%>
+<%--						<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="quickSearch.endDate" is-open="st2_edt" datepicker-options="endDateOptions" close-text="Close" ng-readonly="dateUse"/>--%>
+<%--						<span class="input-group-append" >--%>
+<%--							<button type="button" class="btn btn-secondary" ng-click="st2_edt = st2_edt==true ? false : true" style="height: 38px;"> <i class="xi-calendar"></i></button>--%>
+<%--						</span>--%>
+<%--					</div>--%>
+<%--					<button class="btn btn-outline-secondary" ng-click="goSearch(quickCmd.cmd)" style="width:70px;margin:5px 15px 10px 5px;height: 38px;">검색</button>--%>
+<%--					<div class="d-flex" style="width:335px;margin: 10px;">--%>
+<%--						<input type="text" class="form-control" placeholder="바코드 또는 태그ID를 입력하세요" ng-model="quickSearchWord.word" ng-keypress="goSearch(quickCmd.cmd, 'word', $event)" style="height: 35px;border:0;border-bottom: 1px solid gray;">--%>
+<%--						<button class="btn" ng-click="goSearch(quickCmd.cmd, 'word')" style="position:relative;left:-40px;background: transparent;">--%>
+<%--							<i class="xi-search" style="font-size: 20px;background: white;"></i>--%>
+<%--						</button>--%>
+<%--					</div>--%>
+<%--				</div>--%>
 			</div>
 
 			<!--contents-->
@@ -405,7 +404,7 @@
 	<div ng-view ng-show="!authenticated" ></div>
 </div>
 <!-- 등록 페이지 -->
-<div ng-if="authenticated && regPage">
+<div ng-if="authenticated && regPage" style="min-width:1280px;">
 	<div ng-view ng-show="authenticated && regPage"  style="background-color:whitesmoke;width:100%;padding: 15px;"></div>
 </div>
 

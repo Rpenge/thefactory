@@ -224,7 +224,7 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 					headers: {"Content-Type": undefined, },
 				}).success(function(data){
 					if(data.resultCode == 'S'){
-						modalAlert($uibModal, "브랜드정보 Excel 업로드", "재고정보가 업데이트 되었습니다");
+						modalAlert($uibModal, "브랜드정보 Excel 업로드", "브랜드정보가 업데이트 되었습니다");
 					}else{
 						modalAlert($uibModal, "브랜드정보 Excel 업로드", "업데이트 오류");
 					}
@@ -248,4 +248,3 @@ app.controller('brandController', ['$scope', '$http', '$location', '$rootScope',
 
 
 }]);
-

@@ -17,7 +17,6 @@ app.run(function($rootScope, $http, $route, $window){
 
 app.controller('indexController', ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
 
-	console.log($scope.helloWorld);
 	$rootScope.quickSearch = {}; //검색조건
 	$rootScope.quickSearchWord = {}; // 검색어
 	$rootScope.quickCmd = {};
@@ -100,7 +99,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
     	$location.url("/main/home");
     };
 
-
 	//페이지 이동
 	$scope.goMenu = function(data){
 		$location.url(data.PGM_URL);
@@ -117,7 +115,6 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 			}
 		}
 
-
 		for(const value of $scope.topMenu){
 			if(value.PGM_CD == command){
 				if(!word){
@@ -126,7 +123,7 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 					$rootScope.searchMove = 2;
 				}
 
-				if($location.url() == value.PGM_URL){
+				if($location.url().split('?')[0] == value.PGM_URL) {
 					$scope.reload();
 				}else{
 					$location.url(value.PGM_URL);
@@ -138,11 +135,12 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 
 	//브랜드 선택
 	$scope.brandSelect = function(data){
+		console.log(data);
+		$rootScope.quickSearch.gender = "";
+		$rootScope.quickSearch.cls = "";
 		if(!data){
 			$rootScope.quickSearch.brand = null;
 			$scope.view.brand = null;
-			$rootScope.quickSearch.gender = "";
-			$rootScope.quickSearch.cls = "";
 			$scope.subBrandCls = [];
 			return;
 		}
@@ -167,8 +165,8 @@ app.controller('indexController', ['$scope', '$http', '$location', '$rootScope',
 	//quick search 검색구분 변경
 	$rootScope.quick1List = ['IO1','IO2','IO3'];
 	$rootScope.quick2List = ['IO4','IV1'];
-	$rootScope.quick3List = ['IO1', 'IO2','IO3','ST1','BS3','ST2'];
-	$rootScope.quick4List = ['IV2'];
+	$rootScope.quick3List = ['IO1','IO2','IO3','ST1','BS3','ST2','IV2'];
+	$rootScope.quick4List = [];
 	$rootScope.addQuick = function(command){
 		$rootScope.quickSearch.workGub = null;
 		if($rootScope.quick1List.includes(command)){
@@ -274,10 +272,10 @@ app.controller('uploadController', ['$scope', '$http', '$location','$rootScope',
 				inputData.appGub = appGub;
 				inputData.version = version;
 				inputData.comment = $scope.input.comment;
-				if(isNaN(version)){
-					modalAlert($uibModal, "어플리케이션 등록", "숫자를 입력해주세요");
-					return;
-				}
+				// if(isNaN(version)){
+				// 	modalAlert($uibModal, "어플리케이션 등록", "숫자를 입력해주세요");
+				// 	return;
+				// }
 				// if($scope.view.version >= version){
 				// 	modalAlert($uibModal, "어플리케이션 등록", "기존 version 보다 큰 값을 넣어주세요");
 				// 	return;

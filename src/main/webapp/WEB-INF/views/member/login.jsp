@@ -2,7 +2,9 @@
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="myApp">
-	<div class="login-background" style="background-image:url('{{imgPath}}/img/loginImg.png');background-size:100vw;height:100vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">
+<%--	<div class="login-background" style="background-image:url('{{imgPath}}/img/loginImg.png');background-size:100vw;height:100vh;background-color: #484848;background-repeat:no-repeat;-ms-overflow-style: none;">--%>
+<div class="login-background" style=" background-size:100vw;height:100vh;background-color: #484848;-ms-overflow-style: none;">
+	<img ng-src="{{imgPath}}/img/loginImg.png" style="position: fixed;width:100vw;min-width:1920px;">
 		<div class="container-fluid" >
 			<div class="form-signin" style="opacity: 95%;margin-top: 150px;width:380px;">
 				<img ng-src="{{imgPath}}/img/ci/s_logo.png" style="width:100%;margin-bottom: 30px;">

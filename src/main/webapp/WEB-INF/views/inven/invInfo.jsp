@@ -17,7 +17,7 @@
 					<div class="d-flex" style="border-bottom: 1px solid lightgray;overflow: hidden;width:100%;">
 						<span class="mr-auto p-2" style="font-size: 22px;color:gray;">
 							<i class="xi-caret-down-circle-o"></i> 재고실사작업
-							<span  style="color:black;font-size:15px;">{{list[0].invStoreCd | code:store}} {{list[0].stInvDate}}</span>
+							<span style="color:gray;font-size:15px;">{{list[0].invStoreCd | code:store}} {{list[0].stInvDate}}</span>
 						</span>
 <%--						<button class="p-2 btn btn-outline-secondary" style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;">신규</button>--%>
 						<button class="p-2 btn btn-outline-secondary" type='submit' style="width:60px;position:relative;bottom: -15px;border:1px solid lightgray;padding-top:0!important;margin:0 5px;">저장</button>
@@ -95,6 +95,9 @@
 						<label class="btn btn-secondary" ng-class="{'active': search.stInvSeq==null}" ng-click="stkDif()" style="width:80px;">
 							<input type="radio" name="options"  autocomplete="off" > 전체
 						</label>
+						<label class="btn btn-secondary" ng-click="stkDif('cnf')" style="width:110px;">
+							<input type="radio" name="options"  autocomplete="off"> 확정
+						</label>
 						<label class="btn btn-secondary" ng-class="{'active': search.stInvSeq!=null}" ng-click="stkDif('dis')" style="width:110px;">
 							<input type="radio" name="options"  autocomplete="off"> 미확정
 						</label>
@@ -126,8 +129,8 @@
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.invStoreCd | code:store}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.btPrdBarcode}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.prdSize}}</td>
-								<td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
-								<td class='table-text-left' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
+								<td class='table-text-left table-text-ellipsis' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdNm}}</td>
+								<td class='table-text-left table-text-ellipsis' ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdCd}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.tfPrdTagid}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.regDate | date:'yyyy-MM-dd HH:mm'}}</td>
 								<td ng-click="formChange('mod',value)" onclick="selectTr($(this))">{{value.misWork | code: commCode}}</td>

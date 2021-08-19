@@ -82,4 +82,17 @@
         group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, TF_PRD_NM
         ) as tb
     </select>
+
+    <select id="invPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        SELECT count(*)
+        FROM TF_INVENTORY ti
+        inner join tf_product tp on ti.TF_PRD_CD = tp.TF_PRD_CD
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+    </select>
+
+
+
 </mapper>

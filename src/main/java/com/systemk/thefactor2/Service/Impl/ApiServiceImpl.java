@@ -173,6 +173,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("regDate", StringUtil.dateFormat(vo.getRegDate()));
 			map.put("brandCd", vo.getBrandKindCd());
 			map.put("brand", brandMap.get(vo.getBrandKindCd().substring(0,2)+"0000"));
+			map.put("comment", vo.getStInComment());
 			list.add(map);
 		}
 		return ResultUtil.setCommonResult("S","성공하였습니다",list);
@@ -368,23 +369,20 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception {
 
-		String resultCode = "";
-		String resultMessage = "";
-
 		for(Map param : paramList){
 			Map outputData = outputService.outputSearch((String) param.get("tagId"));
-			if(outputData == null){	//출고 데이터 인지 확인
+			if(outputData == null){	//출고 여부 확인
 				throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
 			}
 
 			param.put("barcode", outputData.get("btPrdBarcode"));
 			Map mapData = tfProductMapper.prdAndStk(param);
-			if(mapData == null){
+			if(mapData == null){	//상품정보, 재고정보 확인
 				throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
 			}
 
 			TfAcStockVO stock = tfAcStockMapper.findStockByTagId((String) param.get("tagId"));
-			if(stock != null){	//재고에 이미 존재하는지 확인
+			if(stock != null){		//실재고정보에 이미 존재하는지 확인
 				throw new Exception(ConstansConfig.EXIST_AC_STOCK_MSG);
 			}
 
@@ -405,6 +403,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("outStoreNm", 	outputData.get("outStoreNm"));
 			map.put("deviceGub",data.get("deviceGub"));
 			map.put("inType", 	param.get("state"));
+			map.put("stInComment", 	param.get("comment"));
 
 			tfInputMapper.inputRe((HashMap) map);
 

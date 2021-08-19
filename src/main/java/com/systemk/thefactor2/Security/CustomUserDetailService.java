@@ -40,7 +40,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
 //		List<GrantedAuthority> authorities = buildUserAuthority(user);
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
-		authorities.add(new SimpleGrantedAuthority("SDJ"));
 		return buildUserForAuthentication(user, authorities);
 	}
 

@@ -3,26 +3,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.systemk.thefactor2.Mapper.TfInventoryMapper">
 
+<!--    <select id="invenList" resultType="TfInventoryVO" parameterType="java.util.HashMap">-->
+<!--        SELECT-->
+<!--        *-->
+<!--        FROM-->
+<!--        TF_INVENTORY-->
+<!--        WHERE true-->
+<!--        <foreach collection="list" item="item">-->
+<!--        ${item}-->
+<!--        </foreach>-->
+<!--        <choose>-->
+<!--            <when test = "sort != null">-->
+<!--        order by ${sort} ${direct}-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--        order by ST_INV_SEQ desc-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+<!--        limit ${start}, ${size}-->
+<!--    </select>-->
+
     <select id="invenList" resultType="TfInventoryVO" parameterType="java.util.HashMap">
-        SELECT
-        *
-        FROM
-        TF_INVENTORY
+        SELECT *
+        FROM TF_INVENTORY ti
+        inner join tf_product tp on ti.TF_PRD_CD = tp.TF_PRD_CD
         WHERE true
         <foreach collection="list" item="item">
-        ${item}
+            ${item}
         </foreach>
-        <if test="ex != null">
-        AND INV_YN = 'N'
-        </if>
-        <choose>
-            <when test = "sort != null">
-        order by ${sort} ${direct}
-            </when>
-            <otherwise>
         order by ST_INV_SEQ desc
-            </otherwise>
-        </choose>
         limit ${start}, ${size}
     </select>
 

@@ -155,7 +155,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="(key, value) in list"  class="pointer">
+							<tr ng-repeat="(key, value) in list"  class="pointer" ng-style="{'border-bottom':list[key].inOutDate!=list[key+1].inOutDate?'2px solid lightgray':''}">
 								<td>{{value.inOutDate}}</td>
 								<td ng-click="addTabsOn(value, 'in')" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
 								<td ng-click="addTabsOn(value, 'in')">{{value.inNewcnt}}</td>

@@ -37,7 +37,7 @@
             </table>
 
             <div class="table-box scroll-custom" style="max-height:812px;overflow: auto;">
-                <table class="table-bordered " style="width: 99%;text-align: center;font-size: 14px;">
+                <table class="table-bordered" style="width: 99%;text-align: center;font-size: 14px;">
                     <thead>
                         <th style="width:30%">코드</th>
                         <th style="width:70%;">코드명</th>

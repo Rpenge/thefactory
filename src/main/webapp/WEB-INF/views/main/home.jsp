@@ -121,7 +121,7 @@
 		</div>
 	</div>
 
-	<div style="margin-top:100px;" ng-if="role=='010101'">
+	<div style="margin-top:100px;" ng-if="role=='010101' || role=='010102'">
 		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('fixed')">고정형 리더기</button>
 		<button class="btn btn-outline-secondary" ng-click="uploaderOpen('pda')">PDA APP</button>
 	</div>

@@ -1,5 +1,3 @@
-
-//회원 리스트
 app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
 	function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
 
@@ -7,32 +5,63 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 		pageInfo($rootScope, $location);
 		$scope.select = {};
 
+		//재고실사 번호를 가지고 있을 경우
 		if($location.$$search.seq){
-			$scope.search = {};
-			$scope.search['invYn'] = 'N';
-			$scope.search.stInvSeq = $location.$$search.seq;
-			$rootScope.quick4 = false;
-			// if($rootScope.quickSearchWord.word != undefined){
-			// 	$scope.search['word'] = $rootScope.quickSearchWord.word;
-			// }
-			const param = generateParam($scope.search);
-			httpGetList($http, $scope,'/inven/invenList', param);
-		}else if($rootScope.searchMove == 1){									//페이지 이동후 검색
-			$scope.search = {};
-			if($rootScope.quickSearch.storeCd){
-				$scope.search['invStoreCd'] = $rootScope.quickSearch.storeCd;
+			if($rootScope.searchMove == 1){	//조건검색
+				$scope.search = {};
+				if($rootScope.quickSearch.storeCd)
+					$scope.search['invStoreCd'] = $rootScope.quickSearch.storeCd;
+				if($rootScope.quickSearch.brand)
+					$scope.search['brandKindCd'] = $rootScope.quickSearch.brand.substr(0,2);
+				if($rootScope.quickSearch.gender)
+					$scope.search['brandKindCd'] = $rootScope.quickSearch.gender.substr(0,4);
+				if($rootScope.quickSearch.cls)
+					$scope.search['brandKindCd'] = $rootScope.quickSearch.cls;
+				if($rootScope.quickSearch.prdSize)
+					$scope.search['prdSize'] = $rootScope.quickSearch.prdSize;
+				$scope.search['invYn'] = 'N';
+				$scope.search['stInvSeq'] = $location.$$search.seq;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope,'/inven/invenList', param);
+			}else if($rootScope.searchMove == 2) {	//단어 검색
+				$scope.search = $rootScope.quickSearchWord;
+				$scope.search['stInvSeq'] = $location.$$search.seq;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope,'/inven/invenList', param );
+			}else{	// 재고실사 번호로만 조회
+				$scope.search = {};
+				$scope.search['invYn'] = 'N';
+				$scope.search.stInvSeq = $location.$$search.seq;
+				// $rootScope.quick4 = false;
+				// if($rootScope.quickSearchWord.word != undefined){
+				// 	$scope.search['word'] = $rootScope.quickSearchWord.word;
+				// }
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope,'/inven/invenList', param);
 			}
-			const startDate = formatDate3($rootScope.quickSearch.startDate);
-			const endDate = formatDate3($rootScope.quickSearch.endDate);
-			$scope.search['startDate'] = startDate;
-			$scope.search['endDate'] = endDate;
+		}else if($rootScope.searchMove == 1){	//페이지 이동후 검색
+			$scope.search = {};
+			if($rootScope.quickSearch.storeCd)
+				$scope.search['invStoreCd'] = $rootScope.quickSearch.storeCd;
+			if($rootScope.quickSearch.brand)
+				$scope.search['brandKindCd'] = $rootScope.quickSearch.brand.substr(0,2);
+			if($rootScope.quickSearch.gender)
+				$scope.search['brandKindCd'] = $rootScope.quickSearch.gender.substr(0,4);
+			if($rootScope.quickSearch.cls)
+				$scope.search['brandKindCd'] = $rootScope.quickSearch.cls;
+			if($rootScope.quickSearch.prdSize)
+				$scope.search['prdSize'] = $rootScope.quickSearch.prdSize;
+			// const startDate = formatDate3($rootScope.quickSearch.startDate);
+			// const endDate = formatDate3($rootScope.quickSearch.endDate);
+			// $scope.search['startDate'] = startDate;
+			// $scope.search['endDate'] = endDate;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inven/invenList', param );
 		}else if($rootScope.searchMove == 2) {	//단어 검색
 			$scope.search = $rootScope.quickSearchWord;
 			const param = generateParam($scope.search);
 			httpGetList($http, $scope,'/inven/invenList', param );
-		}else{															//일반 페이지 이동
+		}else{	//일반 페이지 이동
 			httpGetList($http, $scope,'/inven/invenList' );
 		}
 
@@ -116,13 +145,16 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 		//차이 발생 목록
 		$scope.stkDif = function(command){
 			if(command == 'dis') {
-				Discordance = true;
 				$scope.search['invYn'] = 'N';
 				$scope.search['page'] = 0;
 				const param = generateParam($scope.search);
 				httpGetList($http, $scope, '/inven/invenList', param);
+			}else if(command == 'cnf'){
+				$scope.search['invYn'] = 'Y';
+				$scope.search['page'] = 0;
+				const param = generateParam($scope.search);
+				httpGetList($http, $scope,'/inven/invenList', param );
 			}else{
-				Discordance = false;
 				$scope.search['invYn'] = null;
 				$scope.search['page'] = 0;
 				const param = generateParam($scope.search);
@@ -154,6 +186,5 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 				});
 			}
 		}
-
 	}]
 );

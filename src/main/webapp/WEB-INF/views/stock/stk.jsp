@@ -69,11 +69,11 @@
 				</div>
 				<!-- 테이블 생성 -->
 				<div class="table-box" style="overflow: auto;">
-					<table class="table-bordered table-striped-odd" id="listTable" style="min-width:1450px;text-align: center;font-size:13px;" >
-						<thead style="background: whitesmoke;">
+					<table class="table-bordered table-striped-odd" style="min-width:1450px;text-align: center;font-size:13px;" >
+						<thead>
 							<tr>
 								<th rowspan="2" style="width:65px;">No</th>
-								<th rowspan="2" style="width:250px;">품목명</th>
+								<th rowspan="2" style="width:255px;">품목명</th>
 								<th rowspan="2" style="width:75px;">매장</th>
 								<th rowspan="2" style="width:120px;">브랜드</th>
 								<th rowspan="2" style="width:75px;">성별</th>

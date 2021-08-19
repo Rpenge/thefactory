@@ -16,6 +16,8 @@ public interface PageMapper {
 
     Integer inPageRecord(HashMap item);
 
+    Integer invPageRecord(HashMap item);
+
     Integer outPageRecord(HashMap item);
 
 }

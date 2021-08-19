@@ -128,16 +128,15 @@ body {
 	border-top-right-radius: 0;
 }
 
-@media(min-width:768px){
 
-	.login-background {
-		min-height: 100%;
-		padding: 30px 0px 60px 0px;
-		position: relative;
-	    text-shadow: none;
-	}
-
+.login-background {
+	min-height: 100%;
+	padding: 30px 0px 60px 0px;
+	position: relative;
+	text-shadow: none;
 }
+
+
 
 .login-not-authenticated {
 	margin: 0 0 0 0 !important;
@@ -849,6 +848,7 @@ a.nav-link{
 .table-striped-odd > tbody > tr:nth-child(2n){
 	background-color: #fbfbfb;
 }
+/*테이블 상단 style*/
 .table-striped-odd > thead > tr{
 	background-color : dimgrey;
 	/*box-shadow : 0 0 12px 0 lightgray inset;*/
@@ -862,9 +862,6 @@ a.nav-link{
 	color: white;
 }
 
-.table-striped-line-odd > tbody > tr:nth-child(2n){
-	border-bottom: 2px solid lightgray;
-}
 
 .table-hover tbody tr:hover{
 	background-color : #eeeeee!important;
@@ -1032,4 +1029,10 @@ a.nav-link{
 	text-overflow:ellipsis;
 	font-size: 12px;
 	text-align: left;
+}
+
+.table-text-ellipsis{
+	text-overflow:ellipsis;
+	white-space  : nowrap;
+	overflow     : hidden;
 }

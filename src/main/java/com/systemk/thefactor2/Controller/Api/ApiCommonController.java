@@ -90,13 +90,13 @@ public class ApiCommonController {
     }
 
 
-    //반품입고 할 데이터 조회 (판매 데이터에서 조회)
+    //반품입고 대상 데이터 조회 (판매 데이터에서 조회)
     @RequestMapping(value = "/saleDataSearch", method = RequestMethod.POST)
     public Map<String, Object> saleDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
         return apiService.saleDataSearch(data);
     }
 
-    //반품입고 할 데이터 조회 (점간출고 데이터에서 조회)
+    //반품입고 대상 데이터 조회 (점간출고 데이터에서 조회)
     @RequestMapping(value = "/moveOutDataSearch", method = RequestMethod.POST)
     public Map<String, Object> moveOutDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
         return apiService.moveOutDataSearch(data);
@@ -153,14 +153,14 @@ public class ApiCommonController {
         return apiService.commonCd(param);
     }
 
-    //공통코드 - 공통코드 전송
+    //브랜드코드 전송
     @RequestMapping(value = "/code/brand", method = RequestMethod.GET)
     public Map<String, Object> brand(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);
         return apiService.brandCd(param);
     }
 
-    //공통코드 - 공통코드 전송
+    //태그 초기화 작업 저장
     @RequestMapping(value = "/tagReset", method = RequestMethod.GET)
     public Map<String, Object> tagReset(HttpServletRequest request) throws Exception {
         Map param = RequestUtil.reqParamToMap(request);

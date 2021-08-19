@@ -70,25 +70,36 @@ public class InvenServiceImpl implements InvenService {
 		MybatisUtil mu = new MybatisUtil();
 		mu.setTable("TF_INVENTORY");
 
+		if (param.get("word")!=null) {
+			List<String> columnList = new ArrayList<>();
+			columnList.add("ti.TF_PRD_NM");
+			columnList.add("ti.TF_PRD_CD");
+			columnList.add("ti.TF_PRD_TAGID");
+			columnList.add("ti.BT_PRD_BARCODE");
+			mu.addWord(columnList, (String)param.get("word"));
+		}
+
 		for(Object key : param.keySet()) {
-			if(key.equals("startDate") || key.equals("endDate") || key.equals("sort") || key.equals("direct") || key.equals("size")|| key.equals("page") || key.equals("word")){
+			if(key.equals("startDate") || key.equals("endDate") || key.equals("size")|| key.equals("page") || key.equals("word")){
+				continue;
+			}else if(key.equals("brandKindCd")){
+				mu.addStartLike(StringUtil.camelToSnake((String)key) ,(String)param.get(key));
 				continue;
 			}
 			mu.addEqual(StringUtil.camelToSnake((String)key), (String)param.get(key));
 		}
 
-		if (param.get("word") != null) {
-			mu.addLike("TF_PRD_NM", (String)param.get("word"));
-			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
-			mu.addORLike("TF_PRD_TAGID", (String)param.get("word"));
-			mu.addORLike("BT_PRD_BARCODE", (String)param.get("word"));
-		}
+//		if (param.get("word") != null) {
+//			mu.addLike("TF_PRD_NM", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_CD", (String)param.get("word"));
+//			mu.addORLike("TF_PRD_TAGID", (String)param.get("word"));
+//			mu.addORLike("BT_PRD_BARCODE", (String)param.get("word"));
+//		}
 
-
-		if(param.get("startDate")!= null && param.get("endDate")!= null){
-			mu.addBetween("ST_INV_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
-		}
-		mu.setTotalElements(pageMapper.pageRecord(mu.getTableSearch())); // 수량조회
+//		if(param.get("startDate")!= null && param.get("endDate")!= null){
+//			mu.addBetween("ST_INV_DATE",(String)param.get("startDate"), (String)param.get("endDate"));
+//		}
+		mu.setTotalElements(pageMapper.invPageRecord(mu.getTableSearch())); // 수량조회
 		if(param.get("page")!=null)
 			mu.setPage(Integer.parseInt((String)param.get("page")));
 		if(param.get("size")!=null)
