@@ -343,7 +343,17 @@ public class ApiServiceImpl implements ApiService {
 			map.put("tagId", paramMap.get("tagId"));
 			map.put("stOutType", "060202");
 			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
+
+			TfAcStockVO acStock = tfAcStockMapper.findStockByTagId((String) paramMap.get("tagId"));
 			Map resultMap = new HashMap();
+
+			if(acStock != null){
+				resultMap.put("tagId", paramMap.get("tagId"));
+				resultMap.put("mappingYn", "N");
+				resultList.add(resultMap);
+				continue;
+			}
+
 			if(vo == null){
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
