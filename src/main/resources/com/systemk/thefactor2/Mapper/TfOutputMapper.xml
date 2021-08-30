@@ -73,10 +73,9 @@
         <foreach collection="list" item="item">
             ${item}
         </foreach>
-        group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, TF_PRD_NM
+        group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, BT_PRD_BARCODE
         limit ${start}, ${size}
     </select>
-
 
 
 </mapper>

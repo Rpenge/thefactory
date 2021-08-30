@@ -72,7 +72,7 @@
         <foreach collection="list" item="item">
             ${item}
         </foreach>
-        group by ST_IN_DATE, IN_STORE_CD,  ST_IN_TYPE, TF_PRD_NM
+        group by ST_IN_DATE, IN_STORE_CD,  ST_IN_TYPE, BT_PRD_BARCODE
         limit ${start}, ${size}
     </select>
 

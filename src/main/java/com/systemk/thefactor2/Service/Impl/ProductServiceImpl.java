@@ -74,7 +74,9 @@ public class ProductServiceImpl implements ProductService {
 			ObjectMapper objectMapper = new ObjectMapper();
 			Map map = objectMapper.convertValue(vo, Map.class);
 			Map brandInfo = brandService.detailSearch(vo.getBrandKindCd());
-			map.putAll(brandInfo);
+			if(brandInfo != null) {
+				map.putAll(brandInfo);
+			}
 			listMap.add(map);
 		}
 		mu.setContent(listMap);

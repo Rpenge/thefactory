@@ -96,7 +96,7 @@ public class ApiCommonController {
         return apiService.saleDataSearch(data);
     }
 
-    //반품입고 대상 데이터 조회 (점간출고 데이터에서 조회)
+    //점간출고 데이터에서 조회
     @RequestMapping(value = "/moveOutDataSearch", method = RequestMethod.POST)
     public Map<String, Object> moveOutDataSearch(@RequestBody(required = false) List<Map<String, String>> data) throws Exception {
         return apiService.moveOutDataSearch(data);
