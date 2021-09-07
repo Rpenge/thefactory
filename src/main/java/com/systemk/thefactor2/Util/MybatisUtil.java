@@ -61,6 +61,14 @@ public class MybatisUtil {
         String str = "AND " +column + " like '%"+ findStr+"%'";
         search.add(str);
     }
+    
+    /*210903 추가*/
+    public void addAndORLike(String column1, String column2, String column3, String findStr){
+        String str = "AND(" +column1 + " like '%"+ findStr+"%'";
+        str += " OR " +column2 + " like '%"+ findStr+"%'";
+        str += " OR " +column3 + " like '%"+ findStr+"%')";
+        search.add(str);
+    }
 
     public void addWord(List<String> columnList, String findStr){
         String str = "AND ( " ;

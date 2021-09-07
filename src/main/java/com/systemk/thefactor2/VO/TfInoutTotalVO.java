@@ -26,4 +26,5 @@ public class TfInoutTotalVO {
     private String regId;           // 등록자
     private Date   modDate;         // 수정일시
     private String modId;           // 수정자
+    private String deleteYn;        // 삭제여부
 }

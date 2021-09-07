@@ -27,4 +27,5 @@ public class TfOutputVO {
     private String modId;           // 수정자
     private String tfPrdNm;         // 상품명
     private String stOutComment;    // 비고
+    private String deleteYn;        // 삭제여부
 }

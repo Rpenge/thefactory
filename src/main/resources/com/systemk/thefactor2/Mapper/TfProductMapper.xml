@@ -8,7 +8,8 @@
         *
         FROM
         TF_PRODUCT
-        WHERE true
+        WHERE 
+        DELETE_YN = 'N'
         <foreach collection="list" item="item">
             ${item}
         </foreach>
@@ -20,7 +21,6 @@
                 order by PRD_REG_SEQ desc
             </otherwise>
         </choose>
-
         <choose>
             <when test = "total != null">
             </when>
@@ -53,19 +53,40 @@
         WHERE
             PRD_REG_SEQ = ${prdRegSeq}
     </update>
-
+	
+	<!-- 
     <delete id="productDelete" parameterType="Integer">
         delete from TF_PRODUCT where PRD_REG_SEQ = ${prdRegSeq}
     </delete>
+     -->
+    
+    <!-- 상품 삭제 시 DELETE_YN = 'Y' 변경 --> 
+    <update id="productDelYn" parameterType="Integer">
+    	update tf_product set DELETE_YN = 'Y'
+		where PRD_REG_SEQ = ${prdRegSeq};
+        update tf_stock
+		set DELETE_YN = 'Y'
+		where 
+		TF_PRD_CD = (select TF_PRD_CD from tf_product where PRD_REG_SEQ = ${prdRegSeq})
+    </update>
 
     <select id="prdAndStk" resultType="Map" parameterType="java.util.Map">
-        select * from TF_PRODUCT tp inner join tf_stock ts on tp.tf_prd_cd =ts.tf_prd_cd
+        select * from (select * from tf_product where DELETE_YN = 'N') tp 
+        inner join 
+        tf_stock ts 
+        on tp.tf_prd_cd = ts.tf_prd_cd
         where ts.TF_PRD_BARCODE = #{barcode} limit 1
     </select>
 
     <select id="prdAndStkDetail" resultType="Map" parameterType="java.util.Map">
-        select ts.TF_PRD_NM as name, PRD_SIZE as size, TF_PRD_BARCODE as barcode, tp.BRAND_KIND_CD as brand from tf_product tp inner join tf_stock ts on tp.tf_prd_cd = ts.tf_prd_cd
-        where EC_PRD_CD = #{item} group by TF_PRD_BARCODE
+        select ts.TF_PRD_NM as name, 
+		PRD_SIZE as size, 
+		TF_PRD_BARCODE as barcode, 
+		tp.BRAND_KIND_CD as brand 
+		from (select * from tf_product where DELETE_YN = 'N') tp 
+		inner join tf_stock ts 
+		on tp.tf_prd_cd = ts.tf_prd_cd
+		where EC_PRD_CD = #{item} group by TF_PRD_BARCODE
     </select>
 
     <select id="productCheck" resultType="Integer" parameterType="java.util.Map">
@@ -87,6 +108,7 @@
           , MOD_DATE = SYSDATE()
           , MOD_ID = #{regId}
           , USE_YN = #{useYn}
+          , DELETE_YN = #{delYn}
         WHERE
             TF_PRD_CD = #{tfPrdCd}
     </update>

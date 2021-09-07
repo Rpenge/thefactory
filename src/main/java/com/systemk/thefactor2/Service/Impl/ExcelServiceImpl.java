@@ -90,6 +90,7 @@ public class ExcelServiceImpl implements ExcelService {
             map.put("STD_STOCK_CNT", row.getCell(9).toString());
             map.put("STOCK_STORE_NM", row.getCell(13).toString());
             map.put("STOCK_STORE_CD", cdMap.get(row.getCell(13).toString())); //코드 찾아서 입력
+            map.put("DELETE_YN", 'N'); // 210906 삭제 플래그 추가
             map.put("userId", userId);
 
             if(tfStockMapper.stockCheck(map) > 0){
@@ -141,6 +142,7 @@ public class ExcelServiceImpl implements ExcelService {
             map.put("orgCountryNm", row.getCell(9).toString());
             map.put("brandNm", row.getCell(10).toString());
             map.put("ecSizeNm", row.getCell(21).toString());
+            map.put("delYn", 'N'); // 210906 삭제 플래그 추가
             map.put("regId", userId);
 
             if(tfProductMapper.productCheck(map) > 0){

@@ -7,7 +7,14 @@
             COUNT (*)
         from
             ${table}
-        where true
+        <choose>
+        	<when test="table.equals('TF_PRODUCT') || table.equals('TF_STOCK')">
+        		where DELETE_YN = 'N'
+        	</when>
+        	<otherwise>
+        		where true
+        	</otherwise>
+        </choose>
         <foreach collection="list" item="item">
             ${item}
         </foreach>
@@ -17,7 +24,7 @@
         select
         COUNT (*)
         from
-        tf_stock ts left outer join tf_product tp on
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp on
         ts.TF_PRD_CD = tp.TF_PRD_CD
         where true
         <if test="STORE_CD != null">
@@ -33,9 +40,9 @@
 
     <select id="stkExPageRecord" resultType="INT" parameterType="java.util.HashMap">
         select
-            COUNT (*)
+        COUNT (*)
         from
-            tf_stock ts left outer join tf_product tp
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp
         on ts.TF_PRD_CD = tp.TF_PRD_CD
         where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
         <foreach collection="list" item="item">
@@ -48,9 +55,9 @@
 
     <select id="stkRfidPageRecord" resultType="INT" parameterType="java.util.HashMap">
         select
-            COUNT (*)
+        COUNT (*)
         from
-        tf_stock ts left outer join tf_product tp
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp
         on ts.TF_PRD_CD = tp.TF_PRD_CD
         where ts.RFID_STOCK_CNT > 0
         <foreach collection="list" item="item">
@@ -68,7 +75,7 @@
         <foreach collection="list" item="item">
             ${item}
         </foreach>
-        group by ST_IN_DATE, IN_STORE_CD,  ST_IN_TYPE, TF_PRD_NM
+        group by ST_IN_DATE, IN_STORE_CD, ST_IN_TYPE, TF_PRD_NM
         ) as tb
     </select>
 
@@ -79,7 +86,7 @@
         <foreach collection="list" item="item">
             ${item}
         </foreach>
-        group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, TF_PRD_NM
+        group by ST_OUT_DATE, OUT_STORE_CD, ST_OUT_TYPE, TF_PRD_NM
         ) as tb
     </select>
 

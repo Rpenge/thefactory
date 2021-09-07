@@ -18,7 +18,10 @@ public interface TfProductMapper {
     // 상품 마스터 수정
     int productUpdate(Map item);
     // 상품 마스터 삭제
-    int productDelete(int item);
+    // int productDelete(int item);
+    
+    // 210902 상품 삭제 (update)
+    int productDelYn(int item);
 
     Map prdAndStk(Map item);
 

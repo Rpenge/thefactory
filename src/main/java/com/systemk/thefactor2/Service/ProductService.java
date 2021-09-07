@@ -14,5 +14,7 @@ public interface ProductService {
 
     public Map<String, Object> productUpdate(Map param) throws Exception;
 
-    public Map<String, Object> productDelete(Map param) throws Exception;
+    // public Map<String, Object> productDelete(Map param) throws Exception;
+    
+    public Map<String, Object> productDelYn(Map param) throws Exception;
 }

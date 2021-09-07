@@ -5,8 +5,8 @@
 
     <select id="stockList" resultType="Map" parameterType="java.util.HashMap">
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
-        from (select * from tf_stock ts
-        where true
+        from (select * from tf_stock 
+        where DELETE_YN = 'N'
         <foreach collection="list" item="item">
             ${item}
         </foreach>
@@ -19,8 +19,8 @@
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
         from
         (
-            select *
-            from tf_stock ts
+            select * from
+            (select * from tf_stock where DELETE_YN = 'N') ts
             where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
             <foreach collection="list" item="item">
                 ${item}
@@ -39,9 +39,9 @@
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
         from
         (
-            select *
-            from tf_stock ts
+            select * from tf_stock ts
             where ts.RFID_STOCK_CNT > 0
+            and ts.DELETE_YN = 'N'
             <foreach collection="list" item="item">${item}</foreach>
             order by STOCK_REG_SEQ desc
         ) as stk
@@ -56,7 +56,7 @@
     <select id="stockListSearch" resultType="Map" parameterType="java.util.HashMap">
         select STOCK_REG_SEQ, STOCK_STORE_CD, STOCK_STORE_NM, tp.BRAND_KIND_CD , stk.TF_PRD_CD,stk.TF_PRD_NM,TF_PRD_BARCODE ,PRD_SIZE,REAL_STOCK_CNT , RFID_STOCK_CNT, INVENTORY_CNT, stk.MOD_DATE
         from (select * from tf_stock ts
-        where true
+        where DELETE_YN = 'N'
         <if test="STORE_CD != null">
             AND STOCK_STORE_CD = #{STORE_CD}
         </if>
@@ -99,7 +99,7 @@
 
     <update id="stockUpdate" parameterType="java.util.Map">
         UPDATE tf_stock
-        SET CUR_STOCK_CNT=${CUR_STOCK_CNT}, REAL_STOCK_CNT=${REAL_STOCK_CNT}, STD_STOCK_CNT=${STD_STOCK_CNT}, MOD_ID= #{userId} , MOD_DATE = now()
+        SET CUR_STOCK_CNT=${CUR_STOCK_CNT}, REAL_STOCK_CNT=${REAL_STOCK_CNT}, STD_STOCK_CNT=${STD_STOCK_CNT}, MOD_ID= #{userId} , MOD_DATE = now(), DELETE_YN=#{DELETE_YN}
         WHERE STOCK_STORE_CD = #{STOCK_STORE_CD}
         AND TF_PRD_BARCODE= #{TF_PRD_BARCODE}
     </update>
@@ -130,7 +130,8 @@
             STOCK_STORE_NM as '배송처(창고)',
             RFID_STOCK_CNT as 'RFID재고'
         from tf_stock ts
-        where STOCK_STORE_CD like '%${storeCd}%'
+        where STOCK_STORE_CD like '${storeCd}%'
+        and DELETE_YN = 'N'
         order by STOCK_REG_SEQ ;
     </select>
 

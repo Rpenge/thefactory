@@ -133,7 +133,8 @@ public class BaseController {
 	//기초정보관리 - 상품관리 - 상품 삭제(update처리)
 	@RequestMapping(value="/productDelete", method = RequestMethod.POST)
 	public Map productDelete(@RequestBody(required = false) Map<String, Object> map) throws Exception{
-		return productService.productDelete(map);
+		// return productService.productDelete(map);
+		return productService.productDelYn(map);
 	}
 
 	//기초정보관리 - 디바이스관리 - 디바이스 조회
