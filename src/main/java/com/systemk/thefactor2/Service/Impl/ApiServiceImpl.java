@@ -310,7 +310,8 @@ public class ApiServiceImpl implements ApiService {
 		for(Map paramMap : param){
 			Map map = new HashMap();
 			map.put("tagId", paramMap.get("tagId"));
-			map.put("stOutType", "0603");
+			map.put("stOutType", "0602"); // 210907 추가: 출고 데이터
+			map.put("stOutType", "0603"); // 판매 데이터
 			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
 			Map resultMap = new HashMap();
 			if(vo == null){
