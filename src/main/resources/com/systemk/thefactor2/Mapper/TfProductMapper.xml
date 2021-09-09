@@ -61,13 +61,23 @@
      -->
     
     <!-- 상품 삭제 시 DELETE_YN = 'Y' 변경 --> 
-    <update id="productDelYn" parameterType="Integer">
+    <update id="productDelYn1" parameterType="Integer">
     	update tf_product set DELETE_YN = 'Y'
-		where PRD_REG_SEQ = ${prdRegSeq};
+		where PRD_REG_SEQ = ${prdRegSeq}
+    </update>
+    
+    <update id="productDelYn2" parameterType="Integer">
         update tf_stock
 		set DELETE_YN = 'Y'
 		where 
 		TF_PRD_CD = (select TF_PRD_CD from tf_product where PRD_REG_SEQ = ${prdRegSeq})
+    </update>
+    
+    <update id="productDelYn3" parameterType="Integer">
+        update tf_product
+		set DELETE_YN = 'N'
+		where 
+		PRD_REG_SEQ = ${prdRegSeq}
     </update>
 
     <select id="prdAndStk" resultType="Map" parameterType="java.util.Map">

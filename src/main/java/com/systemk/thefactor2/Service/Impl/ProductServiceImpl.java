@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -128,6 +129,8 @@ public class ProductServiceImpl implements ProductService {
 		return map;
 	}
 	*/
+	
+	/*
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Map<String, Object> productDelYn(Map param) throws Exception {
@@ -136,6 +139,44 @@ public class ProductServiceImpl implements ProductService {
 		for(int seq : list){
 			if (tfProductMapper.productDelYn(seq) == 1) {
 				map.put("resultCode", "S");
+			} else {
+				map.put("resultCode", "E");
+			}
+		}
+		return map;
+	}
+	*/
+	
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public Map<String, Object> productDelYn(Map param) throws Exception {
+		List<Integer> list = (List) param.get("list");
+		Map map = new HashMap();
+		String[] sArray = new String[list.size()]; // 체크박스에 체크된 삭제할 데이터 배열 선언
+		int k = 0;
+		String[] spArray = null;
+		
+		// 상품을 삭제 시 상품데이터의 삭제 플래그를 Y로 업데이트 
+		for(int seq : list){
+			if (tfProductMapper.productDelYn1(seq) == 1) { // Y로 업데이트 성공이면,
+				sArray[k] = Integer.toString(seq) + "," + "S"; // sArray 변수에 삭제할 품목의 seq 값, "S" 담는다(왜?: 재고테이블에서 해당 상품을 삭제할 때 사용하기 위해)
+			} else {
+				sArray[k] = Integer.toString(seq) + "," + "E";
+			}
+			k++;
+		}
+		
+		// 재고테이블에서 삭제 플래그 Y로 업데이트
+		for(int i=0; i < sArray.length; i++) {
+			spArray = sArray[i].split(",");
+			if(spArray[1].equals("S")) {
+				int aa = Integer.parseInt(spArray[0]);
+				if(tfProductMapper.productDelYn2(aa) == 1) {
+					map.put("resultCode", "S");
+				} else {
+					tfProductMapper.productDelYn3(aa);
+					map.put("resultCode", "E");
+				}
 			} else {
 				map.put("resultCode", "E");
 			}
