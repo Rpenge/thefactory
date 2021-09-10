@@ -49,9 +49,27 @@
           , EC_SIZE_NM = #{ecSizeNm}
           , MOD_DATE = SYSDATE()
           , MOD_ID = #{modId}
-          , USE_YN = #{useYn}
+          <!-- , USE_YN = #{useYn} -->
         WHERE
             PRD_REG_SEQ = ${prdRegSeq}
+    </update>
+    
+    <!-- 210909 추가 // 상품마스터 수정 시 재고관리 상품 동시 수정 -->
+    <update id="prdAndStkUpdate" parameterType="java.util.Map">
+    	update tf_product tp
+		inner join tf_stock ts
+		on tp.TF_PRD_CD = ts.TF_PRD_CD
+		set ts.TF_PRD_NM = #{tfPrdNm}
+		where tp.PRD_REG_SEQ = #{prdRegSeq}
+    </update>
+    
+    <!-- 210909 추가 // 상품마스터 수정 시 실사내역 상품 동시 수정 -->
+    <update id="prdAndInvUpdate" parameterType="java.util.Map">
+    	update tf_product tp
+		inner join tf_inventory ti
+		on tp.TF_PRD_CD = ti.TF_PRD_CD
+		set ti.TF_PRD_NM = #{tfPrdNm}
+		where tp.PRD_REG_SEQ = #{prdRegSeq}
     </update>
 	
 	<!-- 

@@ -100,18 +100,24 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return map;
 	}
+	
 	// 상품정보 수정
+	// 210910 상품정보 수정시 재고상품 동시 수정
 	@Override
 	public Map<String, Object> productUpdate(Map param) throws Exception {
-		System.out.println(param);
 		Map map = new HashMap();
+		
 		if (tfProductMapper.productUpdate(param) == 1) {
+			tfProductMapper.prdAndStkUpdate(param);
+			tfProductMapper.prdAndInvUpdate(param);
 			map.put("resultCode", "S");
 		} else {
 			map.put("resultCode", "E");
 		}
+		
 		return map;
 	}
+	
 	// 상품정보 삭제
 	/*
 	@Transactional(rollbackFor=Exception.class)
@@ -151,6 +157,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> productDelYn(Map param) throws Exception {
 		List<Integer> list = (List) param.get("list");
+		System.out.println("STARTSTARTSTARTSTART");
+		System.out.println(param);
+		System.out.println(list);
 		Map map = new HashMap();
 		String[] sArray = new String[list.size()]; // 체크박스에 체크된 삭제할 데이터 배열 선언
 		int k = 0;

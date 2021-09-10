@@ -87,7 +87,7 @@ app.controller('productController', ['$scope', '$http', '$location', '$rootScope
 
 		//유저 등록, 수정, 비밀번호 변경
 		$scope.formSave = function(){
-
+			console.log($scope.form);
 			if($scope.es.newForm == true){  //신규 상품 추가
 				$scope.form.brandKindCd = $scope.inView.cls;
 				for(value of $rootScope.brandList){
