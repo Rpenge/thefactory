@@ -310,9 +310,9 @@ public class ApiServiceImpl implements ApiService {
 		for(Map paramMap : param){
 			Map map = new HashMap();
 			map.put("tagId", paramMap.get("tagId"));
-			map.put("stOutType", "0602"); // 210907 추가: 출고 데이터
-			map.put("stOutType", "0603"); // 판매 데이터
-			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
+			map.put("stOutType1", "0602"); // 210914 수정: 출고 데이터
+			map.put("stOutType2", "0603"); // 210914 수정: 판매 데이터
+			TfOutputVO vo = tfOutputMapper.outAndSaleSearch(map);
 			Map resultMap = new HashMap();
 			if(vo == null){
 				resultMap.put("tagId", paramMap.get("tagId"));
@@ -334,7 +334,7 @@ public class ApiServiceImpl implements ApiService {
 		return ResultUtil.setCommonResult("S","성공하였습니다", resultList);
 	}
 
-	//출고테이블 tagId로 점간출고 데이터 조회
+	//출고테이블 tagId로 점간출고된 데이터 조회
 	@Override
 	public Map<String, Object> moveOutDataSearch(List<Map<String, String>> param) throws Exception {
 		List<Map> resultList = new ArrayList<Map>();
