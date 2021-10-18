@@ -149,6 +149,18 @@ public class OutputServiceImpl implements OutputService {
 		}
 		return map;
 	}
+	
+	// 211015 추가
+	@Override
+	public Map<String, Object> outputMoveSearch(String tagId) throws Exception {
+		TfOutputVO vo = tfOutputMapper.outputSearch(tagId);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Map map = objectMapper.convertValue(vo, Map.class);
+		if(vo!=null) {
+			map.putAll(brandService.detailSearch(vo.getBrandKindCd()));
+		}
+		return map;
+	}
 
 	@Override
 	public Map<String, Object> outputAdd(Map param) throws Exception {

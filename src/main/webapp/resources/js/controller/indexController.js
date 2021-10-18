@@ -5,7 +5,7 @@ app.run(function($rootScope, $http, $route, $window){
 	};
 
 	//프로젝트 이미지 변경   true:시스템케이  false:더팩토리
-	$rootScope.systemk = false;
+	$rootScope.systemk = true;
 	if($rootScope.systemk){
 		$rootScope.imgPath = "/resources/systemk";
 	}else{

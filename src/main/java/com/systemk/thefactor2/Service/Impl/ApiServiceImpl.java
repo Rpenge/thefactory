@@ -345,15 +345,17 @@ public class ApiServiceImpl implements ApiService {
 			map.put("stOutType", "060202");
 			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
 
-			TfAcStockVO acStock = tfAcStockMapper.findStockByTagId((String) paramMap.get("tagId"));
+			// TfAcStockVO acStock = tfAcStockMapper.findStockByTagId((String) paramMap.get("tagId"));
 			Map resultMap = new HashMap();
-
+			
+			/*
 			if(acStock != null){
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
 				resultList.add(resultMap);
 				continue;
 			}
+			*/
 
 			if(vo == null){
 				resultMap.put("tagId", paramMap.get("tagId"));
@@ -381,9 +383,19 @@ public class ApiServiceImpl implements ApiService {
 	public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception {
 
 		for(Map param : paramList){
-			Map outputData = outputService.outputSearch((String) param.get("tagId"));
-			if(outputData == null){	//출고 여부 확인
-				throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
+			String inType = param.get("state").toString();
+			// 211015 점간 출고와 출고 상품 분류
+			Map outputData = null;
+			if(inType == "060202") {
+				outputData = outputService.outputMoveSearch((String) param.get("tagId"));
+				if(outputData == null){	//점간 출고 여부 확인
+					throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
+				}
+			} else {
+				outputData = outputService.outputSearch((String) param.get("tagId"));
+				if(outputData == null){	//출고 여부 확인
+					throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
+				}
 			}
 
 			param.put("barcode", outputData.get("btPrdBarcode"));
