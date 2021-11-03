@@ -18,6 +18,8 @@ public interface TfOutputMapper {
     TfOutputVO outAndSaleSearch(Map item); // 210915 추가
 
     TfOutputVO outputSearch(String tagId);
+    
+    TfOutputVO outputMoveSearch(String tagId);
 
     int outputAdd(HashMap item);
 

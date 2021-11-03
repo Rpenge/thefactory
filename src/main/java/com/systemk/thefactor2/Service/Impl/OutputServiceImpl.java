@@ -153,7 +153,7 @@ public class OutputServiceImpl implements OutputService {
 	// 211015 추가
 	@Override
 	public Map<String, Object> outputMoveSearch(String tagId) throws Exception {
-		TfOutputVO vo = tfOutputMapper.outputSearch(tagId);
+		TfOutputVO vo = tfOutputMapper.outputMoveSearch(tagId);
 			ObjectMapper objectMapper = new ObjectMapper();
 			Map map = objectMapper.convertValue(vo, Map.class);
 		if(vo!=null) {

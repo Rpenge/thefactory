@@ -95,6 +95,7 @@ public class ExcelServiceImpl implements ExcelService {
 
             if(tfStockMapper.stockCheck(map) > 0){
                 tfStockMapper.stockUpdate(map);
+                tfStockMapper.invUpdate(map); // 211102 엑셀업로드 시 재고실사내역 정보 동시 수정
             }else{
                 tfStockMapper.stockSave(map);
             }

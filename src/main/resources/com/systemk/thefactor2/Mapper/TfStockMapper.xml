@@ -96,12 +96,22 @@
         (STOCK_STORE_CD, STOCK_STORE_NM, TF_PRD_CD, TF_PRD_NM, TF_PRD_BARCODE, PRD_SIZE, CUR_STOCK_CNT, REAL_STOCK_CNT, STD_STOCK_CNT, RFID_STOCK_CNT, INVENTORY_CNT, REG_DATE, REG_ID)
         VALUES(#{STOCK_STORE_CD}, #{STOCK_STORE_NM}, #{TF_PRD_CD}, #{TF_PRD_NM}, #{TF_PRD_BARCODE}, #{PRD_SIZE}, #{CUR_STOCK_CNT}, #{REAL_STOCK_CNT}, #{STD_STOCK_CNT}, 0, 0, now(), #{userId})
     </insert>
-
+	
+	<!-- 211102 엑셀업로드 시 품목명 수정 추가 -->
     <update id="stockUpdate" parameterType="java.util.Map">
         UPDATE tf_stock
-        SET CUR_STOCK_CNT=${CUR_STOCK_CNT}, REAL_STOCK_CNT=${REAL_STOCK_CNT}, STD_STOCK_CNT=${STD_STOCK_CNT}, MOD_ID= #{userId} , MOD_DATE = now(), DELETE_YN=#{DELETE_YN}
+        SET TF_PRD_NM= '${TF_PRD_NM}', CUR_STOCK_CNT=${CUR_STOCK_CNT}, REAL_STOCK_CNT=${REAL_STOCK_CNT}, STD_STOCK_CNT=${STD_STOCK_CNT}, MOD_ID= #{userId} , MOD_DATE = now(), DELETE_YN=#{DELETE_YN}
         WHERE STOCK_STORE_CD = #{STOCK_STORE_CD}
         AND TF_PRD_BARCODE= #{TF_PRD_BARCODE}
+    </update>
+    
+    <!-- 211102 엑셀업로드 시 재고실사내역 정보 동시 수정 -->
+    <update id="invUpdate" parameterType="java.util.Map">
+    	UPDATE tf_inventory 
+		SET
+		TF_PRD_NM = '${TF_PRD_NM}'
+		WHERE INV_STORE_CD = #{STOCK_STORE_CD}
+		AND BT_PRD_BARCODE = #{TF_PRD_BARCODE}
     </update>
 
     <update id="stockInvUpdate" parameterType="java.util.Map">

@@ -41,8 +41,10 @@
         select * from tf_output where TF_PRD_TAGID = #{item} and ST_OUT_TYPE = '060202' order by ST_OUT_SEQ desc limit 1
     </select>
     
+    <!-- 211025 tf_output 테이블의 맨위 상단의 값 -->
     <select id="outWorkSearch" resultType="TfOutputVO" parameterType="java.util.Map">
-        select * from tf_output where TF_PRD_TAGID = #{tagId} and ST_OUT_TYPE like '${stOutType}%' order by ST_OUT_SEQ desc limit 1
+    	select * from tf_output where TF_PRD_TAGID = #{tagId} order by ST_OUT_SEQ desc limit 1
+        <!-- select * from tf_output where TF_PRD_TAGID = #{tagId} and ST_OUT_TYPE like '${stOutType}%' order by ST_OUT_SEQ desc limit 1  -->
     </select>
      
     <!-- 210914 판매 or 출고상품 반품 기능 수정 -->

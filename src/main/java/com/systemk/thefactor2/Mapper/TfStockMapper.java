@@ -29,6 +29,8 @@ public interface TfStockMapper {
     int stockSave(Map item);
 
     int stockUpdate(Map item);
+    
+    int invUpdate(Map item); // 211102 엑셀업로드 시 재고실사내역 정보 동시 수정
 
     int stockInvUpdate(Map item);
 

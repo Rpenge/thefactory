@@ -314,7 +314,9 @@ public class ApiServiceImpl implements ApiService {
 			map.put("stOutType2", "0603"); // 210914 수정: 판매 데이터
 			TfOutputVO vo = tfOutputMapper.outAndSaleSearch(map);
 			Map resultMap = new HashMap();
-			if(vo == null){
+			String checkOutType = vo.getStOutType();
+			System.out.println(checkOutType);
+			if(vo == null || checkOutType.equals("060202")){
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
 				resultList.add(resultMap);
@@ -344,6 +346,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("tagId", paramMap.get("tagId"));
 			map.put("stOutType", "060202");
 			TfOutputVO vo = tfOutputMapper.outWorkSearch(map);
+			
 
 			// TfAcStockVO acStock = tfAcStockMapper.findStockByTagId((String) paramMap.get("tagId"));
 			Map resultMap = new HashMap();
@@ -356,8 +359,11 @@ public class ApiServiceImpl implements ApiService {
 				continue;
 			}
 			*/
-
-			if(vo == null){
+			
+			String checkOutType = vo.getStOutType();
+			// if(vo == null) {
+			// 211025 매핑 시 점간출고 가능 유무 체크
+			if (!checkOutType.equals("060202")) {
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
 				resultList.add(resultMap);
@@ -386,7 +392,7 @@ public class ApiServiceImpl implements ApiService {
 			String inType = param.get("state").toString();
 			// 211015 점간 출고와 출고 상품 분류
 			Map outputData = null;
-			if(inType == "060202") {
+			if(inType.equals("060102")) {
 				outputData = outputService.outputMoveSearch((String) param.get("tagId"));
 				if(outputData == null){	//점간 출고 여부 확인
 					throw new Exception(ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG);
