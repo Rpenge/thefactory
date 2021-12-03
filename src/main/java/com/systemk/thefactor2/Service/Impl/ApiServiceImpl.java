@@ -60,7 +60,9 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	private TfInvStatusMapper tfInvStatusMapper;
 
-
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	private InoutTotService inoutTotService;
 
@@ -162,6 +164,13 @@ public class ApiServiceImpl implements ApiService {
 			mu.addEqual("ST_IN_TYPE", (String)param.get("state"));
 		}
 		mu.setTotal();
+		
+		// 211202 입고 지점별 조회 추가
+		/*
+		String inStoreCd = (String)param.get("storeCd");
+		mu.addEqual("IN_STORE_CD", inStoreCd);
+		*/
+		
 		List<TfInputVO> voList = tfInputMapper.inputList(mu.getTableSearch()); //리스트 조회
 		for(TfInputVO vo : voList){
 			Map map = new HashMap();
@@ -315,7 +324,6 @@ public class ApiServiceImpl implements ApiService {
 			TfOutputVO vo = tfOutputMapper.outAndSaleSearch(map);
 			Map resultMap = new HashMap();
 			String checkOutType = vo.getStOutType();
-			System.out.println(checkOutType);
 			if(vo == null || checkOutType.equals("060202")){
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
@@ -408,6 +416,21 @@ public class ApiServiceImpl implements ApiService {
 			Map mapData = tfProductMapper.prdAndStk(param);
 			if(mapData == null){	//상품정보, 재고정보 확인
 				throw new Exception(ConstansConfig.NOT_FIND_STOCK_MSG);
+			}		
+			
+			// 211126 계정의 지점 storeCd와 맞는지 체크
+			Map findId = userService.userInfo((String)data.get("userId"));
+			String inStoreCd = String.valueOf(outputData.get("inStoreCd"));
+			String outStoreCd = String.valueOf(outputData.get("outStoreCd"));
+			String stOutType = String.valueOf(outputData.get("stOutType"));
+			if(stOutType.equals("060202")) { // 출고 종류가 점간출고라면,
+				if(!inStoreCd.equals(findId.get("STORE_CD"))) {
+					throw new Exception(ConstansConfig.NOT_MATCHING_IN_STORE_CD);
+				}
+			} else { // 일반출고, 매장판매 등
+				if(inStoreCd.equals(findId.get("STORE_CD"))) {
+					throw new Exception(ConstansConfig.NOT_MATCHING_IN_STORE_CD);
+				}
 			}
 
 			TfAcStockVO stock = tfAcStockMapper.findStockByTagId((String) param.get("tagId"));
@@ -479,6 +502,13 @@ public class ApiServiceImpl implements ApiService {
 		}else {
 			mu.addEqual("ST_OUT_TYPE", state);
 		}
+		
+		// 211202 출고/판매 지점별 조회 추가
+		/*
+		String outStoreCd = (String)param.get("currentStoreCd");
+		mu.addEqual("OUT_STORE_CD", outStoreCd);
+		*/
+		
 		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
 		for(TfOutputVO vo : voList){
 			Map map = new HashMap();
@@ -504,6 +534,13 @@ public class ApiServiceImpl implements ApiService {
 			if(vo == null){
 				return ResultUtil.setCommonResult("E",ConstansConfig.NOT_FIND_RFID_TAG_MSG);
 			}
+			
+			// 211126 출고하는 storeCd가 계정의 지점 storeCd와 맞는지 체크
+			Map findId = userService.userInfo(userId);
+			if(!vo.getStoreCd().equals(findId.get("STORE_CD"))) {
+				return ResultUtil.setCommonResult("E", ConstansConfig.NOT_MATCHING_OUT_STORE_CD);
+			}
+			
 			Map map = new HashMap();
 			map.put("barcode", vo.getTfPrdBarcode());
 			Map mapData = tfProductMapper.prdAndStk(map);

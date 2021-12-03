@@ -21,6 +21,10 @@ public interface TfProductMapper {
     int prdAndStkUpdate(Map item);
     // 210909 상품마스터 수정 시 실사내역정보 동시 수정
     int prdAndInvUpdate(Map item);
+    // 211102 상품마스터 수정 시 입고내역정보 동시 수정
+    int prdAndInpUpdate(Map item);
+    // 211102 상품마스터 수정 시 출고내역정보 동시 수정
+    int prdAndOutpUpdate(Map item);
     
     // 상품 마스터 삭제
     // int productDelete(int item);

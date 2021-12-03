@@ -186,5 +186,27 @@ app.controller('invInfoController', ['$scope', '$http', '$location', '$rootScope
 				});
 			}
 		}
+		
+		// 엑셀 다운로드
+		$scope.excelDown = function(){
+			var fileName = '재고실사상세내역_'+formatDate3(new Date())+'.xlsx';
+			console.log($scope.excelForm);
+			$http({
+				method : 'POST',
+				url : "/invInfoExcelDown",
+				data  : $scope.excelForm,
+				responseType : 'blob',
+			}).success(function(data){
+				var blob = data;
+				var downloadLink = window.document.createElement('a');
+				downloadLink.href = window.URL.createObjectURL(new Blob([blob]));
+				downloadLink.download = fileName;
+				document.body.appendChild(downloadLink);
+				downloadLink.click();
+				document.body.removeChild(downloadLink);
+			}).error(function(data){
+				alert('실패');
+			});
+		}
 	}]
 );

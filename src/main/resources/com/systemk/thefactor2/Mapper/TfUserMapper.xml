@@ -53,6 +53,11 @@
         </choose>
             limit ${start}, ${size}
     </select>
+    
+    <!-- 211125 아이디로 계정정보 조회 -->
+    <select id="userInfo" resultType="java.util.Map" parameterType="String">
+    	SELECT * FROM TF_USER WHERE USER_ID = #{userId}
+    </select>
 
     <insert id="userSave" parameterType="java.util.Map">
         INSERT INTO TF_USER

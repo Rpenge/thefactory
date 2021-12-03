@@ -19,20 +19,44 @@
     <select id="findStockByTagId" resultType="TfAcStockVO" parameterType="java.util.Map">
         select * from tf_ac_stock where TF_PRD_TAGID = #{item};
     </select>
-
+    
+    <!-- 211126 출고 시 재고 데이터 조회 -->
     <select id="stockCheck" resultType="java.util.Map" parameterType="String">
         select 
+        ts.STOCK_REG_SEQ as stockRegSeq,
 		TF_PRD_NM as tfPrdNm, 
+		tas.STORE_CD as storeCd,
 		tas.REG_DATE as regDate, 
 		ts.TF_PRD_BARCODE as tfPrdBarcode, 
 		ts.PRD_SIZE as prdSize, 
-		tas.BRAND_KIND_CD as brand 
+		tas.BRAND_KIND_CD as brand,
+		tas.ST_IN_TYPE as stInType
+		from tf_ac_stock tas 
+		inner join 
+		(select * from tf_stock where DELETE_YN = 'N') ts 
+		on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE 
+		where tas.TF_PRD_TAGID = #{item} 
+		order by stockRegSeq desc 
+		limit 1;
+    </select>
+    
+    <!-- 
+    <select id="stockCheck" resultType="java.util.Map" parameterType="String">
+        select 
+		TF_PRD_NM as tfPrdNm, 
+		tas.STORE_CD as storeCd,
+		tas.REG_DATE as regDate, 
+		ts.TF_PRD_BARCODE as tfPrdBarcode, 
+		ts.PRD_SIZE as prdSize, 
+		tas.BRAND_KIND_CD as brand,
+		tas.ST_IN_TYPE as stInType
 		from tf_ac_stock tas 
 		inner join 
 		(select * from tf_stock where DELETE_YN = 'N') ts 
 		on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE 
 		where tas.TF_PRD_TAGID = #{item} limit 1;
     </select>
+    -->
 
     <select id="findTagId" resultType="String" parameterType="String">
         select TF_PRD_TAGID from tf_ac_stock where TF_PRD_BARCODE = #{item}

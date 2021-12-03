@@ -7,6 +7,23 @@
 
 <div ng-show="authenticated">
 
+	<section class="d-flex justify-content-center" ng-if="currentMenu.AUTH_EXCEL_YN=='Y'">
+		<div class="container-fluid body-custom" style="width:100%;">
+			<div style="padding:20px 5px;">
+				<div class="d-flex">
+					<span style="font-size: 20px;color:gray;margin:4px 25px 0 0;"><i class="xi-file-download-o"></i> 재고실사 상세내역 다운로드</span>
+
+					<select class="custom-select" ng-model="excelForm.storeCd" ng-init="excelForm.storeCd=''" style="width:150px;margin: 0 15px;">
+						<option value="">매장</option>
+						<option ng-repeat="value in store" value="{{value.commCd}}">{{value.commCdNm}}</option>
+					</select>
+
+					<button class="btn btn-success btn-arr" ng-click="excelDown()"><i class="xi-file-download-o"></i> EXCEL </button>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="d-flex justify-content-center">
 
 		<!--contents-->

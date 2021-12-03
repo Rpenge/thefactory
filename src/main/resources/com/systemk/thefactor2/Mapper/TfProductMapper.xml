@@ -71,6 +71,24 @@
 		set ti.TF_PRD_NM = #{tfPrdNm}
 		where tp.PRD_REG_SEQ = #{prdRegSeq}
     </update>
+    
+    <!-- 211102 추가 // 상품마스터 수정 시 입고 내역 동시 수정 -->
+    <update id="prdAndInpUpdate" parameterType="java.util.Map">
+    	update tf_product tp
+		inner join tf_input ti
+		on tp.TF_PRD_CD = ti.TF_PRD_CD
+		set ti.TF_PRD_NM = #{tfPrdNm}
+		where tp.PRD_REG_SEQ = #{prdRegSeq}
+    </update>
+    
+    <!-- 211102 추가 // 상품마스터 수정 시 출고 내역 동시 수정 -->
+    <update id="prdAndOutpUpdate" parameterType="java.util.Map">
+    	update tf_product tp
+		inner join tf_output top
+		on tp.TF_PRD_CD = top.TF_PRD_CD
+		set top.TF_PRD_NM = #{tfPrdNm}
+		where tp.PRD_REG_SEQ = #{prdRegSeq}
+    </update>
 	
 	<!-- 
     <delete id="productDelete" parameterType="Integer">
@@ -103,7 +121,9 @@
         inner join 
         tf_stock ts 
         on tp.tf_prd_cd = ts.tf_prd_cd
-        where ts.TF_PRD_BARCODE = #{barcode} limit 1
+        where ts.TF_PRD_BARCODE = #{barcode}
+        order by ts.STOCK_REG_SEQ desc limit 1
+        <!-- where ts.TF_PRD_BARCODE = #{barcode} limit 1 -->
     </select>
 
     <select id="prdAndStkDetail" resultType="Map" parameterType="java.util.Map">

@@ -242,6 +242,10 @@ public class ConstansConfig {
 	public final static String NOT_FIND_RELEASE_RFID_TAG_MSG = "출고 된 RFID 태그가 없습니다.";
 
 	public final static String PDA_STATE_DATA_NONE_MSG = "작업 코드가 없습니다";
+	
+	public final static String NOT_MATCHING_IN_STORE_CD = "타 지점에서 입고 가능합니다.";
+	
+	public final static String NOT_MATCHING_OUT_STORE_CD = "타 지점에서 출고 가능합니다.";
 
 
 

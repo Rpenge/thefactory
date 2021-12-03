@@ -24,4 +24,6 @@ public interface ExcelService {
     void stockExcelDown(Map map, HttpServletResponse response) throws Exception;
 
     void stkBaseExcelDown(Map map, HttpServletResponse response) throws Exception;
+    
+    void invInfoExcelDown(Map map, HttpServletResponse response) throws Exception; // 211201 재고 실사 상세 내역 엑셀 다운로드
 }

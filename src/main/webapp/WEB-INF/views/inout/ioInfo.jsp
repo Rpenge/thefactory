@@ -155,19 +155,38 @@
 							</tr>
 						</thead>
 						<tbody>
+							<!-- 
 							<tr ng-repeat="(key, value) in list"  class="pointer" ng-style="{'border-bottom':list[key].inOutDate!=list[key+1].inOutDate?'2px solid lightgray':''}">
 								<td>{{value.inOutDate}}</td>
 								<td ng-click="addTabsOn(value, 'in')" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
-								<td ng-click="addTabsOn(value, 'in')">{{value.inNewcnt}}</td>
-								<td ng-click="addTabsOn(value, 'in')">{{value.inMovcnt}}</td>
-								<td ng-click="addTabsOn(value, 'in')">{{value.inIncnt}}</td>
-								<td ng-click="addTabsOn(value, 'in')">{{value.inRetcnt}}</td>
-								<td ng-click="addTabsOn(value, 'in')" style="border-right: 2px solid lightgray;">{{value.inTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inNew')">{{value.inNewcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inMov')">{{value.inMovcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inIn')">{{value.inIncnt}}</td>
+								<td ng-click="addTabsOn(value, 'inRet')">{{value.inRetcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inTot')" style="border-right: 2px solid lightgray;">{{value.inTotcnt}}</td>
 								<td ng-click="addTabsOn(value, 'out')">{{value.outOutcnt}}</td>
 								<td ng-click="addTabsOn(value, 'out')">{{value.outMovcnt}}</td>
 								<td ng-click="addTabsOn(value, 'out')" style="border-right: 2px solid lightgray;">{{value.outTotcnt}}</td>
 								<td ng-click="addTabsOn(value, 'sell')">{{value.sellStcnt}}</td>
 								<td ng-click="addTabsOn(value, 'sell')">{{value.sellOnlcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sell')">{{value.sellTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="background: floralwhite;border-left: 2px solid lightgray;">{{value.stockTotcnt}}</td>
+							</tr>
+							-->
+							<!-- 211125 입출고 내역 수정  -->
+							<tr ng-repeat="(key, value) in list"  class="pointer" ng-style="{'border-bottom':list[key].inOutDate!=list[key+1].inOutDate?'2px solid lightgray':''}">
+								<td>{{value.inOutDate}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="height: 45px;border-right: 2px solid lightgray;">{{value.storeCd | code : store}}</td>
+								<td ng-click="addTabsOn(value, 'inNew')">{{value.inNewcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inMov')">{{value.inMovcnt}}</td>
+								<td ng-click="addTabsOn(value, 'inIn')">{{value.inIncnt}}</td>
+								<td ng-click="addTabsOn(value, 'inRet')">{{value.inRetcnt}}</td>
+								<td ng-click="addTabsOn(value, 'in')" style="border-right: 2px solid lightgray;">{{value.inTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'outOut')">{{value.outOutcnt}}</td>
+								<td ng-click="addTabsOn(value, 'outMov')">{{value.outMovcnt}}</td>
+								<td ng-click="addTabsOn(value, 'out')" style="border-right: 2px solid lightgray;">{{value.outTotcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sellSt')">{{value.sellStcnt}}</td>
+								<td ng-click="addTabsOn(value, 'sellOnl')">{{value.sellOnlcnt}}</td>
 								<td ng-click="addTabsOn(value, 'sell')">{{value.sellTotcnt}}</td>
 								<td ng-click="addTabsOn(value, 'in')" style="background: floralwhite;border-left: 2px solid lightgray;">{{value.stockTotcnt}}</td>
 							</tr>

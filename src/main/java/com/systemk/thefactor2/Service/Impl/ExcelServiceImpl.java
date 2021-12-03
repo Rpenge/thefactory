@@ -49,6 +49,9 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     private TfInoutTotalMapper tfInoutTotalMapper;
+    
+    @Autowired
+    private TfInvStatusMapper tfInvStatusMapper;
 
 
     @Transactional(rollbackFor=Exception.class)
@@ -91,11 +94,13 @@ public class ExcelServiceImpl implements ExcelService {
             map.put("STOCK_STORE_NM", row.getCell(13).toString());
             map.put("STOCK_STORE_CD", cdMap.get(row.getCell(13).toString())); //코드 찾아서 입력
             map.put("DELETE_YN", 'N'); // 210906 삭제 플래그 추가
-            map.put("userId", userId);
+            map.put("USER_ID", userId);
 
             if(tfStockMapper.stockCheck(map) > 0){
                 tfStockMapper.stockUpdate(map);
                 tfStockMapper.invUpdate(map); // 211102 엑셀업로드 시 재고실사내역 정보 동시 수정
+                tfStockMapper.inputUpdate(map); // 211102 엑셀업로드 시 입고 정보 동시 수정
+                tfStockMapper.outputUpdate(map); // 211102 엑셀업로드 시 출고 정보 동시 수정
             }else{
                 tfStockMapper.stockSave(map);
             }
@@ -403,6 +408,73 @@ public class ExcelServiceImpl implements ExcelService {
             }
         }
 
+        //파일 전송
+        try {
+            response.reset();
+            response.setContentType( "application/vnd.ms-excel" );
+            workbook.write(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.getOutputStream().close();
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    // 211201 재고실사 상세내역 엑셀 다운로드
+    @Transactional(rollbackFor=Exception.class)
+    @Override
+    public void invInfoExcelDown(Map map, HttpServletResponse response) throws Exception {
+    	XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        CellStyle style = workbook.createCellStyle();
+        
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(HSSFColor.PALE_BLUE.index);
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        
+        List<LinkedHashMap<String, Object>> list = new ArrayList<LinkedHashMap<String, Object>>();
+        XSSFRow row = null;
+        XSSFCell cell = null;
+        
+        list = tfInvStatusMapper.invInfoExcel(map);
+        
+        sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 8));
+        
+        XSSFRow topRow = sheet.createRow(0);
+        for(int i=0; i< list.size();i++) {
+            row = sheet.createRow(i + 1);
+            int j = 0;
+            for(String key : list.get(i).keySet()) {
+                if(i == 0) {
+                    cell = topRow.createCell(j);
+                    cell.setCellStyle(style);
+                    cell.setCellValue((String)key);
+                }else if(i==1){
+                    sheet.autoSizeColumn(j);
+                    sheet.setColumnWidth(j, (sheet.getColumnWidth(j)) + 800 );
+                    if(sheet.getColumnWidth(j) < 2500){
+                        sheet.setColumnWidth(j, 2500 );
+                    }
+                }
+
+                cell = row.createCell(j);
+                if(list.get(i).get(key) instanceof String) {
+                    cell.setCellValue((String) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Integer) {
+                    cell.setCellValue((Integer) list.get(i).get(key));
+                }else if(list.get(i).get(key) instanceof Date){
+                    cell.setCellValue(StringUtil.dateFormat((Date) list.get(i).get(key)));
+                }
+                j++;
+            }
+        }
+        
         //파일 전송
         try {
             response.reset();

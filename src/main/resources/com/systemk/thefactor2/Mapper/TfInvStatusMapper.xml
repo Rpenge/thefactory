@@ -58,5 +58,21 @@
         DELETE FROM tf_inv_status where ST_INV_SEQ = #{item}
     </delete>
 
-
+	<!-- 211201 재고실사 상세내역 엑셀 다운로드 -->
+	<select id="invInfoExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+		SELECT
+			ST_INV_DATE as '실사일자',
+			BT_PRD_BARCODE as '바코드',
+			PRD_SIZE as '사이즈',
+			TF_PRD_NM as '자체상품명',
+			TF_PRD_CD as '자체상품코드',
+			TF_PRD_TAGID as '태그ID',
+			REG_DATE as '등록일시',
+			'' as '처리작업',
+			'' as '처리내용',
+			INV_YN as '확정여부'
+		FROM TF_INVENTORY ti
+		WHERE INV_STORE_CD like '${storeCd}%'
+		ORDER BY ST_INVEN_SEQ DESC
+	</select>
 </mapper>

@@ -110,6 +110,8 @@ public class ProductServiceImpl implements ProductService {
 		if (tfProductMapper.productUpdate(param) == 1) {
 			tfProductMapper.prdAndStkUpdate(param);
 			tfProductMapper.prdAndInvUpdate(param);
+			tfProductMapper.prdAndInpUpdate(param);
+			tfProductMapper.prdAndOutpUpdate(param);
 			map.put("resultCode", "S");
 		} else {
 			map.put("resultCode", "E");

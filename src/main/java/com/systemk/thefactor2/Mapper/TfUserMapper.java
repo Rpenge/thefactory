@@ -13,6 +13,8 @@ public interface TfUserMapper {
     TfUserVO login(HashMap item);
 
     List<TfUserVO> userList(HashMap item);
+    
+    Map<String, Object> userInfo(String item); // 211125 아이디로 계정정보 조회
 
     int userSave(Map item);
 

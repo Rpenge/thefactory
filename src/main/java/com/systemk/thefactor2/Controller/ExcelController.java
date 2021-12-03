@@ -106,5 +106,11 @@ public class ExcelController {
 	public void stkBaseExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
 		excelService.stkBaseExcelDown(map, response);
 	}
+	
+	//211201 재고 실사 상세 내역 엑셀 다운로드
+	@RequestMapping("/invInfoExcelDown")
+	public void invInfoExcelDown(@RequestBody(required = false) Map<String, Object> map, HttpServletResponse response) throws Exception {
+		excelService.invInfoExcelDown(map, response);
+	}
 
 }

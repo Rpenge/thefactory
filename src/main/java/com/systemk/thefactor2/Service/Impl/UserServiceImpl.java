@@ -74,6 +74,12 @@ public class UserServiceImpl implements UserService {
 		mu.setContent(tfUserMapper.userList(mu.getTableSearch())); //리스트 조회
 		return mu.getList();
 	}
+	
+	// 아이디로 계정 조회
+	@Override
+	public Map<String, Object> userInfo(String param) throws Exception {
+		return tfUserMapper.userInfo(param);
+	}
 
 	// 사용자 등록
 	@Override

@@ -108,13 +108,22 @@ public class InoutTotServiceImpl implements InoutTotService {
 		mu.setTable("TF_OUTPUT");
 
 		for(Object key : param.keySet()) {    //분류 처리
+			if(key.equals("page")){
+				continue;
+			}
 			if (key.equals("ST_OUT_TYPE")) {
 				if(key.equals("page")){
 					continue;
 				}
 				String type = (String)param.get(key);
-				mu.addStartLike((String)key, type.substring(0,4));
-				continue;
+				// mu.addStartLike((String)key, type.substring(0,4));
+				// continue;
+				
+				// 211125 입출고 내역 수정 추가
+				if(type.equals("060200") || type.equals("060300")) {
+					mu.addStartLike((String)key, type.substring(0,4));
+					continue;
+				}
 			}
 			mu.addEqual((String)key, (String)param.get(key));
 		}

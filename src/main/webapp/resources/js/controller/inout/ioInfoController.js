@@ -42,14 +42,31 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 
 			if(tab == 'in') {
 				$scope.tabChange('in');
+			}else if(tab == 'inNew') {
+				$scope.tabChange('inNew');
+			}else if(tab == 'inMov') {
+				$scope.tabChange('inMov');
+			}else if(tab == 'inIn') {
+				$scope.tabChange('inIn');
+			}else if(tab == 'inRet') {
+				$scope.tabChange('inRet');
 			}else if(tab == 'out'){
 				$scope.tabChange('out');
+			}else if(tab == 'outOut'){
+				$scope.tabChange('outOut');
+			}else if(tab == 'outMov'){
+				$scope.tabChange('outMov');
 			}else if(tab == 'sell'){
 				$scope.tabChange('sell');
+			}else if(tab == 'sellSt'){
+				$scope.tabChange('sellSt');
+			}else if(tab == 'sellOnl'){
+				$scope.tabChange('sellOnl');
 			}
 
 		}
-
+		
+		/*
 		$scope.tabChange = function (command) {
 			$scope.form ={};
 			$scope.tab = {};
@@ -78,6 +95,122 @@ app.controller('ioInfoController', ['$scope', '$http', '$location', '$rootScope'
 				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
 				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
 				$scope.form['ST_OUT_TYPE'] = '060300';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'list') {
+				$scope.inView = {};
+				$scope.addTabs = false;
+			}
+			setTimeout(function () {
+				$scope.divFadeIn = true;
+				$scope.$apply();
+			}, 300);
+
+
+		}
+		*/
+		
+		// 211125 입출고 내역 수정
+		$scope.tabChange = function (command) {
+			$scope.form ={};
+			$scope.tab = {};
+			$scope.divFadeIn = false;
+			if (command == 'in') {
+				$scope.tab.in = true;
+				$scope.inView['ST_TYPE'] = '060100';
+
+				$scope.form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'inNew') {
+				$scope.tab.in = true;
+				$scope.inView['ST_TYPE'] = '060103';
+
+				$scope.form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_IN_TYPE'] = $scope.inView['ST_TYPE'];
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'inMov') {
+				$scope.tab.in = true;
+				$scope.inView['ST_TYPE'] = '060102';
+
+				$scope.form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_IN_TYPE'] = $scope.inView['ST_TYPE'];
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'inIn') {
+				$scope.tab.in = true;
+				$scope.inView['ST_TYPE'] = '060101';
+
+				$scope.form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_IN_TYPE'] = $scope.inView['ST_TYPE'];
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'inRet') {
+				$scope.tab.in = true;
+				$scope.inView['ST_TYPE'] = '060104';
+
+				$scope.form['IN_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_IN_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_IN_TYPE'] = $scope.inView['ST_TYPE'];
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'out') {
+				$scope.tab.out = true;
+				$scope.inView['ST_TYPE'] = '060200';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060200';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'outOut') {
+				$scope.tab.out = true;
+				$scope.inView['ST_TYPE'] = '060201';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060201';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'outMov') {
+				$scope.tab.out = true;
+				$scope.inView['ST_TYPE'] = '060202';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060202';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'sell') {
+				$scope.tab.sell = true;
+				$scope.inView['ST_TYPE'] = '060300';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060300';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'sellSt') {
+				$scope.tab.sell = true;
+				$scope.inView['ST_TYPE'] = '060301';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060301';
+				const param = generateParam($scope.form);
+				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
+			} else if (command == 'sellOnl') {
+				$scope.tab.sell = true;
+				$scope.inView['ST_TYPE'] = '060302';
+
+				$scope.form['OUT_STORE_CD'] =$scope.inView['STORE_CD'];
+				$scope.form['ST_OUT_DATE'] = $scope.inView['ST_DATE'];
+				$scope.form['ST_OUT_TYPE'] = '060302';
 				const param = generateParam($scope.form);
 				httpGetSubList($http, $scope, '/inout/inoutSubList', param);
 			} else if (command == 'list') {
