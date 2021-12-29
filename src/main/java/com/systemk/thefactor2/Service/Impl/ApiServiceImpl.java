@@ -166,10 +166,8 @@ public class ApiServiceImpl implements ApiService {
 		mu.setTotal();
 		
 		// 211202 입고 지점별 조회 추가
-		/*
 		String inStoreCd = (String)param.get("storeCd");
 		mu.addEqual("IN_STORE_CD", inStoreCd);
-		*/
 		
 		List<TfInputVO> voList = tfInputMapper.inputList(mu.getTableSearch()); //리스트 조회
 		for(TfInputVO vo : voList){
@@ -323,12 +321,19 @@ public class ApiServiceImpl implements ApiService {
 			map.put("stOutType2", "0603"); // 210914 수정: 판매 데이터
 			TfOutputVO vo = tfOutputMapper.outAndSaleSearch(map);
 			Map resultMap = new HashMap();
-			String checkOutType = vo.getStOutType();
-			if(vo == null || checkOutType.equals("060202")){
+			if(vo != null) {
+				String checkOutType = vo.getStOutType();
+				if(checkOutType.equals("060202")){
+					resultMap.put("tagId", paramMap.get("tagId"));
+					resultMap.put("mappingYn", "N");
+					resultList.add(resultMap);
+					continue;
+				}
+			} else {
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
 				resultList.add(resultMap);
-				continue;
+				return ResultUtil.setCommonResult("S",ConstansConfig.NOT_FIND_RELEASE_RFID_TAG_MSG, resultList);
 			}
 			resultMap.put("prdNm", vo.getTfPrdNm());
 			resultMap.put("tagId", vo.getTfPrdTagid());
@@ -504,10 +509,8 @@ public class ApiServiceImpl implements ApiService {
 		}
 		
 		// 211202 출고/판매 지점별 조회 추가
-		/*
 		String outStoreCd = (String)param.get("currentStoreCd");
 		mu.addEqual("OUT_STORE_CD", outStoreCd);
-		*/
 		
 		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
 		for(TfOutputVO vo : voList){
