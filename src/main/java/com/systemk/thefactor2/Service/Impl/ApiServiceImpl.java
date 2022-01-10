@@ -165,9 +165,11 @@ public class ApiServiceImpl implements ApiService {
 		}
 		mu.setTotal();
 		
-		// 211202 입고 지점별 조회 추가
+		// 220107 입고 전체/지점별 조회 추가
 		String inStoreCd = (String)param.get("storeCd");
-		mu.addEqual("IN_STORE_CD", inStoreCd);
+		if(!inStoreCd.equals("all")) {
+			mu.addEqual("IN_STORE_CD", inStoreCd);
+		}
 		
 		List<TfInputVO> voList = tfInputMapper.inputList(mu.getTableSearch()); //리스트 조회
 		for(TfInputVO vo : voList){
@@ -321,7 +323,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("stOutType2", "0603"); // 210914 수정: 판매 데이터
 			TfOutputVO vo = tfOutputMapper.outAndSaleSearch(map);
 			Map resultMap = new HashMap();
-			if(vo != null) {
+			if(vo != null) { // 220107 출고데이터가 있다면,
 				String checkOutType = vo.getStOutType();
 				if(checkOutType.equals("060202")){
 					resultMap.put("tagId", paramMap.get("tagId"));
@@ -329,7 +331,7 @@ public class ApiServiceImpl implements ApiService {
 					resultList.add(resultMap);
 					continue;
 				}
-			} else {
+			} else { // 220107 출고데이터가 없다면,
 				resultMap.put("tagId", paramMap.get("tagId"));
 				resultMap.put("mappingYn", "N");
 				resultList.add(resultMap);
@@ -508,9 +510,11 @@ public class ApiServiceImpl implements ApiService {
 			mu.addEqual("ST_OUT_TYPE", state);
 		}
 		
-		// 211202 출고/판매 지점별 조회 추가
+		// 220107 출고/판매 전체/지점별 조회 추가
 		String outStoreCd = (String)param.get("currentStoreCd");
-		mu.addEqual("OUT_STORE_CD", outStoreCd);
+		if(!outStoreCd.equals("all")) {
+			mu.addEqual("OUT_STORE_CD", outStoreCd);
+		}
 		
 		List<TfOutputVO> voList = tfOutputMapper.outList(mu.getTableSearch()); //리스트 조회
 		for(TfOutputVO vo : voList){
