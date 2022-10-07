@@ -49,6 +49,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/controller/inven/invInfoController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stockController.js?v=${version}"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/stkTagController.js?v=${version}"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/controller/stock/tagPrintController.js?v=${version}"></script>
 	<!--icon-->
 	<link rel="shortcut icon" type="image/x-icon" href="/resources/img/ci/sysk.png">
 
@@ -272,7 +273,7 @@
 
 					<p style="margin:12px 10px;">구분</p>
 					<select class="form-control" ng-model="quickSearch.workGub" style="width:150px;margin:5px;" ng-disabled="gubDisabled">
-						<option value="">전체</option>workB
+						<option value="">전체</option>
 						<option ng-repeat="value in workM" value="{{value.commCd}}">{{value.commCdNm}}</option>
 					</select>
 

@@ -103,6 +103,7 @@
         UPDATE tf_stock
         SET
         TF_PRD_NM = #{TF_PRD_NM},
+        TF_PRD_CD = #{TF_PRD_CD},
         PRD_SIZE = #{PRD_SIZE},
         CUR_STOCK_CNT = ${CUR_STOCK_CNT},
         REAL_STOCK_CNT = ${REAL_STOCK_CNT},
@@ -119,6 +120,7 @@
     <update id="invUpdate" parameterType="java.util.Map">
     	UPDATE tf_inventory 
 		SET
+		TF_PRD_CD = #{TF_PRD_CD},
 		TF_PRD_NM = #{TF_PRD_NM},
 		PRD_SIZE = #{PRD_SIZE}
 		WHERE INV_STORE_CD = #{STOCK_STORE_CD}
@@ -130,6 +132,7 @@
     <update id="inputUpdate" parameterType="java.util.Map">
     	UPDATE tf_input 
 		SET
+		TF_PRD_CD = #{TF_PRD_CD},
 		TF_PRD_NM = #{TF_PRD_NM},
 		PRD_SIZE = #{PRD_SIZE}
 		WHERE IN_STORE_CD = #{STOCK_STORE_CD}
@@ -141,6 +144,7 @@
     <update id="outputUpdate" parameterType="java.util.Map">
     	UPDATE tf_output
 		SET
+		TF_PRD_CD = #{TF_PRD_CD},
 		TF_PRD_NM = #{TF_PRD_NM},
 		PRD_SIZE = #{PRD_SIZE}
 		WHERE OUT_STORE_CD = #{STOCK_STORE_CD}
@@ -159,15 +163,15 @@
         select
             '' as '구입처',
             TF_PRD_CD as '자체상품코드',
-            TF_PRD_NM as '상품명',
-            PRD_SIZE as '단품',
+            TF_PRD_NM as '자체상품명',
+            PRD_SIZE as '단품(선택사항)',
             '' as '단품코드',
             TF_PRD_BARCODE as '바코드',
             '' as '로케이션',
             CUR_STOCK_CNT as '현재재고',
             REAL_STOCK_CNT as '실제재고',
             STD_STOCK_CNT as '적정재고',
-            '' as '판매여부',
+            '' as '상태',
             '' as '쇼핑몰',
             '' as '재고조사',
             STOCK_STORE_NM as '배송처(창고)',

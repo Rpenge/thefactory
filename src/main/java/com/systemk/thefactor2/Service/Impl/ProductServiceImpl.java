@@ -182,7 +182,8 @@ public class ProductServiceImpl implements ProductService {
 			spArray = sArray[i].split(",");
 			if(spArray[1].equals("S")) {
 				int aa = Integer.parseInt(spArray[0]);
-				if(tfProductMapper.productDelYn2(aa) == 1) {
+				if(tfProductMapper.productDelYn2(aa) > 0) {
+					System.out.println("재고갯수 : " + tfProductMapper.productDelYn2(aa));
 					map.put("resultCode", "S");
 				} else {
 					tfProductMapper.productDelYn3(aa);

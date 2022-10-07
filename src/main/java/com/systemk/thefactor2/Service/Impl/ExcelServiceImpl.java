@@ -69,8 +69,8 @@ public class ExcelServiceImpl implements ExcelService {
             //상단명 맞지않을경우 return
             if(i==0) {
                 if (!row.getCell(1).toString().equals("자체상품코드") ||
-                        !row.getCell(2).toString().equals("상품명") ||
-                        !row.getCell(3).toString().equals("단품") ||
+                        !row.getCell(2).toString().equals("자체상품명") ||
+                        !row.getCell(3).toString().equals("단품(선택사항)") ||
                         !row.getCell(5).toString().equals("바코드") ||
                         !row.getCell(7).toString().equals("현재재고") ||
                         !row.getCell(8).toString().equals("실제재고") ||

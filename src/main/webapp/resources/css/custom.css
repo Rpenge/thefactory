@@ -747,7 +747,7 @@ a.nav-link{
 }
 
 .dropdown-board {
-	width: 180px;
+	width: 160px;
 	text-align:left;
 	float: left;
 	height: 190px;
@@ -951,7 +951,7 @@ a.nav-link{
 	width: 200px;
 	z-index: 2;
 	padding:20px;
-	border-right:1px solid gray;"
+	border-right:1px solid gray;
 }
 
 .select-table-pointer{
