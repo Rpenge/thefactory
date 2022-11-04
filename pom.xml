@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- 	maven에서 pom파일 분리하여 상속을 통해 중복설정을 제거하는 기능 -->
+	<!-- 	maven에서 tomcat plugin설정을 확인할수 있는 부분 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<!-- 	프로젝트 정보 -->
+	<!--@체크	패키지 없음 -->
+	<groupId>com.systemk</groupId>
+	<artifactId>thefatory_test</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>thefatory_test</name>
+	<description>board EX</description>
+	
+	<!-- 		dependency 버전들을 properties에 기록  ; 여러버전을 사용할때 좋음-->
+	<!-- 		속성정보 중복 설정되는 설정(상수) 값들을 지정해 놓은 부분 다른위치에서 ${...}로 사용가능-->
+	<!-- 	예를 들면 ${java.version}하면 17이 설정된다. -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><!-- 추가 -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding><!-- 추가 -->
+		<java.version>17</java.version>
+	</properties>
+	
+	<!-- 	의존 라이브러리 정보 -->
+	<dependencies>
+	
+		<!--spring-boot-starter는 spring 자체 내 라이브러리 -->
+		
+		<!--Web과 RESTful애플리케이션  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- Unit testing, Integration Testing -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		
+		<!-- 변경된 코드르 서버 또는 화면에 신속하게 반영해 결과를 확인하기위해서 사용 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		
+		<!--	tomcat설정 부분 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		
+		<!-- JSP 라이브러리-->
+		<!--	이 라이브러리를 사용할때 viewresolver의 prefix가 src/main/webapp으로 변경된다. -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- jstl : JavaServer Pages Standard Tag Library -->
+		<!-- 값을 간단하게 사용하기 위하여 쓰는 스크립트 용어  -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		
+		<!-- java object를 JSON으로 변환하거나 반대인경우로 변환하는데 사용할수잇는 java라이브러리 -->
+		<!-- 아래 jackson-databind에 포함되어있음 -->
+		<!--	<dependency> -->
+		<!--		<groupId>com.fasterxml.jackson.core</groupId> -->
+		<!--		<artifactId>jackson-core</artifactId> -->
+		<!--	</dependency> -->
+		
+		<!--csv의 에서의 json변환을 용이하게 쓸수 있도록함  -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-csv</artifactId>
+		</dependency>
+		
+		<!-- jackson-core, jackson-annotation라이브러리의 의존성을 포함/위의 core대신 이것을 사용해주면 됨 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<!--	@ConfigurationProperties를 사용하기 위한 의존성,  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- mariaDB jdbc -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- Java Database Connectivity -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		
+		<!-- 구글 JSON 라이브러리 -->
+        <dependency>
+	 		<groupId>com.googlecode.json-simple</groupId>
+	 		<artifactId>json-simple</artifactId>
+	 		<version>1.1.1</version>
+ 	 	</dependency>
+ 	 	
+ 	 	<!-- 바코드 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		
+		<!-- 자바 클래스를 XML로 표현 API -->
+		<dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+	    
+	    <!-- 파일업로드 -->
+		<dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        
+        <!-- FTP -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.6</version>
+		</dependency>
+		
+		<!-- getter,setter등 작성코드를 줄여주는 코드 다이어트 라이브러리 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+	    
+		<!-- DB연결 Hikari Connection Pool : DB connection pool 관리 datasource에서 단일 인스턴스를 생성 가능 --> 
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		</dependency>
+		
+		<!-- 스프링부트에서 기본적인 테스트 스타터 제공, 
+		기본적 Junit을 포함한 java계열의 언어에서 사용하는 테스트 라이브러리들이 한대 모여있다. -->
+		<!-- spring-boot-test, spring-boot-test-autoconfigure모듈이 하나로 되이었음 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		
+		<!-- 소스를 파악한 결과 security는 권한만 부여하고 특별한 기능이 없는거같으므로 시큐리티 빼고 anguler에서만 진행해 보겟다. 
+		anguler js내에 이미 권한을 부여하는 부분이 존재함을 확인함.-->
+		
+		
+		<!-- 스프링에서 인증 및 권한부여 를 확성화하기위해서 SecurityConfig클래스를 구현하고 
+		WebSecurityConfigurerAdapter를 상속, 즉 URL에 사용자가 접근하기 전에 인증을 요구하게 된다.-->
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>org.springframework.boot</groupId> -->
+		<!-- 			<artifactId>spring-boot-starter-security</artifactId> -->
+		<!-- 		</dependency> -->
+		
+		<!-- http://localhost:portnumber/login -->
+		<!-- http://localhost:portnumber/logout -->
+		<!-- 위에 두개가 Security의 기본 기능이다. -->
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>org.springframework.security</groupId> -->
+		<!-- 			<artifactId>spring-security-test</artifactId> -->
+		<!-- 			<scope>test</scope> -->
+		<!-- 		</dependency> -->
+				
+	</dependencies>
+
+	<build>
+	<!-- 	일반적인 소프트 웨어의 일부로 브라우저에서 취급할 수없는 인터넷 상의 콘텐츠를 취급, 
+				웹 브라우저의 일부로서 쉽게 설치되고 사용될 수 있는 프로그램 -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
