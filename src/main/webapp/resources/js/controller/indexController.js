@@ -51,67 +51,67 @@ app.run(function($rootScope, $http, $route, $window){
     //새로고침 : 세션확인 후 메뉴 다시 조회
     //아이디를 가져왔을대, 권한요청
     //'010101' -> 관리자, storeCd ->매장코드
-//    if(sessionStorage.getItem('id')){
-//      $rootScope.userId = sessionStorage.getItem('id');
-//      $http.get('/member/reUserAuth').success(function(data) {
-//        //시스템 관리자면서,  매장코드가 없을시
-//        if (data.userId) {
-//          $rootScope.topMenu = data.auth;
-//          $rootScope.role = data.role;
-//          //시스템 관리자면서,  매장코드가 없을시
-//          if(data.role == '010101' && $rootScope.quickSearch.storeCd == null){
-//            $rootScope.quickSearch.storeCd = null;
-//            //관리자는 아니면서 매장 코드가 없을시 세션에서  메장코드를 얻어온다.
-//          }else if($rootScope.quickSearch.storeCd == null){
-//            $rootScope.quickSearch.storeCd = sessionStorage.getItem('storeCd');
-//          }
-//          //권한 들고 메뉴체크를실행한다.
-//          menuCheck($rootScope, $location);
-//        } else {
-//          //권한 없어서 로그아웃을 실행한다.
-//          logout($http, $rootScope, $location);
-//          return;
-//        }
-//      });
-//    }
+    if(sessionStorage.getItem('id')){
+      $rootScope.userId = sessionStorage.getItem('id');
+      $http.get('/member/reUserAuth').success(function(data) {
+        //시스템 관리자면서,  매장코드가 없을시
+        if (data.userId) {
+          $rootScope.topMenu = data.auth;
+          $rootScope.role = data.role;
+          //시스템 관리자면서,  매장코드가 없을시
+          if(data.role == '010101' && $rootScope.quickSearch.storeCd == null){
+            $rootScope.quickSearch.storeCd = null;
+            //관리자는 아니면서 매장 코드가 없을시 세션에서  메장코드를 얻어온다.
+          }else if($rootScope.quickSearch.storeCd == null){
+            $rootScope.quickSearch.storeCd = sessionStorage.getItem('storeCd');
+          }
+          //권한 들고 메뉴체크를실행한다.
+          menuCheck($rootScope, $location);
+        } else {
+          //권한 없어서 로그아웃을 실행한다.
+          logout($http, $rootScope, $location);
+          return;
+        }
+      });
+    }
   //로그아웃 함수 
 //    $scope.logout = function() {
 //      logout($http, $rootScope, $location);
 //    };
 
     //연결이 끝는 함수
-//    $scope.disconnection = function(){
-//      if ($scope.client != null) {
-//        $scope.client.disconnect();
-//        $scope.resData = {};
-//        }
-//    };
+    $scope.disconnection = function(){
+      if ($scope.client != null) {
+        $scope.client.disconnect();
+        $scope.resData = {};
+        }
+    };
     
     //권한이 있다면 보여줘라.
-//    $scope.$watch(function(){
-//      return $rootScope.authenticated;
-//      }, function() {
-//        //만약 권한이 정의 되지 않았으면 아래를 실행해라.
-//      if($rootScope.authenticated != undefined){
-//        if($rootScope.authenticated){
-//          // if($location.url() != "/main/home"){}
-//        } else {
-//          $scope.disconnection();
-//        }
-//      }
-//    }, true);
+    $scope.$watch(function(){
+      return $rootScope.authenticated;
+      }, function() {
+        //만약 권한이 정의 되지 않았으면 아래를 실행해라.
+      if($rootScope.authenticated != undefined){
+        if($rootScope.authenticated){
+          // if($location.url() != "/main/home"){}
+        } else {
+          $scope.disconnection();
+        }
+      }
+    }, true);
     
     //"current"의 키값을 제거하고 main/home을 가져와라
     //   $location의 기능은 param없는 getter/setter이다.
-//    $scope.goMain = function(){
-//        $window.sessionStorage.removeItem("current");
-//        $location.url("/main/home");
-//      };
+    $scope.goMain = function(){
+        $window.sessionStorage.removeItem("current");
+        $location.url("/main/home");
+      };
 
     //페이지 이동
-//    $scope.goMenu = function(data){
-//      $location.url(data.PGM_URL);
-//    }
+    $scope.goMenu = function(data){
+      $location.url(data.PGM_URL);
+    }
 
     //quick search
     $rootScope.goSearch = function(command, word, $event){

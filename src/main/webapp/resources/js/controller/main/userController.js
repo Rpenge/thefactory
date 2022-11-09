@@ -50,6 +50,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
     //권한 통신 
     $http.get('/member/userAuth', {headers : headers}).success(function(data) {
       if (data.userId) {
+	console.log("userAuth보낸다.");
         $rootScope.userId = data.userId;
         sessionStorage.setItem('id', data.userId);
         sessionStorage.setItem('role', data.role);

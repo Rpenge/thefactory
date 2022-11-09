@@ -26,3 +26,18 @@ function getCookie(name) {
 function deleteCookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
 }
+
+function menuCheck($rootScope, $location){
+	var menuCehck = false ;
+	var url = $location.url().split('?');
+	for(const i in $rootScope.topMenu){
+		if($rootScope.topMenu[i].PGM_URL == url[0]){
+			menuCehck = true;
+			break;
+		}
+	}
+	if(!menuCehck){
+		$location.url("/");
+	}
+}
+
