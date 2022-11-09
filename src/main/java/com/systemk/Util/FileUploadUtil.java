@@ -6,9 +6,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
@@ -45,7 +42,6 @@ public class FileUploadUtil {
 		final String fatternName = name;
 
 		String fileList[] = path.list(new FilenameFilter() {
-			@Override
 			public boolean accept(File dir, String name) {
 				return name.startsWith(fatternName)&&(name.endsWith(".png") ||name.endsWith(".jpg")||name.endsWith(".jpeg")
 						|| name.endsWith(".PNG") || name.endsWith(".JPG") || name.endsWith(".JPEG"));

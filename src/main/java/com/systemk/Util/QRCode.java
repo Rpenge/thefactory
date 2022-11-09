@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.imageio.ImageIO;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -35,7 +33,7 @@ public class QRCode {
 	  MatrixToImageConfig config = new MatrixToImageConfig(qrDarkColor , qrLightColor); //진한색, 연한색
 	  BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix , config);
 
-	  File temp = new File(path + text + ".png");
+	  final File temp = new File(path + text + ".png");
 	  ImageIO.write(qrImage, "png",temp );
 
 	  String webPath = temp.toString();

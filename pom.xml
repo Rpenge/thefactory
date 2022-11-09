@@ -85,10 +85,10 @@
 		
 		<!-- java object를 JSON으로 변환하거나 반대인경우로 변환하는데 사용할수잇는 java라이브러리 -->
 		<!-- 아래 jackson-databind에 포함되어있음 -->
-		<!--	<dependency> -->
-		<!--		<groupId>com.fasterxml.jackson.core</groupId> -->
-		<!--		<artifactId>jackson-core</artifactId> -->
-		<!--	</dependency> -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+			</dependency>
 		
 		<!--csv의 에서의 json변환을 용이하게 쓸수 있도록함  -->
 		<dependency>
@@ -186,19 +186,19 @@
 		
 		<!-- 스프링에서 인증 및 권한부여 를 확성화하기위해서 SecurityConfig클래스를 구현하고 
 		WebSecurityConfigurerAdapter를 상속, 즉 URL에 사용자가 접근하기 전에 인증을 요구하게 된다.-->
-		<!-- 		<dependency> -->
-		<!-- 			<groupId>org.springframework.boot</groupId> -->
-		<!-- 			<artifactId>spring-boot-starter-security</artifactId> -->
-		<!-- 		</dependency> -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-security</artifactId>
+				</dependency>
 		
 		<!-- http://localhost:portnumber/login -->
 		<!-- http://localhost:portnumber/logout -->
 		<!-- 위에 두개가 Security의 기본 기능이다. -->
-		<!-- 		<dependency> -->
-		<!-- 			<groupId>org.springframework.security</groupId> -->
-		<!-- 			<artifactId>spring-security-test</artifactId> -->
-		<!-- 			<scope>test</scope> -->
-		<!-- 		</dependency> -->
+				<dependency>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-test</artifactId>
+					<scope>test</scope>
+				</dependency>
 				
 	</dependencies>
 

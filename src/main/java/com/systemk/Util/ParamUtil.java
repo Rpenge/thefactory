@@ -1,8 +1,8 @@
 package com.systemk.Util;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 public class ParamUtil {
 
@@ -22,8 +22,8 @@ public class ParamUtil {
     private Map<String, String> searchParam;
 
     public ParamUtil() {
-        this.pageData = new HashMap<>();
-        this.searchParam = new HashMap<>();
+        this.pageData = new HashMap<String, String>();
+        this.searchParam = new HashMap<String, String>();
     }
 
     public void setSearch(HttpServletRequest request) {

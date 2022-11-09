@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.thefactor2.Mapper.PageMapper">
+    <select id="pageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+            COUNT (*)
+        from
+            ${table}
+        <choose>
+        	<when test="table.equals('TF_PRODUCT') || table.equals('TF_STOCK')">
+        		where DELETE_YN = 'N'
+        	</when>
+        	<otherwise>
+        		where true
+        	</otherwise>
+        </choose>
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+    </select>
+    
+</mapper>
+    
