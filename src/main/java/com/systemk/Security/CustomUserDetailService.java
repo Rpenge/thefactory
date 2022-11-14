@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.systemk.Mapper.TfUserMapper;
 import com.systemk.VO.TfUserVO;
-
 @Service("customUserDetailService")
 public class CustomUserDetailService implements UserDetailsService {
 
@@ -22,7 +21,6 @@ public class CustomUserDetailService implements UserDetailsService {
     private TfUserMapper tfUserMapper;
 
     @Transactional
-    //@Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         HashMap item = new HashMap();
         item.put("userId", userId);
@@ -52,3 +50,4 @@ public class CustomUserDetailService implements UserDetailsService {
 //  }
 
 }
+

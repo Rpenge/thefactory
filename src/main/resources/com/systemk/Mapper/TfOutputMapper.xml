@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfOutputMapper">
+
+    <select id="outList" resultType="TfOutputVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_OUTPUT
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by ST_OUT_SEQ desc
+            </otherwise>
+        </choose>
+        <choose>
+            <when test = "total != null">
+            </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
+    </select>
+	
+	<!-- 211015 점간 출고를 제외한 상품 조회 -->
+    <select id="outputSearch" resultType="TfOutputVO" parameterType="String">
+       	select * from tf_output where TF_PRD_TAGID = #{item} 
+        	and ST_OUT_TYPE <![CDATA[<>]]> '060202' 
+    	order by ST_OUT_SEQ desc limit 1
+    </select>
+    
+    <!-- 211015 점간 출고 상품 조회 -->
+    <select id="outputMoveSearch" resultType="TfOutputVO" parameterType="String">
+        select * from tf_output where TF_PRD_TAGID = #{item} and ST_OUT_TYPE = '060202' order by ST_OUT_SEQ desc limit 1
+    </select>
+    
+    <!-- 211025 tf_output 테이블의 맨위 상단의 값 -->
+    <select id="outWorkSearch" resultType="TfOutputVO" parameterType="java.util.Map">
+    	select * from tf_output where TF_PRD_TAGID = #{tagId} order by ST_OUT_SEQ desc limit 1
+        <!-- select * from tf_output where TF_PRD_TAGID = #{tagId} and ST_OUT_TYPE like '${stOutType}%' order by ST_OUT_SEQ desc limit 1  -->
+    </select>
+     
+    <!-- 210914 판매 or 출고상품 반품 기능 수정 -->
+    <select id="outAndSaleSearch" resultType="TfOutputVO" parameterType="java.util.Map">
+    	select * from tf_output 
+    	where TF_PRD_TAGID = #{tagId} 
+    	and (ST_OUT_TYPE like '${stOutType1}%' or ST_OUT_TYPE like '${stOutType2}%')
+    	order by ST_OUT_SEQ desc 
+    	limit 1
+    </select>
+
+    <insert id="outputAdd" statementType="CALLABLE" parameterType="java.util.HashMap">
+        { call output(#{ymd}, #{userId}, #{brandCd}, #{prdNm}, #{ecPrdCd}, #{prdCd}, #{barcode}, #{size}, #{tagId}, #{inStoreCd}, #{inStoreNm}, #{outStoreCd}, #{outStoreNm}, #{deviceGub}, #{outType}, #{outComment})}
+    </insert>
+
+    <select id="outDeleteList" resultType="TfOutputVO" parameterType="java.util.List">
+        SELECT
+        *
+        FROM
+        TF_OUTPUT
+        WHERE
+        ST_OUT_SEQ IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
+    <select id="outDeleteCheck" resultType="boolean" parameterType="Integer">
+        select if(max(ST_OUT_SEQ) = #{item}, true, false)
+        from tf_output where TF_PRD_TAGID = (
+            select TF_PRD_TAGID from tf_output to2 where ST_OUT_SEQ = #{item} and TF_PRD_TAGID not in (
+                select TF_PRD_TAGID from tf_ac_stock tas where TF_PRD_TAGID = to2.TF_PRD_TAGID
+            )
+        )
+    </select>
+
+    <delete id="outDelete" parameterType="java.util.HashMap">
+        { call output_delete(${stOutSeq}, #{stOutDate}, #{userId}, #{barcode}, #{tagId}, #{storeCd}, #{stOutType}, #{brandCd})}
+    </delete>
+
+    <select id="outSubList" resultType="Map" parameterType="java.util.HashMap">
+        select ST_OUT_DATE as ST_DATE ,OUT_STORE_CD as STORE_CD ,ST_OUT_TYPE as ST_TYPE, TF_PRD_NM, BT_PRD_BARCODE as BARCODE,  count(*) as cnt
+        from tf_output
+        where 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        group by ST_OUT_DATE, OUT_STORE_CD,  ST_OUT_TYPE, BT_PRD_BARCODE
+        limit ${start}, ${size}
+    </select>
+
+
+</mapper>

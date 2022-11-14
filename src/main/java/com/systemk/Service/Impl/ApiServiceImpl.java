@@ -1,7 +1,9 @@
 package com.systemk.Service.Impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -127,6 +129,97 @@ public class ApiServiceImpl implements ApiService {
           return ResultUtil.setCommonResult("E",ConstansConfig.NOT_CHECK_ADMIN_MSG);
       }
       return ResultUtil.setCommonResult("S",ConstansConfig.LOGIN_SUCCESS_MSG, item);
+  }
+
+  public void apiReg(HttpServletRequest request) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public Map<String, Object> workCount(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> inputList(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> searchPrd(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> inputWork(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> inputReWork(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> saleDataSearch(List<Map<String, String>> param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> moveOutDataSearch(List<Map<String, String>> param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> inputReWorkList(List<Map> paramList, Map data) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> outputList(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> outDataSearch(List<Map<String, String>> param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> outputAdd(List<Map<String, String>> paramList, String userId,
+      String device) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> findAcStkList(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> addInven(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> findStock(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> commonCd(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> brandCd(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Map<String, Object> createResetLog(Map param) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }

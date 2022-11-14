@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfDeviceMapper">
+    <!--디바이스 전체 목록-->
+    <select id="deviceList" resultType="TfDeviceVO">
+        SELECT
+        *
+        FROM
+        TF_DEVICE
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by DEVICE_SEQ desc
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
+    </select>
+    <!--디바이스 등록-->
+    <insert id="deviceSave" parameterType="java.util.Map">
+        INSERT INTO TF_DEVICE
+        (STORE_CD, STORE_NM, DEVICE_GUB, SERIAL_NO, MODEL_NO, SET_IP, MAC_NO, SET_NAME, SET_DATE, DEVICE_STAT, COMM_TYPE, MANUFACT, REG_DATE, REG_ID)
+        VALUES(
+                  #{storeCd}, #{storeNm}, #{deviceGub}, #{serialNo}, #{modelNo}, #{setIp}, #{macNo}, #{setName}, #{setDate}, #{deviceStat}, #{commType}, #{manufact}, SYSDATE(), #{regId}
+              )
+    </insert>
+    <!--디바이스 수정-->
+    <update id="deviceUpdate" parameterType="java.util.Map">
+        UPDATE TF_DEVICE
+        SET
+            STORE_CD = #{storeCd}
+          , STORE_NM = #{storeNm}
+          , DEVICE_GUB = #{deviceGub}
+          , SERIAL_NO = #{serialNo}
+          , MODEL_NO = #{modelNo}
+          , SET_IP = #{setIp}
+          , MAC_NO = #{macNo}
+          , SET_NAME = #{setName}
+          , SET_DATE = #{setDate}
+          , DEVICE_STAT = #{deviceStat}
+          , COMM_TYPE = #{commType}
+          , MANUFACT = #{manufact}
+          , MOD_DATE = SYSDATE()
+          , MOD_ID = #{modId}
+        WHERE
+            DEVICE_SEQ = #{deviceSeq}
+    </update>
+    <!--디바이스 폐기-->
+    <delete id="deviceDelete" parameterType="Integer">
+        delete from TF_DEVICE where DEVICE_SEQ = ${deviceSeq}
+    </delete>
+
+    <select id="serialSearch" resultType="TfDeviceVO" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            TF_DEVICE
+        WHERE
+            SERIAL_NO = #{serialNo}
+        AND
+            DEVICE_GUB = #{deviceGub}
+    </select>
+
+</mapper>

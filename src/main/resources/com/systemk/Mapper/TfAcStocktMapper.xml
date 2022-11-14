@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfAcStockMapper">
+
+    <select id="findAcStock" resultType="java.util.Map" parameterType="java.util.Map">
+        select *
+        from tf_ac_stock tas
+		left outer join 
+		(select * from tf_stock where DELETE_YN = 'N') ts
+		on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
+		and tas.STORE_CD = ts.STOCK_STORE_CD
+        where tas.STORE_CD = #{storeCd}
+        <if test="brandCd != null">
+        and tas.BRAND_KIND_CD like concat(substr(#{brandCd}, 1, 2),'%')
+        </if>
+    </select>
+
+    <select id="findStockByTagId" resultType="TfAcStockVO" parameterType="java.util.Map">
+        select * from tf_ac_stock where TF_PRD_TAGID = #{item};
+    </select>
+    
+    <!-- 211126 출고 시 재고 데이터 조회 -->
+    <select id="stockCheck" resultType="java.util.Map" parameterType="String">
+        select 
+        ts.STOCK_REG_SEQ as stockRegSeq,
+		TF_PRD_NM as tfPrdNm, 
+		tas.STORE_CD as storeCd,
+		tas.REG_DATE as regDate, 
+		ts.TF_PRD_BARCODE as tfPrdBarcode, 
+		ts.PRD_SIZE as prdSize, 
+		tas.BRAND_KIND_CD as brand,
+		tas.ST_IN_TYPE as stInType
+		from tf_ac_stock tas 
+		inner join 
+		(select * from tf_stock where DELETE_YN = 'N') ts 
+		on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE 
+		where tas.TF_PRD_TAGID = #{item} 
+		order by stockRegSeq desc 
+		limit 1;
+    </select>
+    
+    <!-- 
+    <select id="stockCheck" resultType="java.util.Map" parameterType="String">
+        select 
+		TF_PRD_NM as tfPrdNm, 
+		tas.STORE_CD as storeCd,
+		tas.REG_DATE as regDate, 
+		ts.TF_PRD_BARCODE as tfPrdBarcode, 
+		ts.PRD_SIZE as prdSize, 
+		tas.BRAND_KIND_CD as brand,
+		tas.ST_IN_TYPE as stInType
+		from tf_ac_stock tas 
+		inner join 
+		(select * from tf_stock where DELETE_YN = 'N') ts 
+		on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE 
+		where tas.TF_PRD_TAGID = #{item} limit 1;
+    </select>
+    -->
+
+    <select id="findTagId" resultType="String" parameterType="String">
+        select TF_PRD_TAGID from tf_ac_stock where TF_PRD_BARCODE = #{item}
+    </select>
+
+    <select id="acStockList" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from
+        (
+            select *
+            from tf_ac_stock
+            where true
+            <foreach collection="list" item="item">
+                ${item}
+            </foreach>
+            order by AC_STOCK_SEQ desc
+            limit ${start}, ${size}
+        ) as tas
+        left outer join 
+        (select * from tf_stock where DELETE_YN = 'N') ts
+        on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
+        and tas.STORE_CD = ts.STOCK_STORE_CD
+        order by tas.AC_STOCK_SEQ desc
+    </select>
+
+
+    <select id="acStockExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+    select
+        tas.TF_PRD_BARCODE as barcode,
+        tas.TF_PRD_TAGID as tagId,
+        tas.ST_IN_TYPE as stType,
+        ts.STOCK_STORE_NM as storeNm,
+        (select tb.BRAND_NM from tf_brand tb where tb.BRAND_KIND_CD = concat(substring(tas.BRAND_KIND_CD,1,2),'0000')) as brand,
+        (select tb.BRAND_NM from tf_brand tb where tb.BRAND_KIND_CD = concat(substring(tas.BRAND_KIND_CD,1,4),'00')) as gender,
+        (select tb.BRAND_NM from tf_brand tb where tb.BRAND_KIND_CD = tas.BRAND_KIND_CD) as cls,
+        tas.AC_PRD_SIZE as size,
+        ts.TF_PRD_CD as prdCd,
+        ts.TF_PRD_NM as prdNm,
+        tas.REG_DATE as regDate
+    	from tf_ac_stock tas
+        left outer join
+        (select * from tf_stock where DELETE_YN = 'N') ts
+    	on tas.TF_PRD_BARCODE = ts.TF_PRD_BARCODE
+        and tas.STORE_CD = ts.STOCK_STORE_CD
+    where tas.STORE_CD like '%${storeCd}%'
+    and tas.BRAND_KIND_CD like '${brandCd}%'
+    order by tas.AC_STOCK_SEQ desc
+    </select>
+
+
+</mapper>

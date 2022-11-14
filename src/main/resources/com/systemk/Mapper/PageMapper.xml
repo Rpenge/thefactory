@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.PageMapper">
+    <select id="pageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+            COUNT (*)
+        from
+            ${table}
+        <choose>
+        	<when test="table.equals('TF_PRODUCT') || table.equals('TF_STOCK')">
+        		where DELETE_YN = 'N'
+        	</when>
+        	<otherwise>
+        		where true
+        	</otherwise>
+        </choose>
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+    </select>
+
+    <select id="stkPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+        COUNT (*)
+        from
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp on
+        ts.TF_PRD_CD = tp.TF_PRD_CD
+        where true
+        <if test="STORE_CD != null">
+            AND STOCK_STORE_CD = #{STORE_CD}
+        </if>
+        <if test="PRD_SIZE != null">
+            AND PRD_SIZE = #{PRD_SIZE}
+        </if>
+        <if test="BRAND_KIND_CD != null">
+            AND BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+    </select>
+
+    <select id="stkExPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+        COUNT (*)
+        from
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp
+        on ts.TF_PRD_CD = tp.TF_PRD_CD
+        where (ts.RFID_STOCK_CNT - ts.REAL_STOCK_CNT) != 0
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <if test="BRAND_KIND_CD != null">
+            and BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+    </select>
+
+    <select id="stkRfidPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select
+        COUNT (*)
+        from
+        (select * from tf_stock where DELETE_YN = 'N') ts left outer join tf_product tp
+        on ts.TF_PRD_CD = tp.TF_PRD_CD
+        where ts.RFID_STOCK_CNT > 0
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <if test="BRAND_KIND_CD != null">
+            and BRAND_KIND_CD like '${BRAND_KIND_CD}%'
+        </if>
+    </select>
+
+    <select id="inPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select count(*) as cnt
+        from (select 1 from ${table}
+            where true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        group by ST_IN_DATE, IN_STORE_CD, ST_IN_TYPE, TF_PRD_NM
+        ) as tb
+    </select>
+
+    <select id="outPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        select count(*) as cnt
+        from (select 1 from ${table}
+        where true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        group by ST_OUT_DATE, OUT_STORE_CD, ST_OUT_TYPE, TF_PRD_NM
+        ) as tb
+    </select>
+
+    <select id="invPageRecord" resultType="INT" parameterType="java.util.HashMap">
+        SELECT count(*)
+        FROM TF_INVENTORY ti
+        inner join tf_product tp on ti.TF_PRD_CD = tp.TF_PRD_CD
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+    </select>
+
+
+
+</mapper>

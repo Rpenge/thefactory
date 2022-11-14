@@ -44,13 +44,13 @@
 		
 <!----------------------------------------------------bottom----------------------------------------------->
 		<div class="footer d-flex justify-content-center" style="width:100%;padding: 10px;height: auto;position: fixed; bottom: 0px;">
-				<div class="footer-text" ng-if="systemk != true">
-						<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span>
-						<span>대표 :이예림사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span>
-						<span>대표번호 :02-6407-7879팩스번호 :메일 :thefactor2@naver.com</span>
-						<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span>
-				</div>
-				<div class="footer-text" ng-if="systemk == true">
+<!-- 				<div class="footer-text" ng-if="systemk != true"> -->
+<!-- 						<span>더팩토리 서울특별시 강남구 봉은사로7길 40 201호</span> -->
+<!-- 						<span>대표 :이예림사업자등록번호 :214-13-55201 사업자번호조회 >통신판매업신고번호 :제 2017-서울강남-00071호개인정보관리자 :이예림</span> -->
+<!-- 						<span>대표번호 :02-6407-7879팩스번호 :메일 :thefactor2@naver.com</span> -->
+<!-- 						<span>Copyrightⓒ2011 SYSTEMK. All rights Reserved.</span> -->
+<!-- 				</div> -->
+				<div class="footer-text">
 						<span>(주)시스템케이 (SYSTEMK Co., Ltd.)</span>
 						<span>주소 : 경기도 구리시 갈매순환로 204번길 65, 구리스마트벤처타워 407호 408호</span>
 						<span>전화 : 070-8830-5252팩스 : 031-571-5254</span>

@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -19,17 +19,19 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 //WebSecurityConfigurerAdapter을 상속받아서 사용(인터페이스 아님)
 //WebSecurityConfigurerAdapter스프링 시큐리티의 웹 보안 기능 초기화 및 설정 ->HttpSecurty로 인증API와 인가 API를 제공
 //세부적인 설정이 가능함 ->getHttp()메서드가 실행할때, HTTPSecurity 클래스를 생성하게 된다 .
+
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+
+class WebSecurityConfig  {
 	@Autowired
 	@Qualifier("customUserDetailService")
 	private UserDetailsService customUserDetailService;
     
 	
 	//header설정과 경로에 대한 접근설정을 할 수 있다.
-	@Override
-    protected void configure(HttpSecurity http) throws Exception {
+	@Bean
+    public SecurityFilterChain filterChain (HttpSecurity http) throws Exception{
     	CharacterEncodingFilter filter = new CharacterEncodingFilter();
     	//setEncoding은 요청데이터 setForceEncoding는 응답데이터 true하면 요청데이터 인코딩으로 강제 설정 
         filter.setEncoding("UTF-8");
@@ -39,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     	.and()
     		.addFilterBefore(filter,CsrfFilter.class) //filter중 CsrfFilter는 post나 put과 같이 리소스를 변경하는 요청의 경우 내가 내보냈던 리소스에서 올라온 요청인지 확인한다.
     		.authorizeRequests()						//URL별 권한 접근제어 관리 옵션 시작점
-    		.antMatchers("/resources/css/**", "/resources/js/**", "/resources/img/**","/resources/**", "/member/**").permitAll() 
+    		.antMatchers("/resources/css/**", "/resources/js/**", "/resources/img/**","/resources/**","/","/**", "/member/**").permitAll()
+    		.antMatchers("/member/userAuth", "/", "/**").permitAll()
     				//권한 관리 대상 지정 permitAll() 모든 권한 공개
     	.and()
     		.httpBasic().realmName("SYSTEMK_REALM").authenticationEntryPoint(getBasicAuthEntryPoint())
@@ -47,9 +50,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //    		auth는 인증절차를 거쳐 통과하게 되는데 실패하거나 인증헤더를 안보낼 경우filterChain에 걸려  Response이 401을 띄운다. 
 //    		그때 처리하는게 .authenticationEntryPoint이다. 에러  401일때 해당 로직은 commence라는 메소드를 실행
 //    		commence보내면 entrypoint로 로그인 성공시 Redirect to login, 실패시 setHeader+sendError넣어서 출력
+    	   .and() 
+    		.formLogin()
+              .loginPage("/member/login")
+              .defaultSuccessUrl("/")
     	.and()
 			.csrf().disable();
+
     	System.out.println("config 요청");
+    	System.out.println(getBasicAuthEntryPoint());
+      return http.build();
     }
     
     //com.systemk.security에서 불러온다. getBasicAuthEntryPoint사용하기 위하여 Bean 으로 정의함.
@@ -59,17 +69,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
     //UserDetail이란 사용자 정보를 담는 인터페이스 이다. 
-    @Override
-    protected UserDetailsService userDetailsService() {
+    public  UserDetailsService userDetailsService() {
         return customUserDetailService;
     }
 //    
-    //configure는 권한 관리 빌드를 정의하고 유저에게 권한을 주기 위한 인터페이스다.
-    @Override
-   	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
    		auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
    	}
     
+
     //패스워드를 암호화 해주는 인터페이스 이다.
     @Bean
    	public PasswordEncoder passwordEncoder() {

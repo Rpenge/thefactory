@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfInoutTotalMapper">
+
+    <select id="todayWork" resultType="TfInoutTotalVO" parameterType="java.util.Map">
+        SELECT IN_OUT_DATE , sum(IN_TOTCNT) as IN_TOTCNT, sum(OUT_TOTCNT) as OUT_TOTCNT, sum(SELL_TOTCNT) as SELL_TOTCNT, sum(STOCK_TOTCNT) as STOCK_TOTCNT, sum(SELL_STCNT) as SELL_STCNT, sum(SELL_ONLCNT) as SELL_ONLCNT
+        FROM
+        TF_INOUT_TOTAL
+        WHERE
+        IN_OUT_DATE = DATE_FORMAT( NOW(), '%Y%m%d')
+        <if test="storeCd != null and storeCd != 'all'">
+        AND
+            STORE_CD = #{storeCd}
+        </if>
+        group by IN_OUT_DATE
+    </select>
+
+    <select id="todayWorkAllVO" resultType="TfInoutTotalVO">
+        SELECT IN_OUT_DATE , sum(IN_TOTCNT) as IN_TOTCNT, sum(OUT_TOTCNT) as OUT_TOTCNT, sum(SELL_TOTCNT) as SELL_TOTCNT, sum(STOCK_TOTCNT) as STOCK_TOTCNT, sum(SELL_STCNT) as SELL_STCNT, sum(SELL_ONLCNT) as SELL_ONLCNT
+        FROM
+            TF_INOUT_TOTAL
+        WHERE
+            IN_OUT_DATE = DATE_FORMAT( NOW(), '%Y%m%d') group by IN_OUT_DATE
+    </select>
+
+    <select id="todayWorkAll" resultType="java.util.Map">
+        select IN_OUT_DATE , sum(IN_TOTCNT) as inputCount, sum(OUT_TOTCNT) as outputCount, sum(SELL_TOTCNT) as sellCount, sum(STOCK_TOTCNT) as stockCount
+        FROM
+            TF_INOUT_TOTAL
+        WHERE
+            IN_OUT_DATE = DATE_FORMAT( NOW(), '%Y%m%d') group by IN_OUT_DATE
+    </select>
+
+    <select id="monthWork" resultType="Map" parameterType="Integer">
+        select
+            DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - ${item} MONTH), '%Y%m') as 'searchMonth',
+            SUM(IN_TOTCNT) as 'inTotcnt',
+            SUM(OUT_TOTCNT) as 'outTotcnt',
+            SUM(SELL_TOTCNT) as 'sellTotcnt',
+            SUM(STOCK_TOTCNT) as 'stockTotcnt',
+            SUM(IN_NEWCNT) as 'inNewcnt',
+            SUM(IN_MOVCNT) as 'inMovcnt',
+            SUM(IN_INCNT) as 'inIncnt',
+            SUM(IN_RETCNT) as 'inRetcnt',
+            SUM(OUT_OUTCNT) as 'outOutcnt',
+            SUM(OUT_MOVCNT) as 'outMovcnt',
+            SUM(SELL_STCNT) as 'sellStcnt',
+            SUM(SELL_ONLCNT) as 'sellOnlcnt'
+        from
+            tf_inout_total
+        where
+            IN_OUT_DATE like CONCAT(DATE_FORMAT(DATE_ADD(NOW(), INTERVAL - ${item} MONTH), '%Y%m'), '%')
+    </select>
+
+    <select id="inoutList" resultType="TfInoutTotalVO" parameterType="java.util.HashMap">
+        SELECT
+        *
+        FROM
+        TF_INOUT_TOTAL
+        WHERE true
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test = "sort != null">
+                order by ${sort} ${direct}
+            </when>
+            <otherwise>
+                order by IN_OUT_DATE desc, STORE_CD ASC
+            </otherwise>
+        </choose>
+
+        <choose>
+            <when test = "total != null">
+
+            </when>
+            <otherwise>
+                limit ${start}, ${size}
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <insert id="inoutCreate" statementType="CALLABLE">
+        {call inout_create()}
+    </insert>
+
+
+    <select id="inExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+        select
+            '입고' as gub,
+            ST_IN_DATE as stDate,
+            ST_IN_TYPE as stType,
+            IN_STORE_NM as storeNm,
+            BRAND_KIND_CD as brand,
+            TF_PRD_NM as prdNm,
+            PRD_SIZE as size,
+            BT_PRD_BARCODE as barcode,
+            TF_PRD_TAGID as tagId,
+            ti.REG_DATE as regDate,
+            '' as comment
+        from tf_input ti
+        where ST_IN_DATE between #{startDate} and #{endDate}
+        <if test="storeCd != null and storeCd != ''">and IN_STORE_CD = #{storeCd}</if>
+        <if test="stType != null and stType != ''">and ST_IN_TYPE like '${stType}%'</if>
+        order by REG_DATE desc
+    </select>
+
+    <select id="outExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+        select
+            if(SUBSTRING(ST_OUT_TYPE,1,4)='0602','출고','판매') as gub,
+            ST_OUT_DATE as stDate,
+            ST_OUT_TYPE as stType,
+            OUT_STORE_NM as storeNm,
+            BRAND_KIND_CD as brand,
+            TF_PRD_NM as prdNm,
+            PRD_SIZE as size,
+            BT_PRD_BARCODE as barcode,
+            TF_PRD_TAGID as tagId,
+            to2.REG_DATE as regDate,
+            ifnull(ST_OUT_COMMENT,'') as comment
+        from tf_output to2
+        where ST_OUT_DATE between #{startDate} and #{endDate}
+        <if test="storeCd != null and storeCd != ''">and OUT_STORE_CD = #{storeCd}</if>
+        <if test="stType != null and stType != ''">and ST_OUT_TYPE like '${stType}%'</if>
+        order by REG_DATE desc
+    </select>
+
+    <select id="totExcel" resultType="java.util.LinkedHashMap" parameterType="java.util.Map">
+    (   select
+            '입고' as gub,
+            ST_IN_DATE as stDate,
+            ST_IN_TYPE as stType,
+            IN_STORE_NM as storeNm,
+            BRAND_KIND_CD as brand,
+            TF_PRD_NM as prdNm,
+            PRD_SIZE as size,
+            BT_PRD_BARCODE as barcode,
+            TF_PRD_TAGID as tagId,
+            ti.REG_DATE as regDate,
+            '' as comment
+        from tf_input ti
+        where ST_IN_DATE between #{startDate} and #{endDate}
+        <if test="storeCd != null and storeCd != ''">and IN_STORE_CD = #{storeCd}</if>
+    )
+    union
+    (   select
+            if(SUBSTRING(ST_OUT_TYPE,1,4)='0602','출고','판매') as gub,
+            ST_OUT_DATE as stDate,
+            ST_OUT_TYPE as stType,
+            OUT_STORE_NM as storeNm,
+            BRAND_KIND_CD as brand,
+            TF_PRD_NM as prdNm,
+            PRD_SIZE as size,
+            BT_PRD_BARCODE as barcode,
+            TF_PRD_TAGID as tagId,
+            to2.REG_DATE as regDate,
+            ifnull(ST_OUT_COMMENT,'') as comment
+        from tf_output to2
+        where ST_OUT_DATE between #{startDate} and #{endDate}
+        <if test="storeCd != null and storeCd != ''">and IN_STORE_CD = #{storeCd}</if>
+    )
+    order by regDate desc
+    </select>
+
+</mapper>

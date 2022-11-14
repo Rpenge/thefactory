@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfBrandMapper">
+    <!--대분류-->
+    <select id="brandList" resultType="TfBrandVO">
+       SELECT * FROM TF_BRAND
+       WHERE CODE_LEVEL = 'B'
+       AND USE_YN = 'Y'
+       ORDER BY BRAND_KIND_CD ASC
+    </select>
+
+    <select id="brandTotalList" resultType="TfBrandVO">
+        SELECT * FROM TF_BRAND
+        WHERE CODE_LEVEL = 'B'
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+    <!--성별중분류-->
+    <select id="genderList" resultType="TfBrandVO" parameterType="String">
+        SELECT * FROM TF_BRAND
+        WHERE SUBSTR(BRAND_KIND_CD,1,2) = #{item}
+          AND CODE_LEVEL = 'M'
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+    <!--세부항목소분류-->
+    <select id="clsList" resultType="TfBrandVO" parameterType="String">
+        SELECT * FROM TF_BRAND
+        WHERE substr(BRAND_KIND_CD,1,4) = #{item}
+          AND CODE_LEVEL = 'S'
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+    <!--중분류,소분류 같이-->
+    <select id="brandSubList" resultType="TfBrandVO" parameterType="String">
+        SELECT *
+        FROM TF_BRAND
+        WHERE SUBSTR(BRAND_KIND_CD, 1, 2) = #{item}
+            AND (
+                CODE_LEVEL = 'M'
+                OR
+                CODE_LEVEL = 'S'
+                )
+        ORDER BY BRAND_KIND_CD ASC
+    </select>
+    <!--특정브랜드검색-->
+    <select id="findBrand" resultType="TfBrandVO" parameterType="String">
+        SELECT *
+        FROM TF_BRAND
+        WHERE BRAND_KIND_CD = #{item}
+    </select>
+    <!--브랜드 전체목록-->
+    <select id="detailSearch" resultType="java.util.Map" parameterType="String">
+        select (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = #{item}) as clsNm,
+               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 4),'00')) as genderNm,
+               (select BRAND_NM from tf_brand tb where BRAND_KIND_CD = concat(substr(#{item},1, 2),'0000')) as brandNm
+    </select>
+
+    <select id="brandAllList" resultType="TfBrandVO" parameterType="java.util.HashMap">
+        SELECT
+            BRAND_KIND_CD
+             , BRAND_NM
+             , PRD_CNT
+             , CODE_LEVEL
+             , REG_DATE
+             , REG_ID
+             , MOD_DATE
+             , MOD_ID
+             , USE_YN
+        FROM
+            TF_BRAND
+        WHERE 1=1
+        <foreach collection="list" item="item">
+            ${item}
+        </foreach>
+        <choose>
+            <when test="sort != null">
+                ORDER BY ${sort} ${direct}
+            </when>
+            <otherwise>
+                ORDER BY BRAND_KIND_CD ASC
+            </otherwise>
+        </choose>
+        limit ${start}, ${size}
+    </select>
+    <!--브랜드 추가-->
+    <insert id="brandSave" parameterType="java.util.Map">
+        INSERT INTO TF_BRAND
+            (BRAND_KIND_CD, BRAND_NM, CODE_LEVEL, USE_YN, REG_DATE, REG_ID)
+        VALUES(
+            #{brandKindCd}, #{brandNm}, #{codeLevel}, #{useYn}, SYSDATE(), #{regId}
+              )
+    </insert>
+    <!--브랜드 수정-->
+    <update id="brandUpdate" parameterType="java.util.Map">
+        UPDATE TF_BRAND
+        SET
+          BRAND_NM = #{brandNm}
+          , CODE_LEVEL = #{codeLevel}
+          , USE_YN = #{useYn}
+          , MOD_ID = #{modId}
+          , MOD_DATE = SYSDATE()
+        WHERE
+            BRAND_KIND_CD = #{brandKindCd}
+    </update>
+    <!--브랜드 삭제-->
+    <update id="brandDelete" parameterType="java.util.Map">
+        UPDATE TF_BRAND
+        SET
+            USE_YN = 'N'
+        WHERE
+            BRAND_KIND_CD = #{brandKindCd}
+    </update>
+
+</mapper>

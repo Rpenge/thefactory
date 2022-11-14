@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.systemk.Mapper.TfApplicationMapper">
+
+    <select id="appLastVs" resultType="TfApplicationVO" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            TF_APPLICATION
+        WHERE
+            app_gub = #{deviceGub}
+        ORDER BY APP_SEQ DESC
+        LIMIT 1
+    </select>
+
+    <insert id="appSave" parameterType="java.util.Map">
+        INSERT INTO tf_application
+        (APP_GUB, APP_NM, VERSION, APP_DOWN_URL, REG_DATE, REG_ID, COMMENT)
+        VALUES(#{appGub}, #{appNm}, #{version}, #{appDownUrl}, now(), #{userId}, #{comment});
+    </insert>
+
+</mapper>

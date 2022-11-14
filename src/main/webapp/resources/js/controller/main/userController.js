@@ -1,56 +1,41 @@
 app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
   function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
-//  credentials초기화
+
   $scope.credentials ={};
-  console.log("config");
-  //자동저장을 선택유무 : 선택했다면, 쿠키로 id를 넘겨준다.
   if(getCookie('idSave')){
     $scope.idSaveCheck = true;
     // $scope.credentials.userId = $cookieStore.get("uesrId");
     $scope.credentials.userId = getCookie('userIdC');
   }
 
-  //로그인 함수
+  //로그인
   $scope.login = function() {
     authenticate($scope.credentials, function() {
-       //만약 권한이 있다면 에러 메시지 x, 만약 권한이 없다면 에러메시지를 띄운다.
-
       if ($rootScope.authenticated) {
-        console.log("ok");
         $rootScope.reload();
         $scope.error = '';
       } else {
-        console.log("no");
         $location.url("/");
         $scope.error = $rootScope.authErrorMsg;
       }
     });
   };
 
-  //setCookie(name, value, exp)
-  // getCookie(name) 
-  //deleteCookie(name) 
-  //document에 세팅하고 지우는 함수
+
   var authenticate = function(credentials, callback) {
-    console.log("권한세팅");
     if($scope.idSaveCheck) {
       setCookie('idSave','true',7);
       setCookie('userIdC',credentials.userId,7);
-      console.log("자동로그인일때");
     }else{
       deleteCookie('idSave');
       deleteCookie('userIdC');
-      console.log("아닐때");
     }
-    //header 파일 생성 유저id :유저 PW
     var headers = credentials ? {authorization : "Basic "
       + btoa(credentials.userId + ":" + credentials.userPw)
     } : {};
 
-    //권한 통신 
     $http.get('/member/userAuth', {headers : headers}).success(function(data) {
       if (data.userId) {
-	console.log("userAuth보낸다.");
         $rootScope.userId = data.userId;
         sessionStorage.setItem('id', data.userId);
         sessionStorage.setItem('role', data.role);
@@ -58,10 +43,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
         $rootScope.role = data.role;
             $rootScope.authenticated = true;
         $rootScope.topMenu = data.auth;
-        
-        //관리자면 
         if(data.role == '010101'){
-          console.log("관");
           $rootScope.storeCd = null;
         }
         $rootScope.storeCd = data.storeCd;
@@ -100,14 +82,195 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
      $location.url("/");
     }
 
-//  if(getCookie('autoLogin')){
-//    $scope.autoLogin = true;
-//    $scope.credentials.userId = getCookie('userId');
-//    $scope.credentials.userPw = getCookie('userPw');
-//    $scope.login();
-//  }
+  if(getCookie('autoLogin')){
+    $scope.autoLogin = true;
+    $scope.credentials.userId = getCookie('userId');
+    $scope.credentials.userPw = getCookie('userPw');
+    $scope.login();
+  }
 
-//  $scope.clickUserReg = function(){
-//    $location.url("/member/userReg");
-//  };
+  $scope.clickUserReg = function(){
+    $location.url("/member/userReg");
+  };
+}]);
+
+//회원 리스트
+app.controller('userController', ['$scope', '$http', '$location', '$rootScope', '$window', '$filter', '$uibModal',
+  function ($scope, $http, $location, $rootScope, $window, $filter, $uibModal) {
+
+    menuCheck($rootScope, $location);
+    pageInfo($rootScope, $location); //현재페이지 정보
+
+    httpGetList($http, $scope,'/system/userList'); //사용자 리스트 조회
+
+    var checkList = []; //체크박스 리스트
+    $scope.form = {'regUserId' : sessionStorage.getItem('id'),'pdaUseYn' : 'Y', 'userStat':'Y'}; //초기 form 상태
+    $scope.es = {'newForm':true,'pwForm':false,'modForm':false};
+
+
+    //입력양식(필수입력, readOnly) 변경
+    $scope.formChange =function(command, data){
+
+      if(command == 'reset'){
+        $scope.form = {'regUserId' : sessionStorage.getItem('id'),'pdaUseYn' : 'Y', 'userStat':'Y' };
+        $scope.es ={};
+        $scope.es.newForm = true;
+
+      }else if(command == 'pw'){
+        if($scope.formChangeStat != 'mod'){
+          alert('변경할 사용자를 선택해주세요')
+        }else{
+          $scope.es ={};
+          $scope.es.pwForm = true;
+        }
+      }else if(command == 'mod'){
+        $scope.es ={};
+        $scope.es.modForm = true;
+        const formData = {}
+        for(const key in data){
+          if(key == '$$hashKey'){
+            continue;
+          }
+          formData[key] = data[key];
+        }
+        $scope.form = formData;
+      }
+      $scope.formChangeStat = command;
+    }
+
+    //유저 등록, 수정, 비밀번호 변경
+    $scope.formSave = function(){
+      if($scope.es.newForm == true){  //신규 계정 추가
+        if(!($scope.form.userPwd === $scope.pwCheck)){
+          modalAlert($uibModal, "사용자 추가","비밀번호를 확인해주세요");
+          return;
+        }
+        $http({
+          method : 'POST',
+          url : "/system/userSave",
+          data  : $scope.form,
+          headers: {'Content-Type':'application/json; charset=utf-8'}
+        }).success(function(data){
+          if(data.resultCode == 'S') {
+            modalAlert($uibModal, "사용자 추가", "신규 사용자가 등록되었습니다");
+          }
+          $rootScope.reload();
+        }).error(function(data){
+          alert('정보 업데이트 실패');
+        });
+      }else if($scope.es.pwForm == true){
+        if(!($scope.form.userPwd === $scope.pwCheck)){
+          modalAlert($uibModal, "비밀번호 변경","비밀번호를 확인해주세요.");
+          return;
+        }
+        $http({
+          method : 'POST',
+          url : "/system/userPwUpdate",
+          data  : $scope.form,
+          headers: {'Content-Type':'application/json; charset=utf-8'}
+        }).success(function(data){
+          if(data.resultCode == 'S') {
+            modalAlert($uibModal, "비밀번호 변경", "비밀번호가 변경 되었습니다.");
+          }
+          $rootScope.reload();
+        }).error(function(data){
+          alert('정보 업데이트 실패');
+        });
+      }else if($scope.es.modForm == true){
+        $http({
+          method : 'POST',
+          url : "/system/userUpdate",
+          data  : $scope.form,
+          headers: {'Content-Type':'application/json; charset=utf-8'}
+        }).success(function(data){
+          if(data.resultCode == 'S') {
+            modalAlert($uibModal, "사용자 수정", "사용자 정보가 변경 되었습니다.");
+          }
+          $rootScope.reload();
+        }).error(function(data){
+          alert('정보 업데이트 실패');
+        });
+      }
+    }
+
+
+    //검색
+    $scope.searchBtn = function(command){
+      if(command == 'group'){
+        const param = generateParam($scope.searchGroup);
+        httpGetList($http, $scope,'/system/userList', param );
+        $scope.search.storeCd = $scope.searchGroup.storeCd;
+        $scope.search.grade = $scope.searchGroup.grade;
+        $scope.search.userStat = $scope.searchGroup.userStat;
+      }else if(command == 'word'){
+        const param = generateParam($scope.searchWord);
+        httpGetList($http, $scope,'/system/userList', param);
+        $scope.search.word = $scope.searchWord.word;
+      }
+    }
+
+    //테이블 버튼 사용(탈퇴)
+    $scope.tableBtn = function(command){
+      if(command == 'Withdrawal'){
+        if(checkList.length < 1){
+          modalAlert($uibModal, "사용자 수정", "탈퇴할 회원을 선택해주세요.");
+          return;
+        }
+        $http({
+          method : 'POST',
+          url : "/system/userWd",
+          data  :  {'prList' :checkList},
+          headers: {'Content-Type':'application/json; charset=utf-8'}
+        }).success(function(data){
+          if(data.resultCode == 'S') {
+            modalAlert($uibModal, "사용자 수정", "사용자 정보가 변경 되었습니다.");
+          }
+          $rootScope.reload();
+        }).error(function(data){
+          alert('정보 업데이트 실패');
+        });
+      }
+    }
+
+    //페이지 이동
+    $scope.goPage = function(page){
+      if($scope.current == page || $scope.end < page || page == 0){
+        return;
+      }
+      $scope.search.page = page - 1;
+      const param = generateParam($scope.search);
+      httpGetList($http, $scope,'/system/userList', param );
+    };
+
+    //페이지 사이즈 변경
+    $scope.pageSize = function(){
+      $scope.search.page = 0;
+      const param = generateParam($scope.search);
+      httpGetList($http, $scope,'/system/userList', param );
+    }
+
+
+    //체크박스 전체 체크
+    $scope.checkAll = function(status, prKey){
+      const tempList = [];
+      for(const key in $scope.list){
+        $scope.list[key].isSelected = status;
+        tempList.push($scope.list[key][prKey]);
+      }
+      if(status){
+        checkList = tempList;
+      }else{
+        checkList = [];
+      }
+    }
+    //체크박스 리스트 추가, 삭제
+    $scope.checkBox = function(status, select){
+      const index = checkList.indexOf(select);
+      if( index == -1 && status ){
+        checkList.push(select);
+      }else{
+        checkList.splice(index, index+1);
+      }
+    }
+
 }]);
