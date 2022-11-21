@@ -1,7 +1,10 @@
 app.controller('loginController', ['$scope', '$http', '$location', '$routeParams', '$rootScope','$cookieStore',
 	function ($scope, $http, $location, $routeParams, $rootScope, $cookieStore) {
 
+  //초기화 
 	$scope.credentials ={};
+	
+	//idSaveCheck : 아이디 저장인경우
 	if(getCookie('idSave')){
 		$scope.idSaveCheck = true;
 		// $scope.credentials.userId = $cookieStore.get("uesrId");
@@ -21,38 +24,54 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		});
 	};
 
-
+//쿠키를 사용해서 설정
 	var authenticate = function(credentials, callback) {
+	  
+	  //idsave 경우 idsave쿠키를 true로 하고 7일보관한다.
+	  //userIdC 쿠키에서 인증된 userID를 7일동안 보관한다.
 		if($scope.idSaveCheck) {
 			setCookie('idSave','true',7);
 			setCookie('userIdC',credentials.userId,7);
-		}else{
+		}
+		//idsave가 아닐경우 useridcheck된 아이디를 지운다 .
+		else{
 			deleteCookie('idSave');
 			deleteCookie('userIdC');
 		}
+		//header를 Json으로 ID와 PW를 담아주는 역할
 		var headers = credentials ? {authorization : "Basic "
 			+ btoa(credentials.userId + ":" + credentials.userPw)
 		} : {};
-
+		
+		
+		//유저 권한 통신 요청 header를 보낸다. 최근에 고사양으로 인해 JWT를 Basic으로 사용하는데 JSON포멧으 사용하여 Web Token을 쓰기 때문에 
+		//헤더로 만들어서 보낸다
+		
 		$http.get('/member/userAuth', {headers : headers}).success(function(data) {
+		  //성공시 data에서 ID와 role(권한을 2진수로 넣어서 옴), storeCd(매장콪코드) 를 가져온다 
 			if (data.userId) {
 				$rootScope.userId = data.userId;
 				sessionStorage.setItem('id', data.userId);
 				sessionStorage.setItem('role', data.role);
 				sessionStorage.setItem('storeCd', data.storeCd);
+				//$rootScope에 데이터 권한을 담아 
 				$rootScope.role = data.role;
 		        $rootScope.authenticated = true;
 				$rootScope.topMenu = data.auth;
+				//관리자일 경우엔, 매장 코드가 필요 없다 .
 				if(data.role == '010101'){
 					$rootScope.storeCd = null;
 				}
 				$rootScope.storeCd = data.storeCd;
 
+				  //autoLogin자동로그인
 				if($scope.autoLogin == true){
 					setCookie('autoLogin',true,7);
 					setCookie('userId',credentials.userId,7);
 					setCookie('userPw',credentials.userPw,7);
-				}else if($scope.idSaveCheck){
+				}
+				//idSaveCheck 아이디를 저장할 것인지 
+				else if($scope.idSaveCheck){
 					deleteCookie('autoLogin');
 					deleteCookie('userPw');
 				}else{
@@ -60,7 +79,9 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 					deleteCookie('userId');
 					deleteCookie('userPw');
 				}
-			} else {
+			}
+			//유저아이디가 없다면 에러메시지 띄우면서 권한 없음
+			else {
 		        $rootScope.authenticated = false;
 		        $rootScope.authErrorMsg = 3002;
 		    }
@@ -72,7 +93,8 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		});
 	}
 
-	//인증 되었으면 home으로 이동
+	//인증 되었으면 home으로 이동 
+	//인증 되지 않았으면 다시 로그인 화면 출력
 	if($rootScope.authenticated == null){
 		$rootScope.authenticated = false;
 	}
@@ -82,6 +104,7 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 	   $location.url("/");
     }
 
+  //쿠키로 자동로그인 설정 ID,PW
 	if(getCookie('autoLogin')){
 		$scope.autoLogin = true;
 		$scope.credentials.userId = getCookie('userId');
@@ -89,9 +112,10 @@ app.controller('loginController', ['$scope', '$http', '$location', '$routeParams
 		$scope.login();
 	}
 
-	$scope.clickUserReg = function(){
-		$location.url("/member/userReg");
-	};
+	
+//	$scope.clickUserReg = function(){
+//		$location.url("/member/userReg");
+//	};
 }]);
 
 //회원 리스트

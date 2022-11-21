@@ -2,28 +2,18 @@ package com.systemk.thefactor2.Service.Impl;
 
 
 
-import com.systemk.thefactor2.Config.ConstansConfig;
-import com.systemk.thefactor2.Mapper.TfApplicationMapper;
-import com.systemk.thefactor2.Mapper.TfDeviceMapper;
-import com.systemk.thefactor2.Service.UserService;
-import com.systemk.thefactor2.Util.MybatisUtil;
-import com.systemk.thefactor2.Mapper.PageMapper;
-import com.systemk.thefactor2.Mapper.TfUserMapper;
-import com.systemk.thefactor2.Util.ResultUtil;
-import com.systemk.thefactor2.Util.StringUtil;
-import com.systemk.thefactor2.VO.TfApplicationVO;
-import com.systemk.thefactor2.VO.TfDeviceVO;
-import com.systemk.thefactor2.VO.TfUserVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.systemk.thefactor2.Mapper.PageMapper;
+import com.systemk.thefactor2.Mapper.TfUserMapper;
+import com.systemk.thefactor2.Service.UserService;
+import com.systemk.thefactor2.Util.MybatisUtil;
+import com.systemk.thefactor2.Util.StringUtil;
 
 
 @Service
@@ -34,12 +24,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private TfUserMapper tfUserMapper;
-
-	@Autowired
-	private TfDeviceMapper tfDeviceMapper;
-
-	@Autowired
-	private TfApplicationMapper tfApplicationMapper;
 
 	@Autowired
 	private PageMapper pageMapper;

@@ -1,21 +1,13 @@
 package com.systemk.thefactor2.Controller;
 
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.systemk.thefactor2.Security.LoginUser;
-
-import com.systemk.thefactor2.Service.BrandService;
-import com.systemk.thefactor2.Service.CommService;
-import com.systemk.thefactor2.Mapper.TfUserAuthMapper;
-import com.systemk.thefactor2.Service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,6 +17,12 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.systemk.thefactor2.Mapper.TfUserAuthMapper;
+import com.systemk.thefactor2.Security.LoginUser;
+import com.systemk.thefactor2.Service.BrandService;
+import com.systemk.thefactor2.Service.CommService;
+import com.systemk.thefactor2.Service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -53,13 +51,15 @@ public class UserController {
 		HashMap resultMap = new HashMap<>();
 
 		if(user != null) {
+		  //세션에 속성의 이름에 속성값을 넣어준다. 
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("role", user.getRole());
 			session.setAttribute("storeCd", user.getStoreCd());
+			//요청된  DB리소스를 수정한다 
 			resultMap.put("userId", user.getUserId());
 			resultMap.put("role", user.getRole());
 			resultMap.put("storeCd", user.getStoreCd());
-
+			//권한 리스트에 권한 검색한 값을 넣는다 .
 			List<HashMap> authList = tfUserAuthMapper.authSearch(resultMap);
 			resultMap.put("auth", authList);
 		}

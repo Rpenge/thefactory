@@ -117,8 +117,8 @@ public class MainController {
         return "system/user";
     }
 
-    @RequestMapping("/ex/stk")
-    public String ex1(Model model) {
-        return "ex/stk";
-    }
+//    @RequestMapping("/ex/stk")
+//    public String ex1(Model model) {
+//        return "ex/stk";
+//    }
 }
